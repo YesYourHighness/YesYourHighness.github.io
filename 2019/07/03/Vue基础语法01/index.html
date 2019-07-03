@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Hello world从Vue官网上下载Vue的源代码，初学我们可以直接用 1&amp;lt;script src=&amp;quot;vue.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;  我们可以直接将它放在一个单独的文件当中，然后放在head的位置，用script标签来引入，这样就可以使用vue了 这里是一个小实例 1234567891011121314151617181920&amp;lt;!docty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue基础语法01">
+<meta property="og:url" content="http://yoursite.com/2019/07/03/Vue基础语法01/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hello world从Vue官网上下载Vue的源代码，初学我们可以直接用 1&amp;lt;script src=&amp;quot;vue.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;  我们可以直接将它放在一个单独的文件当中，然后放在head的位置，用script标签来引入，这样就可以使用vue了 这里是一个小实例 1234567891011121314151617181920&amp;lt;!docty">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-03T13:26:12.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue基础语法01">
+<meta name="twitter:description" content="Hello world从Vue官网上下载Vue的源代码，初学我们可以直接用 1&amp;lt;script src=&amp;quot;vue.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;  我们可以直接将它放在一个单独的文件当中，然后放在head的位置，用script标签来引入，这样就可以使用vue了 这里是一个小实例 1234567891011121314151617181920&amp;lt;!docty">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/03/Vue基础语法01/">
+
+
+
+
+
+  <title>Vue基础语法01 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/03/Vue基础语法01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YesYourHighness">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue基础语法01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-03T21:25:28+08:00">
+                2019-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h2><p>从Vue官网上下载Vue的源代码，初学我们可以直接用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;vue.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以直接将它放在一个单独的文件当中，然后放在head的位置，用script标签来引入，这样就可以使用vue了</p>
+<p>这里是一个小实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;root&quot;&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;!--省去了DOM操作，可以直接控制这里的数据--&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let vm = new Vue(&#123;//创建一个Vue的实例</span><br><span class="line">        el: &apos;#root&apos;,//接管哪一个页面上的element，实现了绑定</span><br><span class="line">        data:&#123;</span><br><span class="line">            msg: &quot;hello world&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="挂载点、模板之间的关系"><a href="#挂载点、模板之间的关系" class="headerlink" title="挂载点、模板之间的关系"></a>挂载点、模板之间的关系</h3><h4 id="挂载点"><a href="#挂载点" class="headerlink" title="挂载点"></a>挂载点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;!--挂载点、模板、实例的关系--&gt;</span><br><span class="line">&lt;div id=&quot;root&quot;&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;&lt;!--这里是挂载点--&gt;</span><br><span class="line">&lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;&lt;!--这里不是挂载点，所以页面内会直接显示出原本的内容--&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    new Vue(&#123;</span><br><span class="line">        el: &apos;#root&apos;,</span><br><span class="line">        data: &#123;</span><br><span class="line">            msg: &quot;hello world&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>模板就是指挂载点内部的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;root&quot;&gt;</span><br><span class="line">    &lt;h1&gt;hello &#123;&#123;msg&#125;&#125;&lt;/h1&gt;&lt;!--模板：挂载点内部的内容--&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>还有另一种的表现方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;!--挂载点、模板、实例的关系--&gt;</span><br><span class="line">&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    new Vue(&#123;</span><br><span class="line">        el: &apos;#root&apos;,</span><br><span class="line">        template:&apos;&lt;h1&gt;hello &#123;&#123;msg&#125;&#125;&lt;/h1&gt;&apos;,</span><br><span class="line">        //模板可以写在挂载点内部，也可以写在实例的template的属性内部</span><br><span class="line">        data: &#123;</span><br><span class="line">            msg: &quot;hello world&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="数据的显示"><a href="#数据的显示" class="headerlink" title="数据的显示"></a>数据的显示</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;root&quot;&gt;</span><br><span class="line">    &lt;h1&gt;&#123;&#123;msg&#125;&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;!--1.我们把数据放在两个大括号的内部，这种语法，叫做插值表达式--&gt;</span><br><span class="line">    &lt;h2 v-text=&quot;msg&quot;&gt;&lt;/h2&gt;</span><br><span class="line">    &lt;!--2.v-text：这个指令意思是，h2当中的内容由这个变量来指定,</span><br><span class="line">    这里的意思就是把msg的内容显示到这里--&gt;</span><br><span class="line">    &lt;h3 v-html=&quot;msg&quot;&gt;&lt;/h3&gt;</span><br><span class="line">    &lt;!--3.v-html：表示也是可以的--&gt;</span><br><span class="line">    &lt;!--那么他们俩的区别是什么呢--&gt;</span><br><span class="line">    &lt;h4 v-text=&quot;content&quot;&gt;&lt;/h4&gt;&lt;!--会转义，将标签内容直接打印出来--&gt;</span><br><span class="line">    &lt;h4 v-html=&quot;content&quot;&gt;&lt;/h4&gt;&lt;!--不会转义，效果和template一样--&gt;</span><br><span class="line"></span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    new Vue(&#123;</span><br><span class="line">        el: &apos;#root&apos;,</span><br><span class="line">        data: &#123;</span><br><span class="line">            msg: &quot;hello world&quot;,</span><br><span class="line">            content:&quot;&lt;h4&gt;会不会转义&lt;/h4&gt;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法的添加"><a href="#方法的添加" class="headerlink" title="方法的添加"></a>方法的添加</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;root&quot;&gt;</span><br><span class="line">    &lt;div v-on:click=&quot;handleClick&quot;&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;!--这里可以把 v-on:简写为@--&gt;</span><br><span class="line">    &lt;div @click=&quot;handleClick&quot;&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;!--绑定一个事件--&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    new Vue(&#123;</span><br><span class="line">        el: &apos;#root&apos;,</span><br><span class="line">        data: &#123;</span><br><span class="line">            msg: &quot;hello&quot;,</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;//把方法添加到这个属性内部</span><br><span class="line">            handleClick: function () &#123;</span><br><span class="line">                this.msg = &apos;world&apos;</span><br><span class="line">                //直接这样就可以调用数据了，vue会直接改变页面的现实数据</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="属性绑定"><a href="#属性绑定" class="headerlink" title="属性绑定"></a>属性绑定</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;</span><br><span class="line">        &lt;div v-bind:title=&quot;title&quot;&gt;hello world&lt;/div&gt;</span><br><span class="line">        &lt;!--1.title属性:当鼠标放在上面的时候，会出现一个框，内容就是title的内容--&gt;</span><br><span class="line">        &lt;!--2.当title内部想要使用data的数据的时候，直接写title:&quot;title&quot;是不行的</span><br><span class="line">            必须进行绑定--&gt;</span><br><span class="line">        &lt;!--3.此时后面的内容就是一个表达式了，可以进行js的更改--&gt;</span><br><span class="line">        &lt;!--例如--&gt;</span><br><span class="line">        &lt;div v-bind:title=&quot;&apos;你好啊&apos;+title&quot;&gt;hello world&lt;/div&gt;</span><br><span class="line">        &lt;!--4.v-bind可以缩写为:--&gt;</span><br><span class="line">        &lt;div :title=&quot;&apos;你好啊&apos;+title&quot;&gt;hello world&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el:&quot;#root&quot;,</span><br><span class="line">            data:&#123;</span><br><span class="line">                title:&quot;this is hello world&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h4><h5 id="单向数据：数据决定页面的显示，但是页面无法决定数据里的内容"><a href="#单向数据：数据决定页面的显示，但是页面无法决定数据里的内容" class="headerlink" title="单向数据：数据决定页面的显示，但是页面无法决定数据里的内容"></a>单向数据：数据决定页面的显示，但是页面无法决定数据里的内容</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;</span><br><span class="line">        &lt;div :title=&quot;title&quot;&gt;hello world&lt;/div&gt;</span><br><span class="line">        &lt;input :value=&quot;content&quot;/&gt;</span><br><span class="line">        &lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;</span><br><span class="line">        &lt;!--单向绑定：数据决定页面的显示，但是页面无法决定数据里的内容--&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el:&quot;#root&quot;,</span><br><span class="line">            data:&#123;</span><br><span class="line">                title:&quot;this is hello world&quot;,</span><br><span class="line">                content:&quot;this is content&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="双向数据：数据决定页面的显示，页面也可以决定数据里的内容"><a href="#双向数据：数据决定页面的显示，页面也可以决定数据里的内容" class="headerlink" title="双向数据：数据决定页面的显示，页面也可以决定数据里的内容"></a>双向数据：数据决定页面的显示，页面也可以决定数据里的内容</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;</span><br><span class="line">        &lt;div :title=&quot;title&quot;&gt;hello world&lt;/div&gt;</span><br><span class="line">        &lt;input v-model=&quot;content&quot;/&gt;</span><br><span class="line">        &lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;</span><br><span class="line">        &lt;!--双向绑定：数据决定页面的显示，页面也能决定数据里的内容--&gt;</span><br><span class="line">        &lt;!--v-model双向数据绑定--&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el:&quot;#root&quot;,</span><br><span class="line">            data:&#123;</span><br><span class="line">                title:&quot;this is hello world&quot;,</span><br><span class="line">                content:&quot;this is content&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vue中的计算属性和侦听器"><a href="#Vue中的计算属性和侦听器" class="headerlink" title="Vue中的计算属性和侦听器"></a>Vue中的计算属性和侦听器</h2><h4 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;</span><br><span class="line">        姓：&lt;input v-model=&quot;firstName&quot; /&gt;</span><br><span class="line">        名：&lt;input v-model=&quot;lastName&quot; /&gt;</span><br><span class="line">        &lt;div&gt;&#123;&#123;firstName&#125;&#125;&#123;&#123;lastName&#125;&#125;&lt;/div&gt;</span><br><span class="line">        &lt;!--最好写成以下的这个样子--&gt;</span><br><span class="line">        &lt;div&gt;&#123;&#123;fullName&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el:&quot;#root&quot;,</span><br><span class="line">            data:&#123;</span><br><span class="line">                firstName:&apos;&apos;,</span><br><span class="line">                lastName:&apos;&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            computed:&#123;//计算属性computed</span><br><span class="line">                fullName:function () &#123;</span><br><span class="line">                    return this.firstName +&quot;&quot;+this.lastName</span><br><span class="line">                &#125;</span><br><span class="line">                //当firstName和lastName没有变的时候，fullName会使用缓存值</span><br><span class="line">                //只有当依赖的数据发生变化的时候，才会重新计算</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;</span><br><span class="line">        姓：&lt;input v-model=&quot;firstName&quot; /&gt;</span><br><span class="line">        名：&lt;input v-model=&quot;lastName&quot; /&gt;</span><br><span class="line">        &lt;div&gt;&#123;&#123;fullName&#125;&#125;&lt;/div&gt;</span><br><span class="line">        &lt;div&gt;&#123;&#123;count&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el:&quot;#root&quot;,</span><br><span class="line">            data:&#123;</span><br><span class="line">                firstName:&apos;&apos;,</span><br><span class="line">                lastName:&apos;&apos;,</span><br><span class="line">                count:0</span><br><span class="line">            &#125;,</span><br><span class="line">            computed:&#123;</span><br><span class="line">                fullName:function () &#123;</span><br><span class="line">                    return this.firstName +&quot;&quot;+this.lastName</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            watch:&#123;//监听某一个数据的变化，一旦这个数据变化，则可以在这里看到他的变化</span><br><span class="line">                fullName:function () &#123;</span><br><span class="line">                    this.count++</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="常见命令的使用"><a href="#常见命令的使用" class="headerlink" title="常见命令的使用"></a>常见命令的使用</h2><h4 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;</span><br><span class="line">        &lt;div v-if=&quot;show&quot;&gt;hello world&lt;/div&gt;</span><br><span class="line">        &lt;!--v-if指令可以判断条件再来选择是否显示--&gt;</span><br><span class="line">        &lt;!--v-show指令也可以做到这一点，但是他们有区别--&gt;</span><br><span class="line">        &lt;!--1.v-if是直接在DOM树上抹去了这一个标签--&gt;</span><br><span class="line">        &lt;!--2.v-show则是给这个标签添加了一个display:none的属性--&gt;</span><br><span class="line">        &lt;button @click=&quot;handleClick&quot;&gt;toggle&lt;/button&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &lt;li v-for=&quot;item of list&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;</span><br><span class="line">            &lt;!--每次循环都把list的每一个项传递到item这个变量中然后显示出来--&gt;</span><br><span class="line">            &lt;li v-for=&quot;item of list&quot; :key=&quot;item&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;</span><br><span class="line">            &lt;!--记得要加一个key的属性，会提升每一项渲染的性能--&gt;</span><br><span class="line">            &lt;!--key值要求每一项不可以相同，这里可以直接用item,但当重复的时候我们会这样写--&gt;</span><br><span class="line">            &lt;li v-for=&quot;(item,index) of list&quot; :key=&quot;index&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;</span><br><span class="line">            &lt;!--我们不需要对排序进行变更及类似的操作，index这样写没有问题，但这样写是会有问题的！--&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            el:&quot;#root&quot;,</span><br><span class="line">            data:&#123;</span><br><span class="line">                show:true,</span><br><span class="line">                list:[1,2,3]</span><br><span class="line">            &#125;,</span><br><span class="line">            methods:&#123;</span><br><span class="line">                handleClick:function () &#123;</span><br><span class="line">                    this.show=!this.show</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/03/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YesYourHighness</p>
+              <p class="site-description motion-element" itemprop="description">A blog about IT knowledge</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-world"><span class="nav-number">1.</span> <span class="nav-text">Hello world</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载点、模板之间的关系"><span class="nav-number">1.1.</span> <span class="nav-text">挂载点、模板之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#挂载点"><span class="nav-number">1.1.1.</span> <span class="nav-text">挂载点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板"><span class="nav-number">1.1.2.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据的显示"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据的显示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法的添加"><span class="nav-number">1.1.4.</span> <span class="nav-text">方法的添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性绑定"><span class="nav-number">1.1.5.</span> <span class="nav-text">属性绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向数据绑定"><span class="nav-number">1.1.6.</span> <span class="nav-text">双向数据绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单向数据：数据决定页面的显示，但是页面无法决定数据里的内容"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">单向数据：数据决定页面的显示，但是页面无法决定数据里的内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#双向数据：数据决定页面的显示，页面也可以决定数据里的内容"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">双向数据：数据决定页面的显示，页面也可以决定数据里的内容</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue中的计算属性和侦听器"><span class="nav-number">2.</span> <span class="nav-text">Vue中的计算属性和侦听器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算属性"><span class="nav-number">2.0.1.</span> <span class="nav-text">计算属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器"><span class="nav-number">2.0.2.</span> <span class="nav-text">监听器</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#常见命令的使用"><span class="nav-number">3.</span> <span class="nav-text">常见命令的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#v-if"><span class="nav-number">3.0.1.</span> <span class="nav-text">v-if</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YesYourHighness</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
