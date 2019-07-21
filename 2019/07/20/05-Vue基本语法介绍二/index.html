@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="基本语法二创建一个Vue实例123var vm = new Vue(&amp;#123;    //内容&amp;#125;)  注意Vue的V要大写，没有完全遵循MVVM模型，但是一般都用vm(ViewModel)这个变量名来表示Vue实例 所有的Vue组件都是Vue的实例，并且接受相同的选项对象 数据与方法当Vue实例被创建的时候，它会把data内的所有的属性加入到Vue的响应式系统中 当这些属性值发生变化，">
+<meta name="description" content="引言：  这一节介绍了数据与方法，略微提到了生命周期钩子哦 加油加油！！">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="05.Vue基本语法介绍二">
 <meta property="og:url" content="http://yoursite.com/2019/07/20/05-Vue基本语法介绍二/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="基本语法二创建一个Vue实例123var vm = new Vue(&amp;#123;    //内容&amp;#125;)  注意Vue的V要大写，没有完全遵循MVVM模型，但是一般都用vm(ViewModel)这个变量名来表示Vue实例 所有的Vue组件都是Vue的实例，并且接受相同的选项对象 数据与方法当Vue实例被创建的时候，它会把data内的所有的属性加入到Vue的响应式系统中 当这些属性值发生变化，">
+<meta property="og:description" content="引言：  这一节介绍了数据与方法，略微提到了生命周期钩子哦 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cn.vuejs.org/images/lifecycle.png">
-<meta property="og:updated_time" content="2019-07-20T02:10:15.940Z">
+<meta property="og:updated_time" content="2019-07-21T13:05:39.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05.Vue基本语法介绍二">
-<meta name="twitter:description" content="基本语法二创建一个Vue实例123var vm = new Vue(&amp;#123;    //内容&amp;#125;)  注意Vue的V要大写，没有完全遵循MVVM模型，但是一般都用vm(ViewModel)这个变量名来表示Vue实例 所有的Vue组件都是Vue的实例，并且接受相同的选项对象 数据与方法当Vue实例被创建的时候，它会把data内的所有的属性加入到Vue的响应式系统中 当这些属性值发生变化，">
+<meta name="twitter:description" content="引言：  这一节介绍了数据与方法，略微提到了生命周期钩子哦 加油加油！！">
 <meta name="twitter:image" content="https://cn.vuejs.org/images/lifecycle.png">
 
 
@@ -315,6 +315,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -342,11 +375,20 @@
       
 
       
-        <h2 id="基本语法二"><a href="#基本语法二" class="headerlink" title="基本语法二"></a>基本语法二</h2><h4 id="创建一个Vue实例"><a href="#创建一个Vue实例" class="headerlink" title="创建一个Vue实例"></a>创建一个Vue实例</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    <span class="comment">//内容</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+        <center>
+引言：
+
+<p>这一节介绍了数据与方法，略微提到了生命周期钩子哦</p>
+<p>加油加油！！</p>
+</center>
+<a id="more"></a>
+
+<hr>
+<h1 id="Vue入门"><a href="#Vue入门" class="headerlink" title="Vue入门"></a>Vue入门</h1><h2 id="创建一个Vue实例"><a href="#创建一个Vue实例" class="headerlink" title="创建一个Vue实例"></a>创建一个Vue实例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    <span class="comment">//内容</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>注意Vue的V要大写，没有完全遵循MVVM模型，但是一般都用<strong>vm</strong>(ViewModel)这个变量名来表示Vue实例</p>
 <p>所有的Vue组件都是Vue的实例，并且接受相同的选项对象</p>
-<h4 id="数据与方法"><a href="#数据与方法" class="headerlink" title="数据与方法"></a>数据与方法</h4><p>当Vue实例被创建的时候，它会把<strong>data</strong>内的所有的属性加入到Vue的响应式系统中</p>
+<h2 id="数据与方法"><a href="#数据与方法" class="headerlink" title="数据与方法"></a>数据与方法</h2><p>当Vue实例被创建的时候，它会把<strong>data</strong>内的所有的属性加入到Vue的响应式系统中</p>
 <p>当这些属性值发生变化，视图也会跟着变化</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我们的数据对象</span></span><br><span class="line"><span class="keyword">var</span> data = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 该对象被加入到一个 Vue 实例中</span></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: data</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获得这个实例上的属性</span></span><br><span class="line"><span class="comment">// 返回源数据中对应的字段</span></span><br><span class="line">vm.a == data.a <span class="comment">// =&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置属性也会影响到原始数据</span></span><br><span class="line">vm.a = <span class="number">2</span></span><br><span class="line">data.a <span class="comment">// =&gt; 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ……反之亦然</span></span><br><span class="line">data.a = <span class="number">3</span></span><br><span class="line">vm.a <span class="comment">// =&gt; 3</span></span><br></pre></td></tr></table></figure>
 
@@ -367,13 +409,13 @@
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vm.$data === data</span><br><span class="line">vm.$el === <span class="built_in">document</span>.getElementById(<span class="string">"example"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// $watch 是一个实例方法</span></span><br><span class="line">vm.$watch(<span class="string">'a'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newValue, oldValue</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这个回调将在 `vm.a` 改变后调用</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<h4 id="实例声明周期钩子"><a href="#实例声明周期钩子" class="headerlink" title="实例声明周期钩子"></a>实例声明周期钩子</h4><p>Vue实例在被创建时要经过一系列初始化过程,在这个过程中会运行一些叫做<strong>生命周期钩子的函数</strong></p>
+<h2 id="实例声明周期钩子"><a href="#实例声明周期钩子" class="headerlink" title="实例声明周期钩子"></a>实例声明周期钩子</h2><p>Vue实例在被创建时要经过一系列初始化过程,在这个过程中会运行一些叫做<strong>生命周期钩子的函数</strong></p>
 <p>例如</p>
 <p><strong>created</strong>钩子可以用来在一个实例被创建之后执行代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    a: 1</span><br><span class="line">  &#125;,</span><br><span class="line">  created: function () &#123;</span><br><span class="line">    // `this` 指向 vm 实例</span><br><span class="line">    console.log(&apos;a is: &apos; + this.a)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// =&gt; &quot;a is: 1&quot;</span><br></pre></td></tr></table></figure>
 
 <p>注意：<br>不要在选项属性或回调上使用箭头函数</p>
-<h4 id="生命周期图"><a href="#生命周期图" class="headerlink" title="生命周期图"></a>生命周期图</h4><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt="image"></p>
+<h2 id="生命周期图"><a href="#生命周期图" class="headerlink" title="生命周期图"></a>生命周期图</h2><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt="image"></p>
 
       
     </div>
@@ -386,6 +428,16 @@
     
 
     
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+      
+    </div>
 
     <footer class="post-footer">
       
@@ -502,6 +554,15 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
               
@@ -541,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本语法二"><span class="nav-number">1.</span> <span class="nav-text">基本语法二</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个Vue实例"><span class="nav-number">1.0.1.</span> <span class="nav-text">创建一个Vue实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据与方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据与方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例声明周期钩子"><span class="nav-number">1.0.3.</span> <span class="nav-text">实例声明周期钩子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期图"><span class="nav-number">1.0.4.</span> <span class="nav-text">生命周期图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue入门"><span class="nav-number">1.</span> <span class="nav-text">Vue入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个Vue实例"><span class="nav-number">1.1.</span> <span class="nav-text">创建一个Vue实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据与方法"><span class="nav-number">1.2.</span> <span class="nav-text">数据与方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例声明周期钩子"><span class="nav-number">1.3.</span> <span class="nav-text">实例声明周期钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期图"><span class="nav-number">1.4.</span> <span class="nav-text">生命周期图</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -570,7 +631,7 @@
   
 </div>
 
-
+<!--
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -580,7 +641,7 @@
 
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
+-->
 
 
 

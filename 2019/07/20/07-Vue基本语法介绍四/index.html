@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="计算属性和监听器计算属性对于任何的复杂处理都应该使用计算属性 例子 12345678910111213141516171819202122&amp;lt;body&amp;gt;	&amp;lt;div id=&quot;example&quot;&amp;gt;		&amp;lt;p&amp;gt;Original msg:&quot;&amp;#123;&amp;#123;msg&amp;#125;&amp;#125;&quot;&amp;lt;/p&amp;gt;		&amp;lt;p&amp;gt;Computed reversed ms">
+<meta name="description" content="引言：  这一节介绍有关计算属性的基本知识， 加油加油！！">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="07.Vue基本语法介绍四">
 <meta property="og:url" content="http://yoursite.com/2019/07/20/07-Vue基本语法介绍四/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="计算属性和监听器计算属性对于任何的复杂处理都应该使用计算属性 例子 12345678910111213141516171819202122&amp;lt;body&amp;gt;	&amp;lt;div id=&quot;example&quot;&amp;gt;		&amp;lt;p&amp;gt;Original msg:&quot;&amp;#123;&amp;#123;msg&amp;#125;&amp;#125;&quot;&amp;lt;/p&amp;gt;		&amp;lt;p&amp;gt;Computed reversed ms">
+<meta property="og:description" content="引言：  这一节介绍有关计算属性的基本知识， 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-20T07:56:39.948Z">
+<meta property="og:updated_time" content="2019-07-21T13:01:26.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="07.Vue基本语法介绍四">
-<meta name="twitter:description" content="计算属性和监听器计算属性对于任何的复杂处理都应该使用计算属性 例子 12345678910111213141516171819202122&amp;lt;body&amp;gt;	&amp;lt;div id=&quot;example&quot;&amp;gt;		&amp;lt;p&amp;gt;Original msg:&quot;&amp;#123;&amp;#123;msg&amp;#125;&amp;#125;&quot;&amp;lt;/p&amp;gt;		&amp;lt;p&amp;gt;Computed reversed ms">
+<meta name="twitter:description" content="引言：  这一节介绍有关计算属性的基本知识， 加油加油！！">
 
 
 
@@ -313,6 +313,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -340,26 +373,35 @@
       
 
       
-        <h2 id="计算属性和监听器"><a href="#计算属性和监听器" class="headerlink" title="计算属性和监听器"></a>计算属性和监听器</h2><h4 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h4><p>对于任何的复杂处理都应该使用<strong>计算属性</strong></p>
+        <center>
+引言：
+
+<p>这一节介绍有关计算属性的基本知识，</p>
+<p>加油加油！！</p>
+</center>
+<a id="more"></a>
+
+<hr>
+<h1 id="计算属性和监听器"><a href="#计算属性和监听器" class="headerlink" title="计算属性和监听器"></a>计算属性和监听器</h1><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>对于任何的复杂处理都应该使用<strong>计算属性</strong></p>
 <p>例子</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"example"</span>&gt;</span><br><span class="line">		&lt;p&gt;Original msg:<span class="string">"&#123;&#123;msg&#125;&#125;"</span>&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">		&lt;p&gt;Computed reversed msg:"&#123;&#123;revermsg&#125;&#125;"&lt;/</span>p&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		var vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#example',</span></span><br><span class="line"><span class="regexp">			data:&#123;</span></span><br><span class="line"><span class="regexp">				msg:'这条信息会被逆转'</span></span><br><span class="line"><span class="regexp">			&#125;,</span></span><br><span class="line"><span class="regexp">			computed:&#123;</span></span><br><span class="line"><span class="regexp">				/</span><span class="regexp">/计算属性的getter</span></span><br><span class="line"><span class="regexp">				revermsg:function () &#123;</span></span><br><span class="line"><span class="regexp">					/</span><span class="regexp">/this指向vm</span></span><br><span class="line"><span class="regexp">					return this.msg.split('').reverse().join('');</span></span><br><span class="line"><span class="regexp">				&#125;</span></span><br><span class="line"><span class="regexp">			&#125;</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>当原属性发生变化的时候，vue会自动重新计算计算属性，他们俩都会变化</p>
-<h4 id="计算属性缓存vs方法"><a href="#计算属性缓存vs方法" class="headerlink" title="计算属性缓存vs方法"></a>计算属性缓存vs方法</h4><p>上述的例子，我们可以使用方法来解决<br>如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;	&lt;/title&gt;</span><br><span class="line">	&lt;script src=<span class="string">"js/vue.js"</span> &gt;&lt;/script&gt;</span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">	&lt;div id="example"&gt;</span></span><br><span class="line"><span class="regexp">		&lt;p&gt;Original msg:"&#123;&#123;msg&#125;&#125;"&lt;/</span>p&gt;</span><br><span class="line">		&lt;p&gt;Computed reversed msg:<span class="string">"&#123;&#123;revermsg()&#125;&#125;"</span>&lt;<span class="regexp">/p&gt;&lt;!-- 这里要加括号 --&gt;</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">	&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		<span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">			el:<span class="string">'#example'</span>,</span><br><span class="line">			data:&#123;</span><br><span class="line">				msg:<span class="string">'这条信息会被逆转'</span></span><br><span class="line">			&#125;,</span><br><span class="line">			methods:&#123;</span><br><span class="line">				revermsg: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">					<span class="keyword">return</span> <span class="keyword">this</span>.msg.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;)</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="计算属性缓存vs方法"><a href="#计算属性缓存vs方法" class="headerlink" title="计算属性缓存vs方法"></a>计算属性缓存vs方法</h2><p>上述的例子，我们可以使用方法来解决<br>如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;	<span class="xml"><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line">	&lt;script src=<span class="string">"js/vue.js"</span> &gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">	&lt;div id="example"&gt;</span></span><br><span class="line"><span class="regexp">		&lt;p&gt;Original msg:"&#123;&#123;msg&#125;&#125;"&lt;/</span>p&gt;</span><br><span class="line">		&lt;p&gt;Computed reversed msg:<span class="string">"&#123;&#123;revermsg()&#125;&#125;"</span>&lt;<span class="regexp">/p&gt;&lt;!-- 这里要加括号 --&gt;</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">	&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		<span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">			el:<span class="string">'#example'</span>,</span><br><span class="line">			data:&#123;</span><br><span class="line">				msg:<span class="string">'这条信息会被逆转'</span></span><br><span class="line">			&#125;,</span><br><span class="line">			methods:&#123;</span><br><span class="line">				revermsg: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">					<span class="keyword">return</span> <span class="keyword">this</span>.msg.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;)</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这两种方法（计算属性与方法）都可以达到效果，区别是：</p>
 <p><strong>计算属性是基于他们的响应式依赖进行缓存的</strong><br>只在相关响应式依赖发生改变时才会重新求值</p>
 <p>意味着只要<strong>msg</strong>没有发生改变，多次访问<strong>reversemsg</strong>计算属性会立即返回之前的结果，而不必再次执行函数</p>
 <p>因为拥有缓存，再次渲染的时候不需要重新计算该值，增加了渲染的速度</p>
-<h4 id="计算属性vs监听属性"><a href="#计算属性vs监听属性" class="headerlink" title="计算属性vs监听属性"></a>计算属性vs监听属性</h4><p>计算属性一般会比监听更加的方便<br>例如：</p>
+<h2 id="计算属性vs监听属性"><a href="#计算属性vs监听属性" class="headerlink" title="计算属性vs监听属性"></a>计算属性vs监听属性</h2><p>计算属性一般会比监听更加的方便<br>例如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"demo"</span>&gt;</span><br><span class="line">		&#123;&#123;fullName&#125;&#125;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		var vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#demo',</span></span><br><span class="line"><span class="regexp">			data:&#123;</span></span><br><span class="line"><span class="regexp">				firstName:'foo',</span></span><br><span class="line"><span class="regexp">				lastName:'bar',</span></span><br><span class="line"><span class="regexp">				fullName:'foo bar',</span></span><br><span class="line"><span class="regexp">			&#125;,</span></span><br><span class="line"><span class="regexp">			watch:&#123;</span></span><br><span class="line"><span class="regexp">				firstName:function(val)&#123;</span></span><br><span class="line"><span class="regexp">					this.fullName = val + ""+ this.lastName</span></span><br><span class="line"><span class="regexp">				&#125;,</span></span><br><span class="line"><span class="regexp">				lastName:function(val)&#123;</span></span><br><span class="line"><span class="regexp">					this.fullName=this.firstName+''+val</span></span><br><span class="line"><span class="regexp">				&#125;</span></span><br><span class="line"><span class="regexp">			&#125;</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>而使用计算属性就方便了许多</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"demo"</span>&gt;</span><br><span class="line">		&#123;&#123;fullName&#125;&#125;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		var vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#demo',</span></span><br><span class="line"><span class="regexp">			data:&#123;</span></span><br><span class="line"><span class="regexp">				firstName:'foo',</span></span><br><span class="line"><span class="regexp">				lastName:'bar',</span></span><br><span class="line"><span class="regexp">				fullName:'foo bar',</span></span><br><span class="line"><span class="regexp">			&#125;,</span></span><br><span class="line"><span class="regexp">			computed:&#123;</span></span><br><span class="line"><span class="regexp">				fullName:function()&#123;</span></span><br><span class="line"><span class="regexp">					return this.firstName+this.lastName</span></span><br><span class="line"><span class="regexp">				&#125;</span></span><br><span class="line"><span class="regexp">			&#125;</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="计算属性的setter"><a href="#计算属性的setter" class="headerlink" title="计算属性的setter"></a>计算属性的setter</h4><p>可以自定一个setter</p>
-<h4 id="侦听器"><a href="#侦听器" class="headerlink" title="侦听器"></a>侦听器</h4><p>当需要在数据变化时执行异步或开销大的操作时，这个方式是最有用的</p>
+<h2 id="计算属性的setter"><a href="#计算属性的setter" class="headerlink" title="计算属性的setter"></a>计算属性的setter</h2><p>可以自定一个setter</p>
+<h2 id="侦听器"><a href="#侦听器" class="headerlink" title="侦听器"></a>侦听器</h2><p>当需要在数据变化时执行异步或开销大的操作时，这个方式是最有用的</p>
 <p>我们可以通过watch来接入api</p>
 
       
@@ -373,6 +415,16 @@
     
 
     
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+      
+    </div>
 
     <footer class="post-footer">
       
@@ -489,6 +541,15 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
               
@@ -528,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性和监听器"><span class="nav-number">1.</span> <span class="nav-text">计算属性和监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算属性"><span class="nav-number">1.0.1.</span> <span class="nav-text">计算属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算属性缓存vs方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">计算属性缓存vs方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算属性vs监听属性"><span class="nav-number">1.0.3.</span> <span class="nav-text">计算属性vs监听属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算属性的setter"><span class="nav-number">1.0.4.</span> <span class="nav-text">计算属性的setter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#侦听器"><span class="nav-number">1.0.5.</span> <span class="nav-text">侦听器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算属性和监听器"><span class="nav-number">1.</span> <span class="nav-text">计算属性和监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性"><span class="nav-number">1.1.</span> <span class="nav-text">计算属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性缓存vs方法"><span class="nav-number">1.2.</span> <span class="nav-text">计算属性缓存vs方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性vs监听属性"><span class="nav-number">1.3.</span> <span class="nav-text">计算属性vs监听属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性的setter"><span class="nav-number">1.4.</span> <span class="nav-text">计算属性的setter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侦听器"><span class="nav-number">1.5.</span> <span class="nav-text">侦听器</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -557,7 +618,7 @@
   
 </div>
 
-
+<!--
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -567,7 +628,7 @@
 
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
+-->
 
 
 

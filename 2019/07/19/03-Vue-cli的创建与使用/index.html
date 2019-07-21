@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Vue-cli安装命令行工具(cli)，他会为我们快速搭建繁杂的脚手架 在终端输入 1npm install --global vue-cli  创建一个基于webpack模板的新项目 1vue init webpack my-project  安装依赖 1cd my-project  进入创建的目录下，run运行 1npm run dev   文件目录build文件：放置一些webpack配置文">
+<meta name="description" content="引言：  这一节介绍了Vue-cli如何安装，还有一个Todolist的小实例 加油加油！！">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="03.Vue-cli的创建与使用">
 <meta property="og:url" content="http://yoursite.com/2019/07/19/03-Vue-cli的创建与使用/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="Vue-cli安装命令行工具(cli)，他会为我们快速搭建繁杂的脚手架 在终端输入 1npm install --global vue-cli  创建一个基于webpack模板的新项目 1vue init webpack my-project  安装依赖 1cd my-project  进入创建的目录下，run运行 1npm run dev   文件目录build文件：放置一些webpack配置文">
+<meta property="og:description" content="引言：  这一节介绍了Vue-cli如何安装，还有一个Todolist的小实例 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-20T00:31:45.306Z">
+<meta property="og:updated_time" content="2019-07-21T13:09:49.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="03.Vue-cli的创建与使用">
-<meta name="twitter:description" content="Vue-cli安装命令行工具(cli)，他会为我们快速搭建繁杂的脚手架 在终端输入 1npm install --global vue-cli  创建一个基于webpack模板的新项目 1vue init webpack my-project  安装依赖 1cd my-project  进入创建的目录下，run运行 1npm run dev   文件目录build文件：放置一些webpack配置文">
+<meta name="twitter:description" content="引言：  这一节介绍了Vue-cli如何安装，还有一个Todolist的小实例 加油加油！！">
 
 
 
@@ -313,6 +313,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -340,7 +373,16 @@
       
 
       
-        <h2 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h2><p>安装命令行工具(cli)，他会为我们快速搭建繁杂的脚手架</p>
+        <center>
+引言：
+
+<p>这一节介绍了Vue-cli如何安装，还有一个Todolist的小实例</p>
+<p>加油加油！！</p>
+</center>
+<a id="more"></a>
+
+<hr>
+<h1 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h1><p>安装命令行工具(cli)，他会为我们快速搭建繁杂的脚手架</p>
 <p>在终端输入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global vue-cli</span><br></pre></td></tr></table></figure>
 
@@ -354,7 +396,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h4 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h4><p>build文件：放置一些webpack配置文件,不动</p>
+<h2 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h2><p>build文件：放置一些webpack配置文件,不动</p>
 <p>config文件：是针对于开发环境和线上环境的配置文件，不动</p>
 <p>node-modules文件：项目的依赖</p>
 <p>src文件：源代码放置的目录</p>
@@ -362,10 +404,10 @@
 <p>index.html文件：整个网页最外层的html文件，带有一个id为app的挂载点</p>
 <p>其他都不动</p>
 <hr>
-<h4 id="src下的文件"><a href="#src下的文件" class="headerlink" title="src下的文件"></a>src下的文件</h4><p>main.js:<br>是我们整个项目的入口文件，内部已经注册了一个叫做app的组件</p>
+<h2 id="src下的文件"><a href="#src下的文件" class="headerlink" title="src下的文件"></a>src下的文件</h2><p>main.js:<br>是我们整个项目的入口文件，内部已经注册了一个叫做app的组件</p>
 <p>app.js:我们要自行设计的页面，我们在这里设计的组件通过main.js内的挂载点显示在页面上</p>
 <hr>
-<h4 id="单文件组件编码"><a href="#单文件组件编码" class="headerlink" title="单文件组件编码"></a>单文件组件编码</h4><p>一个文件代表一个组件</p>
+<h2 id="单文件组件编码"><a href="#单文件组件编码" class="headerlink" title="单文件组件编码"></a>单文件组件编码</h2><p>一个文件代表一个组件</p>
 <p>而这个组件内有必要的代码</p>
 <ol>
 <li>template模板</li>
@@ -373,13 +415,13 @@
 <li>style样式</li>
 </ol>
 <hr>
-<h2 id="我们使用vue-cli来开发todolist"><a href="#我们使用vue-cli来开发todolist" class="headerlink" title="我们使用vue-cli来开发todolist"></a>我们使用vue-cli来开发todolist</h2><h4 id="1-main-js"><a href="#1-main-js" class="headerlink" title="1. main.js"></a>1. main.js</h4><p>这里是文件的入口，我们创建的组件在这里要引入</p>
+<h1 id="我们使用vue-cli来开发todolist"><a href="#我们使用vue-cli来开发todolist" class="headerlink" title="我们使用vue-cli来开发todolist"></a>我们使用vue-cli来开发todolist</h1><h2 id="1-main-js"><a href="#1-main-js" class="headerlink" title="1. main.js"></a>1. main.js</h2><p>这里是文件的入口，我们创建的组件在这里要引入</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Todolist <span class="keyword">from</span> <span class="string">'./TodoList'</span></span><br><span class="line"><span class="comment">//1.import引入</span></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123; Todolist &#125;,<span class="comment">//2.注册组件</span></span><br><span class="line">  template: <span class="string">'&lt;Todolist/&gt;'</span><span class="comment">//3.改完这里就可以使用了</span></span><br><span class="line">&#125;);</span><br><span class="line">&lt;!--我们在这里引入我们自定义的 Todolist 组件--&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="2-自定义的TodoList组件"><a href="#2-自定义的TodoList组件" class="headerlink" title="2. 自定义的TodoList组件"></a>2. 自定义的TodoList组件</h4><p>组件一般也由三个部分组成，要放在components的目录下</p>
+<h2 id="2-自定义的TodoList组件"><a href="#2-自定义的TodoList组件" class="headerlink" title="2. 自定义的TodoList组件"></a>2. 自定义的TodoList组件</h2><p>组件一般也由三个部分组成，要放在components的目录下</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span> @click=<span class="string">"handleDelete"</span>&gt;&#123;&#123;content&#125;&#125;&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    props:[<span class="string">'content'</span>,<span class="string">'index'</span>],</span><br><span class="line">    methods:&#123;</span><br><span class="line">      handleDelete:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.$emit(<span class="string">'delete'</span>,<span class="keyword">this</span>.index)</span><br><span class="line">        <span class="comment">//触发父类的事件</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;!--这里使用了scoped来限制css的作用域，使我们的css只作用于本组件--&gt;</span></span><br><span class="line"><span class="regexp">&lt;style scoped&gt;</span></span><br><span class="line"><span class="regexp">  .item&#123;</span></span><br><span class="line"><span class="regexp">    color: green;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>style&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-TodoList页面"><a href="#3-TodoList页面" class="headerlink" title="3.TodoList页面"></a>3.TodoList页面</h4><p>TodoList.vue文件就放置在与main.js文件相同的位置即可</p>
+<h2 id="3-TodoList页面"><a href="#3-TodoList页面" class="headerlink" title="3.TodoList页面"></a>3.TodoList页面</h2><p>TodoList.vue文件就放置在与main.js文件相同的位置即可</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;input v-model=<span class="string">"inputValue"</span>/&gt;</span><br><span class="line">      &lt;button @click=<span class="string">"handleSubmit"</span>&gt;提交&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;todo-item</span><br><span class="line">        v-<span class="keyword">for</span>=<span class="string">"(item,index) of list"</span></span><br><span class="line">        :key=<span class="string">"index"</span></span><br><span class="line">        :content=<span class="string">"item"</span></span><br><span class="line">        :index=<span class="string">"index"</span></span><br><span class="line">        @<span class="keyword">delete</span>=<span class="string">"handleDelete"</span></span><br><span class="line">      &gt;&lt;/todo-item&gt;</span><br><span class="line">      &lt;!--这里使用了我们自建的组件--&gt;</span><br><span class="line">    &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  import TodoItem from './</span>components/TodoItem<span class="string">'</span></span><br><span class="line"><span class="string">  export default &#123;</span></span><br><span class="line"><span class="string">    components:&#123;</span></span><br><span class="line"><span class="string">      '</span>todo-item<span class="string">': TodoItem</span></span><br><span class="line"><span class="string">      &lt;!--这种声明方式可以让我们直接使用todo-item这个标签来使用我们的组件--&gt;</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    data : function () &#123;</span></span><br><span class="line"><span class="string">      return&#123;</span></span><br><span class="line"><span class="string">        inputValue:'</span><span class="string">',</span></span><br><span class="line"><span class="string">        list:[]</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    methods: &#123;</span></span><br><span class="line"><span class="string">      handleSubmit:function()&#123;</span></span><br><span class="line"><span class="string">        this.list.push(this.inputValue);</span></span><br><span class="line"><span class="string">        this.inputValue='</span><span class="string">';</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">      handleDelete:function () &#123;</span></span><br><span class="line"><span class="string">        this.list.splice(this.index,1)</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;style&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/style&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -392,6 +434,16 @@
     
 
     
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+      
+    </div>
 
     <footer class="post-footer">
       
@@ -508,6 +560,15 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
               
@@ -547,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-cli"><span class="nav-number">1.</span> <span class="nav-text">Vue-cli</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件目录"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#src下的文件"><span class="nav-number">1.0.2.</span> <span class="nav-text">src下的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单文件组件编码"><span class="nav-number">1.0.3.</span> <span class="nav-text">单文件组件编码</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#我们使用vue-cli来开发todolist"><span class="nav-number">2.</span> <span class="nav-text">我们使用vue-cli来开发todolist</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-main-js"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. main.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-自定义的TodoList组件"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 自定义的TodoList组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-TodoList页面"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.TodoList页面</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-cli"><span class="nav-number">1.</span> <span class="nav-text">Vue-cli</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录"><span class="nav-number">1.1.</span> <span class="nav-text">文件目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#src下的文件"><span class="nav-number">1.2.</span> <span class="nav-text">src下的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单文件组件编码"><span class="nav-number">1.3.</span> <span class="nav-text">单文件组件编码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我们使用vue-cli来开发todolist"><span class="nav-number">2.</span> <span class="nav-text">我们使用vue-cli来开发todolist</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-main-js"><span class="nav-number">2.1.</span> <span class="nav-text">1. main.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-自定义的TodoList组件"><span class="nav-number">2.2.</span> <span class="nav-text">2. 自定义的TodoList组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-TodoList页面"><span class="nav-number">2.3.</span> <span class="nav-text">3.TodoList页面</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -576,7 +637,7 @@
   
 </div>
 
-
+<!--
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -586,7 +647,7 @@
 
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
+-->
 
 
 

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Vue做一个TodoList做一个TodoList的完整功能，来复习的知识 123456789101112131415161718192021222324252627&amp;lt;body&amp;gt;&amp;lt;div id=&quot;root&quot;&amp;gt;    &amp;lt;div&amp;gt;        &amp;lt;input v-model=&quot;inputValue&quot;/&amp;gt;        &amp;lt;button @click=">
+<meta name="description" content="引言：  这一节用Vue做了一个Todolist的小实例，并且给他拆成了组件 加油加油！！">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="02.Vue中的组件">
 <meta property="og:url" content="http://yoursite.com/2019/07/19/02-Vue中的组件/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="Vue做一个TodoList做一个TodoList的完整功能，来复习的知识 123456789101112131415161718192021222324252627&amp;lt;body&amp;gt;&amp;lt;div id=&quot;root&quot;&amp;gt;    &amp;lt;div&amp;gt;        &amp;lt;input v-model=&quot;inputValue&quot;/&amp;gt;        &amp;lt;button @click=">
+<meta property="og:description" content="引言：  这一节用Vue做了一个Todolist的小实例，并且给他拆成了组件 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-20T00:32:12.997Z">
+<meta property="og:updated_time" content="2019-07-21T13:11:15.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="02.Vue中的组件">
-<meta name="twitter:description" content="Vue做一个TodoList做一个TodoList的完整功能，来复习的知识 123456789101112131415161718192021222324252627&amp;lt;body&amp;gt;&amp;lt;div id=&quot;root&quot;&amp;gt;    &amp;lt;div&amp;gt;        &amp;lt;input v-model=&quot;inputValue&quot;/&amp;gt;        &amp;lt;button @click=">
+<meta name="twitter:description" content="引言：  这一节用Vue做了一个Todolist的小实例，并且给他拆成了组件 加油加油！！">
 
 
 
@@ -313,6 +313,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -340,10 +373,19 @@
       
 
       
-        <h2 id="Vue做一个TodoList"><a href="#Vue做一个TodoList" class="headerlink" title="Vue做一个TodoList"></a>Vue做一个TodoList</h2><p>做一个TodoList的完整功能，来复习的知识</p>
+        <center>
+引言：
+
+<p>这一节用Vue做了一个Todolist的小实例，并且给他拆成了组件</p>
+<p>加油加油！！</p>
+</center>
+<a id="more"></a>
+
+<hr>
+<p>##Vue做一个TodoList<br>做一个TodoList的完整功能，来复习的知识</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;input v-model=<span class="string">"inputValue"</span>/&gt;</span><br><span class="line">        &lt;button @click=<span class="string">"handleSubmit"</span>&gt;提交&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;li v-<span class="keyword">for</span>=<span class="string">"(item,index) of list"</span> :key=<span class="string">"index"</span>&gt;&#123;&#123;item&#125;&#125;&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/u</span>l&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">    new Vue(&#123;</span></span><br><span class="line"><span class="regexp">        el: "#root",</span></span><br><span class="line"><span class="regexp">        data: &#123;</span></span><br><span class="line"><span class="regexp">            inputValue: '',</span></span><br><span class="line"><span class="regexp">            list: [],</span></span><br><span class="line"><span class="regexp">        &#125;,</span></span><br><span class="line"><span class="regexp">        methods: &#123;</span></span><br><span class="line"><span class="regexp">            handleSubmit: function () &#123;</span></span><br><span class="line"><span class="regexp">                this.list.push(this.inputValue);/</span><span class="regexp">/添加到数组当中</span></span><br><span class="line"><span class="regexp">                this.inputValue = '';/</span><span class="regexp">/输入完成后清空输入框</span></span><br><span class="line"><span class="regexp">            &#125;</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;)</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="接下来我们对它进行组件拆分"><a href="#接下来我们对它进行组件拆分" class="headerlink" title="接下来我们对它进行组件拆分"></a>接下来我们对它进行组件拆分</h4><p>定义局部的组件</p>
+<h2 id="接下来我们对它进行组件拆分"><a href="#接下来我们对它进行组件拆分" class="headerlink" title="接下来我们对它进行组件拆分"></a>接下来我们对它进行组件拆分</h2><p>定义局部的组件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;input v-model=<span class="string">"inputValue"</span>/&gt;</span><br><span class="line">        &lt;button @click=<span class="string">"handleSubmit"</span>&gt;提交&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;todo-item</span><br><span class="line">                v-<span class="keyword">for</span>=<span class="string">"(item,index) of list"</span></span><br><span class="line">                :key=<span class="string">"index"</span></span><br><span class="line">                :content=<span class="string">"item"</span></span><br><span class="line">        &gt;&lt;/todo-item&gt;</span><br><span class="line">        &lt;!--这样就可以把参数传给组件--&gt;</span><br><span class="line">    &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> TodoItem = &#123;</span><br><span class="line">        props:[<span class="string">'content'</span>],</span><br><span class="line">        template: <span class="string">'&lt;li&gt;&#123;&#123;content&#125;&#125;&lt;/li&gt;'</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">        el: <span class="string">"#root"</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">            inputValue: <span class="string">''</span>,</span><br><span class="line">            list: [],</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            handleSubmit: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.list.push(<span class="keyword">this</span>.inputValue);<span class="comment">//添加到数组当中</span></span><br><span class="line">                <span class="keyword">this</span>.inputValue = <span class="string">''</span>;<span class="comment">//输入完成后清空输入框</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//局部变量要进行注册</span></span><br><span class="line">        components: &#123;</span><br><span class="line">            <span class="string">'todo-item'</span>: TodoItem</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>定义全局的组件</p>
@@ -368,6 +410,16 @@
     
 
     
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+      
+    </div>
 
     <footer class="post-footer">
       
@@ -484,6 +536,15 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
               
@@ -523,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue做一个TodoList"><span class="nav-number">1.</span> <span class="nav-text">Vue做一个TodoList</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接下来我们对它进行组件拆分"><span class="nav-number">1.0.1.</span> <span class="nav-text">接下来我们对它进行组件拆分</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接下来我们对它进行组件拆分"><span class="nav-number">1.</span> <span class="nav-text">接下来我们对它进行组件拆分</span></a></li></ol></div>
             
 
           </div>
@@ -552,7 +613,7 @@
   
 </div>
 
-
+<!--
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -562,7 +623,7 @@
 
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
+-->
 
 
 

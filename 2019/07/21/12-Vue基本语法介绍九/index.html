@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="表单输入绑定基础用法用v-model在表单&amp;lt;input&amp;gt;&amp;lt;textarea&amp;gt;&amp;lt;select&amp;gt;元素上创建双向数据绑定 注意： v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源。 你应该通过 JavaScript 在组件的 data 选项中声明初始值。 在文本区域插值 (&amp;lt;">
+<meta name="description" content="引言：  这一节介绍有关表单元素，表单输入的基本知识， 加油加油！！">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12-Vue基本语法介绍九">
 <meta property="og:url" content="http://yoursite.com/2019/07/21/12-Vue基本语法介绍九/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="表单输入绑定基础用法用v-model在表单&amp;lt;input&amp;gt;&amp;lt;textarea&amp;gt;&amp;lt;select&amp;gt;元素上创建双向数据绑定 注意： v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源。 你应该通过 JavaScript 在组件的 data 选项中声明初始值。 在文本区域插值 (&amp;lt;">
+<meta property="og:description" content="引言：  这一节介绍有关表单元素，表单输入的基本知识， 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-21T07:37:14.830Z">
+<meta property="og:updated_time" content="2019-07-21T12:44:22.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12-Vue基本语法介绍九">
-<meta name="twitter:description" content="表单输入绑定基础用法用v-model在表单&amp;lt;input&amp;gt;&amp;lt;textarea&amp;gt;&amp;lt;select&amp;gt;元素上创建双向数据绑定 注意： v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源。 你应该通过 JavaScript 在组件的 data 选项中声明初始值。 在文本区域插值 (&amp;lt;">
+<meta name="twitter:description" content="引言：  这一节介绍有关表单元素，表单输入的基本知识， 加油加油！！">
 
 
 
@@ -313,6 +313,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -340,7 +373,16 @@
       
 
       
-        <h1 id="表单输入绑定"><a href="#表单输入绑定" class="headerlink" title="表单输入绑定"></a>表单输入绑定</h1><h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>用<code>v-model</code>在表单<code>&lt;input&gt;&lt;textarea&gt;&lt;select&gt;</code>元素上创建<strong>双向数据绑定</strong></p>
+        <center>
+引言：
+
+<p>这一节介绍有关表单元素，表单输入的基本知识，</p>
+<p>加油加油！！</p>
+</center>
+<a id="more"></a>
+
+<hr>
+<h1 id="表单输入绑定"><a href="#表单输入绑定" class="headerlink" title="表单输入绑定"></a>表单输入绑定</h1><h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>用<code>v-model</code>在表单<code>&lt;input&gt;&lt;textarea&gt;&lt;select&gt;</code>元素上创建<strong>双向数据绑定</strong></p>
 <p>注意：</p>
 <p>v-model 会忽略所有表单元素的 <code>value、checked、selected</code> 特性的初始值而总是将 Vue 实例的数据作为数据来源。</p>
 <p>你应该通过 JavaScript 在组件的 data 选项中声明初始值。</p>
@@ -407,7 +449,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.number</span>=<span class="string">"age"</span> <span class="attr">type</span>=<span class="string">"number"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="trim"><a href="#trim" class="headerlink" title=".trim"></a><code>.trim</code></h4><p>如果要自动过滤用户输入的首尾空白字符，可以给 <code>v-model</code> 添加 trim 修饰符：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input v-model.trim=&quot;msg&quot;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model.trim</span>=<span class="string">"msg"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
       
@@ -421,6 +463,16 @@
     
 
     
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+      
+    </div>
 
     <footer class="post-footer">
       
@@ -537,6 +589,15 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
               
@@ -605,7 +666,7 @@
   
 </div>
 
-
+<!--
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -615,7 +676,7 @@
 
 
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
+-->
 
 
 
