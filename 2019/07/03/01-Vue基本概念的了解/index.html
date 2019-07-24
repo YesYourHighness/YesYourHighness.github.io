@@ -82,14 +82,14 @@
 <meta name="description" content="引言：  Vue是著名的前端框架，从今天开始要慢慢了解它，本节粗略介绍了Vue的基本知识点 先从一个Hello world开始吧 加油加油！！">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="01.Vue基本概念的了解">
+<meta property="og:title" content="01.Vue的开始认识">
 <meta property="og:url" content="http://yoursite.com/2019/07/03/01-Vue基本概念的了解/index.html">
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：  Vue是著名的前端框架，从今天开始要慢慢了解它，本节粗略介绍了Vue的基本知识点 先从一个Hello world开始吧 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-21T13:13:57.314Z">
+<meta property="og:updated_time" content="2019-07-24T01:25:59.080Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="01.Vue基本概念的了解">
+<meta name="twitter:title" content="01.Vue的开始认识">
 <meta name="twitter:description" content="引言：  Vue是著名的前端框架，从今天开始要慢慢了解它，本节粗略介绍了Vue的基本知识点 先从一个Hello world开始吧 加油加油！！">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>01.Vue基本概念的了解 | YesYourHighness</title>
+  <title>01.Vue的开始认识 | YesYourHighness</title>
   
 
 
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">01.Vue基本概念的了解</h1>
+          <h1 class="post-title" itemprop="name headline">01.Vue的开始认识</h1>
         
 
         <div class="post-meta">
@@ -387,8 +387,11 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"vue.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 
 <p>我们可以直接将它放在一个单独的文件当中，然后放在head的位置，用script标签来引入，这样就可以使用vue了</p>
-<p>这里是一个小实例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script src="vue.js"&gt;&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">&lt;div id="root"&gt;&#123;&#123;msg&#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;!--省去了DOM操作，可以直接控制这里的数据--&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;<span class="comment">//创建一个Vue的实例</span></span><br><span class="line">        el: <span class="string">'#root'</span>,<span class="comment">//接管哪一个页面上的element，实现了绑定</span></span><br><span class="line">        data:&#123;</span><br><span class="line">            msg: <span class="string">"hello world"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里是一个Hello world小实例</p>
+<p>如果使用纯js的话</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;title&gt; <span class="xml"><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div id="app"&gt;&lt;/</span>div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        <span class="keyword">var</span> iApp = <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>);</span><br><span class="line">        iApp.innerHTML=<span class="string">'hello world'</span>;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            iApp.innerHTML = <span class="string">'bye,world'</span></span><br><span class="line">        &#125;, <span class="number">2000</span>)</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script src="vue.js"&gt;&lt;/</span>script&gt;</span><br><span class="line">    &lt;!--CDN引入vue包--&gt;</span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp">&lt;div id="root"&gt;&#123;&#123;msg&#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;!--省去了DOM操作，可以直接控制这里的数据--&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;<span class="comment">//创建一个Vue的实例</span></span><br><span class="line">        el: <span class="string">'#root'</span>,</span><br><span class="line">        <span class="comment">//接管哪一个页面上的element，实现了绑定,el代表掌管页面上的哪一块区域</span></span><br><span class="line">        data:&#123;</span><br><span class="line">            msg: <span class="string">"hello world"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        app.$data.msg = <span class="string">'bye,world'</span></span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">    <span class="comment">//$data是Vue实例当中data对象的别名</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h1 id="挂载点、模板之间的关系"><a href="#挂载点、模板之间的关系" class="headerlink" title="挂载点、模板之间的关系"></a>挂载点、模板之间的关系</h1><h2 id="挂载点"><a href="#挂载点" class="headerlink" title="挂载点"></a>挂载点</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;!--挂载点、模板、实例的关系--&gt;</span><br><span class="line">&lt;div id=<span class="string">"root"</span>&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/div&gt;&lt;!--这里是挂载点--&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/</span>div&gt;<span class="xml"><span class="comment">&lt;!--这里不是挂载点，所以页面内会直接显示出原本的内容--&gt;</span></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    new Vue(&#123;</span><br><span class="line">        el: '#root',</span><br><span class="line">        data: &#123;</span><br><span class="line">            msg: "hello world"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
@@ -469,8 +472,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/19/02-Vue中的组件/" rel="prev" title="02.Vue中的组件">
-                02.Vue中的组件 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/19/02-Vue-从一个Todolist开始/" rel="prev" title="02.Vue-从一个Todolist开始">
+                02.Vue-从一个Todolist开始 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

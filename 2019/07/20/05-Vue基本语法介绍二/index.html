@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="引言：  这一节介绍了数据与方法，略微提到了生命周期钩子哦 加油加油！！">
+<meta name="description" content="引言：  介绍了数据与方法， 解释了生命周期钩子 加油加油！！">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="05.Vue基本语法介绍二">
 <meta property="og:url" content="http://yoursite.com/2019/07/20/05-Vue基本语法介绍二/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  这一节介绍了数据与方法，略微提到了生命周期钩子哦 加油加油！！">
+<meta property="og:description" content="引言：  介绍了数据与方法， 解释了生命周期钩子 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cn.vuejs.org/images/lifecycle.png">
-<meta property="og:updated_time" content="2019-07-21T13:05:39.101Z">
+<meta property="og:updated_time" content="2019-07-24T03:57:29.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05.Vue基本语法介绍二">
-<meta name="twitter:description" content="引言：  这一节介绍了数据与方法，略微提到了生命周期钩子哦 加油加油！！">
+<meta name="twitter:description" content="引言：  介绍了数据与方法， 解释了生命周期钩子 加油加油！！">
 <meta name="twitter:image" content="https://cn.vuejs.org/images/lifecycle.png">
 
 
@@ -378,7 +378,8 @@
         <center>
 引言：
 
-<p>这一节介绍了数据与方法，略微提到了生命周期钩子哦</p>
+<p>介绍了数据与方法，</p>
+<p>解释了生命周期钩子</p>
 <p>加油加油！！</p>
 </center>
 <a id="more"></a>
@@ -405,7 +406,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  newTodoText: <span class="string">''</span>,</span><br><span class="line">  visitCount: <span class="number">0</span>,</span><br><span class="line">  hideCompletedTodos: <span class="literal">false</span>,</span><br><span class="line">  todos: [],</span><br><span class="line">  error: <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>但是有唯一的例外<strong>Object.freeze方法</strong>会阻止修改现有的属性，意味着响应系统无法再追踪变化</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">		&lt;p&gt;&#123;&#123;foo&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">		&lt;button @click='foo="baz"'&gt;点击刷新&lt;/</span>button&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		var obj= &#123;</span></span><br><span class="line"><span class="regexp">			foo:'bar'</span></span><br><span class="line"><span class="regexp">		&#125;;</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/ Object.freeze(obj);</span></span><br><span class="line"><span class="regexp">		new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#app',</span></span><br><span class="line"><span class="regexp">			data:obj</span></span><br><span class="line"><span class="regexp">		&#125;);</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123;foo&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;button @click='foo="baz"'&gt;点击刷新&lt;/</span>button&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;script&gt;</span></span><br><span class="line"><span class="regexp">    var obj= &#123;</span></span><br><span class="line"><span class="regexp">      foo:'bar'</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ Object.freeze(obj);</span></span><br><span class="line"><span class="regexp">    new Vue(&#123;</span></span><br><span class="line"><span class="regexp">      el:'#app',</span></span><br><span class="line"><span class="regexp">      data:obj</span></span><br><span class="line"><span class="regexp">    &#125;);</span></span><br><span class="line"><span class="regexp">  &lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vm.$data === data</span><br><span class="line">vm.$el === <span class="built_in">document</span>.getElementById(<span class="string">"example"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// $watch 是一个实例方法</span></span><br><span class="line">vm.$watch(<span class="string">'a'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newValue, oldValue</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这个回调将在 `vm.a` 改变后调用</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
@@ -416,7 +417,43 @@
 
 <p>注意：<br>不要在选项属性或回调上使用箭头函数</p>
 <h2 id="生命周期图"><a href="#生命周期图" class="headerlink" title="生命周期图"></a>生命周期图</h2><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt="image"></p>
+<p>图中我们可以看到：</p>
+<ol>
+<li>创建一个Vue实例</li>
+<li>初始化事件和生命周期</li>
+<li>beforeCreate()</li>
+<li>处理外部的注入及双向的绑定</li>
+<li>created()</li>
+<li>是否有<code>el</code>选项</li>
+<li>是否有<code>template</code>选项</li>
+</ol>
+<p>当有<code>el</code>选项没有<code>template</code>,会默认把el外层的整个html标签当做template使用：即以下两种是相同的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    hello world</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;script&gt;</span></span><br><span class="line"><span class="regexp">    var vm= new Vue(&#123;</span></span><br><span class="line"><span class="regexp">      el:'#app',</span></span><br><span class="line"><span class="regexp">    &#125;)</span></span><br><span class="line"><span class="regexp">  &lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> vm= <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el:<span class="string">'#app'</span>,</span><br><span class="line">      template:<span class="string">'&lt;div&gt;hello world&lt;/div&gt;'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>有<code>template</code>则正常执行 </li>
+<li>beforeMount()</li>
+<li>开始渲染页面</li>
+<li>mounted()</li>
+<li>等待数据更新</li>
+<li>beforeUpdate()</li>
+<li>虚拟DOM重新渲染匹配</li>
+<li>updated()</li>
+<li>当销毁组件的时候<code>vm.$destroy()</code></li>
+<li>beforeDestroy()</li>
+<li>销毁监听，子组件还有监听事件</li>
+<li>destroyed()</li>
+</ol>
+<p>vue共有十一个生命周期函数</p>
+<p>还有三个生命周期函数以后说明,<br>他们是：</p>
+<p>activated()</p>
+<p>deactivated()</p>
+<p>errorCaptured()</p>
+<p>代码:</p>
+<p><strong>生命周期函数千万不要放在methods内</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=<span class="string">"app"</span>&gt;&#123;&#123;content&#125;&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &lt;script&gt;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/生命周期函数就是在某个时间点自动执行的函数</span></span><br><span class="line"><span class="regexp">    var vm= new Vue(&#123;</span></span><br><span class="line"><span class="regexp">      el:'#app',</span></span><br><span class="line"><span class="regexp">      data:&#123;</span></span><br><span class="line"><span class="regexp">        content:'hello world'</span></span><br><span class="line"><span class="regexp">      &#125;,</span></span><br><span class="line"><span class="regexp">      /</span><span class="regexp">/生命周期函数不要写在methods内</span></span><br><span class="line"><span class="regexp">      beforeCreate()&#123;</span></span><br><span class="line"><span class="regexp">        console.log("第一个");</span></span><br><span class="line"><span class="regexp">        console.log(this.$el);</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/undefined</span></span><br><span class="line"><span class="regexp">      &#125;,</span></span><br><span class="line"><span class="regexp">      created()&#123;</span></span><br><span class="line"><span class="regexp">        console.log("第二个");</span></span><br><span class="line"><span class="regexp">        console.log(this.$el);</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/undefined</span></span><br><span class="line"><span class="regexp">      &#125;,</span></span><br><span class="line"><span class="regexp">      beforeMount()&#123;</span></span><br><span class="line"><span class="regexp">        console.log("第三个");</span></span><br><span class="line"><span class="regexp">        console.log(this.$el);</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/&lt;div id="app"&gt;&#123;&#123;content&#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">      &#125;,</span><br><span class="line">      mounted()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"第四个"</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</span><br><span class="line">        <span class="comment">//&lt;div id="app"&gt;hello world&lt;/div&gt;</span></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      <span class="comment">//当数据更新的时候</span></span><br><span class="line">      <span class="comment">//控制台输入vm.content='bye world'</span></span><br><span class="line">      beforeUpdate()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"第五个"</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</span><br><span class="line">        <span class="comment">//&lt;div id="app"&gt;bye world&lt;/div&gt;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      updated()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"第六个"</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</span><br><span class="line">        <span class="comment">//&lt;div id="app"&gt;bye world&lt;/div&gt;</span></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment">//控制台执行vm.$destroy()函数</span></span><br><span class="line">      beforeDestroy()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"第七个"</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</span><br><span class="line">        <span class="comment">//&lt;div id="app"&gt;bye world&lt;/div&gt;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      destroyed()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"第八个"</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</span><br><span class="line">        <span class="comment">//&lt;div id="app"&gt;bye world&lt;/div&gt;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
       
     </div>
     
