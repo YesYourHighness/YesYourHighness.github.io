@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言：  介绍模板语法的基本知识， 加油加油！！">
+<meta name="description" content="引言：  组件参数校验是怎么一回事？ 非props特性是什么？">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="06.Vue基本语法介绍三">
-<meta property="og:url" content="http://yoursite.com/2019/07/20/06-Vue基本语法介绍三/index.html">
+<meta property="og:title" content="20.Vue组件校验与非props特性">
+<meta property="og:url" content="http://yoursite.com/2019/07/24/20-Vue组件校验与非props特性/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  介绍模板语法的基本知识， 加油加油！！">
+<meta property="og:description" content="引言：  组件参数校验是怎么一回事？ 非props特性是什么？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-24T07:01:45.973Z">
+<meta property="og:updated_time" content="2019-07-24T13:41:57.220Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="06.Vue基本语法介绍三">
-<meta name="twitter:description" content="引言：  介绍模板语法的基本知识， 加油加油！！">
+<meta name="twitter:title" content="20.Vue组件校验与非props特性">
+<meta name="twitter:description" content="引言：  组件参数校验是怎么一回事？ 非props特性是什么？">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/20/06-Vue基本语法介绍三/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/24/20-Vue组件校验与非props特性/">
 
 
 
 
 
-  <title>06.Vue基本语法介绍三 | YesYourHighness</title>
+  <title>20.Vue组件校验与非props特性 | YesYourHighness</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/20/06-Vue基本语法介绍三/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/20-Vue组件校验与非props特性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">06.Vue基本语法介绍三</h1>
+          <h1 class="post-title" itemprop="name headline">20.Vue组件校验与非props特性</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T11:52:57+08:00">
-                2019-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T21:39:08+08:00">
+                2019-07-24
               </time>
             
 
@@ -376,66 +376,45 @@
         <center>
 引言：
 
-<p>介绍模板语法的基本知识，</p>
-<p>加油加油！！</p>
+<p>组件参数校验是怎么一回事？</p>
+<p>非props特性是什么？</p>
 </center>
+
 <a id="more"></a>
 
 <hr>
-<h1 id="插值"><a href="#插值" class="headerlink" title="插值"></a>插值</h1><h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>文本插值法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span&gt;Message: &#123;&#123; msg &#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="组件参数校验"><a href="#组件参数校验" class="headerlink" title="组件参数校验"></a>组件参数校验</h2><p>组件之间传值的时候，我们常常会需要特定类型的值，比如说只要String类型等等，</p>
+<p>这时我们就需要检验参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child :content=<span class="string">'"hello world"'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/</span>div&gt;<span class="string">',</span></span><br><span class="line"><span class="string">			props:&#123;</span></span><br><span class="line"><span class="string">				content: String</span></span><br><span class="line"><span class="string">			&#125;//如果对得到的参数有要求，可以在props内写成这种样子</span></span><br><span class="line"><span class="string">		&#125;)</span></span><br><span class="line"><span class="string">		var vm = new Vue(&#123;</span></span><br><span class="line">			el:'#root',</span><br><span class="line">		&#125;) </span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
 
-<p>无论何时只要msg的值发生变化，视图就会更新</p>
-<p>一次性的插值,该值不会更新</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span v-once&gt;不会改变: &#123;&#123; msg &#125;&#125;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+<p>如果想要得到的参数是String或Number类型的任意一个，可以写成:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child :content=<span class="string">'"hello world"'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/</span>div&gt;<span class="string">',</span></span><br><span class="line"><span class="string">			props:&#123;</span></span><br><span class="line"><span class="string">				content: [Number,String]</span></span><br><span class="line"><span class="string">			&#125;//可以写为这样的数组形式</span></span><br><span class="line"><span class="string">		&#125;)</span></span><br><span class="line"><span class="string">		var vm = new Vue(&#123;</span></span><br><span class="line">			el:'#root',</span><br><span class="line">		&#125;) </span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
 
-<p>v-text也能实现相同的功能,但是v-text不会转化标签代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">		&lt;div v-text=<span class="string">'name'</span>&gt;&lt;/div&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		var vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#app',</span></span><br><span class="line"><span class="regexp">			data:&#123;</span></span><br><span class="line"><span class="regexp">				name:'dell'</span></span><br><span class="line"><span class="regexp">			&#125;</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<p>也可以这样, 也表示只能传入Number类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;'</span>,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: <span class="built_in">Number</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="原始HTML"><a href="#原始HTML" class="headerlink" title="原始HTML"></a>原始HTML</h2><p>为了输出真正的HTML</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">Using v-html directive: </span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-html</span>=<span class="string">"rawHtml"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--这里的rawHTML是一个标签表达式，</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">span标签的内部会被替换成它的属性值--&gt;</span></span><br></pre></td></tr></table></figure>
+<p>还可以指定传入的内容是否必须要有某个类型,当没有传入时会警告</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;'</span>,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: <span class="built_in">Number</span>,</span><br><span class="line">					required: <span class="literal">true</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>文本插值法不能作用在HTML特性上面，因此需要用到v-bind</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-bind:disabled</span>=<span class="string">"isButton"</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>还可以设定默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&apos;child&apos;,&#123;</span><br><span class="line">			template:&apos;&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;&apos;,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: String,</span><br><span class="line">					required: false,</span><br><span class="line">					default: &apos;default value&apos;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>对于布尔特性，如果isButton这个值为null、undefined，false则disabled特性甚至不会被包含在渲染出来的<button>中</button></p>
-<h2 id="使用JavaScript表达式"><a href="#使用JavaScript表达式" class="headerlink" title="使用JavaScript表达式"></a>使用JavaScript表达式</h2><p>所有的<strong>指令</strong>后都可以使用js的表达式，</p>
-<p>插值表达式内也可以使用表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; number + 1 &#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123; ok ? &apos;YES&apos; : &apos;NO&apos; &#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123; message.split(&apos;&apos;).reverse().join(&apos;&apos;) &#125;&#125;</span><br><span class="line"></span><br><span class="line">&lt;div v-bind:id=&quot;&apos;list-&apos; + id&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>还可以写更加复杂的检验逻辑，使用默认的validator函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;'</span>,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: <span class="built_in">String</span>,</span><br><span class="line">					validator(value)&#123;</span><br><span class="line">						<span class="keyword">return</span> value.length&gt;<span class="number">5</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="comment">//子组件接收一个值，要求其长度必须大于5</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>有个限制就是，每个绑定都只能包含单个表达式，所以下面的例子都不会生效。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 这是语句，不是表达式 --&gt;</span><br><span class="line">&#123;&#123; <span class="keyword">var</span> a = <span class="number">1</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 流控制也不会生效，请使用三元表达式 --&gt;</span><br><span class="line">&#123;&#123; <span class="keyword">if</span> (ok) &#123; <span class="keyword">return</span> message &#125; &#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。你不应该在模板表达式中试图访问用户定义的全局变量。</p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>带有v-前缀的特性<br>如v-if</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"seen"</span>&gt;</span>现在你看到我了<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>一些指令可以接收一个参数，在指令名称之后以冒号表示</p>
-<p>例如：v-bind可以用于响应式的更新HTML,简写为:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"url"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这里的href就是参数，告知v-bind指令将该元素的href特性与表达式url的值绑定</p>
-<p>又例如：v-on指令，简写为@</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click</span>=<span class="string">"doSomething"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>用于监听DOM事件，这里的参数click就是监听的事件名</p>
-<h2 id="动态参数"><a href="#动态参数" class="headerlink" title="动态参数"></a>动态参数</h2><p>可以用方括号括起来的 JavaScript 表达式作为一个指令的参数：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:</span>[<span class="attr">attributeName</span>]=<span class="string">"url"</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这里的attributeName会被作为一个js的表达式来动态求值，求得的值会作为最终的参数来使用。</p>
-<p>例如，如果你的 Vue 实例有一个data属性attributeName，其值为”href”，那么这个绑定将等价于 v-bind:href。</p>
-<p>也可以使用动态参数为一个动态的事件名绑定处理函数</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:</span>[<span class="attr">eventName</span>]=<span class="string">"doSomething"</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>当 eventName 的值为 “focus” 时，v-on:[eventName] 将等价于 v-on:focus</p>
-<h3 id="动态参数的值的约束"><a href="#动态参数的值的约束" class="headerlink" title="动态参数的值的约束"></a>动态参数的值的约束</h3><p>动态参数预期会求出一个<strong>字符串</strong>，异常情况是null</p>
-<p>这个<strong>null</strong>值可以被显性的用于移除绑定</p>
-<h3 id="动态参数表达式的约束"><a href="#动态参数表达式的约束" class="headerlink" title="动态参数表达式的约束"></a>动态参数表达式的约束</h3><p>因为某些字符在html的特性名内无效，所以在DOM使用模板要回避大写键名（例如空格和引号）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这会触发一个编译警告 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:</span>['<span class="attr">foo</span>' + <span class="attr">bar</span>]=<span class="string">"value"</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>变通的办法是使用没有空格或引号的表达式，或用计算属性替代这种复杂表达式。</p>
-<p>另外，如果你在 DOM 中使用模板 (直接在一个 HTML 文件里撰写模板)，<strong>需要留意浏览器会把特性名全部强制转为小写</strong></p>
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。</p>
+<h2 id="非props特性"><a href="#非props特性" class="headerlink" title="非props特性"></a>非props特性</h2><p>props特性：父组件传递的内容在子组件的props内有声明</p>
+<p>特点：</p>
+<ol>
+<li>不会在DOM属性上显示</li>
+<li>子组件可以直接使用插值表达式使用</li>
+</ol>
+<p>上述的例子都是props特性</p>
+<p>非props：子组件没有用props声明要接受父组件的内容</p>
+<p>特点：</p>
+<ol>
+<li>没法用</li>
+<li>非props特性会显示在DOM的属性内</li>
+</ol>
 
       
     </div>
@@ -476,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/20/05-Vue基本语法介绍二/" rel="next" title="05.Vue基本语法介绍二">
-                <i class="fa fa-chevron-left"></i> 05.Vue基本语法介绍二
+              <a href="/2019/07/24/19-Vue父子组件的数据传递/" rel="next" title="19.Vue父子组件的数据传递">
+                <i class="fa fa-chevron-left"></i> 19.Vue父子组件的数据传递
               </a>
             
           </div>
@@ -486,8 +465,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/20/07-Vue基本语法介绍四/" rel="prev" title="07.Vue基本语法介绍四">
-                07.Vue基本语法介绍四 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/24/21-Vue非父子组件之间的传值/" rel="prev" title="21.Vue非父子组件之间的传值">
+                21.Vue非父子组件之间的传值 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -622,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#插值"><span class="nav-number">1.</span> <span class="nav-text">插值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本"><span class="nav-number">1.1.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原始HTML"><span class="nav-number">1.2.</span> <span class="nav-text">原始HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">1.3.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用JavaScript表达式"><span class="nav-number">1.4.</span> <span class="nav-text">使用JavaScript表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令"><span class="nav-number">1.5.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">1.6.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态参数"><span class="nav-number">1.7.</span> <span class="nav-text">动态参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态参数的值的约束"><span class="nav-number">1.7.1.</span> <span class="nav-text">动态参数的值的约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态参数表达式的约束"><span class="nav-number">1.7.2.</span> <span class="nav-text">动态参数表达式的约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰符"><span class="nav-number">1.8.</span> <span class="nav-text">修饰符</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#组件参数校验"><span class="nav-number">1.</span> <span class="nav-text">组件参数校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非props特性"><span class="nav-number">2.</span> <span class="nav-text">非props特性</span></a></li></ol></div>
             
 
           </div>

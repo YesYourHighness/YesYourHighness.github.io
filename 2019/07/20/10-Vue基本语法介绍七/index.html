@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：  这一节介绍有关列表，列表渲染的基本知识， 加油加油！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-21T12:53:36.489Z">
+<meta property="og:updated_time" content="2019-07-24T09:20:01.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="10.Vue基本语法介绍七">
 <meta name="twitter:description" content="引言：  这一节介绍有关列表，列表渲染的基本知识， 加油加油！！">
@@ -393,6 +393,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> example2 = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#example-2'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parentMessage: <span class="string">'Parent'</span>,</span><br><span class="line">    items: [</span><br><span class="line">      &#123; <span class="attr">message</span>: <span class="string">'Foo'</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">message</span>: <span class="string">'Bar'</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>其中的in我们可以换成of，这两个都可以</p>
+<p>当我们需要包裹多个div时，又不想要多用一个div，<br>就可以使用模板占位符<code>&lt;template&gt;&lt;template&gt;</code>来替代这个div</p>
 <h2 id="在v-for里使用对象"><a href="#在v-for里使用对象" class="headerlink" title="在v-for里使用对象"></a>在<code>v-for</code>里使用对象</h2><p>也可以用<code>v-for</code>来遍历一个对象的属性</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"v-for-object"</span> <span class="attr">class</span>=<span class="string">"demo"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"value in object"</span>&gt;</span></span><br><span class="line">    &#123;&#123; value &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -440,7 +441,7 @@
 <p>为了解决第一类问题，以下两种方式都可以实现和 <code>vm.items[indexOfItem] = newValue</code> 相同的效果，同时也将在响应式系统内触发状态更新：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Vue.set</span></span><br><span class="line">Vue.set(vm.items, indexOfItem, newValue)</span><br><span class="line"><span class="comment">// Array.prototype.splice</span></span><br><span class="line">vm.items.splice(indexOfItem, <span class="number">1</span>, newValue)</span><br></pre></td></tr></table></figure>
 
-<p>也可以使用 <code>vm.$set</code> 实例方法，该方法是全局方法 Vue.set 的一个别名：</p>
+<p><strong>也可以使用 <code>vm.$set</code> 实例方法，</strong>该方法是全局方法 Vue.set 的一个别名：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.$set(vm.items, indexOfItem, newValue)</span><br></pre></td></tr></table></figure>
 
 <p>为了解决第二类问题，你可以使用 splice：</p>
@@ -493,6 +494,12 @@
 <p>而如果你的目的是有条件地跳过循环的执行，那么可以将 v-if 置于外层元素 (或 <template>)上</template></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"todos.length"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"todo in todos"</span>&gt;</span></span><br><span class="line">    &#123;&#123; todo &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-else</span>&gt;</span>No todos left!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="能响应的刷新页面的方法总结"><a href="#能响应的刷新页面的方法总结" class="headerlink" title="能响应的刷新页面的方法总结"></a>能响应的刷新页面的方法总结</h2><p>在各类方法中，共有三种方法可以使我们动态的更新页面上的对象和数组</p>
+<ol>
+<li>使用八种变异方法（只对数组有效）</li>
+<li>改变引用，更换地址</li>
+<li>使用全局的<code>Vue.set</code>方法(推荐)</li>
+</ol>
 <h2 id="在组件上使用v-for"><a href="#在组件上使用v-for" class="headerlink" title="在组件上使用v-for"></a>在组件上使用<code>v-for</code></h2><p>在自定义组件上，你可以像在任何普通元素上一样使用 v-for 。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-for</span>=<span class="string">"item in items"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -637,7 +644,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -692,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#列表渲染"><span class="nav-number">1.</span> <span class="nav-text">列表渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用v-for把一个数组对应为一组元素"><span class="nav-number">1.1.</span> <span class="nav-text">用v-for把一个数组对应为一组元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在v-for里使用对象"><span class="nav-number">1.2.</span> <span class="nav-text">在v-for里使用对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#维护状态"><span class="nav-number">1.3.</span> <span class="nav-text">维护状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组更新检测"><span class="nav-number">1.4.</span> <span class="nav-text">数组更新检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变异方法"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">变异方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换数组"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">替换数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象变更检测注意事项"><span class="nav-number">1.5.</span> <span class="nav-text">对象变更检测注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示过滤-排序后的结果"><span class="nav-number">1.6.</span> <span class="nav-text">显示过滤/排序后的结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-v-for-里使用值范围"><span class="nav-number">1.7.</span> <span class="nav-text">在 v-for 里使用值范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-lt-template-gt-上使用-v-for"><span class="nav-number">1.8.</span> <span class="nav-text">在 &lt;template&gt; 上使用 v-for</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在组件上使用v-for"><span class="nav-number">1.9.</span> <span class="nav-text">在组件上使用v-for</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#列表渲染"><span class="nav-number">1.</span> <span class="nav-text">列表渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用v-for把一个数组对应为一组元素"><span class="nav-number">1.1.</span> <span class="nav-text">用v-for把一个数组对应为一组元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在v-for里使用对象"><span class="nav-number">1.2.</span> <span class="nav-text">在v-for里使用对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#维护状态"><span class="nav-number">1.3.</span> <span class="nav-text">维护状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组更新检测"><span class="nav-number">1.4.</span> <span class="nav-text">数组更新检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变异方法"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">变异方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换数组"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">替换数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象变更检测注意事项"><span class="nav-number">1.5.</span> <span class="nav-text">对象变更检测注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示过滤-排序后的结果"><span class="nav-number">1.6.</span> <span class="nav-text">显示过滤/排序后的结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-v-for-里使用值范围"><span class="nav-number">1.7.</span> <span class="nav-text">在 v-for 里使用值范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-lt-template-gt-上使用-v-for"><span class="nav-number">1.8.</span> <span class="nav-text">在 &lt;template&gt; 上使用 v-for</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能响应的刷新页面的方法总结"><span class="nav-number">1.9.</span> <span class="nav-text">能响应的刷新页面的方法总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在组件上使用v-for"><span class="nav-number">1.10.</span> <span class="nav-text">在组件上使用v-for</span></a></li></ol></div>
             
 
           </div>
