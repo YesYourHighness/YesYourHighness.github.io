@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言：  规模化必须先搞定路由 加油加油 精简自官方文档">
+<meta name="description" content="引言:  js写动画 再加上Velocity库">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="16.Vue路由起步(未完)">
-<meta property="og:url" content="http://yoursite.com/2019/07/24/16-Vue路由起步-未完/index.html">
+<meta property="og:title" content="27.Vue中的js动画与Velocity.js库结合">
+<meta property="og:url" content="http://yoursite.com/2019/07/26/27-Vue中的js动画与Velocity-js库结合/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  规模化必须先搞定路由 加油加油 精简自官方文档">
+<meta property="og:description" content="引言:  js写动画 再加上Velocity库">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-24T13:42:19.255Z">
+<meta property="og:updated_time" content="2019-07-26T14:05:05.698Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="16.Vue路由起步(未完)">
-<meta name="twitter:description" content="引言：  规模化必须先搞定路由 加油加油 精简自官方文档">
+<meta name="twitter:title" content="27.Vue中的js动画与Velocity.js库结合">
+<meta name="twitter:description" content="引言:  js写动画 再加上Velocity库">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/24/16-Vue路由起步-未完/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/26/27-Vue中的js动画与Velocity-js库结合/">
 
 
 
 
 
-  <title>16.Vue路由起步(未完) | YesYourHighness</title>
+  <title>27.Vue中的js动画与Velocity.js库结合 | YesYourHighness</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/16-Vue路由起步-未完/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/27-Vue中的js动画与Velocity-js库结合/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">16.Vue路由起步(未完)</h1>
+          <h1 class="post-title" itemprop="name headline">27.Vue中的js动画与Velocity.js库结合</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T21:35:55+08:00">
-                2019-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T22:01:26+08:00">
+                2019-07-26
               </time>
             
 
@@ -374,18 +374,27 @@
 
       
         <center>
-引言：
+引言:
 
-<p>规模化必须先搞定路由</p>
-<p>加油加油</p>
-<p>精简自<a href="https://router.vuejs.org/zh/guide/" target="_blank" rel="noopener">官方文档</a></p>
+<p>js写动画</p>
+<p>再加上Velocity库</p>
 </center>
+
 <a id="more"></a>
 
 <hr>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/vue-router/dist/vue-router.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--通过CDN直接使用vue-router--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello App!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用 router-link 组件来导航. --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 通过传入 `to` 属性指定链接. --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/foo"</span>&gt;</span>Go to Foo<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/bar"</span>&gt;</span>Go to Bar<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 路由出口 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 路由匹配到的组件将渲染在这里 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="js动画"><a href="#js动画" class="headerlink" title="js动画"></a>js动画</h1><p>我们可以借助生命钩子来实现动画</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=&quot;root&quot;&gt;</span><br><span class="line">		&lt;div&gt;</span><br><span class="line">			&lt;transition</span><br><span class="line">			name=&apos;fade&apos;</span><br><span class="line">			@before-enter=&apos;handleBeforeEnter&apos;</span><br><span class="line">			@enter=&apos;handleEnter&apos;</span><br><span class="line">			@after-enter=&apos;handleAfterEnter&apos;</span><br><span class="line">			&gt;</span><br><span class="line">				&lt;div v-if=&quot;show&quot;&gt;你好&lt;/div&gt;</span><br><span class="line">			&lt;/transition&gt;</span><br><span class="line">			&lt;button @click=&quot;handleClick&quot;&gt;切换&lt;/button&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		let vm = new Vue(&#123;</span><br><span class="line">			el:&apos;#root&apos;,</span><br><span class="line">			data:&#123;</span><br><span class="line">				show: true</span><br><span class="line">			&#125;,</span><br><span class="line">			methods:&#123;</span><br><span class="line">				handleClick()&#123;</span><br><span class="line">					this.show=!this.show</span><br><span class="line">				&#125;,</span><br><span class="line">				handleBeforeEnter(el)&#123;</span><br><span class="line">					el.style.color=&apos;red&apos;</span><br><span class="line">				&#125;,</span><br><span class="line">				//这里有一个参数el</span><br><span class="line">				handleEnter(el,done)&#123;</span><br><span class="line">					setTimeout(() =&gt; &#123;</span><br><span class="line">						el.style.color=&apos;green&apos;</span><br><span class="line">					&#125;,2000);</span><br><span class="line">					setTimeout(() =&gt; &#123;</span><br><span class="line">						done()//没有事件也要加上，表示动画已经结束</span><br><span class="line">					&#125;,4000)</span><br><span class="line">				&#125;,</span><br><span class="line">				//两个参数,el和done，done是一个回调函数</span><br><span class="line">				handleAfterEnter(el)&#123;</span><br><span class="line">					el.style.color=&apos;#000&apos;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 定义 (路由) 组件。</span></span><br><span class="line"><span class="comment">// 可以从其他文件 import 进来</span></span><br><span class="line"><span class="keyword">const</span> Foo = &#123; <span class="attr">template</span>: <span class="string">'&lt;div&gt;foo&lt;/div&gt;'</span> &#125;</span><br><span class="line"><span class="keyword">const</span> Bar = &#123; <span class="attr">template</span>: <span class="string">'&lt;div&gt;bar&lt;/div&gt;'</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 定义路由</span></span><br><span class="line"><span class="comment">// 每个路由应该映射一个组件。 其中"component" 可以是</span></span><br><span class="line"><span class="comment">// 通过 Vue.extend() 创建的组件构造器，</span></span><br><span class="line"><span class="comment">// 或者，只是一个组件配置对象。</span></span><br><span class="line"><span class="comment">// 我们晚点再讨论嵌套路由。</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'/foo'</span>, <span class="attr">component</span>: Foo &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">'/bar'</span>, <span class="attr">component</span>: Bar &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 创建 router 实例，然后传 `routes` 配置</span></span><br><span class="line"><span class="comment">// 你还可以传别的配置参数, 不过先这么简单着吧。</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes <span class="comment">// (缩写) 相当于 routes: routes</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 创建和挂载根实例。</span></span><br><span class="line"><span class="comment">// 记得要通过 router 配置参数注入路由，</span></span><br><span class="line"><span class="comment">// 从而让整个应用都有路由功能</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  router</span><br><span class="line">&#125;).$mount(<span class="string">'#app'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在，应用已经启动了！</span></span><br></pre></td></tr></table></figure>
+<h1 id="使用Velocity库"><a href="#使用Velocity库" class="headerlink" title="使用Velocity库"></a>使用Velocity库</h1><ol>
+<li>引包</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/velocity.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;div&gt;</span><br><span class="line">			&lt;transition</span><br><span class="line">			name=<span class="string">'fade'</span></span><br><span class="line">			@before-enter=<span class="string">'handleBeforeEnter'</span></span><br><span class="line">			@enter=<span class="string">'handleEnter'</span></span><br><span class="line">			@after-enter=<span class="string">'handleAfterEnter'</span></span><br><span class="line">			&gt;</span><br><span class="line">				&lt;div v-<span class="keyword">if</span>=<span class="string">"show"</span>&gt;你好&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">			&lt;/</span>transition&gt;</span><br><span class="line">			&lt;button @click=<span class="string">"handleClick"</span>&gt;切换&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">		&lt;/</span>div&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		let vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#root',</span></span><br><span class="line"><span class="regexp">			data:&#123;</span></span><br><span class="line"><span class="regexp">				show: true</span></span><br><span class="line"><span class="regexp">			&#125;,</span></span><br><span class="line"><span class="regexp">			methods:&#123;</span></span><br><span class="line"><span class="regexp">				handleClick()&#123;</span></span><br><span class="line"><span class="regexp">					this.show=!this.show</span></span><br><span class="line"><span class="regexp">				&#125;,</span></span><br><span class="line"><span class="regexp">				handleBeforeEnter(el)&#123;</span></span><br><span class="line"><span class="regexp">					el.style.opacity = 0;</span></span><br><span class="line"><span class="regexp">				&#125;,</span></span><br><span class="line"><span class="regexp">				handleEnter(el,done)&#123;</span></span><br><span class="line"><span class="regexp">					Velocity(el,&#123;opacity: 1&#125;,&#123;duration:1000,complete:done&#125;);/</span><span class="regexp">/这里要加done函数</span></span><br><span class="line"><span class="regexp">				&#125;,</span></span><br><span class="line"><span class="regexp">				handleAfterEnter(el)&#123;</span></span><br><span class="line"><span class="regexp">					alert('动画结束')</span></span><br><span class="line"><span class="regexp">				&#125;</span></span><br><span class="line"><span class="regexp">			&#125;</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -425,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/22/15-Vue-cli/" rel="next" title="14.Vue-cli">
-                <i class="fa fa-chevron-left"></i> 14.Vue-cli
+              <a href="/2019/07/26/26-Vue中使用Animate-css库/" rel="next" title="26.Vue中使用Animate.css库">
+                <i class="fa fa-chevron-left"></i> 26.Vue中使用Animate.css库
               </a>
             
           </div>
@@ -434,10 +443,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/24/17-MVVM设计模式/" rel="prev" title="17.MVVM设计模式">
-                17.MVVM设计模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -571,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#起步"><span class="nav-number">1.1.</span> <span class="nav-text">起步</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js动画"><span class="nav-number">1.</span> <span class="nav-text">js动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Velocity库"><span class="nav-number">2.</span> <span class="nav-text">使用Velocity库</span></a></li></ol></div>
             
 
           </div>
