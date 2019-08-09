@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Vue,">
+  <meta name="keywords" content="Java,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言:  Vue的插槽如何使用呢 来看看吧">
-<meta name="keywords" content="Vue">
+<meta name="description" content="引言：认识java  static静态数据成员 override覆盖重写 abstract抽象类">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="23.Vue插槽">
-<meta property="og:url" content="http://yoursite.com/2019/07/26/Vue/23-Vue插槽/index.html">
+<meta property="og:title" content="认识Java-3">
+<meta property="og:url" content="http://yoursite.com/2019/08/09/Java/认识Java-3/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言:  Vue的插槽如何使用呢 来看看吧">
+<meta property="og:description" content="引言：认识java  static静态数据成员 override覆盖重写 abstract抽象类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-26T14:05:17.993Z">
+<meta property="og:updated_time" content="2019-08-09T14:01:17.787Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="23.Vue插槽">
-<meta name="twitter:description" content="引言:  Vue的插槽如何使用呢 来看看吧">
+<meta name="twitter:title" content="认识Java-3">
+<meta name="twitter:description" content="引言：认识java  static静态数据成员 override覆盖重写 abstract抽象类">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/26/Vue/23-Vue插槽/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/09/Java/认识Java-3/">
 
 
 
 
 
-  <title>23.Vue插槽 | YesYourHighness</title>
+  <title>认识Java-3 | YesYourHighness</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/Vue/23-Vue插槽/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/09/Java/认识Java-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">23.Vue插槽</h1>
+          <h1 class="post-title" itemprop="name headline">认识Java-3</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T21:59:43+08:00">
-                2019-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T22:00:11+08:00">
+                2019-08-09
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
                   </a>
                 </span>
 
@@ -326,8 +326,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
+                  <a href="/categories/后台/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  711
+                  834
                 </span>
               
 
@@ -388,38 +388,77 @@
 
       
         <center>
-引言:
+引言：认识java
 
-<p>Vue的插槽如何使用呢</p>
-<p>来看看吧</p>
+<p>static静态数据成员</p>
+<p>override覆盖重写</p>
+<p>abstract抽象类</p>
 </center>
 
 <a id="more"></a>
 
 <hr>
-<h1 id="Vue插槽"><a href="#Vue插槽" class="headerlink" title="Vue插槽"></a>Vue插槽</h1><p>当我们在开发中，总会有这样的需求</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child content=<span class="string">'&lt;p&gt;我想加这个内容&lt;/p&gt;'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			props:["content"],</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;&lt;p&gt;hello&lt;/</span>p&gt;&#123;&#123;content&#125;&#125;&lt;<span class="regexp">/div&gt;',</span></span><br><span class="line"><span class="regexp">			&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">		let vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#root'</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h1><h2 id="静态成员数据"><a href="#静态成员数据" class="headerlink" title="静态成员数据"></a>静态成员数据</h2><p>在类中，加了static的关键字，意味着该变量不再属于某一个成员，而是属于类本身，该类的所有对象共用一个静态数据</p>
+<p>调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person stu1 = <span class="keyword">new</span> person();</span><br><span class="line">System.out.println(stu1.year);</span><br><span class="line"><span class="comment">//不推荐使用对象来调用静态成员数据，这种写法在之后也会被javac翻译为类名称，静态方法名</span></span><br><span class="line">System.out.println(person.year);</span><br><span class="line"><span class="comment">//推荐这种写法</span></span><br></pre></td></tr></table></figure>
 
-<p>但这样传入content会被转义,即直接显示<code>&lt;p&gt;我想加这个内容&lt;/p&gt;</code></p>
-<p>这显然不是我们想要的</p>
-<p>我们想让他直接的显示出来</p>
-<p>我们之前学过一个指令<code>v-html</code>可以解决这个问题</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">	props:[<span class="string">"content"</span>],</span><br><span class="line">	template:<span class="string">'&lt;div&gt;&lt;p&gt;hello&lt;/p&gt;&lt;div v-html="content"&gt;&lt;/div&gt;&lt;/div&gt;'</span>,</span><br><span class="line">	<span class="comment">//这里使用template站位符没有作用,会导致渲染不出来</span></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"你好啊"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>但是这种方法，还会给外部增加一个div</p>
-<p>Vue提供给我们一个插槽属性来实现这个功能</p>
-<p>使用插槽：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child&gt;</span><br><span class="line">			&lt;p&gt;使用插槽&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">		&lt;/</span>child&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;</span></span><br><span class="line"><span class="regexp">			            &lt;p&gt;hello&lt;/</span>p&gt;</span><br><span class="line">			            &lt;slot&gt;这里还可以添加默认值&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">		            &lt;/</span>div&gt;<span class="string">',</span></span><br><span class="line"><span class="string">			//当没有插入任何值，会启用这个函数</span></span><br><span class="line"><span class="string">			&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		let vm = new Vue(&#123;</span></span><br><span class="line">			el:'#root'</span><br><span class="line">		&#125;)</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
+<p>特点：</p>
+<ol>
+<li>静态代码块只会在第一次用到时，执行唯一的一次</li>
+<li>静态内容先于非静态</li>
+<li>用来一次性的对静态成员变量进行赋值</li>
+</ol>
+<p>注意：</p>
+<ol>
+<li>静态成员函数只能访问静态成员变量，非静态函数可以访问所有的内容</li>
+<li><strong>没有this指针</strong></li>
+</ol>
+<h1 id="覆盖重写"><a href="#覆盖重写" class="headerlink" title="覆盖重写"></a>覆盖重写</h1><p>方法的覆盖重写(override):</p>
+<p><strong>方法的名称一样，参数列表也一样</strong>此时会发生方法的覆盖重写</p>
+<p>特点：因为创建时创建的对象是子类的，所以在调用方法时，一定会先调用子类中覆盖重写的函数</p>
+<p>注意：</p>
+<ol>
+<li>必须保证名称相同，参数列表相同</li>
+<li><code>@override</code>写在覆盖重写的函数前，用来检测是否成功的覆盖重写</li>
+<li>子类方法的返回值必须<strong>小于等于</strong>父类的返回值范围</li>
+<li>子类方法的权限必须大于等于父类方法的权限修饰符（public &gt; protected &gt; (default)(即什么都不写) &gt; private）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//假设此类已经投入属于，我们要添加功能，不要对此类进行更改</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">phone</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"打电话"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"发送短信"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"显示号码"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>我们还可以给插槽起名字，像是这个样子:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child&gt;</span><br><span class="line">			&lt;p slot=<span class="string">'name1'</span>&gt;第一个插槽&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">			&lt;p&gt;使用插槽&lt;/</span>p&gt;</span><br><span class="line">			&lt;p slot=<span class="string">'name2'</span>&gt;第二个插槽&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">		&lt;/</span>child&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;</span></span><br><span class="line"><span class="regexp">			            &lt;slot name="name1"&gt;默认值1&lt;/</span>slot&gt;</span><br><span class="line">			            &lt;p&gt;hello&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">			            &lt;slot name="name2"&gt;默认值2&lt;/</span>slot&gt;</span><br><span class="line">		            &lt;<span class="regexp">/div&gt;',</span></span><br><span class="line"><span class="regexp">			&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">		let vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#root'</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//新建一个新的类，重写要增加功能的方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">newPhone</span> <span class="keyword">extends</span> <span class="title">phone</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"发送短信"</span>);</span><br><span class="line">        System.out.println(<span class="string">"发送微信"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="Vue的作用域插槽"><a href="#Vue的作用域插槽" class="headerlink" title="Vue的作用域插槽"></a>Vue的作用域插槽</h1><p>当我们想在子组件渲染循环</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">	data()&#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			list: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	template:<span class="string">'&lt;div&gt;&lt;li v-for="item of list"&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;&lt;/div&gt;'</span>,</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="super"><a href="#super" class="headerlink" title="super"></a>super</h1><p>用法：</p>
+<ol>
+<li>在子类的成员方法中，访问父类的成员变量</li>
+<li>子类中访问父类的成员方法</li>
+<li>子类的构造方法中，访问父类的构造方法<code>super();</code></li>
+</ol>
+<h1 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h1><p>定义：加关键字<code>abstract</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">dog</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;<span class="comment">//抽象方法</span></span><br><span class="line">&#125;<span class="comment">//抽象类</span></span><br></pre></td></tr></table></figure>
 
-<p>但我们可能不想循环<code>&lt;li&gt;</code>标签，我们想让外部决定怎么渲染</p>
-<p>这时我们就需要用到作用域插槽</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child&gt;</span><br><span class="line">			&lt;template slot-scope=<span class="string">'props'</span>&gt;</span><br><span class="line">				&lt;h1&gt;&#123;&#123;props.item&#125;&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">				&lt;!--传过来的内容存入了props内--&gt;</span></span><br><span class="line"><span class="regexp">			&lt;/</span>template&gt;</span><br><span class="line">		&lt;<span class="regexp">/child&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			data()&#123;</span><br><span class="line">				<span class="keyword">return</span> &#123;</span><br><span class="line">					list: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&lt;slot v-for="item of list" :item=item &gt;&#123;&#123;item&#125;&#125;&lt;/slot&gt;&lt;/div&gt;'</span>,</span><br><span class="line">			<span class="comment">//这里想插槽内传入想要他显示的内容</span></span><br><span class="line">			&#125;)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">			el:<span class="string">'#root'</span></span><br><span class="line">		&#125;)</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>抽象方法没有大括号，小括号后直接以分号结束</li>
+<li>只有抽象类才能拥有抽象方法</li>
+<li>不能直接new抽象对象</li>
+<li>必须用子类来继承抽象父类</li>
+<li>子类<strong>必须覆盖重写</strong>抽象父类的<strong>所有</strong>抽象方法</li>
+<li>抽象类不能创建对象</li>
+<li>抽象类可以有构造方法，供子类创建对象时初始化父类对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">father</span> </span>&#123;</span><br><span class="line">    father()&#123;</span><br><span class="line">        System.out.println(<span class="string">"父类抽象函数的构造"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">son</span> <span class="keyword">extends</span> <span class="title">father</span> </span>&#123;</span><br><span class="line">    son()&#123;</span><br><span class="line">        System.out.println(<span class="string">"子类构造函数"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   son xxx = <span class="keyword">new</span> son();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//打印出</span></span><br><span class="line"><span class="comment">//父类抽象函数的构造</span></span><br><span class="line"><span class="comment">//子类构造函数</span></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>抽象类不一定含有抽象方法，但是含有抽象方法的一定是抽象类</li>
+<li>抽象类必须重新所有的抽象方法，否则子类也是一个抽象类</li>
+</ol>
+
       
     </div>
     
@@ -446,7 +485,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
       
@@ -459,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/26/Vue/22-如何给组件编写原生事件/" rel="next" title="22.如何给组件编写原生事件">
-                <i class="fa fa-chevron-left"></i> 22.如何给组件编写原生事件
+              <a href="/2019/08/09/Java/认识Java-2/" rel="next" title="认识Java-2">
+                <i class="fa fa-chevron-left"></i> 认识Java-2
               </a>
             
           </div>
@@ -468,10 +507,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/26/Vue/24-动态组件与v-once指令/" rel="prev" title="24.动态组件与v-once指令">
-                24.动态组件与v-once指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue插槽"><span class="nav-number">1.</span> <span class="nav-text">Vue插槽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue的作用域插槽"><span class="nav-number">2.</span> <span class="nav-text">Vue的作用域插槽</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#static关键字"><span class="nav-number">1.</span> <span class="nav-text">static关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态成员数据"><span class="nav-number">1.1.</span> <span class="nav-text">静态成员数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态代码块"><span class="nav-number">1.2.</span> <span class="nav-text">静态代码块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#覆盖重写"><span class="nav-number">2.</span> <span class="nav-text">覆盖重写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#super"><span class="nav-number">3.</span> <span class="nav-text">super</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象"><span class="nav-number">4.</span> <span class="nav-text">抽象</span></a></li></ol></div>
             
 
           </div>
