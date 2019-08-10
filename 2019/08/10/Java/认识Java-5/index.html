@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Vue,">
+  <meta name="keywords" content="Java,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言：  组件参数校验是怎么一回事？ 非props特性是什么？">
-<meta name="keywords" content="Vue">
+<meta name="description" content="引言：认识java  上下转型 instanceof的用法 权限修饰符">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20.Vue组件校验与非props特性">
-<meta property="og:url" content="http://yoursite.com/2019/07/24/Vue/20-Vue组件校验与非props特性/index.html">
+<meta property="og:title" content="认识Java-5">
+<meta property="og:url" content="http://yoursite.com/2019/08/10/Java/认识Java-5/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  组件参数校验是怎么一回事？ 非props特性是什么？">
+<meta property="og:description" content="引言：认识java  上下转型 instanceof的用法 权限修饰符">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-24T13:41:57.220Z">
+<meta property="og:updated_time" content="2019-08-10T08:36:40.021Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="20.Vue组件校验与非props特性">
-<meta name="twitter:description" content="引言：  组件参数校验是怎么一回事？ 非props特性是什么？">
+<meta name="twitter:title" content="认识Java-5">
+<meta name="twitter:description" content="引言：认识java  上下转型 instanceof的用法 权限修饰符">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/24/Vue/20-Vue组件校验与非props特性/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/10/Java/认识Java-5/">
 
 
 
 
 
-  <title>20.Vue组件校验与非props特性 | YesYourHighness</title>
+  <title>认识Java-5 | YesYourHighness</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/Vue/20-Vue组件校验与非props特性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/10/Java/认识Java-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">20.Vue组件校验与非props特性</h1>
+          <h1 class="post-title" itemprop="name headline">认识Java-5</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T21:39:08+08:00">
-                2019-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-10T16:35:59+08:00">
+                2019-08-10
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
                   </a>
                 </span>
 
@@ -326,8 +326,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
+                  <a href="/categories/后台/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  558
+                  881
                 </span>
               
 
@@ -388,47 +388,109 @@
 
       
         <center>
-引言：
+引言：认识java
 
-<p>组件参数校验是怎么一回事？</p>
-<p>非props特性是什么？</p>
+<p>上下转型</p>
+<p>instanceof的用法</p>
+<p>权限修饰符</p>
 </center>
 
 <a id="more"></a>
 
 <hr>
-<h2 id="组件参数校验"><a href="#组件参数校验" class="headerlink" title="组件参数校验"></a>组件参数校验</h2><p>组件之间传值的时候，我们常常会需要特定类型的值，比如说只要String类型等等，</p>
-<p>这时我们就需要检验参数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child :content=<span class="string">'"hello world"'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/</span>div&gt;<span class="string">',</span></span><br><span class="line"><span class="string">			props:&#123;</span></span><br><span class="line"><span class="string">				content: String</span></span><br><span class="line"><span class="string">			&#125;//如果对得到的参数有要求，可以在props内写成这种样子</span></span><br><span class="line"><span class="string">		&#125;)</span></span><br><span class="line"><span class="string">		var vm = new Vue(&#123;</span></span><br><span class="line">			el:'#root',</span><br><span class="line">		&#125;) </span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="转型"><a href="#转型" class="headerlink" title="转型"></a>转型</h1><p>一种java编程思想，体现java的多态性，目前只需要使用即可，日后慢慢会了解</p>
+<p>无论是上转还是下转都是为了让类的使用范围和适用范围发生变化，以便操作不同范围的变量或者方法。</p>
+<h2 id="向上转型"><a href="#向上转型" class="headerlink" title="向上转型"></a>向上转型</h2><p>格式：子类名称 对象名  =  new  子类名称();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">father up = <span class="keyword">new</span> son();<span class="comment">//向上转型</span></span><br><span class="line">up.cry();<span class="comment">//不能使用子类新增的方法</span></span><br><span class="line">up.teach();</span><br><span class="line"><span class="comment">// 向上转型无法使用子类新增的方法，</span></span><br><span class="line"><span class="comment">// 但是可以使用覆盖重写父类的方法</span></span><br></pre></td></tr></table></figure>
 
-<p>如果想要得到的参数是String或Number类型的任意一个，可以写成:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child :content=<span class="string">'"hello world"'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/</span>div&gt;<span class="string">',</span></span><br><span class="line"><span class="string">			props:&#123;</span></span><br><span class="line"><span class="string">				content: [Number,String]</span></span><br><span class="line"><span class="string">			&#125;//可以写为这样的数组形式</span></span><br><span class="line"><span class="string">		&#125;)</span></span><br><span class="line"><span class="string">		var vm = new Vue(&#123;</span></span><br><span class="line">			el:'#root',</span><br><span class="line">		&#125;) </span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
+<p>上转型是指<strong>将子类对象使用父类引用进行引用</strong>。</p>
+<ul>
+<li>得：上转型对象可以操作和使用子类继承或者重写的方法。</li>
+<li>失：上转型对象丧失了对子类新增成员变量或新增的方法的操作和使用。</li>
+</ul>
+<p><strong>向上转型一定是安全的，因为是小范围想大范围的转换</strong></p>
+<h2 id="向下转型"><a href="#向下转型" class="headerlink" title="向下转型"></a>向下转型</h2><p>与向上转型相反，即是把父类对象转为子类对象：作用也与上转相反。</p>
+<p>格式：子类名称 对象名 =（子类名称) 父类对象;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>也可以这样, 也表示只能传入Number类型</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;'</span>,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: <span class="built_in">Number</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
+<p>是向上转型的一个还原过程，强制转换会导致报错</p>
+<p>向下转换必须保证：<br>原本该对象就是子类的一个内容，不能指鹿为马</p>
+<p>什么意思呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num = (<span class="keyword">int</span>) <span class="number">10.0</span>;<span class="comment">//正确，10.0本身其实就是一个整型</span></span><br><span class="line"><span class="keyword">int</span> num = (<span class="keyword">int</span>) <span class="number">10.5</span>;<span class="comment">//错误，10.5本身是一个浮点型</span></span><br></pre></td></tr></table></figure>
 
-<p>还可以指定传入的内容是否必须要有某个类型,当没有传入时会警告</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;'</span>,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: <span class="built_in">Number</span>,</span><br><span class="line">					required: <span class="literal">true</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    father up = new son();//向上转型</span><br><span class="line">    son down = (son) up;//向下转型</span><br><span class="line">    down.cry();//可以调用子类的新增方法了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>还可以设定默认值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&apos;child&apos;,&#123;</span><br><span class="line">			template:&apos;&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;&apos;,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: String,</span><br><span class="line">					required: false,</span><br><span class="line">					default: &apos;default value&apos;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="instanceof判断"><a href="#instanceof判断" class="headerlink" title="instanceof判断"></a>instanceof判断</h2><p>向下转型的过程中我们可能会失败报错，所以一定要先判断</p>
+<p>格式： <code>对象名 instanceof 类名</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    father f1 = <span class="keyword">new</span> son();<span class="comment">//向上转型</span></span><br><span class="line">    father f2 = <span class="keyword">new</span> father();</span><br><span class="line">    son son1 = <span class="keyword">new</span> son();</span><br><span class="line">    son son2 = (son) f1;<span class="comment">//向下转型</span></span><br><span class="line">    System.out.println(f1 <span class="keyword">instanceof</span> father);   <span class="comment">//true</span></span><br><span class="line">    System.out.println(f1 <span class="keyword">instanceof</span> son);      <span class="comment">//true</span></span><br><span class="line">    System.out.println(f2 <span class="keyword">instanceof</span> father);   <span class="comment">//true</span></span><br><span class="line">    System.out.println(f2 <span class="keyword">instanceof</span> son);      <span class="comment">//false</span></span><br><span class="line">    System.out.println(son1 <span class="keyword">instanceof</span> father); <span class="comment">//true</span></span><br><span class="line">    System.out.println(son1 <span class="keyword">instanceof</span> son);    <span class="comment">//true</span></span><br><span class="line">    System.out.println(son2 <span class="keyword">instanceof</span> father); <span class="comment">//true</span></span><br><span class="line">    System.out.println(son2 <span class="keyword">instanceof</span> son);    <span class="comment">//true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>还可以写更加复杂的检验逻辑，使用默认的validator函数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&#123;&#123;content&#125;&#125;&lt;/div&gt;'</span>,</span><br><span class="line">			props:&#123;</span><br><span class="line">				content: &#123;</span><br><span class="line">					type: <span class="built_in">String</span>,</span><br><span class="line">					validator(value)&#123;</span><br><span class="line">						<span class="keyword">return</span> value.length&gt;<span class="number">5</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="comment">//子组件接收一个值，要求其长度必须大于5</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h1><p>final关键字，代表不可改变的</p>
+<p>用法：<br>修饰一个类，方法，局部变量，成员变量</p>
+<h2 id="修饰类"><a href="#修饰类" class="headerlink" title="修饰类"></a>修饰类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">father</span></span></span><br></pre></td></tr></table></figure>
 
-<h2 id="非props特性"><a href="#非props特性" class="headerlink" title="非props特性"></a>非props特性</h2><p>props特性：父组件传递的内容在子组件的props内有声明</p>
-<p>特点：</p>
+<p>final类不能有任何的子类（太监类），final类中所有的成员方法不可被覆盖重写</p>
+<h2 id="修饰方法"><a href="#修饰方法" class="headerlink" title="修饰方法"></a>修饰方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public final void teach()&#123;</span><br><span class="line">    System.out.println(&quot;123&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不管是类还是方法，<code>final</code>和<code>abstract</code>只能使用一个</p>
+<h2 id="修饰局部变量"><a href="#修饰局部变量" class="headerlink" title="修饰局部变量"></a>修饰局部变量</h2><p>final局部变量修饰完成，则其不能再被更改（类似C++的const）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> x ;</span><br><span class="line">x = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//第一种赋值方法</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> y = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//第二种赋值方法</span></span><br></pre></td></tr></table></figure>
+
+<p>只需要保证有一次赋值即可</p>
+<p>注意：</p>
+<ul>
+<li><p>对于基本类型，final表示变量的数据不可以改变</p>
+</li>
+<li><p>对于引用类型，final表示变量的地址值不可以改变(其中的值可以变)</p>
+</li>
+</ul>
+<h2 id="修饰成员变量"><a href="#修饰成员变量" class="headerlink" title="修饰成员变量"></a>修饰成员变量</h2><p>由于成员变量有默认值，所以用了final之后必须初始化！</p>
 <ol>
-<li>不会在DOM属性上显示</li>
-<li>子组件可以直接使用插值表达式使用</li>
+<li>直接赋值</li>
+<li>用构造函数赋值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> String name;</span><br><span class="line">father(String str)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = str;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
 </ol>
-<p>上述的例子都是props特性</p>
-<p>非props：子组件没有用props声明要接受父组件的内容</p>
-<p>特点：</p>
-<ol>
-<li>没法用</li>
-<li>非props特性会显示在DOM的属性内</li>
-</ol>
+<h1 id="权限修饰符"><a href="#权限修饰符" class="headerlink" title="权限修饰符"></a>权限修饰符</h1><p>java中有四种修饰符</p>
+<table>
+<thead>
+<tr>
+<th>权限符</th>
+<th>public</th>
+<th>protected</th>
+<th>(default)</th>
+<th>private</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同一个类</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>同一个包</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>不同包子类</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>不同包非子类</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -456,7 +518,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
       
@@ -469,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/24/Vue/19-Vue父子组件的数据传递/" rel="next" title="19.Vue父子组件的数据传递">
-                <i class="fa fa-chevron-left"></i> 19.Vue父子组件的数据传递
+              <a href="/2019/08/10/Java/认识Java-4/" rel="next" title="认识Java-4">
+                <i class="fa fa-chevron-left"></i> 认识Java-4
               </a>
             
           </div>
@@ -478,10 +540,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/24/Vue/21-Vue非父子组件之间的传值/" rel="prev" title="21.Vue非父子组件之间的传值">
-                21.Vue非父子组件之间的传值 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -615,7 +673,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#组件参数校验"><span class="nav-number">1.</span> <span class="nav-text">组件参数校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非props特性"><span class="nav-number">2.</span> <span class="nav-text">非props特性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#转型"><span class="nav-number">1.</span> <span class="nav-text">转型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#向上转型"><span class="nav-number">1.1.</span> <span class="nav-text">向上转型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向下转型"><span class="nav-number">1.2.</span> <span class="nav-text">向下转型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instanceof判断"><span class="nav-number">1.3.</span> <span class="nav-text">instanceof判断</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#final关键字"><span class="nav-number">2.</span> <span class="nav-text">final关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰类"><span class="nav-number">2.1.</span> <span class="nav-text">修饰类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰方法"><span class="nav-number">2.2.</span> <span class="nav-text">修饰方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰局部变量"><span class="nav-number">2.3.</span> <span class="nav-text">修饰局部变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰成员变量"><span class="nav-number">2.4.</span> <span class="nav-text">修饰成员变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#权限修饰符"><span class="nav-number">3.</span> <span class="nav-text">权限修饰符</span></a></li></ol></div>
             
 
           </div>
