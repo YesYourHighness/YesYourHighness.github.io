@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Vue,">
+  <meta name="keywords" content="Java,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言:  Vue的插槽如何使用呢 来看看吧">
-<meta name="keywords" content="Vue">
+<meta name="description" content="引言：  安装java环境 认识java整个生态体系">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="23.Vue插槽">
-<meta property="og:url" content="http://yoursite.com/2019/07/26/Vue/23-Vue插槽/index.html">
+<meta property="og:title" content="Java生态体系">
+<meta property="og:url" content="http://yoursite.com/2019/08/11/Java/Java生态体系/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言:  Vue的插槽如何使用呢 来看看吧">
+<meta property="og:description" content="引言：  安装java环境 认识java整个生态体系">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-26T14:05:17.993Z">
+<meta property="og:updated_time" content="2019-08-11T09:23:59.844Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="23.Vue插槽">
-<meta name="twitter:description" content="引言:  Vue的插槽如何使用呢 来看看吧">
+<meta name="twitter:title" content="Java生态体系">
+<meta name="twitter:description" content="引言：  安装java环境 认识java整个生态体系">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/26/Vue/23-Vue插槽/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/11/Java/Java生态体系/">
 
 
 
 
 
-  <title>23.Vue插槽 | YesYourHighness</title>
+  <title>Java生态体系 | YesYourHighness</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/Vue/23-Vue插槽/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/11/Java/Java生态体系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">23.Vue插槽</h1>
+          <h1 class="post-title" itemprop="name headline">Java生态体系</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T21:59:43+08:00">
-                2019-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-11T17:23:00+08:00">
+                2019-08-11
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
                   </a>
                 </span>
 
@@ -326,8 +326,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
+                  <a href="/categories/后台/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  711
+                  977
                 </span>
               
 
@@ -388,38 +388,109 @@
 
       
         <center>
-引言:
+引言：
 
-<p>Vue的插槽如何使用呢</p>
-<p>来看看吧</p>
+<p>安装java环境</p>
+<p>认识java整个生态体系</p>
 </center>
 
 <a id="more"></a>
 
 <hr>
-<h1 id="Vue插槽"><a href="#Vue插槽" class="headerlink" title="Vue插槽"></a>Vue插槽</h1><p>当我们在开发中，总会有这样的需求</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child content=<span class="string">'&lt;p&gt;我想加这个内容&lt;/p&gt;'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			props:["content"],</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;&lt;p&gt;hello&lt;/</span>p&gt;&#123;&#123;content&#125;&#125;&lt;<span class="regexp">/div&gt;',</span></span><br><span class="line"><span class="regexp">			&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">		let vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#root'</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>Java的名字是一个咖啡的名字，没错，牛人就是这么随意，同样的Python也是起源于一部美剧。</p>
+<p>Sun公司创造了Java，后来Oracle公司收购了Java，我们现在所使用的基本都是Oracle公司的java</p>
+<h2 id="Java环境变量的配置"><a href="#Java环境变量的配置" class="headerlink" title="Java环境变量的配置"></a>Java环境变量的配置</h2><p>去Oracle官网寻找java1.8版本下载</p>
+<p>下载完成后安装</p>
+<ol>
+<li>安装完java后要配置环境变量</li>
+<li>在电脑属性中打开高级系统设置</li>
+<li>再打开环境变量配置</li>
+</ol>
+<p>在环境变量中的系统变量内输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME       C:\xxxxxxjava安装路径</span><br></pre></td></tr></table></figure>
 
-<p>但这样传入content会被转义,即直接显示<code>&lt;p&gt;我想加这个内容&lt;/p&gt;</code></p>
-<p>这显然不是我们想要的</p>
-<p>我们想让他直接的显示出来</p>
-<p>我们之前学过一个指令<code>v-html</code>可以解决这个问题</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">	props:[<span class="string">"content"</span>],</span><br><span class="line">	template:<span class="string">'&lt;div&gt;&lt;p&gt;hello&lt;/p&gt;&lt;div v-html="content"&gt;&lt;/div&gt;&lt;/div&gt;'</span>,</span><br><span class="line">	<span class="comment">//这里使用template站位符没有作用,会导致渲染不出来</span></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<p>再修改一下PATH的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME%\bin;</span><br></pre></td></tr></table></figure>
 
-<p>但是这种方法，还会给外部增加一个div</p>
-<p>Vue提供给我们一个插槽属性来实现这个功能</p>
-<p>使用插槽：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child&gt;</span><br><span class="line">			&lt;p&gt;使用插槽&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">		&lt;/</span>child&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;</span></span><br><span class="line"><span class="regexp">			            &lt;p&gt;hello&lt;/</span>p&gt;</span><br><span class="line">			            &lt;slot&gt;这里还可以添加默认值&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">		            &lt;/</span>div&gt;<span class="string">',</span></span><br><span class="line"><span class="string">			//当没有插入任何值，会启用这个函数</span></span><br><span class="line"><span class="string">			&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		let vm = new Vue(&#123;</span></span><br><span class="line">			el:'#root'</span><br><span class="line">		&#125;)</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
+<p>添加上述即可，注意不要忘记分号</p>
+<h2 id="Java技术体系"><a href="#Java技术体系" class="headerlink" title="Java技术体系"></a>Java技术体系</h2><ol>
+<li>Java设计语言</li>
+<li>各种平台上的Java虚拟机（JVM）</li>
+<li>Java API类库</li>
+<li>一系列的辅助工具，如javac</li>
+<li><code>1+2+3+4</code>=JDK(Java开发最小环境)</li>
+<li><code>2+3</code>=JRE(Java运行最小环境)</li>
+<li>JDK &gt; JRE &gt; JVM</li>
+</ol>
+<h2 id="Java技术体系所划分的三大平台"><a href="#Java技术体系所划分的三大平台" class="headerlink" title="Java技术体系所划分的三大平台"></a>Java技术体系所划分的三大平台</h2><ol>
+<li>JavaSE：标准版的SE，用来开发一些电脑上的桌面软件等等</li>
+<li>JavaEE：企业版的Java，也是我们要一直学习的</li>
+<li>JavaME：微型Java，用来进行嵌入式开发</li>
+</ol>
+<h2 id="JVM-JRE-JDK"><a href="#JVM-JRE-JDK" class="headerlink" title="JVM/JRE/JDK"></a>JVM/JRE/JDK</h2><p>JVM，JRE，JDK傻傻分不清楚，他们到底都是什么东西</p>
+<h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><p>全名：Java Virtual Machine</p>
+<p>翻译就是<strong>java虚拟机</strong>的意思</p>
+<p>运行所有JAVA程序的虚拟计算机，不同的电脑装入不同的虚拟机，</p>
+<p>而JAVA程序就可以实现运行在JVM上面，从而实现跨平台的使用这个程序，</p>
+<p>但是要注意，虚拟机本身不是跨平台</p>
+<h3 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h3><p>全名：Java Runtime Environment</p>
+<p>Java运行时环境</p>
+<p>Java运行时所处于的环境，包含JVM和运行时所需要的核心类库</p>
+<h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><p>全名：Java Development Kit</p>
+<p>Java开发工具包</p>
+<p>开发Java程序所必要的环境</p>
+<h2 id="JavaEE"><a href="#JavaEE" class="headerlink" title="JavaEE"></a>JavaEE</h2><p>学习JavaEE我们都需要学习什么呢</p>
+<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="Spring："><a href="#Spring：" class="headerlink" title="Spring："></a>Spring：</h4><p> 一个开源的应用程序框架，提供了一个简易的开发方式，说的更通俗一点就是由框架来帮你管理这些对象，包括它的创建，销毁</p>
+<p> Spring就像是整个项目中装配bean（javabean是指java中可重复利用的组件）的大工厂，</p>
+<p> 在配置文件中可以指定使用特定的参数去调用实体类的构造方法来实例化对象。</p>
+<h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p><del>Spring+Struct+Hibernate</del>(过时，不学)</p>
+<h4 id="SSM"><a href="#SSM" class="headerlink" title="SSM"></a>SSM</h4><p>SSM指：Spring+SpringMVC+Mybatis</p>
+<ul>
+<li><p><strong>SpringMVC</strong></p>
+<p>  它原生支持的Spring特性，让开发变得非常简单规范。</p>
+<p>  Spring MVC 分离了控制器、模型对象、分派器以及处理程序对象的角色，这种分离让它们更容易进行定制。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>Mybatis</strong></p>
+<p>  可以这么理解，MyBatis是一个用来帮你管理数据增删改查的框架。。
+　　</p>
+<h4 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h4><p>实现自动配置，降低项目搭建的复杂度</p>
+</li>
+</ul>
+<p>初期的Spring通过代码加配置的形式为项目提供了良好的灵活性和扩展性，</p>
+<p>但随着Spring越来越庞大，其配置文件也越来越繁琐，太多复杂的xml文件也一直是Spring被人诟病的地方，</p>
+<p>大家渐渐觉得Spring那一套太过繁琐，</p>
+<p>此时，Spring社区推出了Spring Boot，它的目的在于实现自动配置，降低项目搭建的复杂度</p>
+<h4 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h4><p>一系列框架的有序集合。</p>
+<p>它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发</p>
+<h3 id="各种中间件"><a href="#各种中间件" class="headerlink" title="各种中间件"></a>各种中间件</h3><ul>
+<li>MQ消息队列</li>
+<li>RPC通信框架</li>
+<li>搜索引擎elasticsearch</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
+<li>SQL：MySQL/ Postgre SQL</li>
+<li>NoSQL：Redis Memcacher mongodb elasticserach</li>
+</ul>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><ul>
+<li>分布式/微服务架构</li>
+<li>spring cloud</li>
+<li>dubbo</li>
+<li>rpc通信框架</li>
+</ul>
+<h3 id="虚拟化-容器化技术"><a href="#虚拟化-容器化技术" class="headerlink" title="虚拟化/容器化技术"></a>虚拟化/容器化技术</h3><ul>
+<li>Docker 容器化</li>
+<li>K8S </li>
+</ul>
+<hr>
+<h3 id="源码-性能（难度最高）"><a href="#源码-性能（难度最高）" class="headerlink" title="源码/性能（难度最高）"></a>源码/性能（难度最高）</h3><ul>
+<li>JDK源码以及部分设计思想</li>
+<li>Spring源码</li>
+<li>JVM细节与排错</li>
+<li>高并发/高可用</li>
+</ul>
 
-<p>我们还可以给插槽起名字，像是这个样子:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child&gt;</span><br><span class="line">			&lt;p slot=<span class="string">'name1'</span>&gt;第一个插槽&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">			&lt;p&gt;使用插槽&lt;/</span>p&gt;</span><br><span class="line">			&lt;p slot=<span class="string">'name2'</span>&gt;第二个插槽&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">		&lt;/</span>child&gt;</span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('child',&#123;</span></span><br><span class="line"><span class="regexp">			template:'&lt;div&gt;</span></span><br><span class="line"><span class="regexp">			            &lt;slot name="name1"&gt;默认值1&lt;/</span>slot&gt;</span><br><span class="line">			            &lt;p&gt;hello&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">			            &lt;slot name="name2"&gt;默认值2&lt;/</span>slot&gt;</span><br><span class="line">		            &lt;<span class="regexp">/div&gt;',</span></span><br><span class="line"><span class="regexp">			&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">		let vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">			el:'#root'</span></span><br><span class="line"><span class="regexp">		&#125;)</span></span><br><span class="line"><span class="regexp">	&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Vue的作用域插槽"><a href="#Vue的作用域插槽" class="headerlink" title="Vue的作用域插槽"></a>Vue的作用域插槽</h1><p>当我们想在子组件渲染循环</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">	data()&#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			list: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	template:<span class="string">'&lt;div&gt;&lt;li v-for="item of list"&gt;&#123;&#123;item&#125;&#125;&lt;/li&gt;&lt;/div&gt;'</span>,</span><br><span class="line">		&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>但我们可能不想循环<code>&lt;li&gt;</code>标签，我们想让外部决定怎么渲染</p>
-<p>这时我们就需要用到作用域插槽</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"root"</span>&gt;</span><br><span class="line">		&lt;child&gt;</span><br><span class="line">			&lt;template slot-scope=<span class="string">'props'</span>&gt;</span><br><span class="line">				&lt;h1&gt;&#123;&#123;props.item&#125;&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">				&lt;!--传过来的内容存入了props内--&gt;</span></span><br><span class="line"><span class="regexp">			&lt;/</span>template&gt;</span><br><span class="line">		&lt;<span class="regexp">/child&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		Vue.component(<span class="string">'child'</span>,&#123;</span><br><span class="line">			data()&#123;</span><br><span class="line">				<span class="keyword">return</span> &#123;</span><br><span class="line">					list: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			template:<span class="string">'&lt;div&gt;&lt;slot v-for="item of list" :item=item &gt;&#123;&#123;item&#125;&#125;&lt;/slot&gt;&lt;/div&gt;'</span>,</span><br><span class="line">			<span class="comment">//这里想插槽内传入想要他显示的内容</span></span><br><span class="line">			&#125;)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">			el:<span class="string">'#root'</span></span><br><span class="line">		&#125;)</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -446,7 +517,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
         </div>
       
@@ -459,8 +530,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/26/Vue/22-如何给组件编写原生事件/" rel="next" title="22.如何给组件编写原生事件">
-                <i class="fa fa-chevron-left"></i> 22.如何给组件编写原生事件
+              <a href="/2019/08/11/Java/认识Java-6/" rel="next" title="认识Java-6">
+                <i class="fa fa-chevron-left"></i> 认识Java-6
               </a>
             
           </div>
@@ -468,10 +539,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/26/Vue/24-动态组件与v-once指令/" rel="prev" title="24.动态组件与v-once指令">
-                24.动态组件与v-once指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue插槽"><span class="nav-number">1.</span> <span class="nav-text">Vue插槽</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue的作用域插槽"><span class="nav-number">2.</span> <span class="nav-text">Vue的作用域插槽</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java"><span class="nav-number">1.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java环境变量的配置"><span class="nav-number">1.1.</span> <span class="nav-text">Java环境变量的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java技术体系"><span class="nav-number">1.2.</span> <span class="nav-text">Java技术体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java技术体系所划分的三大平台"><span class="nav-number">1.3.</span> <span class="nav-text">Java技术体系所划分的三大平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-JRE-JDK"><span class="nav-number">1.4.</span> <span class="nav-text">JVM/JRE/JDK</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM"><span class="nav-number">1.4.1.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JRE"><span class="nav-number">1.4.2.</span> <span class="nav-text">JRE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK"><span class="nav-number">1.4.3.</span> <span class="nav-text">JDK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaEE"><span class="nav-number">1.5.</span> <span class="nav-text">JavaEE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#框架"><span class="nav-number">1.5.1.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring："><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Spring：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSM"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">SSM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringBoot"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">SpringBoot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringCloud"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">SpringCloud</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种中间件"><span class="nav-number">1.5.2.</span> <span class="nav-text">各种中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">1.5.3.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">1.5.4.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟化-容器化技术"><span class="nav-number">1.5.5.</span> <span class="nav-text">虚拟化/容器化技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码-性能（难度最高）"><span class="nav-number">1.5.6.</span> <span class="nav-text">源码/性能（难度最高）</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
