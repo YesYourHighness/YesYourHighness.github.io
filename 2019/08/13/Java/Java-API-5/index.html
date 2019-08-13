@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,">
+  <meta name="keywords" content="Java,JavaAPI,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言：  安装java环境 认识java整个生态体系">
-<meta name="keywords" content="Java">
+<meta name="description" content="引言：  System类 StringBuilder类">
+<meta name="keywords" content="Java,JavaAPI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java生态体系">
-<meta property="og:url" content="http://yoursite.com/2019/08/11/Java/Java生态体系/index.html">
+<meta property="og:title" content="Java-API-5">
+<meta property="og:url" content="http://yoursite.com/2019/08/13/Java/Java-API-5/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  安装java环境 认识java整个生态体系">
+<meta property="og:description" content="引言：  System类 StringBuilder类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-11T09:23:59.844Z">
+<meta property="og:updated_time" content="2019-08-13T07:53:37.337Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java生态体系">
-<meta name="twitter:description" content="引言：  安装java环境 认识java整个生态体系">
+<meta name="twitter:title" content="Java-API-5">
+<meta name="twitter:description" content="引言：  System类 StringBuilder类">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/11/Java/Java生态体系/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/13/Java/Java-API-5/">
 
 
 
 
 
-  <title>Java生态体系 | YesYourHighness</title>
+  <title>Java-API-5 | YesYourHighness</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/11/Java/Java生态体系/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/Java/Java-API-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java生态体系</h1>
+          <h1 class="post-title" itemprop="name headline">Java-API-5</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-11T17:23:00+08:00">
-                2019-08-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T15:52:19+08:00">
+                2019-08-13
               </time>
             
 
@@ -362,7 +362,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  977
+                  852
                 </span>
               
 
@@ -390,106 +390,52 @@
         <center>
 引言：
 
-<p>安装java环境</p>
-<p>认识java整个生态体系</p>
+<p>System类</p>
+<p>StringBuilder类</p>
 </center>
 
 <a id="more"></a>
 
 <hr>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>Java的名字是一个咖啡的名字，没错，牛人就是这么随意，同样的Python也是起源于一部美剧。</p>
-<p>Sun公司创造了Java，后来Oracle公司收购了Java，我们现在所使用的基本都是Oracle公司的java</p>
-<h2 id="Java环境变量的配置"><a href="#Java环境变量的配置" class="headerlink" title="Java环境变量的配置"></a>Java环境变量的配置</h2><p>去Oracle官网寻找java1.8版本下载</p>
-<p>下载完成后安装</p>
-<ol>
-<li>安装完java后要配置环境变量</li>
-<li>在电脑属性中打开高级系统设置</li>
-<li>再打开环境变量配置</li>
-</ol>
-<p>在环境变量中的系统变量内输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME       C:\xxxxxxjava安装路径</span><br></pre></td></tr></table></figure>
+<h1 id="System"><a href="#System" class="headerlink" title="System"></a>System</h1><p>System 类包含一些有用的类字段和方法。</p>
+<p>它不能被实例化。 </p>
+<p>在 System 类提供的设施中，有标准输入、标准输出和错误输出流；</p>
+<p>对外部定义的属性和环境变量的访问；加载文件和库的方法；还有快速复制数组的一部分的实用方法。 </p>
+<h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang</span><br></pre></td></tr></table></figure>
 
-<p>再修改一下PATH的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME%\bin;</span><br></pre></td></tr></table></figure>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p>不能实例化</p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">currentTimeMillis</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回以毫秒为单位的当前时间</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">arraycopy</span><span class="params">(Object src,<span class="keyword">int</span> srcPos,Object dest,<span class="keyword">int</span> destPos,<span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"><span class="comment">//从指定源数组中复制一个数组，复制从指定的位置开始，到目标数组的指定位置结束</span></span></span><br><span class="line"><span class="function"><span class="comment">//五个参数:src(源数组),srcPos(源数组的起始位置),dest(目标数组),destPos(目标数组中的起始位置),length(要复制的数组元素的数量)</span></span></span><br></pre></td></tr></table></figure>
 
-<p>添加上述即可，注意不要忘记分号</p>
-<h2 id="Java技术体系"><a href="#Java技术体系" class="headerlink" title="Java技术体系"></a>Java技术体系</h2><ol>
-<li>Java设计语言</li>
-<li>各种平台上的Java虚拟机（JVM）</li>
-<li>Java API类库</li>
-<li>一系列的辅助工具，如javac</li>
-<li><code>1+2+3+4</code>=JDK(Java开发最小环境)</li>
-<li><code>2+3</code>=JRE(Java运行最小环境)</li>
-<li>JDK &gt; JRE &gt; JVM</li>
-</ol>
-<h2 id="Java技术体系所划分的三大平台"><a href="#Java技术体系所划分的三大平台" class="headerlink" title="Java技术体系所划分的三大平台"></a>Java技术体系所划分的三大平台</h2><ol>
-<li>JavaSE：标准版的SE，用来开发一些电脑上的桌面软件等等</li>
-<li>JavaEE：企业版的Java，也是我们要一直学习的</li>
-<li>JavaME：微型Java，用来进行嵌入式开发</li>
-</ol>
-<h2 id="JVM-JRE-JDK"><a href="#JVM-JRE-JDK" class="headerlink" title="JVM/JRE/JDK"></a>JVM/JRE/JDK</h2><p>JVM，JRE，JDK傻傻分不清楚，他们到底都是什么东西</p>
-<h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><p>全名：Java Virtual Machine</p>
-<p>翻译就是<strong>java虚拟机</strong>的意思</p>
-<p>运行所有JAVA程序的虚拟计算机，不同的电脑装入不同的虚拟机，</p>
-<p>而JAVA程序就可以实现运行在JVM上面，从而实现跨平台的使用这个程序，</p>
-<p>但是要注意，虚拟机本身不是跨平台</p>
-<h3 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h3><p>全名：Java Runtime Environment</p>
-<p>Java运行时环境</p>
-<p>Java运行时所处于的环境，包含JVM和运行时所需要的核心类库</p>
-<h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><p>全名：Java Development Kit</p>
-<p>Java开发工具包</p>
-<p>开发Java程序所必要的环境</p>
-<h2 id="JavaEE"><a href="#JavaEE" class="headerlink" title="JavaEE"></a>JavaEE</h2><p>学习JavaEE我们都需要学习什么呢</p>
-<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><h4 id="Spring："><a href="#Spring：" class="headerlink" title="Spring："></a>Spring：</h4><p> 一个开源的应用程序框架，提供了一个简易的开发方式，说的更通俗一点就是由框架来帮你管理这些对象，包括它的创建，销毁</p>
-<p> Spring就像是整个项目中装配bean（javabean是指java中可重复利用的组件）的大工厂，</p>
-<p> 在配置文件中可以指定使用特定的参数去调用实体类的构造方法来实例化对象。</p>
-<h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p><del>Spring+Struct+Hibernate</del>(过时，不学)</p>
-<h4 id="SSM"><a href="#SSM" class="headerlink" title="SSM"></a>SSM</h4><p>SSM指：Spring+SpringMVC+Mybatis</p>
-<ul>
-<li><p><strong>SpringMVC</strong></p>
-<p>  它原生支持的Spring特性，让开发变得非常简单规范。</p>
-<p>  Spring MVC 分离了控制器、模型对象、分派器以及处理程序对象的角色，这种分离让它们更容易进行定制。</p>
+<h1 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h1><p>String类是一个常量，他们的值在创建以后不能更改</p>
+<p>而字符串缓冲区支持可变的字符串——StringBuider类</p>
+<p>可以提高字符串的操作效率</p>
+<h2 id="String类和StringBuilder类的区别"><a href="#String类和StringBuilder类的区别" class="headerlink" title="String类和StringBuilder类的区别"></a>String类和StringBuilder类的区别</h2><ul>
+<li><p>String类</p>
+<p>  字符串是一个常量，他们的值在创建之后不能再更改，字符串的底层是一个被final修饰的数组，不能改变，是一个常量<code>private final byte[] value</code></p>
+<p>  比如说进行一个字符串的加减<code>String s = &quot;a&quot; + &quot;b&quot; + &quot;c&quot; = &quot;abc&quot;</code></p>
+<p>  在这个过程中，会出现五个字符串<br>  “a” “b” “c” “ab” “abc”</p>
+<p>  这样大大的占用了空间</p>
+</li>
+<li><p>StringBuilder类</p>
+<p>  是一个字符串的缓冲区，可以提高字符串的操作效率，可以看成一个长度可以变化的字符串，底层也是一个数组，但是没有被final修饰<br>  <code>byte[] value = new byte[16]</code></p>
+<p>  StringBuilder类在内存中始终是一个数组，占用空间少，效率高</p>
+<p>  如果超出了StringBuilder的容量，就会自动的扩容</p>
 </li>
 </ul>
-<ul>
-<li><p><strong>Mybatis</strong></p>
-<p>  可以这么理解，MyBatis是一个用来帮你管理数据增删改查的框架。。
-　　</p>
-<h4 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h4><p>实现自动配置，降低项目搭建的复杂度</p>
-</li>
-</ul>
-<p>初期的Spring通过代码加配置的形式为项目提供了良好的灵活性和扩展性，</p>
-<p>但随着Spring越来越庞大，其配置文件也越来越繁琐，太多复杂的xml文件也一直是Spring被人诟病的地方，</p>
-<p>大家渐渐觉得Spring那一套太过繁琐，</p>
-<p>此时，Spring社区推出了Spring Boot，它的目的在于实现自动配置，降低项目搭建的复杂度</p>
-<h4 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h4><p>一系列框架的有序集合。</p>
-<p>它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发</p>
-<h3 id="各种中间件"><a href="#各种中间件" class="headerlink" title="各种中间件"></a>各种中间件</h3><ul>
-<li>MQ消息队列</li>
-<li>RPC通信框架</li>
-<li>搜索引擎elasticsearch</li>
-</ul>
-<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
-<li>SQL：MySQL/ Postgre SQL</li>
-<li>NoSQL：Redis Memcacher mongodb elasticserach</li>
-</ul>
-<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><ul>
-<li>分布式/微服务架构</li>
-<li>spring cloud</li>
-<li>dubbo</li>
-<li>rpc通信框架</li>
-</ul>
-<h3 id="虚拟化-容器化技术"><a href="#虚拟化-容器化技术" class="headerlink" title="虚拟化/容器化技术"></a>虚拟化/容器化技术</h3><ul>
-<li>Docker 容器化</li>
-<li>K8S </li>
-</ul>
-<hr>
-<h3 id="源码-性能（难度最高）"><a href="#源码-性能（难度最高）" class="headerlink" title="源码/性能（难度最高）"></a>源码/性能（难度最高）</h3><ul>
-<li>JDK源码以及部分设计思想</li>
-<li>Spring源码</li>
-<li>JVM细节与排错</li>
-<li>高并发/高可用</li>
-</ul>
+<h2 id="包路径-1"><a href="#包路径-1" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang</span><br></pre></td></tr></table></figure>
+
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringBuilder</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//构造一个不带任何字符的字符串生成器，其初始容量为 16 个字符。 </span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringBuilder</span><span class="params">(String str)</span></span></span><br><span class="line"><span class="function"><span class="comment">//构造一个字符串生成器，并初始化为指定的字符串内容。该字符串生成器的初始容量为 16 加上字符串参数的长度。</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">append</span><span class="params">(<span class="keyword">boolean</span> b)</span></span></span><br><span class="line"><span class="function"><span class="comment">//参数可以是任意类型，有多个重载函数</span></span></span><br><span class="line"><span class="function"><span class="comment">//将 boolean 参数的字符串表示形式追加到序列,</span></span></span><br><span class="line"><span class="function"><span class="comment">//参数将被转换成字符串,将所得字符串中的字符追加到此序列。 </span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回此序列中数据的字符串表示形式</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder builder1 = <span class="keyword">new</span> StringBuilder();<span class="comment">//空参构造</span></span><br><span class="line">System.out.println(builder1);<span class="comment">// 空</span></span><br><span class="line">StringBuilder builder2 = <span class="keyword">new</span> StringBuilder(<span class="string">"abc"</span>);<span class="comment">//有参构造</span></span><br><span class="line">System.out.println(builder2);<span class="comment">//abc</span></span><br></pre></td></tr></table></figure>
+
+<p>常用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用append方法象棋中添加数据,</span></span><br><span class="line"><span class="comment">// append返回值是一个this,即返回调用方法的对象，</span></span><br><span class="line"><span class="comment">// 所以我们使用append方法不需要接收返回值</span></span><br><span class="line">builder1.append(<span class="number">15</span>);<span class="comment">//int类型</span></span><br><span class="line">builder1.append(<span class="string">"你好"</span>);<span class="comment">//字符串</span></span><br><span class="line">System.out.println(builder1);<span class="comment">//15你好</span></span><br><span class="line"><span class="comment">//可以链式编程</span></span><br><span class="line">builder1.append(<span class="number">2019</span>).append(<span class="keyword">true</span>).append(<span class="string">"链式编程"</span>);</span><br><span class="line">System.out.println(builder1);<span class="comment">//15你好2019true链式编程</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//StringBuilder类可以和String相互转换</span></span><br><span class="line"><span class="comment">//String-&gt;StringBuilder可以使用StringBuilder方法</span></span><br><span class="line">String str1 = builder1.toString();</span><br><span class="line">System.out.println(str1);<span class="comment">//15你好2019true连式编程</span></span><br><span class="line"><span class="comment">//StringBuilder-&gt;String使用StringBuilder方法</span></span><br><span class="line">String str2 = <span class="string">"字符串"</span>;</span><br><span class="line">StringBuilder builder3 = <span class="keyword">new</span> StringBuilder(str2).append(<span class="string">"world"</span>);</span><br><span class="line">System.out.println(builder3);<span class="comment">//字符串world</span></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -519,6 +465,8 @@
           
             <a href="/tags/Java/" rel="tag"># Java</a>
           
+            <a href="/tags/JavaAPI/" rel="tag"># JavaAPI</a>
+          
         </div>
       
 
@@ -530,8 +478,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/11/Java/认识Java-6/" rel="next" title="认识Java-6">
-                <i class="fa fa-chevron-left"></i> 认识Java-6
+              <a href="/2019/08/13/Java/Java-API-4/" rel="next" title="Java-API-4">
+                <i class="fa fa-chevron-left"></i> Java-API-4
               </a>
             
           </div>
@@ -539,10 +487,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/11/Java/Java-API-1/" rel="prev" title="Java-API-1">
-                Java-API-1 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -676,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java"><span class="nav-number">1.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java环境变量的配置"><span class="nav-number">1.1.</span> <span class="nav-text">Java环境变量的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java技术体系"><span class="nav-number">1.2.</span> <span class="nav-text">Java技术体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java技术体系所划分的三大平台"><span class="nav-number">1.3.</span> <span class="nav-text">Java技术体系所划分的三大平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-JRE-JDK"><span class="nav-number">1.4.</span> <span class="nav-text">JVM/JRE/JDK</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM"><span class="nav-number">1.4.1.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JRE"><span class="nav-number">1.4.2.</span> <span class="nav-text">JRE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK"><span class="nav-number">1.4.3.</span> <span class="nav-text">JDK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaEE"><span class="nav-number">1.5.</span> <span class="nav-text">JavaEE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#框架"><span class="nav-number">1.5.1.</span> <span class="nav-text">框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring："><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Spring：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSM"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">SSM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringBoot"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">SpringBoot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringCloud"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">SpringCloud</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种中间件"><span class="nav-number">1.5.2.</span> <span class="nav-text">各种中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">1.5.3.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">1.5.4.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟化-容器化技术"><span class="nav-number">1.5.5.</span> <span class="nav-text">虚拟化/容器化技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码-性能（难度最高）"><span class="nav-number">1.5.6.</span> <span class="nav-text">源码/性能（难度最高）</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#System"><span class="nav-number">1.</span> <span class="nav-text">System</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径"><span class="nav-number">1.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造方法"><span class="nav-number">1.2.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法"><span class="nav-number">1.3.</span> <span class="nav-text">常用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StringBuilder"><span class="nav-number">2.</span> <span class="nav-text">StringBuilder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String类和StringBuilder类的区别"><span class="nav-number">2.1.</span> <span class="nav-text">String类和StringBuilder类的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径-1"><span class="nav-number">2.2.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">2.3.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法-1"><span class="nav-number">2.4.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例代码"><span class="nav-number">2.5.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></div>
             
 
           </div>
