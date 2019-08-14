@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：  List接口及其子类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-14T09:19:43.464Z">
+<meta property="og:updated_time" content="2019-08-14T09:27:57.857Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA-集合-4">
 <meta name="twitter:description" content="引言：  List接口及其子类">
@@ -413,13 +413,7 @@
 
 <h2 id="常见报错"><a href="#常见报错" class="headerlink" title="常见报错"></a>常见报错</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IndexOutofBoundsException<span class="comment">//索引越界异常，集合会报</span></span><br><span class="line">ArrayIndexOutofBoundsException<span class="comment">//数组索引越界异常</span></span><br><span class="line">StringIndexOutOfBoundsException<span class="comment">//字符串索引越界异常</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h1><p>ArrayList<e></e></p>
-<p>底层是数组的复制，</p>
-<p>我们只有在需要快速的查询时调用ArrayList效率才会高。</p>
-<p>实现了<strong>可变数组</strong></p>
-<h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.util</span><br></pre></td></tr></table></figure>
-
-<h1 id="ArrayList-1"><a href="#ArrayList-1" class="headerlink" title="ArrayList"></a>ArrayList<e></e></h1><p>List 接口的大小可变数组的实现。</p>
+<h1 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList<e></e></h1><p>List 接口的大小可变数组的实现。</p>
 <p>实现了所有可选列表操作，并允许包括 null 在内的所有元素。</p>
 <p>除了实现 List接口外，此类还提供一些方法来操作内部用来存储列表的数组的大小</p>
 <p>尖括号内的E叫做<strong>泛型</strong>，装在该集合当中的所有元素都必须是统一的类型</p>
@@ -444,7 +438,7 @@
 <h1 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h1><p>底层是一个双向列表，</p>
 <p>查询慢，增删快，多线程</p>
 <p>也有list的三个特点(有序，可索引，可重复)</p>
-<h2 id="包路径-1"><a href="#包路径-1" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.util</span><br></pre></td></tr></table></figure>
+<h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.util</span><br></pre></td></tr></table></figure>
 
 <h2 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h2><p>添加方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFirst</span><span class="params">(E e)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将指定元素插入此列表的开头</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addLast</span><span class="params">(E e)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将指定元素添加到此列表的结尾</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(E e)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将元素推入此列表所表示的堆栈。换句话说，将该元素插入此列表的开头,同addFirst</span></span></span><br></pre></td></tr></table></figure>
@@ -647,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#List集合"><span class="nav-number">1.</span> <span class="nav-text">List集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集合关系图"><span class="nav-number">1.1.</span> <span class="nav-text">集合关系图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">1.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法"><span class="nav-number">1.3.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见报错"><span class="nav-number">1.4.</span> <span class="nav-text">常见报错</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList"><span class="nav-number">2.</span> <span class="nav-text">ArrayList</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径"><span class="nav-number">2.1.</span> <span class="nav-text">包路径</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList-1"><span class="nav-number">3.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinkedList"><span class="nav-number">4.</span> <span class="nav-text">LinkedList</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径-1"><span class="nav-number">4.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法-1"><span class="nav-number">4.2.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例代码"><span class="nav-number">4.3.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vector"><span class="nav-number">5.</span> <span class="nav-text">Vector</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#List集合"><span class="nav-number">1.</span> <span class="nav-text">List集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集合关系图"><span class="nav-number">1.1.</span> <span class="nav-text">集合关系图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">1.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法"><span class="nav-number">1.3.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见报错"><span class="nav-number">1.4.</span> <span class="nav-text">常见报错</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList"><span class="nav-number">2.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinkedList"><span class="nav-number">3.</span> <span class="nav-text">LinkedList</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径"><span class="nav-number">3.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法-1"><span class="nav-number">3.2.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例代码"><span class="nav-number">3.3.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vector"><span class="nav-number">4.</span> <span class="nav-text">Vector</span></a></li></ol></div>
             
 
           </div>
@@ -681,7 +675,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.5k</span>
+    <span title="Site words total count">56.9k</span>
   
 </div>
 

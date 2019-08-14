@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Java,Java集合,">
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="A blog about IT knowledge">
+<meta name="description" content="引言：  数据结构介绍">
+<meta name="keywords" content="Java,Java集合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA-集合-3">
 <meta property="og:url" content="http://yoursite.com/2019/08/14/Java/JAVA-集合-3/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="A blog about IT knowledge">
+<meta property="og:description" content="引言：  数据结构介绍">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-14T09:17:11.873Z">
+<meta property="og:updated_time" content="2019-08-14T09:26:15.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA-集合-3">
-<meta name="twitter:description" content="A blog about IT knowledge">
+<meta name="twitter:description" content="引言：  数据结构介绍">
 
 
 
@@ -302,6 +303,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -328,7 +362,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  458
                 </span>
               
 
@@ -353,7 +387,55 @@
       
 
       
-        
+        <center>
+引言：
+
+<p>数据结构介绍</p>
+</center>
+
+<a id="more"></a>
+
+<hr>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h2><p>先进后出</p>
+<p>只有一个口，最先进去的，最后才能出去</p>
+<p>类似于手枪弹夹</p>
+<h2 id="队列-quene"><a href="#队列-quene" class="headerlink" title="队列(quene)"></a>队列(quene)</h2><p>先进先出</p>
+<p>有一个入口一个出口，先进去的先出去</p>
+<h2 id="数组-array"><a href="#数组-array" class="headerlink" title="数组(array)"></a>数组(array)</h2><p>查询快，增删慢</p>
+<p>查询快：</p>
+<p>数组的地址是连续的，我们通过数组的首地址可以找到数组，通过数组的索引值可以快速的找到某一个元素</p>
+<p>增删慢：</p>
+<p>数组的长度是固定的，我们增删一个元素，必须创建一个新的数组，把原数组的数据复制过来，而原数组会被垃圾回收</p>
+<h2 id="链表-linked-list"><a href="#链表-linked-list" class="headerlink" title="链表(linked list)"></a>链表(linked list)</h2><p>查询慢，增删快</p>
+<p>查询慢: 链表的地址不是连续的，每次查询元素必须从头开始</p>
+<p>增删快：链表结构增删一个元素，对整体没有影响</p>
+<p>链表的每一个元素称之为一个<strong>节点</strong>,</p>
+<p>一个节点包括三个部分(自己的地址+数据+下一个节点的地址)</p>
+<h3 id="链表分为两种："><a href="#链表分为两种：" class="headerlink" title="链表分为两种："></a>链表分为两种：</h3><ul>
+<li><p>单向列表</p>
+<p>  链表中只有一条链子，不能保证元素的顺序（存储元素和去除元素的顺序有可能不一致）</p>
+</li>
+<li><p>双向列表</p>
+<p>  链表中有两条链子，一条专门记录元素的顺序，一条是一个有序的集合</p>
+</li>
+</ul>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>特点：趋于平衡的树，查询的速度非常快</p>
+<p>约束：</p>
+<ol>
+<li><p>节点可以是红色也可以是黑色</p>
+</li>
+<li><p>根节点是黑色</p>
+</li>
+<li><p>叶子结点（空节点）是黑色</p>
+</li>
+<li><p>每个红色的节点的子节点都是黑色的</p>
+</li>
+<li><p>任何一个节点到其每一个叶子结点的路径上黑色节点相同<br>类似于这种结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">B--&gt;A</span><br><span class="line">C--&gt;A</span><br><span class="line">D--&gt;B</span><br><span class="line">E--&gt;B</span><br><span class="line">F--&gt;C</span><br><span class="line">G--&gt;C</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
       
     </div>
     
@@ -377,6 +459,14 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Java集合/" rel="tag"># Java集合</a>
+          
+        </div>
       
 
       
@@ -451,8 +541,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -515,6 +614,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈-stack"><span class="nav-number">1.1.</span> <span class="nav-text">栈(stack)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列-quene"><span class="nav-number">1.2.</span> <span class="nav-text">队列(quene)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组-array"><span class="nav-number">1.3.</span> <span class="nav-text">数组(array)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表-linked-list"><span class="nav-number">1.4.</span> <span class="nav-text">链表(linked list)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表分为两种："><span class="nav-number">1.4.1.</span> <span class="nav-text">链表分为两种：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">1.5.</span> <span class="nav-text">红黑树</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -542,7 +657,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.5k</span>
+    <span title="Site words total count">56.9k</span>
   
 </div>
 
