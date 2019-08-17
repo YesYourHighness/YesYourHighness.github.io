@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Vue,">
+  <meta name="keywords" content="Java,Java异常,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言：  介绍Vue中有关CSS与Style绑定的基本知识， 加油加油！！">
-<meta name="keywords" content="Vue">
+<meta name="description" content="引言：  异常是什么？ 怎么处理异常？">
+<meta name="keywords" content="Java,Java异常">
 <meta property="og:type" content="article">
-<meta property="og:title" content="08.Vue基本语法介绍五">
-<meta property="og:url" content="http://yoursite.com/2019/07/20/Vue/08-Vue基本语法介绍五/index.html">
+<meta property="og:title" content="Java-异常">
+<meta property="og:url" content="http://yoursite.com/2019/08/17/Java/Java-异常/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  介绍Vue中有关CSS与Style绑定的基本知识， 加油加油！！">
+<meta property="og:description" content="引言：  异常是什么？ 怎么处理异常？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-24T13:45:03.705Z">
+<meta property="og:updated_time" content="2019-08-17T13:41:01.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="08.Vue基本语法介绍五">
-<meta name="twitter:description" content="引言：  介绍Vue中有关CSS与Style绑定的基本知识， 加油加油！！">
+<meta name="twitter:title" content="Java-异常">
+<meta name="twitter:description" content="引言：  异常是什么？ 怎么处理异常？">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/20/Vue/08-Vue基本语法介绍五/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/17/Java/Java-异常/">
 
 
 
 
 
-  <title>08.Vue基本语法介绍五 | YesYourHighness</title>
+  <title>Java-异常 | YesYourHighness</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/20/Vue/08-Vue基本语法介绍五/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/17/Java/Java-异常/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">08.Vue基本语法介绍五</h1>
+          <h1 class="post-title" itemprop="name headline">Java-异常</h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T21:56:38+08:00">
-                2019-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-17T21:39:11+08:00">
+                2019-08-17
               </time>
             
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/后台/" itemprop="url" rel="index">
+                    <span itemprop="name">后台</span>
                   </a>
                 </span>
 
@@ -358,8 +358,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
+                  <a href="/categories/后台/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  784
+                  2k
                 </span>
               
 
@@ -422,70 +422,125 @@
         <center>
 引言：
 
-<p>介绍Vue中有关CSS与Style绑定的基本知识，</p>
-<p>加油加油！！</p>
+<p>异常是什么？</p>
+<p>怎么处理异常？</p>
 </center>
+
 <a id="more"></a>
 
 <hr>
-<h1 id="CSS与Style绑定"><a href="#CSS与Style绑定" class="headerlink" title="CSS与Style绑定"></a>CSS与Style绑定</h1><h2 id="绑定HTML-Class"><a href="#绑定HTML-Class" class="headerlink" title="绑定HTML Class"></a>绑定HTML Class</h2><h4 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h4><p>我们可以动态的切换class</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><p>在程序执行的过程中，出现的非正常的情况，导致JVM非正常停止</p>
+<p>异常本身是一个类，产生异常就是创建异常对象并抛出了一个异常对象，java处理的方式是中断处理。</p>
+<p>异常不是语法错误！！</p>
+<p>异常体系：</p>
+<p>异常的最顶层的父类<code>java.lang.Throwable</code></p>
+<p>子类：<code>java.lang.Error</code>与<code>java.lang.Exception</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">Error--&gt;Throwable</span><br><span class="line">Exception--&gt;Throwable</span><br><span class="line">RuntimeException--&gt;Exception</span><br></pre></td></tr></table></figure>
 
-<p>表示：active这个class存在与否将取决于数据属性<strong>isActive</strong>的<strong>真值</strong></p>
-<p>记住形式<code>:class=&#39;{active: isActive}&#39;</code></p>
-<p>多个值的切换</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">  <span class="attr">class</span>=<span class="string">"static"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h2><p>第一种：抛出，交给虚拟机处理</p>
+<p>虚拟机的处理方式：中断处理，把异常打印在控制台上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ParseException </span>&#123;</span><br><span class="line">    SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd"</span>);</span><br><span class="line">    Date date = sdf.parse(<span class="string">"1999-09-09"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  isActive: true,</span><br><span class="line">  hasError: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二种：try/catch<br>优点：程序抛出错误后，还可以继续运行。</p>
+<p>Error的问题必须修改代码</p>
+<h2 id="异常产生的过程"><a href="#异常产生的过程" class="headerlink" title="异常产生的过程"></a>异常产生的过程</h2><p>第一步：</p>
+<p>在遇到不正常的情况时，jvm会做两件事情</p>
+<ol>
+<li>根据异常产生的原因创建一个异常对象，这个对象包含了一场产生的内容，原因，位置</li>
+<li>在出现异常的方法中，没有异常的处理逻辑（没有<code>try/catch</code>），那么jvm就会把异常调出给方法的调用者，main方法来处理这个异常</li>
+</ol>
+<p>第二步：</p>
+<p>如果main无法处理这个异常，则会把异常抛出给main方法的调用者——jvm；</p>
+<p>第三步：</p>
+<p>JVM接受到这个异常，继续做两件事情</p>
+<ol>
+<li>打印异常</li>
+<li>JVM中止当前的java程序——中断处理</li>
+</ol>
+<h2 id="异常的处理"><a href="#异常的处理" class="headerlink" title="异常的处理"></a>异常的处理</h2><p>五个关键字：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> <span class="keyword">catch</span> <span class="keyword">finally</span> <span class="keyword">throw</span>	<span class="keyword">throws</span></span><br></pre></td></tr></table></figure>
 
-<p>结果就是</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static active"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="throw"><a href="#throw" class="headerlink" title="throw"></a>throw</h3><p>可以抛出指定的异常<br><code>throw new xxException(&quot;异常产生原因&quot;)</code><br>注意：</p>
+<ol>
+<li><code>throw</code>关键字必须写在方法的内部</li>
+<li><code>throw</code>关键字后边<code>new</code>的对象必须是<code>Exception</code>或者是<code>Exception</code>的子类对象</li>
+<li><code>throw</code>关键字抛出指定的异常对象，我们就必须处理这个异常对象<ol>
+<li><code>throw</code>关键字后边创建的如果是<code>RuntimeException</code>或者是<code>RuntimeException</code>的子类对象，我们可以不处理，默认交给jvm处理（打印异常对象，中断程序）</li>
+<li><code>throw</code>关键字后边创建的如果是编译异常，我们必须处理这个异常，要么<code>throws</code>要么<code>try/catch</code></li>
+</ol>
+</li>
+<li>空指针异常<code>NullPointexception</code>是一个运行期异常，我们不必处理</li>
+<li><code>ArrayIndexOutOfBoundsException</code>也是一个运行期异常</li>
+</ol>
+<p>注意：</p>
+<p>工作中我们要对传递过来的参数进行合法性校验，</p>
+<p>如果参数不合适，那么我们就必须使用异常给定方式，告知方法的调用者，传递的参数有问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span>[]arr,<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"传递的数组的值是空"</span>);</span><br><span class="line">    <span class="keyword">if</span>(index&lt;<span class="number">0</span>||index&gt;arr.length-<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException(<span class="string">"超出范围"</span>);</span><br><span class="line">    System.out.println(arr[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>当isActive和hasError发生变化的时候，class列表会相应的更新</p>
-<p>绑定的数据对象可以写在组件里</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  classObject: &#123;</span><br><span class="line">    active: true,</span><br><span class="line">    &apos;text-danger&apos;: false</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="throws"><a href="#throws" class="headerlink" title="throws"></a>throws</h3><p>异常处理的第一种方式：交给别人处理</p>
+<p>作用：</p>
+<p>当方法内部抛出异常对象的时候，我们就必须处理这个异常对象，</p>
+<p>可以使用throws关键字处理异常对象，会把异常对象声明抛出给方法的调用者处理（自己不处理，给别人处理），最终交给JVM处理——中断处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法声明时使用</span></span><br><span class="line">修饰符  返回值类型  方法名（参数）<span class="keyword">throws</span>&#123;</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> xxxException(<span class="string">"产生原因"</span>);</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>还可以绑定一个返回对象的计算属性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div </span><br><span class="line">		id=<span class="string">"demo"</span> </span><br><span class="line">		:<span class="class"><span class="keyword">class</span></span>=<span class="string">'classObject'</span>	</span><br><span class="line">	&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		data:&#123;</span><br><span class="line">			isActive:<span class="literal">true</span>,</span><br><span class="line">			error:<span class="literal">null</span></span><br><span class="line">		&#125;,</span><br><span class="line">		computed:&#123;</span><br><span class="line">			classObject:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">				<span class="keyword">return</span>&#123;</span><br><span class="line">					active: <span class="keyword">this</span>.isActive&amp;&amp;!<span class="keyword">this</span>.error,</span><br><span class="line">					<span class="string">'text-danger'</span>:<span class="keyword">this</span>.error&amp;&amp;<span class="keyword">this</span>.error.type===<span class="string">'fatal'</span></span><br><span class="line">					<span class="comment">//text-danger是bootstrap的一个属性，这里理解原理即可</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>必须写在方法的声明处</li>
+<li>声明的异常必须是<code>Exception</code>或者他的子类</li>
+<li>方法内部如果抛出了多个异常对象，那么<code>throws</code>后边也必须声明多个异常</li>
+<li>如果抛出的异常对象有子父类关系，则只声明父类异常即可</li>
+<li>调用了一个声明抛出异常的方法，我们就必须的处理声明的异常，要么继续使用<code>throws</code>声明抛出，交给方法的调用者处理，最终交给<code>JVM</code>，要么<code>try/catch</code>自己处理异常</li>
+<li><code>FileNotFoundException</code>是编译异常，抛出了编译异常就必须处理这个异常</li>
+<li><code>IOException</code>也是一个编译异常，必须处理</li>
+<li>中断交给异常处理之后不会再执行之后的代码</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    readFile(<span class="string">"d:\\a.txt"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!filename.endsWith(<span class="string">".txt"</span>))&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"文件名后缀不正确"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h4><p>我们可以把一个数组传给v-bind:class</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[activeClass, errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="try-catch"><a href="#try-catch" class="headerlink" title="try/catch"></a>try/catch</h3><p>第二种处理方式：自己处理异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"><span class="comment">//可能产生异常的代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>（</span><br><span class="line"><span class="comment">//这里定义一个异常的变量，用来接收try中抛出的异常对象）&#123;</span></span><br><span class="line"><span class="comment">//异常的处理逻辑，产生异常对象之后，怎么处理异常对象</span></span><br><span class="line"><span class="comment">//一般在工作中会把异常的信息记录到一个日志中</span></span><br><span class="line">&#125;...<span class="keyword">catch</span>可以有多个</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data:&#123;</span><br><span class="line">    activeClass:&apos;active&apos;,</span><br><span class="line">    errorClass:&apos;text-danger&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>try中可能会抛出多个异常对象，那么就可以使用多个catch来处理这些异常对象</li>
+<li>如果try中产生了异常，那么就会执行catch中的异常处理逻辑，执行完毕之后，继续向下执行</li>
+<li>如果try中没有产生异常，则catch中的代码不会执行，将继续执行之后的代码</li>
+<li>catch里面定义的异常变量，如果有子父类关系，那么子类的异常变量必须在上</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//try中放有异常的代码</span></span><br><span class="line">        readFile(<span class="string">"d:\\a.tx"</span>);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">        <span class="comment">//try中抛出什么异常对象，catch就定义什么异常变量用来接收这个异常对象</span></span><br><span class="line">        <span class="comment">//这里放异常的处理逻辑</span></span><br><span class="line">        System.out.println(<span class="string">"传递的文件的后缀不是txt"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"后续会继续执行"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!filename.endsWith(<span class="string">".txt"</span>))&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"文件名后缀不正确"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>渲染为:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'active text-danger'</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h3><p>finally代码块：无论是否出现异常，都要执行</p>
+<p>注意事项：</p>
+<ol>
+<li>不能单独使用</li>
+<li>finally一般用于资源释放（资源回收），无论程序是否出现异常，最后都要资源释放<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">try</span>&#123;</span><br><span class="line">    readFile(<span class="string">"d:\\a.tx"</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">    System.out.println(<span class="string">"传递的文件的后缀不是txt"</span>);</span><br><span class="line">&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">"后续会继续执行"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>要加入条件可以使用三元表达式</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[isActive ? activeClass : '', errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Throwable"><a href="#Throwable" class="headerlink" title="Throwable"></a>Throwable</h1><p>Throwable 类是 Java 语言中所有错误或异常的超类</p>
+<h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang</span><br></pre></td></tr></table></figure>
 
-<p>这样始终有errorClass但是activeClass会根据真值来判断是否添加</p>
-<p>在数组语法中也可以使用对象语法</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[&#123; active: isActive &#125;, errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回此 throwable 的详细消息字符串。</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回此 throwable的简短描述。结果是以下字符串的串联： </span></span></span><br><span class="line"><span class="function"><span class="comment">//此对象的类的 name ": "（冒号和一个空格） 调用此对象 getLocalizedMessage() 方法的结果 </span></span></span><br><span class="line"><span class="function"><span class="comment">//如果 getLocalizedMessage 返回 null，则只返回类名称。</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printStackTrace</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//将此 throwable 及其追踪输出至标准错误流。</span></span></span><br></pre></td></tr></table></figure>
 
-<h4 id="用在组件上"><a href="#用在组件上" class="headerlink" title="用在组件上"></a>用在组件上</h4><p>当在一个自定义组件上使用class属性的时候，这些类将被添加到该组件的根元素上面，这个元素上已经存在的类不会被覆盖</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div id=<span class="string">"demo"</span>&gt;</span><br><span class="line">		&lt;my-component <span class="class"><span class="keyword">class</span></span>=<span class="string">'baz boo'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">		</span></span><br><span class="line"><span class="regexp">	&lt;script&gt;</span></span><br><span class="line"><span class="regexp">		Vue.component('my-component', &#123;</span></span><br><span class="line"><span class="regexp">  			template: '&lt;p class="foo bar"&gt;Hi&lt;/</span>p&gt;<span class="string">'</span></span><br><span class="line"><span class="string">		&#125;)</span></span><br><span class="line"><span class="string">		new Vue(&#123;</span></span><br><span class="line">			el:'#demo'</span><br><span class="line">		&#125;)<span class="comment">//new Vue一定要放在组件注册的后面，否则会显示组件没有注册</span></span><br><span class="line">		</span><br><span class="line">	&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">	</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        readFile(<span class="string">"d:\\a.tx"</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        System.out.println(<span class="string">"传递的文件的后缀不是txt"</span>);</span><br><span class="line">        System.out.println(e.getMessage());<span class="comment">//文件名后缀不正确</span></span><br><span class="line">        System.out.println(e.toString());<span class="comment">//java.io.IOException: 文件名后缀不正确</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="comment">//java.io.IOException: 文件名后缀不正确</span></span><br><span class="line">        <span class="comment">//	at cn.itcast.day04.demo01.demo.readFile(demo.java:22)</span></span><br><span class="line">        <span class="comment">//	at cn.itcast.day04.demo01.demo.main(demo.java:11)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">(String filename)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!filename.endsWith(<span class="string">".txt"</span>)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"文件名后缀不正确"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>HTMl将被渲染为</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"foo bar baz boo"</span>&gt;</span>Hi<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h1><p>Java自带的异常类不够我们使用，我们需要自定义一些异常类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class xxxException extends Exception|RuntimeException&#123;</span><br><span class="line">    //添加一个空参构造</span><br><span class="line">    //添加一个带异常信息的构造方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="绑定内嵌样式"><a href="#绑定内嵌样式" class="headerlink" title="绑定内嵌样式"></a>绑定内嵌样式</h2><h4 id="对象语法-1"><a href="#对象语法-1" class="headerlink" title="对象语法"></a>对象语法</h4><p><code>v-bind:style</code> 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象</p>
-<p>CSS 属性名可以用驼峰式 或 短横线分隔(括号括起来) 来命名</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>自定义异常类一般都是以<code>Exception</code>结尾，说明该类是一个异常类</li>
+<li>自定义异常类，必须得继承<code>Exception</code>或者<code>RuntimeException</code><ol>
+<li><code>Exception</code>:那么自定义的异常类就是一个编译期异常，如果方法内部抛出了异常，就必须处理这个异常，要么<code>throws</code>要么<code>try/catch</code></li>
+<li><code>RuntimeException</code>：那么自定义的异常类就是一个运行期异常，无需处理，交给虚拟机</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterException</span> <span class="keyword">extends</span> <span class="title">Exception</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RegisterException</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="comment">//空参构造</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RegisterException</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(msg);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//一个带异常信息的构造方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  activeColor: <span class="string">'red'</span>,</span><br><span class="line">  fontSize: <span class="number">30</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>直接绑定到一个样式对象上更好</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"styleObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  styleObject: &#123;</span><br><span class="line">    color: <span class="string">'red'</span>,</span><br><span class="line">    fontSize: <span class="string">'13px'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="数组语法-1"><a href="#数组语法-1" class="headerlink" title="数组语法"></a>数组语法</h4><p><code>v-bind:style</code> 的数组语法可以将多个样式对象应用到同一个元素上：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"[baseStyles, overridingStyles]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="多重值"><a href="#多重值" class="headerlink" title="多重值"></a>多重值</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">"&#123; display: ['-webkit-box', '-ms-flexbox', 'flex'] &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这样写只会渲染数组中<strong>最后一个被浏览器支持的值</strong>。在本例中，如果浏览器支持不带浏览器前缀的 flexbox，那么就只会渲染 display: flex。</p>
+<p>所有的异常类都会有一个带异常信息的构造方法，</p>
+<p>方法内部会调用父类带异常信息的构造方法，让父类来处理这个异常信息</p>
+<p>父类错误，子类也会跟着报错，不论子类是否错误</p>
 
       
     </div>
@@ -513,7 +568,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Java异常/" rel="tag"># Java异常</a>
           
         </div>
       
@@ -526,8 +583,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/20/Vue/07-Vue基本语法介绍四/" rel="next" title="07.Vue基本语法介绍四">
-                <i class="fa fa-chevron-left"></i> 07.Vue基本语法介绍四
+              <a href="/2019/08/17/Java/JAVA-集合-6/" rel="next" title="JAVA-集合-6">
+                <i class="fa fa-chevron-left"></i> JAVA-集合-6
               </a>
             
           </div>
@@ -535,10 +592,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/20/Vue/09-Vue基本语法介绍六/" rel="prev" title="09.Vue基本语法介绍六">
-                09.Vue基本语法介绍六 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -672,7 +725,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS与Style绑定"><span class="nav-number">1.</span> <span class="nav-text">CSS与Style绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定HTML-Class"><span class="nav-number">1.1.</span> <span class="nav-text">绑定HTML Class</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象语法"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">对象语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组语法"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">数组语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用在组件上"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">用在组件上</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定内嵌样式"><span class="nav-number">1.2.</span> <span class="nav-text">绑定内嵌样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象语法-1"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">对象语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组语法-1"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">数组语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多重值"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">多重值</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#异常"><span class="nav-number">1.</span> <span class="nav-text">异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#处理"><span class="nav-number">1.1.</span> <span class="nav-text">处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常产生的过程"><span class="nav-number">1.2.</span> <span class="nav-text">异常产生的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常的处理"><span class="nav-number">1.3.</span> <span class="nav-text">异常的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#throw"><span class="nav-number">1.3.1.</span> <span class="nav-text">throw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#throws"><span class="nav-number">1.3.2.</span> <span class="nav-text">throws</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try-catch"><span class="nav-number">1.3.3.</span> <span class="nav-text">try/catch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finally"><span class="nav-number">1.3.4.</span> <span class="nav-text">finally</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Throwable"><span class="nav-number">2.</span> <span class="nav-text">Throwable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径"><span class="nav-number">2.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法"><span class="nav-number">2.2.</span> <span class="nav-text">常用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义异常"><span class="nav-number">3.</span> <span class="nav-text">自定义异常</span></a></li></ol></div>
             
 
           </div>
