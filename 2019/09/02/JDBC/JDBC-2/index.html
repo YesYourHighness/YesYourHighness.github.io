@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,Java线程,">
+  <meta name="keywords" content="JDBC,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言：  多线程是什么？ Thread类">
-<meta name="keywords" content="Java,Java线程">
+<meta name="description" content="引言：  数据库连接池 JDBC Template">
+<meta name="keywords" content="JDBC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java-线程-1">
-<meta property="og:url" content="http://yoursite.com/2019/08/18/Java/Java-线程-1/index.html">
+<meta property="og:title" content="JDBC-2">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/JDBC/JDBC-2/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  多线程是什么？ Thread类">
+<meta property="og:description" content="引言：  数据库连接池 JDBC Template">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-18T07:48:31.153Z">
+<meta property="og:updated_time" content="2019-09-02T03:12:17.989Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java-线程-1">
-<meta name="twitter:description" content="引言：  多线程是什么？ Thread类">
+<meta name="twitter:title" content="JDBC-2">
+<meta name="twitter:description" content="引言：  数据库连接池 JDBC Template">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/18/Java/Java-线程-1/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/02/JDBC/JDBC-2/">
 
 
 
 
 
-  <title>Java-线程-1 | YesYourHighness</title>
+  <title>JDBC-2 | YesYourHighness</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/18/Java/Java-线程-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/02/JDBC/JDBC-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java-线程-1</h1>
+          <h1 class="post-title" itemprop="name headline">JDBC-2</h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-18T15:44:28+08:00">
-                2019-08-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-02T11:11:40+08:00">
+                2019-09-02
               </time>
             
 
@@ -358,8 +358,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/后台/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/后台/JDBC/" itemprop="url" rel="index">
+                    <span itemprop="name">JDBC</span>
                   </a>
                 </span>
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  913
+                  1.3k
                 </span>
               
 
@@ -422,94 +422,102 @@
         <center>
 引言：
 
-<p>多线程是什么？</p>
-<p>Thread类</p>
+<p>数据库连接池</p>
+<p>JDBC Template</p>
 </center>
 
 <a id="more"></a>
 
 <hr>
-<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><ul>
-<li><p>并发：指两个或多个事件在同一个时间段内发生</p>
-</li>
-<li><p>并行：指两个或多个时间在同一时刻发生（同时发生，更快一些）</p>
-</li>
-</ul>
-<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>一个内存中运行的应用程序，每个进程都有一个独立的内存空间，一个应用程序可以同时运行多个进程；</p>
-<p>进程也是程序的一次执行过程，是系统运行的基本单位</p>
-<p>系统运行一个程序就是一个进程从创建到消亡的过程</p>
-<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>程序到cpu的一个执行路径</p>
-<p>进程的一个执行单元，</p>
-<p>负责当前进程中程序的执行，</p>
-<p>一个进程中至少有一个线程，</p>
-<p>一个进程中是可以有多个线程的，这个应用程序也可以称之为多线程程序。</p>
-<h3 id="线程调度"><a href="#线程调度" class="headerlink" title="线程调度"></a>线程调度</h3><ul>
-<li>分时调度</li>
-</ul>
-<p>所有线程轮流使用cpu的使用权，平均分配每个线程占用cpu的时间</p>
-<ul>
-<li>抢占式调度</li>
-</ul>
-<p>优先让优先级高的线程使用cpu，如果优先级相同，那么会随机选择一个（线程随机性），java使用的为抢占式调度。</p>
-<h2 id="多线程原理"><a href="#多线程原理" class="headerlink" title="多线程原理"></a>多线程原理</h2><ol>
-<li>JVM虚拟机执行<code>main</code>方法的时候，会开辟一条通往<code>cpu</code>的路径。（这个路径叫<strong>main线程</strong>，主线程）</li>
-<li>cpu可以通过这个路径执行<code>main</code>方法。</li>
-<li>当创建<code>Thread</code>类的子类对象的时候，会开辟另一台通往cpu的路径。</li>
-<li>两条路径，cpu进行选择，我们无法控制</li>
-</ol>
-<p>每调用一次Thread类的子类的start方法都会开辟一个新的栈空间用来执行run方法</p>
-<ul>
-<li><p>多线程的好处：</p>
-<p>  多个线程之间互不影响（在不同的栈空间）</p>
-</li>
-</ul>
-<h1 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h1><p>线程是程序中的执行线程。</p>
-<p>Java虚拟机允许应用程序并发地运行多个执行线程。 </p>
-<p>每个线程都有一个优先级，高优先级线程的执行优先于低优先级线程。</p>
-<h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang</span><br></pre></td></tr></table></figure>
-
-<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ul>
-<li>获取线程的名称：</li>
-</ul>
+<h1 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h1><p><strong>为什么要使用数据库连接池？</strong></p>
+<p>原本的逻辑是，用户访问数据库要先向操作系统请求连接，访问完数据库把连接删除</p>
+<p>这样的效率十分低下</p>
+<p>数据库连接池就可以解决这个问题，它把所有的连接放在一个容器当中，当用户访问完成时就会归还连接到这个容器中，效率更高</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>一个存放数据库连接的容器</p>
+<p>当系统初始化好后，容器被创建，容器中会申请一些连接对象，</p>
+<p>当用户来访问数据库时，从容器中获取连接对象，</p>
+<p>用户访问完成后，会将连接对象归还给容器</p>
+<p>好处：</p>
 <ol>
-<li><p>使用Thread类中的方法getName()</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回该线程的名称。</span></span></span><br></pre></td></tr></table></figure>
+<li>节约资源</li>
+<li>高效</li>
+</ol>
+<h2 id="DataSource"><a href="#DataSource" class="headerlink" title="DataSource"></a>DataSource</h2><p><strong>DataSource接口由驱动程序供应商实现。</strong> </p>
+<h3 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javax.sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ol>
+<li><p>获取连接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getConnection()</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>先获取到当前正在执行的线程，使用线程中的方法<code>getName()</code>获取线程的名称</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Thread <span class="title">currentThread</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回对当前正在执行的线程对象的引用。</span></span></span><br></pre></td></tr></table></figure>
+<li><p>归还连接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">close()</span><br><span class="line"><span class="comment">//如果连接对象是连接池提供的，那么close方法将不再关闭连接，而是归还连接</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-<p>第一种获取线程名字方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">thread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//重写Thread类中的run方法，设置线程任务</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>主函数调用<code>start()</code>方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        thread my = <span class="keyword">new</span> thread();</span><br><span class="line">        my.start();<span class="comment">//Thread-0</span></span><br><span class="line">        <span class="keyword">new</span> thread().start();<span class="comment">//Thread-1</span></span><br><span class="line">        <span class="keyword">new</span> thread().start();<span class="comment">//Thread-2</span></span><br><span class="line">        <span class="keyword">new</span> thread().start();<span class="comment">//Thread-3</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>第二种获取线程名字的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">thread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">        System.out.println(t);<span class="comment">//Thread[Thread-0,5,main]</span></span><br><span class="line">        System.out.println(t.getName());<span class="comment">//Thread-0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        thread my = <span class="keyword">new</span> thread();</span><br><span class="line">        my.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>设置线程的名字</li>
-</ul>
+<h1 id="两个数据库连接池"><a href="#两个数据库连接池" class="headerlink" title="两个数据库连接池"></a>两个数据库连接池</h1><h2 id="C3P0-旧的技术"><a href="#C3P0-旧的技术" class="headerlink" title="C3P0(旧的技术)"></a>C3P0(旧的技术)</h2><p>基本使用：</p>
 <ol>
-<li>使用Thread的setName()名称</li>
-<li>创建一个带参数的<strong>构造方法</strong>，参数传递线程名称，调用父类的带参构造方法，让父类给子线程起一个名字</li>
-</ol>
-<p>法一：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">thread my = <span class="keyword">new</span> thread();</span><br><span class="line">my.setName(<span class="string">"线程1"</span>);</span><br><span class="line">my.start();</span><br></pre></td></tr></table></figure>
-
-<p>法二：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">thread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">thread</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">thread</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">thread my = <span class="keyword">new</span> thread(<span class="string">"线程1"</span>);</span><br><span class="line">my.start();</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>指定秒数停止程序<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">60</span> ; i++) &#123;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);<span class="comment">//休眠1秒</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>导入两个jar包(JDBC的jar包也要导入)<ul>
+<li><code>c3p0-0.9.5.2</code></li>
+<li><code>mchange-commons-java-0.2.12</code></li>
 </ul>
+</li>
+<li>定义配置文件<ul>
+<li>配置文件通常在应用程序类路径顶层的标准名称<code>c3p0.properties或c3p0-config.xml</code>下查找</li>
+<li>路径：直接将文件放在src目录下即可</li>
+</ul>
+</li>
+<li>创建核心对象 数据库连接池对象 ComboPooleDataSource</li>
+<li>获取连接：getConnection<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    <span class="comment">//1. 创建数据库连接对象</span></span><br><span class="line">    DataSource ds= <span class="keyword">new</span> ComboPooledDataSource();</span><br><span class="line">    <span class="comment">//2. 获取连接对象</span></span><br><span class="line">    Connection conn = ds.getConnection();</span><br><span class="line">    <span class="comment">//3. 打印</span></span><br><span class="line">    System.out.println(conn);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+</li>
+</ol>
+<p>c3p0-config.xml配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c3p0-config</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 使用默认的配置读取连接池对象 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">default-config</span>&gt;</span></span><br><span class="line">  	<span class="comment">&lt;!--  连接参数 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jdbc:mysql://localhost:3306/database?serverTimezone=UTC<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>1046qwer.<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 连接池参数 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"checkoutTimeout"</span>&gt;</span>3000<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">default-config</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">named-config</span> <span class="attr">name</span>=<span class="string">"otherc3p0"</span>&gt;</span> </span><br><span class="line">    <span class="comment">&lt;!--  连接参数 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jdbc:mysql://localhost:3306/database?serverTimezone=UTC<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>1046qwer.<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 连接池参数 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span>8<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"checkoutTimeout"</span>&gt;</span>1000<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">named-config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c3p0-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Druid-阿里巴巴提供"><a href="#Druid-阿里巴巴提供" class="headerlink" title="Druid(阿里巴巴提供)"></a>Druid(阿里巴巴提供)</h2><p>步骤：</p>
+<ol>
+<li>导入jar包</li>
+<li>定义配置文件<ul>
+<li>是properties形式的</li>
+<li>可以称任意名称，可以放在任意目录下</li>
+</ul>
+</li>
+<li>加载配置文件</li>
+<li>获取数据库连接池对象：通过一个工厂类来获取<code>DruidDataSourceFactory</code></li>
+<li>获取连接<code>getConnection</code><br>示例代码<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">druid</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//1. 导入jar包</span></span><br><span class="line">        <span class="comment">//2. 定义配置文件</span></span><br><span class="line">        <span class="comment">//3. 加载配置文件</span></span><br><span class="line">        Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">        InputStream is = druid.class.getClassLoader().getResourceAsStream(<span class="string">"druid.properties"</span>);</span><br><span class="line">        pro.load(is);</span><br><span class="line">        <span class="comment">//4. 获取连接对象</span></span><br><span class="line">        DataSource ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        <span class="comment">//5. 获取连接</span></span><br><span class="line">        Connection conn = ds.getConnection();</span><br><span class="line">        System.out.println(conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="定义工具类"><a href="#定义工具类" class="headerlink" title="定义工具类"></a>定义工具类</h3><p>准备一个JDBCUtils类</p>
+<p>内部要有</p>
+<ol>
+<li>静态代码块加载配置文件</li>
+<li>获取连接方法</li>
+<li>释放资源</li>
+<li>获取连接池的方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * 工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DataSource ds;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//1. 加载配置文件</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">            pro.load(JdbcUtils.class.getClassLoader().getResourceAsStream(<span class="string">"druid.properties"</span>));</span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取连接</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 释放资源</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> stmt</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> conn</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(Statement stmt, Connection conn)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (stmt != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">(ResultSet rs, Statement stmt, Connection conn)</span> </span>&#123;</span><br><span class="line">        close(<span class="keyword">null</span>,stmt,conn);</span><br><span class="line">        <span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>使用工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">druid</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        PreparedStatement preStat = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            conn = JdbcUtils.getConnection();</span><br><span class="line">            String sql = <span class="string">"insert into deliver values(1,?,?)"</span>;</span><br><span class="line">            preStat = conn.prepareStatement(sql);</span><br><span class="line">            preStat.setString(<span class="number">1</span>,<span class="string">"李白"</span>);</span><br><span class="line">            preStat.setString(<span class="number">2</span>,<span class="string">"3000"</span>);</span><br><span class="line">            <span class="keyword">int</span> i = preStat.executeUpdate();</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            JdbcUtils.close(preStat,conn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Spring-JDBC"><a href="#Spring-JDBC" class="headerlink" title="Spring JDBC"></a>Spring JDBC</h1><p>Spring框架提供的对JDBC简单封装</p>
+<p>提供了一个JDBCTemplate对象简化JDBC的开发</p>
+<p>步骤：</p>
+<ol>
+<li>导入jar包</li>
+<li>创建JDBCTemplate对象，依赖于数据源DataSource<br> <code>JdbcTemplate template = new JdbcTemplate(ds)</code></li>
+<li>使用JDBCTemplate方法完成CRUD操作<ul>
+<li><code>update()</code>执行DML语句</li>
+<li><code>queryForMap()</code>查询结果，将结果封装为Map集合</li>
+<li><code>queryForList()</code>查询结果将结果封装为List集合</li>
+<li><code>query()</code>查询结果，将结果封装为JavaBean对象</li>
+<li><code>queryForObject</code>查询结果，将结果封装为对象</li>
+</ul>
+</li>
+</ol>
+<p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcTemplateDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1. 导入jar包</span></span><br><span class="line">        <span class="comment">//2. 创建JDBCTemplate对象</span></span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JdbcUtils.getDataSource());</span><br><span class="line">        <span class="comment">//3. 调用方法</span></span><br><span class="line">        String sql = <span class="string">"update deliver set bank = 5000 where id = ?"</span>;</span><br><span class="line">        <span class="keyword">int</span> count = template.update(sql, <span class="number">3</span>);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -536,9 +544,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/Java线程/" rel="tag"># Java线程</a>
+            <a href="/tags/JDBC/" rel="tag"># JDBC</a>
           
         </div>
       
@@ -551,8 +557,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/17/Java/Java-异常/" rel="next" title="Java-异常">
-                <i class="fa fa-chevron-left"></i> Java-异常
+              <a href="/2019/09/01/JDBC/JDBC-1/" rel="next" title="JDBC-1">
+                <i class="fa fa-chevron-left"></i> JDBC-1
               </a>
             
           </div>
@@ -560,10 +566,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/18/Java/Java-线程-2/" rel="prev" title="Java-线程-2">
-                Java-线程-2 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -697,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程"><span class="nav-number">1.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#并发和并行"><span class="nav-number">1.1.</span> <span class="nav-text">并发和并行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">1.2.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">1.3.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程调度"><span class="nav-number">1.3.1.</span> <span class="nav-text">线程调度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程原理"><span class="nav-number">1.4.</span> <span class="nav-text">多线程原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Thread"><span class="nav-number">2.</span> <span class="nav-text">Thread</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径"><span class="nav-number">2.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法"><span class="nav-number">2.2.</span> <span class="nav-text">常用方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库连接池"><span class="nav-number">1.</span> <span class="nav-text">数据库连接池</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataSource"><span class="nav-number">1.2.</span> <span class="nav-text">DataSource</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#包路径"><span class="nav-number">1.2.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个数据库连接池"><span class="nav-number">2.</span> <span class="nav-text">两个数据库连接池</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C3P0-旧的技术"><span class="nav-number">2.1.</span> <span class="nav-text">C3P0(旧的技术)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Druid-阿里巴巴提供"><span class="nav-number">2.2.</span> <span class="nav-text">Druid(阿里巴巴提供)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义工具类"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义工具类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-JDBC"><span class="nav-number">3.</span> <span class="nav-text">Spring JDBC</span></a></li></ol></div>
             
 
           </div>
