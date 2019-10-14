@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：  字符流">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-21T14:05:55.898Z">
+<meta property="og:updated_time" content="2019-10-14T13:10:06.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-IO-字符流">
 <meta name="twitter:description" content="引言：  字符流">
@@ -492,7 +492,7 @@
 
 <ul>
 <li><p>JDK7新特性</p>
-<p>  在try的后边可以增加一个()，在括号中可以定义<strong>流对象</strong>，那么这个流对象的作用域就在try有效，try中的代码执行完毕，会把流对象自动释放，不用谢finally</p>
+<p>  在try的后边可以增加一个()，在括号中可以定义<strong>流对象</strong>，那么这个流对象的作用域就在try有效，try中的代码执行完毕，会把流对象自动释放，不用写finally</p>
 <p>  格式：</p>
   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(定义流对象;定义流对象...)&#123;</span><br><span class="line">    <span class="comment">//可能会产生异常代码</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(异常类变量 变量名)&#123;</span><br><span class="line">    <span class="comment">//异常的处理逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

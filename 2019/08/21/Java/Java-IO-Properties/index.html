@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：  Properties">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-21T14:05:21.225Z">
+<meta property="og:updated_time" content="2019-10-14T13:24:18.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java-IO-Properties">
 <meta name="twitter:description" content="引言：  Properties">
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  829
+                  827
                 </span>
               
 
@@ -428,14 +428,15 @@
 <a id="more"></a>
 
 <hr>
-<h1 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h1><p>继承与<code>Hashtable</code>，来表示一个持久的属性集，它用键值结构存储数据，每个键及其对应值都是一个字符串，</p>
+<h1 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h1><p>继承自<code>Hashtable</code>，来表示一个持久的属性集，它用键值结构存储数据，每个键及其对应值都是一个字符串，</p>
 <p>该类也被许多Java类使用，比如获取系统属性时，<code>System.getProperties</code>方法就是返回一个<code>Properties</code>对象</p>
 <ul>
 <li><p>Properties集合是唯一一个与IO流相结合的集合</p>
 <p>  可以使用<code>Properties</code>集合中的方法<code>store</code>，把集合中的临时数据，持久化写入到硬盘中存储</p>
+<p>  可以使用其中的<code>load</code>方法，把硬盘存储的文件（键值对），读取到集合中使用</p>
 </li>
 </ul>
-<pre><code>可以使用其中的`load`方法，把硬盘存储的文件（键值对），读取到集合中使用</code></pre><h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.util</span><br></pre></td></tr></table></figure>
+<h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.util</span><br></pre></td></tr></table></figure>
 
 <h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ul>
 <li>Properties集合是一个双列集合，key和value默认都是字符串</li>
@@ -459,7 +460,7 @@
 <p>运行后的a.txt文件，会自动加一个时间</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#save data</span><br><span class="line">#Wed Aug 21 21:42:14 GMT+08:00 2019</span><br><span class="line">赵丽颖=160</span><br><span class="line">古力娜扎=160</span><br><span class="line">迪丽热巴=165</span><br></pre></td></tr></table></figure>
 
-<h2 id="load方法"><a href="#load方法" class="headerlink" title="load方法"></a>load方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(Reader reader)</span><span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(InputStream inStream)</span><span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//参数：Inputstream inStream字节输入流，不能读取含有中文的键值对</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Reader reader：字符输入流，能读取含有中文的键值对</span></span><br></pre></td></tr></table></figure>
+<h2 id="load方法"><a href="#load方法" class="headerlink" title="load方法"></a>load方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(Reader reader)</span><span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(InputStream inStream)</span><span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//参数 Inputstream inStream字节输入流，不能读取含有中文的键值对</span></span></span><br><span class="line"><span class="function"><span class="comment">//     Reader reader：字符输入流，能读取含有中文的键值对</span></span></span><br></pre></td></tr></table></figure>
 
 <p>步骤：</p>
 <ol>
@@ -473,7 +474,7 @@
 <li>存储键值对的文件中，可以使用#进行注释，被注释的键值对不会再被读取</li>
 <li>存储键值对的文件中，键与值默认都是字符串，不用再加引号</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Properties prop = new Properties();</span><br><span class="line">prop.load(new FileReader(&quot;D:\\a.txt&quot;));</span><br><span class="line">Set&lt;String&gt; set = prop.stringPropertyNames();</span><br><span class="line">for (String s : set) &#123;</span><br><span class="line">    String value =prop.getProperty(s);</span><br><span class="line">    System.out.println(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Properties prop = <span class="keyword">new</span> Properties();</span><br><span class="line">prop.load(<span class="keyword">new</span> FileReader(<span class="string">"D:\\a.txt"</span>));</span><br><span class="line">Set&lt;String&gt; set = prop.stringPropertyNames();</span><br><span class="line"><span class="keyword">for</span> (String s : set) &#123;</span><br><span class="line">    String value =prop.getProperty(s);</span><br><span class="line">    System.out.println(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
