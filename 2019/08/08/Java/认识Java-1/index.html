@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：认识Java  java的常量，变量，逻辑等 java中的数组特点 java的内存划分">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-08T13:57:40.515Z">
+<meta property="og:updated_time" content="2019-11-16T06:49:31.492Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="认识Java-1">
 <meta name="twitter:description" content="引言：认识Java  java的常量，变量，逻辑等 java中的数组特点 java的内存划分">
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k
+                  1.7k
                 </span>
               
 
@@ -644,6 +644,18 @@
 <li>本地方法区(Native Method Stack)：与操作系统相关</li>
 <li>寄存器(pc Register)：与cpu相关</li>
 </ol>
+<hr>
+<blockquote>
+<p>注意：</p>
+</blockquote>
+<p>当我们提到java的基本类型时，一般都说是八种。但在Thinking in java 这本java圣经中，将void归为基本类型。</p>
+<p>倒也可以说得通：<br>基本类型和引用类型的区别是：</p>
+<ul>
+<li>基本类型： 数据在栈中划分内存，值存储在栈上</li>
+<li>引用类型： 数据在栈中划分一块内存用来存储其引用（地址），而其真正的数据存放在堆中</li>
+</ul>
+<p>而void不可以new出来(因为 Void 的源码中,将构造函数设置为 private 的,所以外部不能 new 对象)，void是存储在栈上的，所以将它归为了基本类型</p>
+<p>在java的Class反射内有一个方法<code>isPrimitive()</code> ，可以判断是否是基本类型，当我们输入代码<code>void.class.isPrimitive()</code>，它的返回值是true，再一次证明void分为基本类型是有道理的</p>
 
       
     </div>
@@ -864,7 +876,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">106.2k</span>
+    <span title="Site words total count">106.5k</span>
   
 </div>
 
