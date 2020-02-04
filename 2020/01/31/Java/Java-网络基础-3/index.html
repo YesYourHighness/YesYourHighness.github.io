@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="MySQL,">
+  <meta name="keywords" content="Java,Java网络基础,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="引言：  事务 DCL">
-<meta name="keywords" content="MySQL">
+<meta name="description" content="引言：  URL和URI">
+<meta name="keywords" content="Java,Java网络基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL-5">
-<meta property="og:url" content="http://yoursite.com/2019/08/31/MySQL/MySQL-5/index.html">
+<meta property="og:title" content="Java-网络基础-3">
+<meta property="og:url" content="http://yoursite.com/2020/01/31/Java/Java-网络基础-3/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="引言：  事务 DCL">
+<meta property="og:description" content="引言：  URL和URI">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-31T13:47:46.110Z">
+<meta property="og:updated_time" content="2020-01-31T09:28:39.385Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL-5">
-<meta name="twitter:description" content="引言：  事务 DCL">
+<meta name="twitter:title" content="Java-网络基础-3">
+<meta name="twitter:description" content="引言：  URL和URI">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/08/31/MySQL/MySQL-5/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/31/Java/Java-网络基础-3/">
 
 
 
 
 
-  <title>MySQL-5 | YesYourHighness</title>
+  <title>Java-网络基础-3 | YesYourHighness</title>
   
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/MySQL/MySQL-5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/Java/Java-网络基础-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MySQL-5</h1>
+          <h1 class="post-title" itemprop="name headline">Java-网络基础-3</h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T21:46:53+08:00">
-                2019-08-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-31T10:19:40+08:00">
+                2020-01-31
               </time>
             
 
@@ -358,8 +358,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/后台/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
+                  <a href="/categories/后台/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  1.3k
                 </span>
               
 
@@ -422,128 +422,61 @@
         <center>
 引言：
 
-<p>事务</p>
-<p>DCL</p>
+<p>URL和URI</p>
 </center>
 
 <a id="more"></a>
 
-<hr>
-<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><ol>
-<li><p>概念：如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败</p>
-</li>
-<li><p>操作：</p>
-<ol>
-<li>开启事务： <code>start transaction;</code></li>
-<li>回滚：<code>ROLLBACK</code></li>
-<li>提交：<code>COMMIT</code></li>
-</ol>
-</li>
-</ol>
-<p>例如：王给张转500元钱</p>
-<ol>
-<li><p>判断王有没有500</p>
-</li>
-<li><p>王-500</p>
-</li>
-<li><p>张+500</p>
-</li>
-<li><p>转账完成，中间出现差错会从头回滚</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">START TRANSACTION;# 开启事务</span><br><span class="line"># 王给张转500</span><br><span class="line"># 判断是否大于五百元</span><br><span class="line"># 王账户减去五百</span><br><span class="line">UPDATE deliver SET bank = bank -500 WHERE `NAME` = &apos;王&apos; &amp;&amp; bank&gt;500;</span><br><span class="line"># 张账户加五百</span><br><span class="line">#这里出错</span><br><span class="line">UPDATE deliver SET bank = bank  +500 WHERE `NAME` = &apos;张&apos;;</span><br><span class="line">#这里出错 ROLLBACK; 出错就添加ROllBACK 回到开启事务的地方</span><br><span class="line">COMMIT;# 成功就会完成这项事务</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>MySQL数据库中事务默认自动提交（Oracle默认是手动提交的）</p>
-</li>
-<li><p>手动打开事务才是自动提交</p>
-</li>
-<li><p>修改事务的默认提交方式</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查看默认提交方式</span><br><span class="line">SELECT @@autocommit</span><br><span class="line"># 1代表自动提交，0代表手动提交</span><br><span class="line">SET @@autocommit = 0;</span><br><span class="line"># 更改为手动提交，只有COMMIT才会</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<h2 id="事务的四大特征"><a href="#事务的四大特征" class="headerlink" title="事务的四大特征"></a>事务的四大特征</h2><ol>
-<li>原子性：不可分割的最小操作单位，要么同时成功，要么同时失败</li>
-<li>持久性：如果事务一旦提交或者回滚，它将持久更新数据库表</li>
-<li>隔离性：多个事务之间，相互独立</li>
-<li>一致性：事务操作前后数据总量不变</li>
-</ol>
-<h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><p>多个事务之间是隔离的，相互独立的。</p>
-<p>但是如果多个事务操作同一批数据，则会引发一些问题，设置不同的隔离级别就可以解决这些问题</p>
-<p>存在问题：</p>
-<ol>
-<li>脏读：一个事务读取到另一个事务中没有提交的数据</li>
-<li>不可重复读：在同一个事务中两次读取到的事务不一样</li>
-<li>幻读：一个事物操作（DML）数据表中所有的记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改</li>
-</ol>
-<p>隔离级别：</p>
-<ol>
-<li><p><code>read uncommited</code>读未提交</p>
-<p> 产生的问题：脏读、不可重复度、幻读</p>
-</li>
-<li><p><code>read commited</code>读已提交(Oracle默认)</p>
-<p> 产生的问题：不可重复度、幻读</p>
-</li>
-<li><p><code>repeatable read</code>可重复读(MySQL默认)</p>
-<p> 产生的问题：幻读</p>
-</li>
-<li><p><code>serializable</code>串行话</p>
-<p> 可以解决所有的问题</p>
-</li>
-</ol>
-<p>注意：隔离级别从小到大安全性越来越大，但是效率越来越低</p>
-<p>查询隔离级别</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select @@tx_isolation # 老版MySQL</span><br><span class="line">SELECT @@transaction_isolation # 新版MySQL</span><br></pre></td></tr></table></figure>
+<h1 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h1><blockquote>
+<p>URI：统一资源标识符(Uniform Resource Identifier)<br>，URI只是一个纯粹的语法结构，<strong>唯一的功能就是解析</strong>。<br><strong>URL是URI的一个特例</strong></p>
+</blockquote>
+<h2 id="URI的组成部分"><a href="#URI的组成部分" class="headerlink" title="URI的组成部分"></a>URI的组成部分</h2><p>URI包含用来指定Web资源的字符串的各种组成成分主要由三大部分构成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[scheme:]schemeSpecificPart[#fragment]</span><br><span class="line">[方案/协议:]方案具体部分[#片段]</span><br><span class="line">&lt;!-- [...]中为可选 --&gt;</span><br></pre></td></tr></table></figure>
 
-<p>设置隔离级别</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set global transaction isolation level 级别字符串;# 老版</span><br><span class="line">set session transaction isolation level 级别字符串;</span><br></pre></td></tr></table></figure>
+<p>包含<code>scheme:</code>的URI称为绝对URI，否则称为相对URI</p>
+<p><code>schemeSpecificPart</code>不以<code>/</code>开头称<strong>不透明</strong>的的</p>
+<p>所有的绝对的透明URI（第一个）和所有相对URI（第二个）都是分层的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://horstmann.com/index.html</span><br><span class="line">../../java/net/Socket.html#Socket()</span><br></pre></td></tr></table></figure>
 
-<h1 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h1><p>管理用户，授权</p>
-<p>DBA(数据库管理员)</p>
-<h2 id="管理用户"><a href="#管理用户" class="headerlink" title="管理用户"></a>管理用户</h2><ol>
-<li><p>添加用户</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;用户名&apos;@&apos;主机名&apos; IDENTIFIED BY &apos;密码&apos;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除用户</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 删除,@前后不能空格</span><br><span class="line">DROP USER &apos;用户名&apos;@&apos;主机名&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改用户的密码</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &quot;用户名&quot;@&quot;主机名&quot; IDENTIFIED  BY &quot;新密码&quot;; </span><br><span class="line"># 新方法，旧方法不能再使用</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询用户</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 切换到mysql</span><br><span class="line">USE mysql;</span><br><span class="line"># 查询user表</span><br><span class="line">SELECT * FROM USER;</span><br></pre></td></tr></table></figure>
+<p>一个分层的URI的<code>schemeSpecificPart</code>包含以下结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[//authority][path][?query]</span><br><span class="line">[//权威][路径][?查询]</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<h2 id="MySQL忘记密码"><a href="#MySQL忘记密码" class="headerlink" title="MySQL忘记密码"></a>MySQL忘记密码</h2><p>这里是MySQL忘记密码的老方法，对应版本5.7，新版本的MySQL另寻他法</p>
-<ol>
-<li><p>管理员权限运行cmd中执行<code>net stop mysql</code>停止mysql服务</p>
-</li>
-<li><p>使用无验证方式启动MySQL服务，cmd中输入</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --skip-grant-tables</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>再打开一个cmd，输入<code>mysql</code>，即可登录成功</p>
-</li>
-<li><p>更改密码</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &quot;用户名&quot;@&quot;主机名&quot; IDENTIFIED  BY &quot;新密码&quot;; </span><br><span class="line"># 新方法，旧方法不能再使用</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>任务管理器，结束<code>mysqld.exe</code>服务</p>
-</li>
-<li><p>启动mysql服务<code>net start mysql</code></p>
-</li>
-</ol>
-<h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><ol>
-<li><p>查询权限</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GRANTS FOR &apos;用户名&apos;@&apos;主机名&apos;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>授予权限</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># GRANT 权限列表 ON 可以控制的数据库名.表名 TO &apos;用户名&apos;@&apos;主机名&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>撤回权限</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REVOKE 权限列表 ON 数据表名.表名 FROM &apos;用户名&apos;@&apos;主机名&apos;</span><br></pre></td></tr></table></figure>
+<p>而基于服务器的URI，<code>authority</code>又有以下形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[user-info@]host[:port]</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># SHOW GRANTS FOR &apos;用户名&apos;@&apos;主机名&apos;;</span><br><span class="line"></span><br><span class="line">SHOW GRANTS FOR &apos;temp&apos;@&apos;%&apos;;</span><br><span class="line"># GRANT USAGE ON *.* TO `temp`@`%`</span><br><span class="line"># USAGE代表可以登录</span><br><span class="line"># root有所有的权限</span><br><span class="line"></span><br><span class="line"># GRANT 权限列表 ON 可以控制的数据库名.表名 to &apos;用户名&apos;@&apos;主机名&apos;</span><br><span class="line">GRANT SELECT ON DATABASE.deliver to &apos;temp&apos;@&apos;%&apos;;</span><br><span class="line"></span><br><span class="line"># 授予所有权限在任意数据库任意表上</span><br><span class="line">GRANT ALL ON *.* to &apos;temp&apos;@&apos;%&apos;;</span><br><span class="line"></span><br><span class="line"># REVOKE 权限列表 ON 数据表名.表名 FROM &apos;用户名&apos;@&apos;主机名&apos;</span><br><span class="line">REVOKE ALL ON *.* FROM &apos;temp&apos;@&apos;%&apos;</span><br></pre></td></tr></table></figure>
+<p><code>port</code>必须是一个整数</p>
+<p>所以URI我们可以用以下的方法来读取他们</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">getScheme()</span><br><span class="line">getSchemeSpecificPart()</span><br><span class="line">getAuthority()</span><br><span class="line">getUserInfo()</span><br><span class="line">getHost()</span><br><span class="line">getPort()</span><br><span class="line">getPath()</span><br><span class="line">getQuery()</span><br><span class="line">getFragment()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">URI uriAbs = <span class="keyword">new</span> URI(<span class="string">"http://docs.mycompany.com/api/java/net/ServerSocker.html"</span>);</span><br><span class="line">URI uriRel = <span class="keyword">new</span> URI(<span class="string">"../../java/net/Socket.html#Socket()"</span>);</span><br><span class="line">uriAbs.isAbsolute();<span class="comment">// true</span></span><br><span class="line">uriRel.isAbsolute();<span class="comment">// false</span></span><br><span class="line">uriAbs.getScheme();<span class="comment">// http</span></span><br><span class="line">uriAbs.getSchemeSpecificPart();<span class="comment">// 结果是//docs.mycompany.com/api/java/net/ServerSocker.html</span></span><br><span class="line">    &#123;<span class="comment">//以下属于SchemeSpecificPart的组成</span></span><br><span class="line">        uriAbs.getAuthority();<span class="comment">//docs.mycompany.com</span></span><br><span class="line">            &#123;<span class="comment">//以下属于Authority的组成</span></span><br><span class="line">                uriAbs.getUserInfo();<span class="comment">//null</span></span><br><span class="line">                uriAbs.getHost();<span class="comment">//docs.mycompany.com</span></span><br><span class="line">                uriAbs.getPort();<span class="comment">//-1 (端口是未定义的返回-1)</span></span><br><span class="line">            &#125;</span><br><span class="line">        uriAbs.getPath();<span class="comment">///api/java/net/ServerSocker.html</span></span><br><span class="line">        uriAbs.getQuery();<span class="comment">//null</span></span><br><span class="line">    &#125;</span><br><span class="line">uriAbs.getFragment();<span class="comment">//null</span></span><br><span class="line">uriRel.getFragment();<span class="comment">//Socket()</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="URI类的作用"><a href="#URI类的作用" class="headerlink" title="URI类的作用"></a>URI类的作用</h2><blockquote>
+<p>处理绝对标识符和相对标识符（是否包含[scheme:]）</p>
+</blockquote>
+<p>例如：如果存在以下的一个绝对URI，和相对URI，我们可以组合出一个绝对URI</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">绝对URI: </span><br><span class="line">http://docs.mycompany.com/api/java/net/ServerSocker.html</span><br><span class="line"></span><br><span class="line">相对URI：</span><br><span class="line">../../java/net/Socket.html#Socket()</span><br><span class="line"></span><br><span class="line">组合后的绝对URI：</span><br><span class="line">http://docs.mycompany.com/api/java/net/ServerSocker.html#Socket()</span><br></pre></td></tr></table></figure>
+
+<p>这个过程叫做<strong>解析相对URI</strong>，与此过程相反的过程叫<strong>相对化</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">基本URI：</span><br><span class="line">http://docs.mycompany.com/api</span><br><span class="line"></span><br><span class="line">另一个URI：</span><br><span class="line">http://docs.mycompany.com/api/java/lang/String.html</span><br><span class="line"></span><br><span class="line">相对化后的URI：</span><br><span class="line">java/lang/String.html</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">URI uriAbs = <span class="keyword">new</span> URI(<span class="string">"http://docs.mycompany.com/api/java/net/ServerSocker.html"</span>);</span><br><span class="line">URI uriRel = <span class="keyword">new</span> URI(<span class="string">"../../java/net/Socket.html#Socket()"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    解析相对URI：</span></span><br><span class="line"><span class="comment">    http://docs.mycompany.com/api/java/net/Socket.html#Socket()</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">URI uriBase = <span class="keyword">new</span> URI(<span class="string">"http://docs.mycompany.com/api"</span>);</span><br><span class="line">URI uriOther = <span class="keyword">new</span> URI(<span class="string">"http://docs.mycompany.com/api/java/lang/String.html"</span>);</span><br><span class="line">uriBase.relativize(uriOther);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    相对化：</span></span><br><span class="line"><span class="comment">    java/lang/String.html</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h1><blockquote>
+<p>URL：统一资源定位符 (Uniform Resource Locator)，URL可以打开一个到达资源的流，URL类只能作用于那些Java类库知道如何处理的类库，如<code>http:、https:、ftp:、本地文件系统file:、JAR文件jar:</code></p>
+</blockquote>
+<h2 id="包路径"><a href="#包路径" class="headerlink" title="包路径"></a>包路径</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.net</span><br></pre></td></tr></table></figure>
+
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">URL(String urlString)</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> InputStream <span class="title">openStream</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//获取一个InputStream对象，进而获取URL资源内容</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="URLConnection"><a href="#URLConnection" class="headerlink" title="URLConnection"></a>URLConnection</h2><p><code>URLConnection类</code>比<code>URL类</code>有更多的控制</p>
+<h3 id="包路径-1"><a href="#包路径-1" class="headerlink" title="包路径"></a>包路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.net</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setDoInput</span><span class="params">(<span class="keyword">boolean</span> doInput)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">getDoInput</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//若doInput为true，那么用户可以接收来自该URLConnection的输入</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setDoOutput</span><span class="params">(<span class="keyword">boolean</span> doOutput)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">getDoOutput</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//若doOutput的值为true，用户可以将输出发送到URLConnection</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setIfModifiedSince</span><span class="params">(<span class="keyword">long</span> time)</span></span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">getIfModifiedSince</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="function"><span class="comment">属性IfModifiedSince用于配置该URLConnection对象，使它只获得那些从某个给定时间以来被修改的数据</span></span></span><br><span class="line"><span class="function"><span class="comment"></span></span></span><br><span class="line"><span class="function"><span class="comment">传入的参数time:是从格林尼治时间开始计算的秒数</span></span></span><br><span class="line"><span class="function"><span class="comment">*/</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setUseCaches</span><span class="params">(<span class="keyword">boolean</span> useCaches)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">getUseCaches</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//如果useCaches为true，那么数据可以从本地缓存中得到，缓存由浏览器之外的外部程序提供</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setAllowUserInteraction</span><span class="params">(<span class="keyword">boolean</span> allowUserInteraction)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">getAllowUserInteraction</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//如果allowUserInteraction为true，那么可以查询用户的口令，口令由浏览器之外的程序提供</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setConnectTimeout</span><span class="params">(<span class="keyword">int</span> timeout)</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getConnectTimeout</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//设置或得到连接超时时限</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setReadTimeout</span><span class="params">(<span class="keyword">int</span> timeout)</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getReadTimeout</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//设置读取数据的超时时限</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setRequestProperty</span><span class="params">(String key,String value)</span></span></span><br><span class="line"><span class="function"><span class="comment">//设置请求头的一个字段</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Map&lt;String,List&lt;String&gt;&gt; <span class="title">getRequestProperties</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回请求头属性的一个映射表，相同的键对应的所有值被放置在同一个列表中</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">connect</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//连接远程资源并获取响应头信息</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Map&lt;String,List&lt;String&gt;&gt; <span class="title">getHeaderFields</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回响应的一个映射表，相同的键对应的所有值被放置在同一个列表中</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">String <span class="title">getHeaderFieldKey</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"><span class="comment">//得到响应头的第n个字段的 键。如果n&gt;=0或者大于响应头字段的总数，返回null</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">String <span class="title">getHeaderField</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"><span class="comment">//得到响应头的第n个字段的 值。如果n&gt;=0或者大于响应头字段的总数，返回null</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getContentLength</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//内容长度可以获得返回内容长度，不可获得返回-1</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">String <span class="title">getContentEncoding</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//获取内容的编码机制</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">getDate</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">getExpiration</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">getLastModified</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//获取创建日期，过期日，以及最后一次被修改的日期，这些时间通通都是从格林尼治时间返回的秒数</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">InputStream <span class="title">getInputStream</span><span class="params">()</span></span></span><br><span class="line"><span class="function">OutputStream <span class="title">getOutputStream</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//返回从资源读取信息或向资源写入信息的流</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Object <span class="title">getContent</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//选择适当的内容处理器，以便读取资源数据并将资源数据转换成对象。对text/plain或image/gif之类的标准内容类型没有用处，除非自己安装内容处理器</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 获取URLConnection对象</span></span><br><span class="line">URLConnection urlConnection = url.openConnection();</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 使用各种相关方法来设置任意的请求属性</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -570,7 +503,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Java网络基础/" rel="tag"># Java网络基础</a>
           
         </div>
       
@@ -583,8 +518,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/31/MySQL/MySQL-4/" rel="next" title="MySQL-4">
-                <i class="fa fa-chevron-left"></i> MySQL-4
+              <a href="/2020/01/18/Preferences/Preferences/" rel="next" title="Preferences">
+                <i class="fa fa-chevron-left"></i> Preferences
               </a>
             
           </div>
@@ -592,10 +527,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/01/JDBC/JDBC-1/" rel="prev" title="JDBC-1">
-                JDBC-1 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -729,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">1.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的四大特征"><span class="nav-number">1.1.</span> <span class="nav-text">事务的四大特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的隔离级别"><span class="nav-number">1.2.</span> <span class="nav-text">事务的隔离级别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DCL"><span class="nav-number">2.</span> <span class="nav-text">DCL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#管理用户"><span class="nav-number">2.1.</span> <span class="nav-text">管理用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL忘记密码"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL忘记密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#授权"><span class="nav-number">2.3.</span> <span class="nav-text">授权</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#URI"><span class="nav-number">1.</span> <span class="nav-text">URI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#URI的组成部分"><span class="nav-number">1.1.</span> <span class="nav-text">URI的组成部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URI类的作用"><span class="nav-number">1.2.</span> <span class="nav-text">URI类的作用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL"><span class="nav-number">2.</span> <span class="nav-text">URL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包路径"><span class="nav-number">2.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造方法"><span class="nav-number">2.2.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法"><span class="nav-number">2.3.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URLConnection"><span class="nav-number">2.4.</span> <span class="nav-text">URLConnection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#包路径-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">包路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作步骤"><span class="nav-number">2.4.3.</span> <span class="nav-text">操作步骤</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
