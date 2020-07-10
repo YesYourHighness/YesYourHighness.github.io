@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,数据结构,链表,">
+  <meta name="keywords" content="Java,算法,">
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="解决一个链表是否有环的问题">
-<meta name="keywords" content="Java,数据结构,链表">
+<meta name="description" content="引言：   判断一个数是否为2的整数次幂">
+<meta name="keywords" content="Java,算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="链表环问题">
-<meta property="og:url" content="http://yoursite.com/2020/07/09/数据结构/链表环问题/index.html">
+<meta property="og:title" content="2的整数幂">
+<meta property="og:url" content="http://yoursite.com/2020/07/10/算法/2的整数幂/index.html">
 <meta property="og:site_name" content="YesYourHighness">
-<meta property="og:description" content="解决一个链表是否有环的问题">
+<meta property="og:description" content="引言：   判断一个数是否为2的整数次幂">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com/IMG_0029.PNG/999">
-<meta property="og:updated_time" content="2020-07-09T12:42:15.567Z">
+<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com//IMG_0032.PNG/999">
+<meta property="og:updated_time" content="2020-07-10T13:27:15.421Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="链表环问题">
-<meta name="twitter:description" content="解决一个链表是否有环的问题">
-<meta name="twitter:image" content="http://qcrt74khz.bkt.clouddn.com/IMG_0029.PNG/999">
+<meta name="twitter:title" content="2的整数幂">
+<meta name="twitter:description" content="引言：   判断一个数是否为2的整数次幂">
+<meta name="twitter:image" content="http://qcrt74khz.bkt.clouddn.com//IMG_0032.PNG/999">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/07/09/数据结构/链表环问题/">
+  <link rel="canonical" href="http://yoursite.com/2020/07/10/算法/2的整数幂/">
 
 
 
 
 
-  <title>链表环问题 | YesYourHighness</title>
+  <title>2的整数幂 | YesYourHighness</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/09/数据结构/链表环问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/10/算法/2的整数幂/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YesYourHighness">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">链表环问题</h1>
+          <h1 class="post-title" itemprop="name headline">2的整数幂</h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-09T19:31:01+08:00">
-                2020-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-10T21:31:01+08:00">
+                2020-07-10
               </time>
             
 
@@ -349,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -385,7 +385,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  455
+                  202
                 </span>
               
 
@@ -411,19 +411,26 @@
 
       
         <center>
-    解决一个链表是否有环的问题
+引言： 
+
+<p>判断一个数是否为2的整数次幂</p>
 </center>
+
 <a id="more"></a>
 
 
-
-<h1 id="链表环问题需求"><a href="#链表环问题需求" class="headerlink" title="链表环问题需求"></a>链表环问题需求</h1><blockquote>
-<p>问题一：如何判断一个链表是否有环</p>
-<p>问题二：求环的长度</p>
-<p>问题三：求入环节点</p>
+<h1 id="2的整数幂"><a href="#2的整数幂" class="headerlink" title="2的整数幂"></a>2的整数幂</h1><blockquote>
+<p>判断一个数是否为2的整数次幂</p>
 </blockquote>
-<h1 id="分析如下："><a href="#分析如下：" class="headerlink" title="分析如下："></a>分析如下：</h1><p><img src="http://qcrt74khz.bkt.clouddn.com/IMG_0029.PNG/999" alt="img"></p>
-<h1 id="实现如下"><a href="#实现如下" class="headerlink" title="实现如下"></a>实现如下</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> data;</span><br><span class="line">        Node next;</span><br><span class="line">        Node(<span class="keyword">int</span> data)&#123;</span><br><span class="line">            <span class="keyword">this</span>.data = data;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 双指针判断是否有环</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isCycle1</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        Node p1 = node;</span><br><span class="line">        Node p2 = node;</span><br><span class="line">        <span class="keyword">while</span> (p2!=<span class="keyword">null</span> &amp;&amp; p2.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            p1 = p1.next;</span><br><span class="line">            p2 = p2.next.next;</span><br><span class="line">            <span class="comment">// 利用追及问题的思想，如果有环，那么速度快的节点一定会超越速度慢的节点</span></span><br><span class="line">            <span class="keyword">if</span>(p1 == p2)&#123;</span><br><span class="line">                <span class="comment">//相遇在这一点，即可证明有环</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 求是否有环，并且求出长度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isCycle2</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        Node p1 = node;</span><br><span class="line">        Node p2 = node;</span><br><span class="line">        <span class="keyword">while</span> (p2!=<span class="keyword">null</span> &amp;&amp; p2.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            p1 = p1.next;</span><br><span class="line">            p2 = p2.next.next;</span><br><span class="line">            <span class="keyword">if</span>(p1 == p2)&#123;</span><br><span class="line">                <span class="comment">//有环，由于p2速度是p1的两倍，所以 环长 = (速度差)*前进次数 = 前进次数</span></span><br><span class="line">                <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span> ( count==<span class="number">0</span> || p1 != p2)&#123;</span><br><span class="line">                    p1 = p1.next;</span><br><span class="line">                    p2 = p2.next.next;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"环长度为："</span>+count);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 求是否有环、以及入环点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isCycle3</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        Node head = node;</span><br><span class="line">        Node p1 = node;</span><br><span class="line">        Node p2 = node;</span><br><span class="line">        <span class="keyword">while</span> (p2!=<span class="keyword">null</span> &amp;&amp; p2.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            p1 = p1.next;</span><br><span class="line">            p2 = p2.next.next;</span><br><span class="line">            <span class="keyword">if</span>(p1 == p2)&#123;</span><br><span class="line">                p1 = head;</span><br><span class="line">                <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span> (count==<span class="number">0</span> || p1!=p2)&#123;</span><br><span class="line">                    p1 = p1.next;</span><br><span class="line">                    p2 = p2.next;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"入环点在"</span>+p1.data);</span><br><span class="line">                System.out.println(<span class="string">"头到入环点的距离有"</span>+count+<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**           8 &lt;- 2</span></span><br><span class="line"><span class="comment">     *            ↓    ↑</span></span><br><span class="line"><span class="comment">     *  3 -&gt; 9 -&gt; 6 -&gt; 7</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Node node1 = <span class="keyword">new</span> Node(<span class="number">3</span>);</span><br><span class="line">        Node node2 = <span class="keyword">new</span> Node(<span class="number">9</span>);</span><br><span class="line">        Node node3 = <span class="keyword">new</span> Node(<span class="number">6</span>);</span><br><span class="line">        Node node4 = <span class="keyword">new</span> Node(<span class="number">7</span>);</span><br><span class="line">        Node node5 = <span class="keyword">new</span> Node(<span class="number">2</span>);</span><br><span class="line">        Node node6 = <span class="keyword">new</span> Node(<span class="number">8</span>);</span><br><span class="line">        node1.next = node2;</span><br><span class="line">        node2.next = node3;</span><br><span class="line">        node3.next = node4;</span><br><span class="line">        node4.next = node5;</span><br><span class="line">        node5.next = node6;</span><br><span class="line">        node6.next = node3;</span><br><span class="line">        System.out.println(isCycle3(node1));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一眼看完这个题，会想到的办法：</p>
+<ol>
+<li>先判断奇偶，是奇数直接false</li>
+<li>如果是偶数，就从2开始平方2,4,16,32,32*32…</li>
+</ol>
+<p>但其实，我们如果知道巧妙的运用位运算：</p>
+<p><img src="http://qcrt74khz.bkt.clouddn.com//IMG_0032.PNG/999" alt="IMG_0032"></p>
+<p>代码只有一行，就可以搞定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 董文浩</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/7/10 20:57</span></span><br><span class="line"><span class="comment"> * 2的整数幂：</span></span><br><span class="line"><span class="comment"> * 判断一个数，是否为2的整数次幂</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntegralPowerOf2</span> </span>&#123;</span><br><span class="line">    <span class="comment">//如果使用位运算，这道题会非常的简单，如下</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isIntegralPowerOf2</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (num &amp; num-<span class="number">1</span>) == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(isIntegralPowerOf2(<span class="number">1024</span>));</span><br><span class="line">        System.out.println(isIntegralPowerOf2(<span class="number">65536</span>));</span><br><span class="line">        System.out.println(isIntegralPowerOf2(<span class="number">60000</span>));</span><br><span class="line">        <span class="comment">//输出结果：true true false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -454,9 +461,7 @@
           
             <a href="/tags/Java/" rel="tag"># Java</a>
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
-            <a href="/tags/链表/" rel="tag"># 链表</a>
+            <a href="/tags/算法/" rel="tag"># 算法</a>
           
         </div>
       
@@ -469,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/07/编译/Mysql8编译安装/" rel="next" title="Mysql8编译安装">
-                <i class="fa fa-chevron-left"></i> Mysql8编译安装
+              <a href="/2020/07/10/算法/最小栈问题/" rel="next" title="最小栈问题">
+                <i class="fa fa-chevron-left"></i> 最小栈问题
               </a>
             
           </div>
@@ -478,10 +483,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/09/Linux/Linux/" rel="prev" title="Linux">
-                Linux <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -560,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +572,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -615,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链表环问题需求"><span class="nav-number">1.</span> <span class="nav-text">链表环问题需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析如下："><span class="nav-number">2.</span> <span class="nav-text">分析如下：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现如下"><span class="nav-number">3.</span> <span class="nav-text">实现如下</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2的整数幂"><span class="nav-number">1.</span> <span class="nav-text">2的整数幂</span></a></li></ol></div>
             
 
           </div>
@@ -649,7 +650,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">158.7k</span>
+    <span title="Site words total count">160.6k</span>
   
 </div>
 
