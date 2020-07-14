@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[快速排序]]></title>
+    <url>%2F2020%2F07%2F14%2F%E7%AE%97%E6%B3%95%2F%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[引言： 两种快速排序 快速排序快速排序： 单边循环 双边循环 图例： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108import java.util.Arrays;/** * @author 董文浩 * @Date 2020/7/10 21:42 * 快速排序 */public class QuickSort &#123; /**快速排序： * 重要的经典的排序算法 * * 算法思想：分治策略。 * * 重点有两个： * 1. 对于基准元素pivot的选择 * 1.1 选择第一个元素 * 1.2 随机选一个元素 * 1.3 从头、尾、中部三个数中选一个中等大小的数 * 2. 循环的方法：有两种实现 * 2.1 双边循环法 * 2.2 单边循环法 */ /** * 单边循环法 * @param arr * @param startIndex 起始的下标 * @param endIndex 末尾的下标 */ public static void singleSort(int[] arr, int startIndex , int endIndex)&#123; // 提前设置出口 if(startIndex &gt;= endIndex)&#123; return; &#125; //这里直接使用第一个元素作为pivot int pivot = arr[startIndex]; int mark = startIndex; for (int i = startIndex ; i &lt;= endIndex; i++) &#123; // 如果pivot右边的元素小于pivot if(arr[i] &lt; pivot )&#123; // 先mark++ ，再交换 i &lt;-&gt; mark mark++; int temp = arr[i]; arr[i] = arr[mark]; arr[mark] = temp; &#125; &#125; // 循环的最后交换 mark &lt;-&gt; pivot arr[startIndex] = arr[mark]; arr[mark] = pivot; singleSort(arr,startIndex,mark-1); singleSort(arr,mark +1,endIndex); &#125; /** * 双边循环法 * @param arr * @param startIndex 起始的下标 * @param endIndex 末尾的下标 */ public static void doubleSort(int[] arr, int startIndex , int endIndex)&#123; if(startIndex &gt;= endIndex)&#123; return; &#125; // 使用两个指针，指向开头和末尾 int left = startIndex; int right = endIndex; // 选择第一个元素为基准元素 int pivot = arr[startIndex]; while (left != right)&#123; while (right &gt; left &amp;&amp; arr[right] &gt; pivot)&#123; right --; &#125; while (right &gt; left &amp;&amp; arr[left] &lt;= pivot)&#123; left ++; &#125; // 两个指针做交换 if (right &gt; left) &#123; int temp = arr[right]; arr[right] = arr[left]; arr[left] = temp; &#125; &#125; // 交换 left=right &lt;-&gt; pivot arr[startIndex] = arr[left]; arr[left] = pivot; doubleSort(arr,startIndex,left-1); doubleSort(arr,left+1,endIndex); &#125; public static void main(String[] args) &#123; int arr[] = &#123;4,7,3,5,6,2,8,1&#125;; singleSort(arr,0,arr.length-1); System.out.println(Arrays.toString(arr)); arr = new int[]&#123;4,7,3,5,6,2,8,1&#125;; doubleSort(arr,0,arr.length-1); System.out.println(Arrays.toString(arr)); &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[鸡尾酒排序]]></title>
+    <url>%2F2020%2F07%2F13%2F%E7%AE%97%E6%B3%95%2F%E9%B8%A1%E5%B0%BE%E9%85%92%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[引言： 什么是鸡尾酒排序？ 鸡尾酒排序 鸡尾酒排序：也是对冒泡排序的一种优化，例如对于这样的数组2,3,4,5,6,7,1,8 如果使用普通的冒泡排序，需要七轮才能将1排到第一 而鸡尾酒排序，解决了这样的问题 通过：奇数轮正向遍历，偶数轮逆向遍历 ，这样第二轮就可以将1排到左边了 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657import java.util.Arrays;/** * @author 董文浩 * @Date 2020/7/12 14:13 * 鸡尾酒排序 */public class Cocktail &#123; /** * 所谓鸡尾酒排序，就是一种对于冒泡排序的优化 * 对于这样的数组[2,3,4,5,6,7,1,8] * 我们发现只有1的位置顺序不对，但是却要进行死板的排序，七轮才能将1排到第一位 * 所以我们改进一下排序方法 */ public static void sort(int[] arr) &#123; int change = 0 , cycle = 0; int temp ; for (int i = 0; i &lt; arr.length / 2; i++) &#123; boolean isSorted = true; for (int j = i; j &lt; arr.length - i - 1; j++) &#123; if (arr[j] &gt; arr[j + 1]) &#123; temp = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = temp; isSorted = false; change++; &#125; cycle++; &#125; if (isSorted) &#123; break; &#125; isSorted = true; //重置一下排序标志 for (int j = arr.length - i - 1; j &gt; i ; j--) &#123; if (arr[j] &lt; arr[j - 1]) &#123; temp = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = temp; isSorted = false; change++; &#125; cycle++; &#125; if (isSorted) &#123; break; &#125; &#125; System.out.println("循环："+cycle + "，交换："+change); &#125; public static void main(String[] args) &#123; int[] arr = new int[]&#123;2, 3, 4, 5, 6, 7, 1, 8&#125;; sort(arr); System.out.println(Arrays.toString(arr)); &#125;&#125; 优点： ​ 对于类似示例的数组，排序很方便，很快速 缺点： ​ 代码量翻倍]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux_C文件操作]]></title>
     <url>%2F2020%2F07%2F13%2FLinux%2FLinux%20C%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
     <content type="text"><![CDATA[引言： Linux c 文件操作 Linux C文件操作 Linux系统I/O：open() read() write() lseek close 文件描述符文件描述符是一个数组的下标值。 files是一个文件指针数组，一般来说，一个进程会从files[0]读取输入，将输出写入files[1]，将错误信息写入files[2] 每个进程被创建时，files的前三位被填入默认值，分别指向标准输入流、标准输出流、标准错误流。我们常说的「文件描述符」就是指这个文件指针数组的索引，所以程序的文件描述符默认情况下 0 是输入，1 是输出，2 是错误，3及以上就是打开的文件 （图片取自知乎） open()函数头文件： 123#include &lt;sys/types.h&gt;#include &lt;sys/stat.h&gt;#include &lt;fcntl.h&gt; 原型： 12int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode); 参数： pathname ：返回要打开的文件路径名称 flags ： O_RDONLY：只读方式打开 O_WRONLY：只写方式打开 O_RDWR：可读可写 O_CREAT：文件不存在则创建 O_TRUNC：文件已存在则删除文件原有数据 O_APPEND：追加 （其中1、2、3互相排斥，其余可以使用|组合使用） mode ：如果文件被新建，指定其权限为mode（八进制表示） 返回值： 成功： 大于等于0 的整数（即文件描述符fd） 失败：-1,并且errno会被设置 示例 12345678910#include "stdio.h"#include &lt;sys/types.h&gt;#include &lt;sys/stat.h&gt;#include &lt;fcntl.h&gt;int main()&#123; int fd1 = open("./new.txt",O_RDONLY); printf("%d",fd1); getchar();//为了查看程序的状态，在这里卡一下程序 return 0;&#125; 编译执行程序，打开另一个终端 1234567891011[root@localhost local]# ps -aux | grep a.out root 3225 0.0 0.0 4220 352 tty1 S+ 07:08 0:00 ./a.outroot 3227 0.0 0.0 112808 980 pts/0 S+ 07:10 0:00 grep --color=auto a.out[root@localhost local]# ll /proc/3225/fdfd/ fdinfo/ [root@localhost local]# ll /proc/3225/fdtotal 0lrwx------. 1 root root 64 Jul 13 07:10 0 -&gt; /dev/tty1lrwx------. 1 root root 64 Jul 13 07:10 1 -&gt; /dev/tty1lrwx------. 1 root root 64 Jul 13 07:10 2 -&gt; /dev/tty1lr-x------. 1 root root 64 Jul 13 07:10 3 -&gt; /usr/local/new.txt 为什么要查看/proc/3225/fd下的内容呢？ 每个进程被创建后，在/proc/[PID]/fd文件下，会有对应文件标识符，此例的文件标识符 123[root@localhost local]# ls /proc/3225/fd0 1 2 3# 其中0、1、2对应着标准输入、标准输出、标准错误，而3就是本文件 我们可以看到lr-x------. 1 root root 64 Jul 13 07:10 3 -&gt; /usr/local/new.txt，文件的权限是r-x可读可执行，这就是O_RDONLY，如果改为O_WRONLY那这里就是-wx 如果我们在文件中open打开多个文件，那他们的fd就是3,4,5,6…依次往下排序 close()函数头文件： 1#include &lt;unistd.h&gt; 原型： 1int close(int fd); 参数： fd：要关闭的文件描述符 备注：重复关闭一个文件或是未打开的文件是安全的 示例： 如果一个文件被打开后，又关闭，然后又打开一个文件，那么这个文件的fd是3还是4？ 123456789101112#include "stdio.h"#include &lt;sys/types.h&gt;#include &lt;sys/stat.h&gt;#include &lt;fcntl.h&gt;int main()&#123; int fd1 = open("./new.txt",O_RDONLY); printf("%d\n",fd1); close(fd1); int fd2 = open("./new.txt",O_RDONLY); printf("%d\n",fd2); return 0;&#125; 结果是3 123[root@localhost local]# ./a.out 33 说明当我们关闭一个文件后，对应的files[3]会被删除，新打开一个文件后，这个文件又被打开。 即使我们打开了三个文件，分别是 3 4 5 ，我们关闭了 3，然后再打开一个文件，这个文件的fd依然是3 read()函数头文件： 1#include &lt;unistd.h&gt; 原型： 1ssize_t read(int fd, void *buf, size_t count); 参数： fd：文件描述符 buf：指向存放读到的数据的缓冲区，（就是放数据的内存首地址） count：想要从文件 fd 中读取的字节数 返回值： 成功：实际读到的字节数 失败：-1 补充： ssize_t ：是类型重定义，为了跨平台兼容。比如说long在32位系统可能是4字节，64位系统可能是8字节，嵌入式开发有的只有16位，那么int只有2个字节。 write()函数头文件： 1#include &lt;unistd.h&gt; 原型： 1ssize_t write(int fd, const void *buf, size_t count); 参数： fd:将数据写入到文件的fd中 buf:要写入的数据 count:要写入的字节数 备注：实际写入的字节数小于等于count 实现从a.txt文件中读取数据，写入到b.txt中 123456789101112#include "stdio.h"#include &lt;sys/types.h&gt;#include &lt;sys/stat.h&gt;#include &lt;fcntl.h&gt;int main()&#123; int fd1 = open("./a.txt",O_RDONLY); int fd2 = open("./a.txt",O_WRONLY); int buf = [100]; read(fd1,buf,10); write(fd2,buf,10); return 0;&#125; lseek()待补充 mmap()待补充]]></content>
@@ -20,18 +44,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[最大公约数]]></title>
-    <url>%2F2020%2F07%2F10%2F%E7%AE%97%E6%B3%95%2F%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[引言： 求两个数的最大公约数 最大公约数经典的问题，这里我们直接给出三种算法 辗转相除法（欧几里得算法）：两个正整数a和b(a&gt;b)，他们的最大公约数等于 a 除以 b 的余数 c 和 b（小的那个数） 之间的最大公约数。递归出口是（a%b==0） 更相减损术：两个正整数a和b(a&gt;b)，他们的最大公约数等于a-b的插值c和较小数b的最大公约数。递归出口是(a == b) 综合方法： 如果a,b均为偶数 gcd(a,b) = 2*gcd(a/2,b/2) = gcd(a&gt;&gt;1,b&gt;&gt;1)&lt;&lt;1 如果a,b一个奇数一个偶数 gcd(a,b) = gcd(偶数/2,奇数) = gcd(偶数&gt;&gt;1, 奇数) 如果a,b均为奇数 (a&gt;b) gcd(a,b) = gcd(a-b,b) 此时 a-b 为偶数 递归出口是（a==b） 思考如图： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081/** * @author 董文浩 * @Date 2020/7/10 19:57 * 求两个数的最大公约数 */public class GreatestCommonDivisor &#123; /** * 求一个数的最大公约数，是很经典的问题了 * 我们主要列出以下几种方法： * 1. 辗转相除法（欧几里得算法） * 2. 更相减损术 * 3. 融合两种方法特点的最佳方法 */ /** * 欧几里得算法：两个正整数a和b(a&gt;b)，他们的最大公约数等于 a 除以 b 的余数 c 和 b（小的那个数） 之间的最大公约数 */ public static int euclidean(int a, int b)&#123; int bigger = a &gt; b ? a : b; int smaller = a &gt; b ? b : a; if(bigger % smaller == 0)&#123; return smaller; &#125; return euclidean( bigger%smaller ,smaller); &#125; /** * 更相减损术：两个正整数a和b(a&gt;b)，他们的最大公约数等于a-b的插值c和较小数b的最大公约数 */ public static int morePhaseLoss(int a , int b)&#123; if(a == b)&#123; return a; &#125; int smaller = a &gt; b ? b : a; int bigger = a &gt; b ? a : b; return morePhaseLoss(bigger - smaller , smaller); &#125; /** * 综合方法： * 1. 如果a,b均为偶数 gcd(a,b) = 2*gcd(a/2,b/2) = gcd(a&gt;&gt;1,b&gt;&gt;1)&lt;&lt;1 * 2. 如果a,b一个奇数一个偶数 gcd(a,b) = gcd(偶数/2,奇数) = gcd(偶数&gt;&gt;1, 奇数) * 3. 如果a,b均为奇数 (a&gt;b) gcd(a,b) = gcd(a-b,b) 此时 a-b 为偶数 */ public static int gcd(int a , int b)&#123; if( a==b)&#123; return a; &#125; if((a&amp;1)==0 &amp;&amp; (b&amp;1) == 0)&#123; //全是偶数 return gcd(a&gt;&gt;1,b&gt;&gt;1)&lt;&lt;1; &#125;else if((a&amp;1)!=0 &amp;&amp; (b&amp;1) == 0)&#123; //a为奇数，b为偶数 return gcd(a,b&gt;&gt;1); &#125;else if((a&amp;1)==0 &amp;&amp; (b&amp;1) != 0)&#123; //a为偶数，b为奇数 return gcd(a&gt;&gt;1,b); &#125;else &#123; int smaller = a &gt; b ? b : a; int bigger = a &gt; b ? a : b; return gcd(bigger-smaller,smaller); &#125; &#125; public static void main(String[] args) &#123; // 辗转相除法测试 System.out.println(euclidean(25,10)); System.out.println(euclidean(100,80)); System.out.println(euclidean(27,14)); // 更相减速术测试 System.out.println(morePhaseLoss(25,10)); System.out.println(morePhaseLoss(100,80)); System.out.println(morePhaseLoss(27,14)); // 综合方法 System.out.println(gcd(25,10)); System.out.println(gcd(100,80)); System.out.println(gcd(27,14)); //输出均为 5 、20 、 1 &#125;&#125; 快速判断是奇数还是偶数，与1（&amp;1） 1例如 7 -&gt; 二进制]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -58,6 +70,18 @@
         <tag>算法</tag>
         <tag>数据结构</tag>
         <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[最大公约数]]></title>
+    <url>%2F2020%2F07%2F10%2F%E7%AE%97%E6%B3%95%2F%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[引言： 求两个数的最大公约数 最大公约数经典的问题，这里我们直接给出三种算法 辗转相除法（欧几里得算法）：两个正整数a和b(a&gt;b)，他们的最大公约数等于 a 除以 b 的余数 c 和 b（小的那个数） 之间的最大公约数。递归出口是（a%b==0） 更相减损术：两个正整数a和b(a&gt;b)，他们的最大公约数等于a-b的插值c和较小数b的最大公约数。递归出口是(a == b) 综合方法： 如果a,b均为偶数 gcd(a,b) = 2*gcd(a/2,b/2) = gcd(a&gt;&gt;1,b&gt;&gt;1)&lt;&lt;1 如果a,b一个奇数一个偶数 gcd(a,b) = gcd(偶数/2,奇数) = gcd(偶数&gt;&gt;1, 奇数) 如果a,b均为奇数 (a&gt;b) gcd(a,b) = gcd(a-b,b) 此时 a-b 为偶数 递归出口是（a==b） 思考如图： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081/** * @author 董文浩 * @Date 2020/7/10 19:57 * 求两个数的最大公约数 */public class GreatestCommonDivisor &#123; /** * 求一个数的最大公约数，是很经典的问题了 * 我们主要列出以下几种方法： * 1. 辗转相除法（欧几里得算法） * 2. 更相减损术 * 3. 融合两种方法特点的最佳方法 */ /** * 欧几里得算法：两个正整数a和b(a&gt;b)，他们的最大公约数等于 a 除以 b 的余数 c 和 b（小的那个数） 之间的最大公约数 */ public static int euclidean(int a, int b)&#123; int bigger = a &gt; b ? a : b; int smaller = a &gt; b ? b : a; if(bigger % smaller == 0)&#123; return smaller; &#125; return euclidean( bigger%smaller ,smaller); &#125; /** * 更相减损术：两个正整数a和b(a&gt;b)，他们的最大公约数等于a-b的插值c和较小数b的最大公约数 */ public static int morePhaseLoss(int a , int b)&#123; if(a == b)&#123; return a; &#125; int smaller = a &gt; b ? b : a; int bigger = a &gt; b ? a : b; return morePhaseLoss(bigger - smaller , smaller); &#125; /** * 综合方法： * 1. 如果a,b均为偶数 gcd(a,b) = 2*gcd(a/2,b/2) = gcd(a&gt;&gt;1,b&gt;&gt;1)&lt;&lt;1 * 2. 如果a,b一个奇数一个偶数 gcd(a,b) = gcd(偶数/2,奇数) = gcd(偶数&gt;&gt;1, 奇数) * 3. 如果a,b均为奇数 (a&gt;b) gcd(a,b) = gcd(a-b,b) 此时 a-b 为偶数 */ public static int gcd(int a , int b)&#123; if( a==b)&#123; return a; &#125; if((a&amp;1)==0 &amp;&amp; (b&amp;1) == 0)&#123; //全是偶数 return gcd(a&gt;&gt;1,b&gt;&gt;1)&lt;&lt;1; &#125;else if((a&amp;1)!=0 &amp;&amp; (b&amp;1) == 0)&#123; //a为奇数，b为偶数 return gcd(a,b&gt;&gt;1); &#125;else if((a&amp;1)==0 &amp;&amp; (b&amp;1) != 0)&#123; //a为偶数，b为奇数 return gcd(a&gt;&gt;1,b); &#125;else &#123; int smaller = a &gt; b ? b : a; int bigger = a &gt; b ? a : b; return gcd(bigger-smaller,smaller); &#125; &#125; public static void main(String[] args) &#123; // 辗转相除法测试 System.out.println(euclidean(25,10)); System.out.println(euclidean(100,80)); System.out.println(euclidean(27,14)); // 更相减速术测试 System.out.println(morePhaseLoss(25,10)); System.out.println(morePhaseLoss(100,80)); System.out.println(morePhaseLoss(27,14)); // 综合方法 System.out.println(gcd(25,10)); System.out.println(gcd(100,80)); System.out.println(gcd(27,14)); //输出均为 5 、20 、 1 &#125;&#125; 快速判断是奇数还是偶数，与1（&amp;1） 1例如 7 -&gt; 二进制]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
