@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：  段哥的Linux私房菜：分区与挂载、网络操作、日志查看">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com//image-20200711203819337.png/999">
-<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com//image-20200711204745385.png/999">
-<meta property="og:updated_time" content="2020-07-12T02:06:53.567Z">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20200711203819337.png/999">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20200711204745385.png/999">
+<meta property="og:updated_time" content="2020-08-11T09:24:11.230Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="段哥的Linux私房菜">
 <meta name="twitter:description" content="引言：  段哥的Linux私房菜：分区与挂载、网络操作、日志查看">
-<meta name="twitter:image" content="http://qcrt74khz.bkt.clouddn.com//image-20200711203819337.png/999">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20200711203819337.png/999">
 
 
 
@@ -454,7 +454,7 @@
 <p>linux方面：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br><span class="line"><span class="meta">#</span> 查询ip地址</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qcrt74khz.bkt.clouddn.com//image-20200711203819337.png/999" alt="image-20200711203819337"></p>
+<p><img src="http://img.yesmylord.cn//image-20200711203819337.png/999" alt="image-20200711203819337"></p>
 <p>可以看到有两张网卡：</p>
 <ol>
 <li><p><code>lo</code>（Loopback Address）：回环地址，不属于任何一个有类别地址类。代表设备的本地虚拟接口，所以默认被看作是永远不会宕掉的接口</p>
@@ -462,7 +462,7 @@
 <li><p><code>enp</code>：以太网</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 默认关闭,查看配置文件</span><br><span class="line">cat /etc/sysconfig/network-scripts/ifcfg-enp0s</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://qcrt74khz.bkt.clouddn.com//image-20200711204745385.png/999" alt="image-20200711204745385"></p>
+<p><img src="http://img.yesmylord.cn//image-20200711204745385.png/999" alt="image-20200711204745385"></p>
 <p>注意到<code>ONBOOT=no</code>默认开机不会启动，而且<code>BOOTPROTO=dhcp</code>，<code>dhcp</code>是一个自动获取ip地址的协议，我们需要让他启动</p>
 <blockquote>
 <p>DHCP（动态主机配置协议）是一个局域网的网络协议。指的是由服务器控制一段IP地址范围，客户机登录服务器时就可以自动获得服务器分配的IP地址和子网掩码。默认情况下，DHCP作为Windows Server的一个服务组件不会被系统自动安装，还需要管理员手动安装并进行必要的配置。（百度百科）</p>
@@ -550,8 +550,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/10/算法/2的整数幂/" rel="next" title="2的整数幂">
-                <i class="fa fa-chevron-left"></i> 2的整数幂
+              <a href="/2020/07/10/算法/最小栈问题/" rel="next" title="最小栈问题">
+                <i class="fa fa-chevron-left"></i> 最小栈问题
               </a>
             
           </div>

@@ -47,15 +47,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2的整数幂]]></title>
-    <url>%2F2020%2F07%2F10%2F%E7%AE%97%E6%B3%95%2F2%E7%9A%84%E6%95%B4%E6%95%B0%E5%B9%82%2F</url>
-    <content type="text"><![CDATA[引言： 判断一个数是否为2的整数次幂 2的整数幂 判断一个数是否为2的整数次幂 第一眼看完这个题，会想到的办法： 先判断奇偶，是奇数直接false 如果是偶数，就从2开始平方2,4,16,32,32*32… 但其实，我们如果知道巧妙的运用位运算： 代码只有一行，就可以搞定 123456789101112131415161718192021/** * @author 董文浩 * @Date 2020/7/10 20:57 * 2的整数幂： * 判断一个数，是否为2的整数次幂 */public class IntegralPowerOf2 &#123; //如果使用位运算，这道题会非常的简单，如下 public static boolean isIntegralPowerOf2(int num)&#123; return (num &amp; num-1) == 0; &#125; public static void main(String[] args) &#123; System.out.println(isIntegralPowerOf2(1024)); System.out.println(isIntegralPowerOf2(65536)); System.out.println(isIntegralPowerOf2(60000)); //输出结果：true true false &#125;&#125;]]></content>
+    <title><![CDATA[最小栈问题]]></title>
+    <url>%2F2020%2F07%2F10%2F%E7%AE%97%E6%B3%95%2F%E6%9C%80%E5%B0%8F%E6%A0%88%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[引言： 实现一个栈，带有出栈、入栈、取最小值三个方法，并要求这三个方法的时间复杂度都为O(1) 最小栈问题 实现一个栈，带有出栈、入栈、取最小值三个方法，并要求这三个方法的时间复杂度都为O(1) 出栈入栈都可以用O(1)实现，最重要的是实现取最小值，最小值我们必须存起来，存在另一个栈中。 如下图，先入栈4、9、7、3、8、5 再出栈三次 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162import java.util.Stack;/** * @author 董文浩 * @Date 2020/7/9 21:23 * 最小栈问题： * 实现一个栈，带有出栈、入栈、取最小值三个方法，并要求这三个方法的时间复杂度都为O(1) */public class MinimumStack &#123; /** * 主栈mainStack，完成正常的栈的使用 */ private Stack&lt;Integer&gt; mainStack = new Stack(); /** * 副栈minStack，存储最小的数 */ private Stack&lt;Integer&gt; minStack = new Stack(); /** * 入栈 * * @return */ public void push(int e) &#123; //如果最小栈为空，或者存入的数值小，那么就将它存入 if (minStack.isEmpty() || e &lt;= minStack.peek()) &#123; minStack.push(e); &#125; mainStack.push(e); &#125; /** * 出栈 * * @return */ public int pop() &#123; //如果出栈的是最小栈内的，就让它也出栈 if (mainStack.peek().equals(minStack.peek())) &#123; minStack.pop(); &#125; return mainStack.pop(); &#125; public int getMin()&#123; return minStack.peek(); &#125; public static void main(String[] args) &#123; MinimumStack stack = new MinimumStack(); stack.push(4); stack.push(9); stack.push(7); stack.push(3); stack.push(8); stack.push(5); System.out.println(stack.getMin()); //输出 3 stack.pop(); stack.pop(); stack.pop(); System.out.println(stack.getMin());// 输出 4 &#125;&#125;]]></content>
       <categories>
         <category>算法</category>
       </categories>
       <tags>
         <tag>Java</tag>
         <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -71,17 +73,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[最小栈问题]]></title>
-    <url>%2F2020%2F07%2F10%2F%E7%AE%97%E6%B3%95%2F%E6%9C%80%E5%B0%8F%E6%A0%88%E9%97%AE%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[引言： 实现一个栈，带有出栈、入栈、取最小值三个方法，并要求这三个方法的时间复杂度都为O(1) 最小栈问题 实现一个栈，带有出栈、入栈、取最小值三个方法，并要求这三个方法的时间复杂度都为O(1) 出栈入栈都可以用O(1)实现，最重要的是实现取最小值，最小值我们必须存起来，存在另一个栈中。 如下图，先入栈4、9、7、3、8、5 再出栈三次 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162import java.util.Stack;/** * @author 董文浩 * @Date 2020/7/9 21:23 * 最小栈问题： * 实现一个栈，带有出栈、入栈、取最小值三个方法，并要求这三个方法的时间复杂度都为O(1) */public class MinimumStack &#123; /** * 主栈mainStack，完成正常的栈的使用 */ private Stack&lt;Integer&gt; mainStack = new Stack(); /** * 副栈minStack，存储最小的数 */ private Stack&lt;Integer&gt; minStack = new Stack(); /** * 入栈 * * @return */ public void push(int e) &#123; //如果最小栈为空，或者存入的数值小，那么就将它存入 if (minStack.isEmpty() || e &lt;= minStack.peek()) &#123; minStack.push(e); &#125; mainStack.push(e); &#125; /** * 出栈 * * @return */ public int pop() &#123; //如果出栈的是最小栈内的，就让它也出栈 if (mainStack.peek().equals(minStack.peek())) &#123; minStack.pop(); &#125; return mainStack.pop(); &#125; public int getMin()&#123; return minStack.peek(); &#125; public static void main(String[] args) &#123; MinimumStack stack = new MinimumStack(); stack.push(4); stack.push(9); stack.push(7); stack.push(3); stack.push(8); stack.push(5); System.out.println(stack.getMin()); //输出 3 stack.pop(); stack.pop(); stack.pop(); System.out.println(stack.getMin());// 输出 4 &#125;&#125;]]></content>
+    <title><![CDATA[2的整数幂]]></title>
+    <url>%2F2020%2F07%2F10%2F%E7%AE%97%E6%B3%95%2F2%E7%9A%84%E6%95%B4%E6%95%B0%E5%B9%82%2F</url>
+    <content type="text"><![CDATA[引言： 判断一个数是否为2的整数次幂 2的整数幂 判断一个数是否为2的整数次幂 第一眼看完这个题，会想到的办法： 先判断奇偶，是奇数直接false 如果是偶数，就从2开始平方2,4,16,32,32*32… 但其实，我们如果知道巧妙的运用位运算： 代码只有一行，就可以搞定 123456789101112131415161718192021/** * @author 董文浩 * @Date 2020/7/10 20:57 * 2的整数幂： * 判断一个数，是否为2的整数次幂 */public class IntegralPowerOf2 &#123; //如果使用位运算，这道题会非常的简单，如下 public static boolean isIntegralPowerOf2(int num)&#123; return (num &amp; num-1) == 0; &#125; public static void main(String[] args) &#123; System.out.println(isIntegralPowerOf2(1024)); System.out.println(isIntegralPowerOf2(65536)); System.out.println(isIntegralPowerOf2(60000)); //输出结果：true true false &#125;&#125;]]></content>
       <categories>
         <category>算法</category>
       </categories>
       <tags>
         <tag>Java</tag>
         <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>栈</tag>
       </tags>
   </entry>
   <entry>

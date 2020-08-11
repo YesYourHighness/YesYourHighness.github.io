@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="YesYourHighness">
 <meta property="og:description" content="引言：   使用linux编译运行nginx！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com/image-20200702135045948.png">
-<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com/image-20200702135813487.png">
-<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com/image-20200702141149556.png">
-<meta property="og:image" content="http://qcrt74khz.bkt.clouddn.com/image-20200702141508419.png">
-<meta property="og:updated_time" content="2020-07-04T01:37:25.076Z">
+<meta property="og:image" content="http://img.yesmylord.cn/image-20200702135045948.png">
+<meta property="og:image" content="http://img.yesmylord.cn/image-20200702135813487.png">
+<meta property="og:image" content="http://img.yesmylord.cn/image-20200702141149556.png">
+<meta property="og:image" content="http://img.yesmylord.cn/image-20200702141508419.png">
+<meta property="og:updated_time" content="2020-08-11T09:20:57.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译运行nginx">
 <meta name="twitter:description" content="引言：   使用linux编译运行nginx！！">
-<meta name="twitter:image" content="http://qcrt74khz.bkt.clouddn.com/image-20200702135045948.png">
+<meta name="twitter:image" content="http://img.yesmylord.cn/image-20200702135045948.png">
 
 
 
@@ -446,13 +446,13 @@
 <p>编译安装</p>
 <p><strong>5. make install</strong></p>
 <p>执行安装，安装后<code>--prefix</code>指定的安装目录下会出现</p>
-<p><img src="http://qcrt74khz.bkt.clouddn.com/image-20200702135045948.png" alt="image-20200702135045948"></p>
+<p><img src="http://img.yesmylord.cn/image-20200702135045948.png" alt="image-20200702135045948"></p>
 <p>如此的目录。</p>
 <p><code>conf</code>下就是配置文件，我们待会儿需要对其目录下的<code>nginx.conf</code>进行配置</p>
 <p><code>sbin</code>下是执行命令的目录</p>
 <p><strong>6. 找一个博客作为检验</strong></p>
 <p>我把博客放在了<code>/usr/nginx/blog</code>内</p>
-<p><img src="http://qcrt74khz.bkt.clouddn.com/image-20200702135813487.png" alt="img"></p>
+<p><img src="http://img.yesmylord.cn/image-20200702135813487.png" alt="img"></p>
 <p>博客目录下有<code>html</code>文件以及静态图片文件夹还有css文件</p>
 <hr>
 <p><strong>7. 配置conf</strong></p>
@@ -475,10 +475,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx</span><br></pre></td></tr></table></figure>
 
 <p>就启动了，打开浏览器，输入<code>localhost</code>，发现已经能愉快的访问了</p>
-<p><img src="http://qcrt74khz.bkt.clouddn.com/image-20200702141149556.png" alt="image"></p>
+<p><img src="http://img.yesmylord.cn/image-20200702141149556.png" alt="image"></p>
 <hr>
 <h1 id="遇到的小bug"><a href="#遇到的小bug" class="headerlink" title="遇到的小bug"></a>遇到的小bug</h1><p>可能会出现这种情况</p>
-<p><img src="http://qcrt74khz.bkt.clouddn.com/image-20200702141508419.png" alt="img"></p>
+<p><img src="http://img.yesmylord.cn/image-20200702141508419.png" alt="img"></p>
 <p>有可能是你执行了两遍<code>./nginx</code>，80端口被占用，就会报错</p>
 <p>解决方法：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">netstat -ntlp</span><br><span class="line"><span class="meta">#</span> 查看端口为80的哪一个进程</span><br><span class="line">kill -s QUIT [nginx的pid]</span><br><span class="line"><span class="meta">#</span> 使用官方手法，优雅的杀死nginx</span><br></pre></td></tr></table></figure>
