@@ -1,17 +1,20 @@
 ---
 title: Hynis
 date: 2019-07-21 15:57:26
+
 ---
 
-<center>
-Later equals Never
-    <br/>
-非常开心你能看我的blog！
-    如果有错误，纯属正常，请一定一定告诉我！
 
-可以评论、也可以给我发邮件1046467756@qq.com
 
-built by Hynis
+> Later equals Never
+
+Blog记录自己学到的东西，如果对你也有所裨益，那将是我的荣幸！
+
+文章如有错误非常正常，请联系我：1046467756@qq.com
+
+> 为什么叫Hynis？
+
+Hynis是我音改了一下单词Highness，好像有一点中二，哈哈
 
 
 

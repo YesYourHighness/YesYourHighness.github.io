@@ -94,6 +94,8 @@ pmt = {0, 0, 1, 2, 3, 4, 0, 1};
 
 KMP的代码可以背下来，可以作为我们的一个API进行调用！！
 
+（注意这里的next数组其实是pmt数组，并没有移动一位）
+
 ```java
 public int strStr(String s, String p) {
     int n = s.length(), m = p.length();
