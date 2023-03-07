@@ -230,8 +230,6 @@ HTTP定义很简单，首先我们要有两个端（客户端+服务器），其
 
 现在，知道了请求头和响应体，我们就可以开始调戏百度了，哈哈哈
 
-![image](https://github.com/YesYourHighness/MyPicStore/raw/master/douTu/bugChick2.jpg)
-
 （这里我使用的是我的小破服务器，没有服务器可以用Linux的虚拟机）
 
 ```
@@ -286,7 +284,7 @@ HTTP(1.0)是非持续连接的，这意味着服务器每次响应发送的响�
 
 不仅笨，而且假如有一个HTTP请求阻塞，那么他之后的请求都会阻塞
 
-![图片来源见参考资料](https://github.com/YesYourHighness/MyPicStore/raw/master/http/block.jpg)
+![队头阻塞](http://img.yesmylord.cn//block.jpg)
 
 ## 无状态
 
@@ -413,7 +411,7 @@ HTTPS加入了SSL来解决HTTP不安全的问题，主要通过三个手段：
 - 摘要算法
 - 数字证书
 
-![image](https://github.com/YesYourHighness/MyPicStore/raw/master/http/http1.0.jpg)
+![http1.0](http://img.yesmylord.cn//http1.0.jpg)
 
 ## 混合加密
 
@@ -496,7 +494,7 @@ HTTP终于解决了不安全的问题，但是他的问题还有很多：
 
    速度比较：
 
-   ![image](https://github.com/YesYourHighness/MyPicStore/raw/master/http/http1vshttp2.gif)
+   ![http1vshttp2](http://img.yesmylord.cn//http1vshttp2.gif)
 
 2. HTTP/2 不再像 HTTP/1.1 里的纯文本形式的报文，而是全面采用了**二进制**格式。头信息和数据体都是二进制，并且统称为帧（frame）：头信息帧和数据帧。
 
@@ -513,7 +511,7 @@ HTTP终于解决了不安全的问题，但是他的问题还有很多：
 
 结构如下：
 
-![图片来源见参考资料](https://github.com/YesYourHighness/MyPicStore/raw/master/http/http1.1.jpg)
+![http1.1](http://img.yesmylord.cn//http1.1.jpg)
 
 ## HTTP2缺点
 
@@ -532,7 +530,7 @@ HTTP终于解决了不安全的问题，但是他的问题还有很多：
 
 HTTP/3 把 HTTP 下层的 TCP 协议改成了 UDP
 
-![image](https://github.com/YesYourHighness/MyPicStore/raw/master/http/http2.jpg)
+![http3](http://img.yesmylord.cn//http2.jpg)
 
 - UDP 发生是不管顺序，也不管丢包的，所以不会出现 HTTP/1.1 的队头阻塞 和 HTTP/2 的一个丢包全部重传问题。
 - 大家都知道 UDP 是不可靠传输的，但**基于 UDP 的 QUIC 协议** 可以实现类似 TCP 的可靠性传输。	
