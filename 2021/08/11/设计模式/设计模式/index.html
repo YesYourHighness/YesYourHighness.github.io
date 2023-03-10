@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：设计模式：单例、原型、工厂、适配器、代理模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="http://yoursite.com/2021/08/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：设计模式：单例、原型、工厂、适配器、代理模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-11T02:01:20.000Z">
+<meta property="article:modified_time" content="2021-08-18T01:48:55.760Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="单例模式">
+<meta property="article:tag" content="原型模式">
+<meta property="article:tag" content="适配器模式">
+<meta property="article:tag" content="工厂模式">
+<meta property="article:tag" content="代理模式">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/08/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/08/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/","path":"2021/08/11/设计模式/设计模式/","title":"设计模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>设计模式 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">设计模式的概述与分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOP%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">OOP七大原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A5%BF%E6%B1%89%E5%BC%8F%E2%80%94%E2%80%94%E7%9B%B4%E6%8E%A5new"><span class="nav-number">1.3.1.</span> <span class="nav-text">饿汉式——直接new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E6%B1%89%E5%BC%8F%E2%80%94%E2%80%94%E4%B8%BA%E7%A9%BAnew"><span class="nav-number">1.3.2.</span> <span class="nav-text">懒汉式——为空new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E9%87%8D%E6%A3%80%E7%B4%A2%E6%A8%A1%E5%BC%8FDCL%EF%BC%88%E6%87%92%E6%B1%89%E5%BC%8F%E5%8D%95%E4%BE%8B%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">双重检索模式DCL（懒汉式单例）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B"><span class="nav-number">1.3.4.</span> <span class="nav-text">静态内部类实现单例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.3.5.</span> <span class="nav-text">枚举</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">简单工厂模式（静态工厂模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">工厂方法模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">原型模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">适配器模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.1.</span> <span class="nav-text">静态代理模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="nav-number">1.7.2.</span> <span class="nav-text">动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK-Proxy"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">JDK Proxy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CGLib"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">CGLib</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">1.8.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="设计模式 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-11 10:01:20" itemprop="dateCreated datePublished" datetime="2021-08-11T10:01:20+08:00">2021-08-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-08-18 09:48:55" itemprop="dateModified" datetime="2021-08-18T09:48:55+08:00">2021-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+    引言：设计模式：单例、原型、工厂、适配器、代理模式
+</center>
+
+<span id="more"></span>
+
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="设计模式的概述与分类"><a href="#设计模式的概述与分类" class="headerlink" title="设计模式的概述与分类"></a>设计模式的概述与分类</h2><p>1995年，GoF（四人组）合作出版了《设计模式：可复用面向对象软件的基础》，收录了23种设计模式，树立了软件设计领域的里程碑</p>
+<p>可以把23种设计模式分为三大类：</p>
+<ul>
+<li><strong>创建型模式</strong>：<ul>
+<li><strong>单例模式</strong>、<strong>工厂模式</strong>、抽象工厂模式、建造者模式、<strong>原型模式</strong></li>
+</ul>
+</li>
+<li><strong>结构型模式</strong>：<ul>
+<li><strong>适配器模式</strong>、桥接模式、装饰模式、组合模式、外观模式、享元模式、<strong>代理模式</strong></li>
+</ul>
+</li>
+<li><strong>行为型模式</strong>：<ul>
+<li>模板方法模式、命令模式、迭代器模式、观察者模式、中介者模式、备忘录模式、解释器模式、状态模式、策略模式、职责链模式、访问者模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="OOP七大原则"><a href="#OOP七大原则" class="headerlink" title="OOP七大原则"></a>OOP七大原则</h2><ul>
+<li>开闭原则：对扩展开放、对修改关闭</li>
+<li>里氏替换原则：继承必须确保超类所拥有的性质子类仍成立</li>
+<li>依赖倒置原则：面向接口编程，不要面向实现编程</li>
+<li>单一职责原则：控制类的粒度，将对象解耦，提高内聚性</li>
+<li>接口隔离原则：要为各个类建立它们需要的专用接口</li>
+<li>迪米特法则：只与直接朋友交谈，不与“陌生人”说话</li>
+<li>合成复用原则：尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系</li>
+</ul>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><blockquote>
+<p>单例模式：</p>
+<p><strong>一个类只允许创建一个对象</strong>，那这个类就是一个单例类，这种设计模式就叫作单例模式。</p>
+</blockquote>
+<p>作用：单例模式用来<strong>创建全局唯一的对象</strong></p>
+<p>实现方式：饿汉式、懒汉式、双重检测、静态内部类、枚举</p>
+<h3 id="饿汉式——直接new"><a href="#饿汉式——直接new" class="headerlink" title="饿汉式——直接new"></a>饿汉式——直接new</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 饿汉式单例模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungryMan</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 私有构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">HungryMan</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> HungryMan hungryMan = <span class="keyword">new</span> HungryMan();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HungryMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hungryMan;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>特点：</p>
+<ul>
+<li>不是动态创建，浪费空间</li>
+<li>不存在线程安全问题</li>
+</ul>
+<h3 id="懒汉式——为空new"><a href="#懒汉式——为空new" class="headerlink" title="懒汉式——为空new"></a>懒汉式——为空new</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 懒汉式单例模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyMan</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyMan</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyMan lazyMan = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( lazyMan == <span class="keyword">null</span>)&#123;</span><br><span class="line">            lazyMan =  <span class="keyword">new</span> LazyMan();</span><br><span class="line">            <span class="comment">// 动态创建，不会浪费空间</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazyMan;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>单线程下没问题，但是多线程情况下会报错</p>
+<h3 id="双重检索模式DCL（懒汉式单例）"><a href="#双重检索模式DCL（懒汉式单例）" class="headerlink" title="双重检索模式DCL（懒汉式单例）"></a>双重检索模式DCL（懒汉式单例）</h3><p>多线程保证安全，双重判断并加<code>volatile</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyMan</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazyMan</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> LazyMan lazyMan = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 必须加 volatile</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazyMan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 双重检验</span></span><br><span class="line">        <span class="keyword">if</span> ( lazyMan == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 第一重检验，防止多个线程在此等待，提高性能</span></span><br><span class="line">            <span class="keyword">synchronized</span> (LazyMan.class)&#123;</span><br><span class="line">                <span class="keyword">if</span>(lazyMan == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="comment">// 因为此操作不是原子操作，所以加volatile</span></span><br><span class="line">                    <span class="comment">// 此操作有三步</span></span><br><span class="line">                    <span class="comment">/* 1. 分配内存 2.初始化 3. 指针指向引用</span></span><br><span class="line"><span class="comment">                    CPU判断2与3并无关系，所以可能先执行3 后执行2</span></span><br><span class="line"><span class="comment">                    如果此对象还没有被初始化完成就已经不为null了，那么多个线程会迫不及待的把这个对象抱回家——工作内存，导致发生异常</span></span><br><span class="line"><span class="comment">                    所以要加volatile</span></span><br><span class="line"><span class="comment">                    */</span></span><br><span class="line">                    lazyMan =  <span class="keyword">new</span> LazyMan();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazyMan;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态内部类实现单例"><a href="#静态内部类实现单例" class="headerlink" title="静态内部类实现单例"></a>静态内部类实现单例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Holder</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Holder</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Holder <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> InnerClass.holder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Holder holder = <span class="keyword">new</span> Holder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>特点：</p>
+<ul>
+<li>外部类加载时不需要立即加载内部类，节省空间</li>
+<li>线程安全</li>
+</ul>
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>以上所有的方法，都避免不了被<strong>反射</strong>进行破解，导致单例不再单例。</p>
+<p>但是枚举就不怕被反射破解，JDK源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((clazz.getModifiers() &amp; Modifier.ENUM) != <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Cannot reflectively create enum objects&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">EnumSingle</span> </span>&#123;</span><br><span class="line">    INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> EnumSingle <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以直接使用<code>EnumSingle.INSTANCE</code>使用此对象</p>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><blockquote>
+<p>工厂模式：实现了创建者和调用者的分离</p>
+</blockquote>
+<p>细分：</p>
+<ul>
+<li>简单工厂模式</li>
+<li>工厂方法模式</li>
+<li>抽象工厂模式（非重点）</li>
+</ul>
+<p>如果创建对象的逻辑并不复杂，那我们直接通过new来创建对象就可以了，不需要使用工厂模式。</p>
+<p>当创建逻辑比较复杂，是一个“大工程”的时候，我们就考虑使用工厂模式，封装对象的创建过程，<strong>将对象的创建和使用相分离</strong></p>
+<h3 id="简单工厂模式（静态工厂模式）"><a href="#简单工厂模式（静态工厂模式）" class="headerlink" title="简单工厂模式（静态工厂模式）"></a>简单工厂模式（静态工厂模式）</h3><p>工厂模式通常代入一个例子好理解：</p>
+<p>例如：程序员张三开车去上班</p>
+<p>简单实现就是这样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 张三开五菱去上班</span></span><br><span class="line">Car car = <span class="keyword">new</span> Wulin();</span><br><span class="line">zhangSan.drive(car);</span><br><span class="line"><span class="comment">// 后来张三996挣钱了，换成了宝马车</span></span><br><span class="line">Car car = <span class="keyword">new</span> BMW();</span><br><span class="line">zhangSan.dirve(car);</span><br><span class="line"><span class="comment">// 再后来张三30岁了，被裁员，只能骑共享单车了</span></span><br><span class="line">Car car = <span class="keyword">new</span> HaLuo();</span><br><span class="line">zhangSan.dirve(car);</span><br></pre></td></tr></table></figure>
+
+<p>如果使用简单工厂模式，张三就不需要再自己去创造车了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zhangSan.drive(CarFactory.getCar(<span class="string">&quot;别克&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>CarFactory就是一个简单工厂，它的实现可以是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title">getCar</span><span class="params">(String carName)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(carName == <span class="string">&quot;BMW&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> BMW;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(...)&#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单工厂简单的分开了使用者和创造者，但是<strong>不满足开闭原则</strong>，比如我们现在要加入特斯拉，此时我们就要去更改CarFactory的代码。</p>
+<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>更加合理的方式，就是每一个车，都应该有一个车厂，宝马有宝马车厂、特斯拉要有特斯拉工厂</p>
+<p>如果加入一个新车，我们也不需要去更改源代码，而是进行扩展，这样就符合了开闭原则</p>
+<p>Spring框架的IOC其实就是工厂模式的实现，Spring = 工厂 + 反射 + 配置文件</p>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><blockquote>
+<p>原型模式：利用对已有对象（原型）进行复制（或者叫拷贝）的方式，来创建新对象，以达到节省创建时间的目的。</p>
+</blockquote>
+<p>原型模式有两种实现方法：</p>
+<ul>
+<li>深拷贝：一份完完全全独立的对象</li>
+<li>浅拷贝：复制对象中基本数据类型数据和<strong>引用对象的内存地址</strong>，不会递归地复制引用对象，以及引用对象的引用对象</li>
+</ul>
+<p>可以通过改写<code>clone</code>方法来实现原型模式：</p>
+<ol>
+<li>继承<code>Cloneable</code>接口</li>
+<li>重写<code>clone</code>方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> ArrayList list;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone(); <span class="comment">// 浅拷贝</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        User fengQiang = <span class="keyword">new</span> User();</span><br><span class="line">        fengQiang.setName(<span class="string">&quot;小明&quot;</span>);</span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(<span class="number">1</span>);</span><br><span class="line">        fengQiang.setList(list);</span><br><span class="line">        <span class="comment">// 克隆一份，然后使用克隆的再添加一个元素</span></span><br><span class="line">        User clone = (User)fengQiang.clone();</span><br><span class="line">        clone.getList().add(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(fengQiang);</span><br><span class="line">        System.out.println(clone);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出结果为：</span></span><br><span class="line"><span class="comment">//User(name=小明, list=[1, 2])</span></span><br><span class="line"><span class="comment">//User(name=小明, list=[1, 2])</span></span><br></pre></td></tr></table></figure>
+
+<p>浅拷贝，两个对象地址一样</p>
+<p>改写<code>clone</code>为深拷贝</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">    User clone = (User) <span class="keyword">super</span>.clone();</span><br><span class="line">    clone.setList((ArrayList) clone.list.clone());</span><br><span class="line">    <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><blockquote>
+<p>让原本由于接口不同而不能相互工作的类可以一起工作</p>
+</blockquote>
+<p>有两种实现方式：</p>
+<ul>
+<li>类适配器：<strong>继承</strong>一个类，来实现，但由于Java是单继承，所以这种方式不太推荐</li>
+<li>对象适配器：万能的适配器，通过<strong>组合</strong>来实现</li>
+</ul>
+<p>适配器模式是一种<strong>事后的补救策略，用来补救设计上的缺陷</strong>。应用这种模式算是“无奈之举”。如果在设计初期，我们就能规避接口不兼容的问题，那这种模式就无用武之地了</p>
+<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><blockquote>
+<p>代理模式在不改变原始类接口的条件下，为原始类定义一个代理类，主要目的是<strong>控制访问</strong>，而非加强功能，这是它跟装饰器模式最大的不同</p>
+</blockquote>
+<p>代理模式常用在业务系统中开发一些<strong>非功能性需求</strong>，比如：监控、统计、鉴权、限流、事务、幂等、日志。</p>
+<p>分为：</p>
+<ul>
+<li>静态代理</li>
+<li>动态代理</li>
+</ul>
+<h3 id="静态代理模式"><a href="#静态代理模式" class="headerlink" title="静态代理模式"></a>静态代理模式</h3><p>静态代理模式中有 <strong>真实对象、代理对象</strong></p>
+<ul>
+<li>真实对象与代理对象要<strong>实现同一个接口</strong></li>
+<li>代理对象要<strong>代理真实的角色</strong></li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>静态代理模式可以帮助我们处理一些其他的事情，<strong>真实对象可以专注于做本职任务</strong></li>
+<li>如果业务发生扩展，方便集中管理</li>
+</ul>
+<p>例如：租客与房东之间，租客需要一个中介（代理对象），中介负责去找房东（真实对象）</p>
+<p>在Java中，<code>Thread</code>就是一个静态代理的例子，<strong>自定义<code>Thread</code>类</strong>要实现<code>Runnable</code>接口，而<code>Thread</code>类也实现了<code>Runnable</code>接口，此时<strong>自定义<code>Thread</code>类</strong>就是真实对象，而<code>Thread</code>类就是代理对象</p>
+<p>除此外，在RPC（远程方法调用）中，客户端与服务端连接，具体的连接过程都由一个代理类来完成，这也是代理模式</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>静态代理模式还存在一些问题，需要给每一个类都创建一个代理类，工作量直接翻倍</p>
+<p>对于这种情况就出现了<strong>动态代理</strong></p>
+<blockquote>
+<p>其他概念与静态代理相同，只不过代理类是动态生成的，而不是我们直接写好的</p>
+</blockquote>
+<ul>
+<li><p>基于接口的动态代理：JDK Proxy</p>
+</li>
+<li><p>基于类的动态代理：CGLIB</p>
+</li>
+<li><p> 字节码实现：Javasist（不是重点，实现在JBoss服务器）</p>
+</li>
+</ul>
+<h4 id="JDK-Proxy"><a href="#JDK-Proxy" class="headerlink" title="JDK Proxy"></a>JDK Proxy</h4><p>此动态代理模式用到两个类：<code>Proxy</code>与<code>InvocationHandler</code></p>
+<p>Proxy主要了解此方法<code>newProxyInstance</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(ClassLoader loader,// 类加载器， 通常会选择使用动态代理类本身的类加载器</span></span></span><br><span class="line"><span class="params"><span class="function">                                      Class&lt;?&gt;[] interfaces,// 通过真实对象可以获取到它所实现的所有接口</span></span></span><br><span class="line"><span class="params"><span class="function">                                      InvocationHandler h// 实现动态代理的类本身</span></span></span><br><span class="line"><span class="params"><span class="function">                                     )</span></span></span><br></pre></td></tr></table></figure>
+
+<p>InvocationHandler是一个接口，他有一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Object <span class="title">invoke</span><span class="params">(Object proxy,// 生成的代理对象</span></span></span><br><span class="line"><span class="params"><span class="function">              Method method,// 调用的方法</span></span></span><br><span class="line"><span class="params"><span class="function">              Object[] args)</span><span class="comment">// 方法的参数</span></span></span><br><span class="line"><span class="function">       <span class="keyword">throws</span> Throwable</span></span><br></pre></td></tr></table></figure>
+
+<p>在JDK动态代理中，<strong>真实对象必须实现接口</strong>，代理对象才可以对其进行代理，原理如下面这个demo：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接口；在静态代理中，这个就是我们要实现的业务，代理与真实对象都要实现</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHi</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 真实对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hi&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 动态代理生成处理器</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTarget</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得代理类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getProxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(</span><br><span class="line">                <span class="keyword">this</span>.getClass().getClassLoader(),</span><br><span class="line">                target.getClass().getInterfaces(),<span class="comment">// 这个参数注意！其必须要有实现接口</span></span><br><span class="line">                <span class="keyword">this</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">// 处理代理实例，返回对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;其他操作...&quot;</span>);<span class="comment">// 可以进行其他操作，比如记录日志等等</span></span><br><span class="line">        Object invoke = method.invoke(target, args);<span class="comment">// 实现真实对象想要实现的功能</span></span><br><span class="line">        System.out.println(<span class="string">&quot;其他操作...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> invoke;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        UserServiceImpl impl = <span class="keyword">new</span> UserServiceImpl();</span><br><span class="line">        <span class="comment">// 创建代理对象</span></span><br><span class="line">        ProxyInvocationHandler pih = <span class="keyword">new</span> ProxyInvocationHandler();</span><br><span class="line">        pih.setTarget(impl);</span><br><span class="line">        UserService proxy = (UserService) pih.getProxy();</span><br><span class="line">        <span class="comment">// 代理对象通过invoke调用方法</span></span><br><span class="line">        proxy.sayHi();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">其他操作...</span><br><span class="line">hi</span><br><span class="line">其他操作...</span><br></pre></td></tr></table></figure>
+
+<p>这也是Spring AOP的实现原理</p>
+<h4 id="CGLib"><a href="#CGLib" class="headerlink" title="CGLib"></a>CGLib</h4><p>JDK动态代理中，被代理的对象必须实现接口，而CGlib就不需要</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&q=%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mc411h719">b站</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+              <a href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 单例模式</a>
+              <a href="/tags/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 原型模式</a>
+              <a href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 适配器模式</a>
+              <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 工厂模式</a>
+              <a href="/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 代理模式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/10/JUC/Java%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%B9%B6%E5%8F%91/" rel="prev" title="Java 线程与并发">
+                  <i class="fa fa-chevron-left"></i> Java 线程与并发
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/12/MySQL/mysql%E8%BF%9B%E9%98%B6/" rel="next" title="MySQL进阶">
+                  MySQL进阶 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

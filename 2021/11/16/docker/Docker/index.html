@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：入门Docker，理解镜像、容器、仓库；学会使用基本的Docker命令！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://yoursite.com/2021/11/16/docker/Docker/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：入门Docker，理解镜像、容器、仓库；学会使用基本的Docker命令！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211116165102160.png">
+<meta property="article:published_time" content="2021-11-16T12:30:36.000Z">
+<meta property="article:modified_time" content="2021-11-16T12:30:52.952Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20211116165102160.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/11/16/docker/Docker/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/11/16/docker/Docker/","path":"2021/11/16/docker/Docker/","title":"Docker"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Docker | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">Docker入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B0%E8%BF%9BDocker"><span class="nav-number">1.1.</span> <span class="nav-text">走进Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%85%B3Docker%E7%9A%84%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">有关Docker的几个问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">Docker三大核心概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">Docker安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">镜像的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E9%95%9C%E5%83%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">获取镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">查看镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">搜索镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F"><span class="nav-number">1.3.4.</span> <span class="nav-text">删除镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">容器的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E3%80%81%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.1.</span> <span class="nav-text">创建、运行容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run%E5%91%BD%E4%BB%A4%E7%9A%84%E6%89%A7%E8%A1%8C%E5%86%85%E5%AE%B9"><span class="nav-number">1.4.2.</span> <span class="nav-text">run命令的执行内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.3.</span> <span class="nav-text">查看容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.4.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E3%80%81%E9%87%8D%E5%90%AF%E3%80%81%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.5.</span> <span class="nav-text">终止、重启、删除容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.5.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/16/docker/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Docker | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-11-16 20:30:36 / 修改时间：20:30:52" itemprop="dateCreated datePublished" datetime="2021-11-16T20:30:36+08:00">2021-11-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：入门Docker，理解镜像、容器、仓库；学会使用基本的Docker命令！</center>
+
+<span id="more"></span>
+
+<h1 id="Docker入门"><a href="#Docker入门" class="headerlink" title="Docker入门"></a>Docker入门</h1><h2 id="走进Docker"><a href="#走进Docker" class="headerlink" title="走进Docker"></a>走进Docker</h2><h3 id="有关Docker的几个问题"><a href="#有关Docker的几个问题" class="headerlink" title="有关Docker的几个问题"></a>有关Docker的几个问题</h3><blockquote>
+<p>1、什么是Docker？</p>
+</blockquote>
+<p>一句话阐述：Docker是基于Go的开源<strong>容器</strong>项目</p>
+<p>换句话说，<strong>什么是容器？</strong></p>
+<ul>
+<li>可以将Docker容器理解为一种<strong>轻量级的虚拟机</strong></li>
+<li>每个容器内运行着一个应用，不同的容器相互隔离，容器之间也可以通过网络互相通信。</li>
+</ul>
+<p>很类似于一个虚拟机，但是开销远远低于传统的虚拟机，而且启动速度非常快</p>
+<blockquote>
+<p>2、Docker有什么作用？</p>
+</blockquote>
+<p><strong>解耦应用程序与运行平台</strong>，可以保证<strong>快速的分发与部署</strong></p>
+<blockquote>
+<p>3、Docker与虚拟机的区别</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Docker容器</th>
+<th>虚拟机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动速度</td>
+<td>秒级</td>
+<td>分钟级</td>
+</tr>
+<tr>
+<td>内存使用</td>
+<td>很少</td>
+<td>较多</td>
+</tr>
+<tr>
+<td>隔离性</td>
+<td>安全隔离</td>
+<td>完全隔离</td>
+</tr>
+<tr>
+<td>迁移性</td>
+<td>优秀</td>
+<td>一般</td>
+</tr>
+</tbody></table>
+<p>可见，除了隔离性略逊虚拟机一筹（并不是说Docker不安全），其他全部要优于虚拟机。</p>
+<blockquote>
+<p>4、Docker容器与传统虚拟化技术的区别</p>
+</blockquote>
+<p>Docker技术是<strong>操作系统级别的虚拟化</strong></p>
+<p>（不需要额外的虚拟机管理程序，内核级的虚拟化）</p>
+<p><img src="http://img.yesmylord.cn//image-20211116165102160.png" alt="Docker和传统的虚拟化方式的不同之处"></p>
+<h3 id="Docker三大核心概念"><a href="#Docker三大核心概念" class="headerlink" title="Docker三大核心概念"></a>Docker三大核心概念</h3><blockquote>
+<p>镜像Image</p>
+</blockquote>
+<p>可以理解为一个<strong>只读的模板</strong></p>
+<p>（一个镜像包含我们需要运行程序的必要环境）</p>
+<blockquote>
+<p>容器Container</p>
+</blockquote>
+<p>轻量的虚拟机，<strong>Docker利用容器来隔离的运行应用</strong></p>
+<ul>
+<li>容器是<strong>从镜像创建的应用运行实例</strong></li>
+<li>容器之间相互隔离</li>
+</ul>
+<p>注意：镜像本身是<strong>只读</strong>的，容器从镜像启动的时候，会在镜像的最上层创建一个<strong>可写层</strong></p>
+<blockquote>
+<p>仓库Repository</p>
+</blockquote>
+<p>类似于代码仓库（Github、码云），存放镜像的场所</p>
+<ul>
+<li>注册服务器是存放仓库的地方（比如一个注册服务器下，会有Ubantu的仓库、CentoOs的仓库等等）</li>
+</ul>
+<h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>环境：Centos 7</p>
+<ol>
+<li>升级<code>yum</code>环境</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装docker需要的软件包</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>设置yum源</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>安装Docker（默认安装最新版）</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install docker-ce</span><br><span class="line"><span class="meta">#</span><span class="bash"> 直接安装最新版</span></span><br></pre></td></tr></table></figure>
+
+<p>（如果想安装其他版本）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看仓库所有的docker版本</span></span><br><span class="line">sudo yum install &lt;FQPN&gt; </span><br><span class="line"><span class="meta">#</span><span class="bash"> 选择一个版本安装</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>docker安装后，查看是否安装成功</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>启动Docker</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动Docker</span></span><br><span class="line">systemctl start docker</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">systemctl restart docker</span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭</span></span><br><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure>
+
+<h2 id="镜像的使用"><a href="#镜像的使用" class="headerlink" title="镜像的使用"></a>镜像的使用</h2><h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p>我们可以去仓库下载镜像（类似于Git的操作）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull name:[tag]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>name</code>即你要下载的应用名称</p>
+</li>
+<li><p><code>tag</code>为标签，如果不选择的话，默认是<code>lastest</code>，也就是最新版本的（所以我们一定要指定标签）</p>
+</li>
+<li><p>严格来说，我们没有指定仓库，所以默认会从<code>registry.hub.docker.com</code>下载</p>
+<p>即此命令相当于<code>docker pull registry.hub.docker.com/name:[tag]</code></p>
+</li>
+<li><p>如果需要安装非官方仓库的镜像的话，那么需要加上仓库名</p>
+</li>
+</ul>
+<hr>
+<p>这里使用该命令下载<code>nginx</code>作为一个示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker pull nginx:1.20.1</span><br><span class="line">1.20.1: Pulling from library/nginx</span><br><span class="line">b380bbd43752: Already exists </span><br><span class="line">83acae5e2daa: Pull complete </span><br><span class="line">33715b419f9b: Pull complete </span><br><span class="line">eb08b4d557d8: Pull complete </span><br><span class="line">74d5bdecd955: Pull complete </span><br><span class="line">0820d7f25141: Pull complete </span><br><span class="line">Digest: sha256:a98c2360dcfe44e9987ed09d59421bb654cb6c4abe50a92ec9c912f252461483</span><br><span class="line">Status: Downloaded newer image for nginx:1.20.1</span><br><span class="line">docker.io/library/nginx:1.20.1</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，镜像文件由很多**层<code>layer</code>**构成，前面的一串<code>b380bbd43752</code>表示这一层的唯一ID</p>
+<p>当<strong>不同的镜像包括相同的层时，本地仅存储层的一份内容</strong>，减小了需要的存储空间。</p>
+<h3 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h3><p>查看镜像的命令有如下几个：</p>
+<ol>
+<li>查看下载的镜像</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">-a 显示所有镜像，包括临时镜像</span><br><span class="line">--no-trunc 默认情况下会截断显示内容，比如image id就截断显示了，此参数可以完全显示</span><br><span class="line">-q 仅输出ID信息</span><br></pre></td></tr></table></figure>
+
+<p>此处做示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker images --no-trunc</span><br><span class="line">REPOSITORY   TAG       IMAGE ID                                                                  CREATED       SIZE</span><br><span class="line">mysql        5.7       sha256:938b57d64674c4a123bf8bed384e5e057be77db934303b3023d9be331398b761   4 weeks ago   448MB</span><br><span class="line">nginx        1.20.1    sha256:c8d03f6b8b915209c54fc8ead682f7a5709d11226f6b81185850199f18b277a2   5 weeks ago   133MB</span><br></pre></td></tr></table></figure>
+
+<p>可见，<code>Image Id</code>是很长的串，只不过可以用前几位代替完整的ID</p>
+<ol start="2">
+<li>可以给镜像添加自定义的标签</li>
+</ol>
+<p>命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag name:[tag] my-tag</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>my-tag</code>：表示自己可以自定义的标签</li>
+</ul>
+<p>下面是一个示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker images</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">[root@slave1 ~]# docker tag nginx:1.20.1 my-nginx</span><br><span class="line">[root@slave1 ~]# docker images</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">my-nginx     latest    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<code>my-nginx</code>与<code>nginx</code>两个的ID值一样，说明两个指向同一个镜像</p>
+<p>我们自定义的标签只是一个软连接而已</p>
+<ol start="3">
+<li>查看镜像详细信息</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect name:tag</span><br></pre></td></tr></table></figure>
+
+<p>会返回一个json串，如果我们只想查看其中的部分数据可以加<code>-f</code>参数，例如这样（记着加<code>.</code>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect my-nginx -f &#123;&#123;&quot;.Metadata&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="搜索镜像"><a href="#搜索镜像" class="headerlink" title="搜索镜像"></a>搜索镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker search name</span><br><span class="line">-f 可以指定额外的参数</span><br><span class="line">-f stars=100 显示star数大于100的镜像</span><br><span class="line">-f is-automated=true 显示可以自动装配的镜像</span><br></pre></td></tr></table></figure>
+
+<p>示例：显示所有stars大于100的并且可以自动装配的nginx镜像</p>
+<blockquote>
+<p>自动装配的意思是，可以允许用户通过Docker Hub指定跟踪一个目标网站（目前支持GitHub或BitBucket）上的项目，一旦项目发生新的提交，则自动执行创建</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]<span class="comment"># docker search -f stars=100 -f is-automated=true nginx</span></span><br><span class="line">NAME                          DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">jwilder/nginx-proxy           Automated Nginx reverse proxy <span class="keyword">for</span> docker con…   2094                 [OK]</span><br><span class="line">richarvey/nginx-php-fpm       Container running Nginx + PHP-FPM capable of…   818                  [OK]</span><br><span class="line">tiangolo/nginx-rtmp           Docker image with Nginx using the nginx-rtmp…   145                  [OK]</span><br><span class="line">jlesage/nginx-proxy-manager   Docker container <span class="keyword">for</span> Nginx Proxy Manager        143                  [OK]</span><br><span class="line">alfg/nginx-rtmp               NGINX, nginx-rtmp-module and FFmpeg from sou…   110                  [OK]</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi tag|id</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果参数指定为一个<code>tag</code>，那么此命令只会删除该镜像的一个标签而已（如果这个镜像只有一个标签，那么会被立即删除）</li>
+<li>参数指定为<code>image id</code>的话，会先删除该镜像的所有标签，然后删除该镜像本身</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">my-nginx     latest    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">[root@slave1 ~]<span class="comment"># docker rmi my-nginx</span></span><br><span class="line">Untagged: my-nginx:latest // 删除了标签</span><br><span class="line">[root@slave1 ~]<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">[root@slave1 ~]<span class="comment"># docker rmi nginx:1.20.1</span></span><br><span class="line">Untagged: nginx:1.20.1</span><br><span class="line">Untagged: nginx@sha256:a98c2360dcfe44e9987ed09d59421bb654cb6c4abe50a92ec9c912f252461483</span><br><span class="line">Deleted: sha256:67a7407724b6c71e2355fc2236b5be27d1f03bf9cbdffdfbb97c1d2a326ccf94</span><br><span class="line">...// 真正删除了所有的镜像</span><br><span class="line">[root@slave1 ~]<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br></pre></td></tr></table></figure>
+
+<h2 id="容器的使用"><a href="#容器的使用" class="headerlink" title="容器的使用"></a>容器的使用</h2><h3 id="创建、运行容器"><a href="#创建、运行容器" class="headerlink" title="创建、运行容器"></a>创建、运行容器</h3><ol>
+<li>创建容器（基于一个镜像，创建一个容器）</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker create [参数] name:tag</span><br><span class="line"># 会返回一个容器的ID Container ID</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启动容器</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start id</span><br><span class="line"># 此处的id只需要输入一部分即可</span><br></pre></td></tr></table></figure>
+
+<p>创建并启动（建议直接使用<code>run</code>命令，等同于上述创建并启动容器）</p>
+<ol start="3">
+<li>创建并启动容器</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [options] image</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>options</code>可选的参数很多，下面介绍几个常用的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-i # 让容器的标准输入保持打开</span><br><span class="line">-t # 分配一个伪终端并绑定到容器的标准输出上</span><br><span class="line">-d # 后台运行（守护态运行）</span><br><span class="line">-P # 容器内随机映射一个端口</span><br><span class="line">-p # 指定端口映射，比如 -p 3306:3306 就指定主机的3306端口与容器的3306端口进行映射，此时访问主机的3306端口，相当于访问容器的3306端口</span><br><span class="line">--name # 指定此容器的名字</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="run命令的执行内容"><a href="#run命令的执行内容" class="headerlink" title="run命令的执行内容"></a><code>run</code>命令的执行内容</h3><p>当利用<code>docker run</code>来创建并启动容器时，Docker在后台运行的标准操作包括：</p>
+<ol>
+<li>检查本地是否存在指定的镜像，<strong>不存在就从公有仓库下载</strong>；</li>
+<li>利用镜像<strong>创建</strong>一个容器，并<strong>启动</strong>该容器；</li>
+<li><strong>分配一个文件系统</strong>给容器，并<strong>在只读的镜像层外面挂载一层可读写层</strong>；</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中；</li>
+<li>从网桥的地址池配置一个IP地址给容器；</li>
+<li>执行用户指定的应用程序；</li>
+<li>执行完毕后容器被自动终止。</li>
+</ol>
+<h3 id="查看容器"><a href="#查看容器" class="headerlink" title="查看容器"></a>查看容器</h3><ol>
+<li>查看所有的容器</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br><span class="line">-a 可以显示所有的容器，包括没有在运行的容器</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查看容器的日志</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs cotainerId</span><br></pre></td></tr></table></figure>
+
+<h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><ol>
+<li>进入容器</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker attach</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>执行命令</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec</span><br></pre></td></tr></table></figure>
+
+<h3 id="终止、重启、删除容器"><a href="#终止、重启、删除容器" class="headerlink" title="终止、重启、删除容器"></a>终止、重启、删除容器</h3><ol>
+<li>终止容器</li>
+</ol>
+<p>首先向容器发送SIGTERM信号，<strong>等待一段超时时间</strong>（默认为10秒）后，再发送SIGKILL信号来终止容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker stop id</span><br><span class="line">-t 可以指定终止的时间</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>对于已经终止的容器，需要使用<code>docker start</code>来启动</li>
+<li>如果想要重启一个容器</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart id</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>强制终止一个容器</li>
+</ol>
+<p>会直接发送SIGKILL信号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker kill id</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>删除容器</li>
+</ol>
+<p>只能删除非运行态的容器！（不建议使用<code>-f</code>参数强制删除）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm id</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>Docker技术入门与实战</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/cache%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98/" rel="prev" title="cache高速缓存">
+                  <i class="fa fa-chevron-left"></i> cache高速缓存
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/19/Spring/SpringBoot%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/" rel="next" title="注解">
+                  注解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

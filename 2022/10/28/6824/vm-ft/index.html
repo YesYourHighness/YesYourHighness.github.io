@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：VM提出的一种容灾模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VM-fault tolerance">
+<meta property="og:url" content="http://yoursite.com/2022/10/28/6824/vm-ft/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：VM提出的一种容灾模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221027104414672.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221027203855343.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221028151310007.png">
+<meta property="article:published_time" content="2022-10-28T12:36:13.000Z">
+<meta property="article:modified_time" content="2022-10-28T12:36:58.431Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="分布式">
+<meta property="article:tag" content="vm-fault">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20221027104414672.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/10/28/6824/vm-ft/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/10/28/6824/vm-ft/","path":"2022/10/28/6824/vm-ft/","title":"VM-fault tolerance"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>VM-fault tolerance | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VM-fault-tolerance"><span class="nav-number">1.</span> <span class="nav-text">VM-fault tolerance</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-FT-Design"><span class="nav-number">1.3.</span> <span class="nav-text">Basic FT Design</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deterministic-Replay-Implementation"><span class="nav-number">1.3.1.</span> <span class="nav-text">Deterministic Replay Implementation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FT-Protocol"><span class="nav-number">1.3.2.</span> <span class="nav-text">FT Protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Detecting-and-Responding-to-Failure"><span class="nav-number">1.3.3.</span> <span class="nav-text">Detecting and Responding to Failure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Practical-Implementation-of-FT"><span class="nav-number">1.4.</span> <span class="nav-text">Practical Implementation of FT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Starting-and-Restarting-FT-VMs"><span class="nav-number">1.4.1.</span> <span class="nav-text">Starting and Restarting FT VMs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Managing-the-Logging-Channel"><span class="nav-number">1.4.2.</span> <span class="nav-text">Managing the Logging Channel</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/28/6824/vm-ft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="VM-fault tolerance | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VM-fault tolerance
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-10-28 20:36:13 / 修改时间：20:36:58" itemprop="dateCreated datePublished" datetime="2022-10-28T20:36:13+08:00">2022-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+         <center>
+引言：VM提出的一种容灾模型
+</center>
+
+<span id="more"></span>
+
+<h1 id="VM-fault-tolerance"><a href="#VM-fault-tolerance" class="headerlink" title="VM-fault tolerance"></a>VM-fault tolerance</h1><p><a target="_blank" rel="noopener" href="http://nil.csail.mit.edu/6.824/2020/papers/vm-ft.pdf">The Design of a Practical System fir Fault-Tolerant Virtual Machine</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>文章表明实现了一个<strong>容灾虚拟机</strong>，原理是通过备份到另外的服务器。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p> 一个常用的实现容灾服务器的方法：<strong>primary/backup主备份</strong>，即时刻准备一个备份服务器去接替宕机的主服务器</p>
+<p>要实现这个方法，要做的就是要保持<strong>主从同步</strong>，即备份服务器的状态应该和主服务器一致，这样才能做到对client透明。</p>
+<p>为了保证主从同步有两种办法：</p>
+<ul>
+<li><p>第一种：不断的传输primary的所有更改状态。（这种方法需要传送CPU、内存、IO设备等等信息，这些信息可能量会比较大，如果带宽不足，可能会出现延迟）（内存的改变信息会很多很多）</p>
+</li>
+<li><p>另外一个办法：设计了一个状态机statemachine方法（注意，状态机的意思是一个数学模型，或者说是一个状态变化图）</p>
+</li>
+</ul>
+<blockquote>
+<p>所设计的状态机：将服务器建模为<strong>确定性的状态机 deterministic statement</strong>，即保证主从能以<strong>相同的初始状态启动</strong>，并且接收<strong>相同顺序的输入请求</strong></p>
+</blockquote>
+<p>为了保证协调，需要付出一定的性能代价，但是状态机方法传送的数据量会远远少于第一种方法的数据量</p>
+<blockquote>
+<p>实现物理机之间的同步比较困难，但是让运行在物理机上的虚拟机实现同步是较为简单的</p>
+</blockquote>
+<p>（不同的物理机之间处理器的频率不同，导致其状态很有可能不一致，但是虚拟机不一样）</p>
+<p>但是虚拟机也有可能不确定的操作，比如读取时钟或是发送中断，因此虚拟机也需要传输同步信息</p>
+<blockquote>
+<p><strong>hypervisor</strong>：又称为<strong>虚拟机监视器 VMM virtual machine monitor</strong>是用来建立和执行虚拟机的程序，可以观测到虚拟机的数据</p>
+</blockquote>
+<p>hypervisor可以捕获虚拟机必要的状态信息，然后在备份服务器上<strong>重播 replay</strong>，即可实现主从同步</p>
+<blockquote>
+<p>by the way：从最原始的物理机，在他之上抽象出一层虚拟机，在虚拟机上又抽象出Docker，在之后出现K8s，再再之后出现云原生，那么之后会是什么呢？</p>
+</blockquote>
+<p>状态机方法的优势：</p>
+<ul>
+<li>实现了对程序的容灾，而与硬件解耦。</li>
+<li>传输的数据量小，适合低带宽运行</li>
+</ul>
+<blockquote>
+<p>主备份然后从重播的技术也叫作<strong>deterministic replay确定性回放</strong>，本文介绍方法除此之外还补充了一些功能。</p>
+</blockquote>
+<p>目前只支持单核操作系统（不支持并发，并发操作的不确定性因素太多）</p>
+<h2 id="Basic-FT-Design"><a href="#Basic-FT-Design" class="headerlink" title="Basic FT Design"></a>Basic FT Design</h2><p>综述一下：</p>
+<p>容灾的基本设计如图所示，PrimaryVM是我们需要去提供容灾服务的虚拟机，BackupVM是执行在另外的物理机上的虚拟机，他尽量和primary保持同步，但是还会有一些lag</p>
+<p><img src="http://img.yesmylord.cn//image-20221027104414672.png" alt="Basic FT Configuration"></p>
+<p>可以看到他们共享了同一个输入设备（这代表两个虚拟机会获取相同的输入和输出）这是最原始的设计，之后会探讨非共享磁盘的设计（这种共享相同设备的设计称为 virtual lockstep虚拟机锁定状态）</p>
+<p>网络中只会暴露primary，因此输入只会进入Primary，从会通过Logging chennel保持与primary的同步，之后从虚拟机的输出会被丢弃，只有primary的输出会被返回给请求者</p>
+<p>在相关服务器之间会有心跳连接，而且会监控logging channel的流量情况。</p>
+<h3 id="Deterministic-Replay-Implementation"><a href="#Deterministic-Replay-Implementation" class="headerlink" title="Deterministic Replay Implementation"></a>Deterministic Replay Implementation</h3><blockquote>
+<p>如果能保证主从能以<strong>相同的初始状态启动</strong>，并且接收<strong>相同顺序的输入请求</strong>，那么他们就会有相同的输出</p>
+</blockquote>
+<p>两种<strong>非确定性</strong>：他们可能会导致主从的状态不一致</p>
+<ul>
+<li><strong>非确定性事件</strong>：如虚拟机中断</li>
+<li><strong>非确定性操作</strong>：如读取时钟周期数，这取决于CPU的时钟周期</li>
+</ul>
+<p>非确定事件与操作代表我们需要做三种事情：</p>
+<ol>
+<li>确保捕获输入和所有的非确定，来保证虚拟机正确的执行</li>
+<li>正确的将输入和不确定性应用到backup vm</li>
+<li>不让性能变差</li>
+</ol>
+<p>实现上述三点的关键在于<strong>记录日志 logging</strong>，确定性重播把虚拟机收到的<strong>输入</strong>和<strong>所有可能的非确定</strong>都记录在日志文件中，重播时一行一行执行此日志文件即可。</p>
+<h3 id="FT-Protocol"><a href="#FT-Protocol" class="headerlink" title="FT Protocol"></a>FT Protocol</h3><p>如本节开始的configuration图所示，确定性重播会记录日志，<strong>但是不是将日志全部写入磁盘内，而是通过logging channel实时让backup VM去执行</strong></p>
+<p>为此，我们必须在logging channel规定一个协议以确保我们可以实现容灾。</p>
+<blockquote>
+<p>输出要求Output Requirement：如果backup接替了primary（这个过程称为<strong>failover</strong>），必须保证backup接着之前primary的输出继续执行</p>
+<p>（即primary对外已有的输出，backup必须能知悉并且恢复到这一点）</p>
+</blockquote>
+<p>（协议规定的很好理解，只要保证backup上任后状态和之前primary一致，就不会让外部感受到发生了failover）</p>
+<blockquote>
+<p>因此我们需要能保证：延迟到backup已经<strong>接收到产生在output操作之前的所有log</strong>并且<strong>重播到primary当时的状态</strong></p>
+</blockquote>
+<p>注意：接收到在<strong>输出操作之前的所有log</strong>，如果backup在此之前就进行了重播，那么可能会和primary的状态不一致</p>
+<p>（因为不到最后一刻，永远不知道是否发生了变化，比如在output的前一刻，发生了中断，但是你已经执行了重播，此时就不能恢复到与原本master一样的状态，你的backup此后的输出可能会和之前的primary的输出有矛盾）</p>
+<hr>
+<blockquote>
+<p>最简单的实现上述要求的方法就是：对<strong>每一个输出操作</strong>都加一个<strong>特殊的日志条目special log entries</strong></p>
+<p>即：<strong>要执行output时，不要让primary对外输出，直到backup接收到了这个output之前的所有log，才对外输出</strong></p>
+</blockquote>
+<p>注意：我们<strong>只是延迟了对外输出的一步，并不影响其他操作的正常执行</strong></p>
+<p>什么时候进行对外输出？异步机制在对应内容完成后会通知我们</p>
+<p>如下图这个例子：</p>
+<p><img src="http://img.yesmylord.cn//image-20221027203855343.png" alt="FT Protocol"></p>
+<ol>
+<li>异步事件-&gt;正常同步</li>
+<li>输入数据-&gt;正常同步</li>
+<li>输出操作发生-&gt;正常同步-&gt;收到回执-&gt;对外输出</li>
+<li>异步事件-&gt;primary宕机-&gt;backup接管</li>
+</ol>
+<p>第3点就是我们所说的，延迟输出直到backup接收到了log</p>
+<h3 id="Detecting-and-Responding-to-Failure"><a href="#Detecting-and-Responding-to-Failure" class="headerlink" title="Detecting and Responding to Failure"></a>Detecting and Responding to Failure</h3><p>宕机可能有三种情况：</p>
+<ul>
+<li>如果其他VM宕机，primary和backup需要感知到其掉线</li>
+<li>如果backup宕机，primary将不会再传数据到log channel，然后正常运行</li>
+<li>如果primary宕机，就是上一节的过程</li>
+</ul>
+<p>在backup替代了primary后，他就升级成了primary，此时他还需要做一些操作：比如广播自己的mac地址给其他vm、再比如重新发布一些磁盘io</p>
+<hr>
+<p>检测primary或backup宕机的方法：</p>
+<ul>
+<li>通过UDP实现的<strong>heartbeat</strong></li>
+<li>通过<strong>检测日志流量</strong>，包括两部分<ul>
+<li>primary发给backup的log entries</li>
+<li>backup回复的确认信息acknowledge</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>这些检测方法可能会引起<strong>大脑分裂问题a split-brain problem</strong>：</p>
+<p>即，当我们丢失了heartbeat时，<strong>有可能是出现了宕机，也有可能是网络出现了拥塞</strong></p>
+</blockquote>
+<p>如何解决这个问题？我们前面说过<strong>primary</strong>和<strong>backup</strong>之间<strong>共享磁盘 shared storage</strong></p>
+<blockquote>
+<p>为了确保只有一个“primary”，当backup想要上位的时候（或者说要发生failover或是go live时），我们可以在共享磁盘上做<strong>原子的测试设置操作 atomic test-and-set</strong>：</p>
+<ul>
+<li>如果操作成功：说明可以go live</li>
+<li>如果操作失败：说明已经有一个启动了，当前这个会停止且“自杀”</li>
+</ul>
+</blockquote>
+<h2 id="Practical-Implementation-of-FT"><a href="#Practical-Implementation-of-FT" class="headerlink" title="Practical Implementation of FT"></a>Practical Implementation of FT</h2><h3 id="Starting-and-Restarting-FT-VMs"><a href="#Starting-and-Restarting-FT-VMs" class="headerlink" title="Starting and Restarting FT VMs"></a>Starting and Restarting FT VMs</h3><p>为了保证primary和backup以相同状态启动，我们需要考虑两个问题：如何启动backup、选择什么样的服务器去运行</p>
+<p>如何启动备份：</p>
+<ul>
+<li><p>VMware之前的处理是将原server<strong>迁移</strong>到远端服务器，中间会暂停一段时间</p>
+</li>
+<li><p>修改后的版本可以在运行的同时，<strong>克隆</strong>到远端，中间不会有暂停服务的时间</p>
+</li>
+</ul>
+<p>选择什么样的服务器：</p>
+<ul>
+<li>FT-VM的集群使用共享存储，任意一个server都可以</li>
+</ul>
+<p>FT-VM有一个集群，当进行了一次fallover后，如果缺失了backup，primary会通知集群给出一个backup</p>
+<p>集群服务会选择最佳的那个server作为backup</p>
+<h3 id="Managing-the-Logging-Channel"><a href="#Managing-the-Logging-Channel" class="headerlink" title="Managing the Logging Channel"></a>Managing the Logging Channel</h3><p>1、这一节更详细的描述了主从日志的运行模式：</p>
+<p><img src="http://img.yesmylord.cn//image-20221028151310007.png" alt="FT Logging channel"></p>
+<p>首先，Hypervisors维护了一个存储日志条目的<strong>缓冲区</strong>；primary向里面写，backup往外读；</p>
+<p>如图所示，primary的hypervisor的buffer一有数据就会flush到channel内，而backup的buffer会立即读取。</p>
+<p>当backup从网络读取到本地的缓存后，就会给primary发送一条<strong>确认消息Acks</strong></p>
+<p>（在宕机后，就依赖这个确认消息，决定什么时候go live）</p>
+<hr>
+<p>2、可能引起服务暂停的几个原因：</p>
+<ul>
+<li><strong>当primary的日志缓冲区填满的时候，其会停止服务</strong></li>
+</ul>
+<p>因此我们尽量要保证primary的日志会被快速读取（一般情况下，backup进行重放和记录的速度一致，除非backup当前非常繁忙）</p>
+<ul>
+<li>有时候<strong>不希望延迟太大</strong>，因为如果发生意外，需要重放，重放的时间基本与这个延迟时间一致，时间太长容易造成服务停止</li>
+</ul>
+<p>在每次primary与backup的交流信息内（sending与acknowledging），都会携带他们之间的lag</p>
+<p>这个值通常为100ms，如果大于1s，hypervisor就会逐渐限制primary vm的cpu频率（注意我们是虚拟机，所以可以很轻松的做到这一点）；相反如果延迟太小，就会调大cpu频率</p>
+<p>（Operation on FT VMs、Implementation Issues for Disk IOs、Implementation Issues for Network IO三节感觉没有什么读的价值，忽略）</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+              <a href="/tags/vm-fault/" rel="tag"><i class="fa fa-tag"></i> vm-fault</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/26/6824/GFSpaper/" rel="prev" title="GFS">
+                  <i class="fa fa-chevron-left"></i> GFS
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/" rel="next" title="比特币白皮书">
+                  比特币白皮书 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

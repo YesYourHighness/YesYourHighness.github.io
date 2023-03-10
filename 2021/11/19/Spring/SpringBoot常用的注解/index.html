@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：什么是注解？注解的本质是什么？自己实现一个注解吧！顺便介绍一下项目内Spring的常用的注解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注解">
+<meta property="og:url" content="http://yoursite.com/2021/11/19/Spring/SpringBoot%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：什么是注解？注解的本质是什么？自己实现一个注解吧！顺便介绍一下项目内Spring的常用的注解">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-19T10:03:22.000Z">
+<meta property="article:modified_time" content="2021-11-20T06:13:36.827Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="注解">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/11/19/Spring/SpringBoot%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/11/19/Spring/SpringBoot%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/","path":"2021/11/19/Spring/SpringBoot常用的注解/","title":"注解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>注解 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.1.</span> <span class="nav-text">Java注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">注解的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">注解的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.1.4.</span> <span class="nav-text">JDK的注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%88%B6%E6%8E%A5%E5%8F%A3Annotation"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">父接口Annotation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">元注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E7%9A%84JDK%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">其他常见的JDK注解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E5%B0%8F%E5%AE%9E%E6%88%98"><span class="nav-number">1.1.5.</span> <span class="nav-text">注解小实战</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">Spring注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">Bean相关注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">HTTP请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%90%AF%E5%8A%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">配置启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/19/Spring/SpringBoot%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="注解 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          注解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-19 18:03:22" itemprop="dateCreated datePublished" datetime="2021-11-19T18:03:22+08:00">2021-11-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-20 14:13:36" itemprop="dateModified" datetime="2021-11-20T14:13:36+08:00">2021-11-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：什么是注解？注解的本质是什么？自己实现一个注解吧！顺便介绍一下项目内Spring的常用的注解
+</center>
+
+
+<span id="more"></span>
+
+<h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><h2 id="Java注解"><a href="#Java注解" class="headerlink" title="Java注解"></a>Java注解</h2><h3 id="注解的基本概念"><a href="#注解的基本概念" class="headerlink" title="注解的基本概念"></a>注解的基本概念</h3><blockquote>
+<p>什么是注解？</p>
+</blockquote>
+<p>几种理解注解的方式：</p>
+<ul>
+<li><strong>注解是一种标签</strong>：插入到源码中，可以与其他工具配合使用来完成一些工作，它们可以提供用来完整地描述程序所需的信息，而这些信息是无法用Java来表达的</li>
+<li><strong>注解是一种接口</strong>：注解的本质是一个接口</li>
+</ul>
+<blockquote>
+<p>为什么引入了注解？</p>
+</blockquote>
+<ol>
+<li><p>注解在一定程度上是在把<strong>元数据</strong>与<strong>源代码</strong>文件<strong>结合在一起</strong>，而不是保存在外部文档中这一大的趋势之下所催生的</p>
+</li>
+<li><p>受到<code>C#</code>语言的启发</p>
+<p>（其实就是迫于<code>C#</code>语言带来的压力：例如检测是否重写<code>override</code>这个功能<code>C#</code>有一个关键字，而在<code>Java</code>中，<code>@Override</code>是可选择的）</p>
+</li>
+</ol>
+<h3 id="创建注解"><a href="#创建注解" class="headerlink" title="创建注解"></a>创建注解</h3><p>编写注解的语法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注解需要使用 @interface 来标记这是一个注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotation &#123;</span><br><span class="line">    <span class="comment">// 在注解内，这些值称为“元素”</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">    <span class="function">String <span class="title">description</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，使用了<code>@interface</code>这个标记，并且注解<strong>元素</strong>的定义与定义接口方法类似</p>
+<p>创建一个注解：</p>
+<ul>
+<li>使用<code>@interface</code>标记这是一个注解</li>
+<li>添加元素的语法如同添加一个接口方法（如果一个元素都不给，这种注解称为<strong>标记注解</strong>）</li>
+<li>使用<code>default</code>可以给这个元素加一个默认值</li>
+</ul>
+<h3 id="注解的本质"><a href="#注解的本质" class="headerlink" title="注解的本质"></a>注解的本质</h3><p>我们反编译一下上面的那个注解，<code>javap -c MyAnnotation.class</code>，就能看到注解的真实面目：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 所有的注解默认继承了Annotation</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">test</span>.<span class="title">annotation</span>.<span class="title">MyAnnotation</span> </span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">java</span>.<span class="title">lang</span>.<span class="title">annotation</span>.<span class="title">Annotation</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 所谓的元素就是一个 public abstract修饰的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> java.lang.<span class="function">String <span class="title">description</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重点：</p>
+<ul>
+<li>所有注解默认继承自<code>java.lang.annotation.Annotation</code></li>
+<li>注解的<strong>元素其实就是一个接口方法</strong></li>
+<li><strong>默认值是动态计算而来，没有与注解存储在一起</strong>！！（这也是反编译后我们找不到有关默认值设置的原因）</li>
+</ul>
+<h3 id="JDK的注解"><a href="#JDK的注解" class="headerlink" title="JDK的注解"></a>JDK的注解</h3><p>JDK给我们提供了一些注解</p>
+<h4 id="父接口Annotation"><a href="#父接口Annotation" class="headerlink" title="父接口Annotation"></a>父接口Annotation</h4><p>所有接口都默认继承了这个接口！</p>
+<p>这个类<code>java.lang.annotation.Annotation</code>有四个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Annotation</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 返回Class对象</span></span><br><span class="line">    Class&lt;? extends Annotation&gt; annotationType();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h4><blockquote>
+<p>元注解是JDK提供的，专门用来注解其他注解的注解（绕口令）</p>
+</blockquote>
+<p>有四种元注解：</p>
+<ul>
+<li><code>@Target</code>：标记一个注解可以标记在什么地方</li>
+<li><code>@Retention</code>：标记一个注解的级别</li>
+<li><code>@Documented</code>：将此注解包含在JavaDoc内</li>
+<li><code>@Inherited</code>：允许子类继承父类中的注解</li>
+</ul>
+<p><strong>1、<code>@Target</code>可以标记的类型</strong>：</p>
+<p>由一个枚举类<code>ElementType</code>给出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">ElementType</span> </span>&#123;</span><br><span class="line">    TYPE, <span class="comment">// 类（包括枚举）、接口（包括注解）</span></span><br><span class="line">    FIELD,<span class="comment">// 域（或者叫属性）</span></span><br><span class="line">    METHOD,<span class="comment">// 方法</span></span><br><span class="line">    PARAMETER,<span class="comment">// 参数</span></span><br><span class="line">    CONSTRUCTOR,<span class="comment">// 构造方法</span></span><br><span class="line">    LOCAL_VARIABLE,<span class="comment">// 局部变量</span></span><br><span class="line">    ANNOTATION_TYPE,<span class="comment">// 注解类型</span></span><br><span class="line">    PACKAGE,<span class="comment">// 包（没错，可以标记包，但是要在特定的一个文件内）</span></span><br><span class="line">    TYPE_PARAMETER,<span class="comment">//JDK1.8新增</span></span><br><span class="line">    TYPE_USE<span class="comment">// JDK1.8新增</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例如这样使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD&#125;)</span></span><br><span class="line"><span class="comment">// 可以使用逗号隔开，这样表示我这个注解只能标记方法和属性</span></span><br><span class="line"><span class="comment">// 如果只有一个，可以去掉&#123;&#125;，如下</span></span><br><span class="line"><span class="comment">// @Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotation &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果一个注解没有被<code>@Target</code>标记，表示这个注解可以标记在任何地方！</p>
+<p><strong>2、注解的级别</strong>：</p>
+<p>同样由一个枚举类<code>RetentionPolicy</code>给出：</p>
+<ul>
+<li><code>SOURCE</code>：注解将被编译器丢弃</li>
+<li><code>CLASS</code>：注解在class文件可用，但是会被VM丢弃</li>
+<li><code>RUNTIME</code>：VM会保留这个注解（<strong>标记为RUNTIME才可以用反射获取</strong>）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">RetentionPolicy</span> </span>&#123;</span><br><span class="line">    SOURCE,</span><br><span class="line">    CLASS,</span><br><span class="line">    RUNTIME</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他常见的JDK注解"><a href="#其他常见的JDK注解" class="headerlink" title="其他常见的JDK注解"></a>其他常见的JDK注解</h4><p>比如：</p>
+<ol>
+<li><p><code>@Override</code>：标记方法使用，可以看到级别为SOURCE，表示这个注解编译时期就会被丢弃</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.SOURCE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Override &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>@Deprecated</code>：表示你使用的类或方法等已过期，不推荐使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Deprecated &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>@SuppressWarnings</code>：关闭不当的编译器警告信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.SOURCE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SuppressWarnings &#123;</span><br><span class="line">    String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="注解小实战"><a href="#注解小实战" class="headerlink" title="注解小实战"></a>注解小实战</h3><blockquote>
+<p>要求：实现一个注解，对于标记了这个注解的方法在运行时会打印Hello 加对应的参数！</p>
+</blockquote>
+<p>注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.METHOD)</span><span class="comment">// 标记方法</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span><span class="comment">// RUNTIME才可以被反射获取</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Hello &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>给方法加注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Hello(&quot;小明&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">xiaoMing</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="meta">@Hello(&quot;小军&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">xiaoJun</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>处理器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    User user = <span class="keyword">new</span> User();</span><br><span class="line">    Method[] methods = user.getClass().getDeclaredMethods();</span><br><span class="line">    <span class="keyword">for</span> (Method method : methods) &#123;</span><br><span class="line">        Hello ann = method.getAnnotation(Hello.class);</span><br><span class="line">        <span class="keyword">if</span> (ann != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 非空说明此方法有注解</span></span><br><span class="line">            System.out.println(<span class="string">&quot;Hello&quot;</span> + ann.value());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 输出：</span></span><br><span class="line"><span class="comment">    Hello小明</span></span><br><span class="line"><span class="comment">    Hello小军</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring注解"><a href="#Spring注解" class="headerlink" title="Spring注解"></a>Spring注解</h2><h3 id="Bean相关注解"><a href="#Bean相关注解" class="headerlink" title="Bean相关注解"></a>Bean相关注解</h3><blockquote>
+<p>交给Spring管理</p>
+</blockquote>
+<ul>
+<li><p><code>@Component</code>：下面三个其实与上面的<code>@Component</code>一样，只是分工明确</p>
+</li>
+<li><p><code>@Service</code>：标记业务层，业务层经常需要注入Dao层的Bean</p>
+</li>
+<li><p><code>@Repository</code>：标记Dao层，表明这个类可以实现CRUD的功能</p>
+</li>
+<li><p><code>@Controller</code>：标记Controller，需要注入Service的Bean</p>
+</li>
+<li><p><code>@RestController</code>：此注解相当于<code>@ResponseBody</code>与<code>@Controller</code></p>
+</li>
+<li><p><code>@Configuration</code>：配置类</p>
+</li>
+</ul>
+<blockquote>
+<p>依赖注入</p>
+</blockquote>
+<ul>
+<li><code>@Autowired</code>：默认按照类型<strong>ByType</strong>匹配<ul>
+<li>与<code>Qualifier(&quot;name&quot;)</code>配合使用，可以实现与<code>@Resource</code>一样的按名称检索的功能</li>
+<li>加上<code>required=false</code>，表示找不到Bean也不会报错</li>
+</ul>
+</li>
+<li><code>@Resource</code>：默认按照名称<strong>ByName</strong>装配（此注解并不属于Spring，而是JDK自带的注解）</li>
+</ul>
+<blockquote>
+<p>Bean的作用域</p>
+</blockquote>
+<p><code>@Scope</code>：标记Bean的作用范围</p>
+<ul>
+<li><code>singleton</code>单例模式：全局有且仅有一个实例（<strong>默认就是单例模式</strong>）</li>
+<li><code>prototype</code>原型模式：每次获取Bean的时候会有一个新的实例</li>
+<li><code>request </code>：表示该针对每一次HTTP请求都会产生一个新的<code>bean</code>，<strong>仅在请求中有效</strong></li>
+<li><code>session</code> ：表示该针对每一次HTTP请求都会产生一个新的<code>bean</code>，<strong>在整个会话内有效</strong></li>
+<li><code>globalsession</code> ：类似于标准的HTTP Session作用域，整个<code>web</code>应用有效</li>
+</ul>
+<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>SpringMVC的注解：</p>
+<ul>
+<li><code>@RequestMapping</code> 注解，有三个元素：<ul>
+<li><code>name</code>：为映射地址指定别名</li>
+<li><code>value</code>：<strong>默认属性</strong>，映射请求到一个方法或类上</li>
+<li><code>method</code>：可以选择 <code>POST</code>、<code>GET</code>等请求方式</li>
+</ul>
+</li>
+<li><code>@GetMapping</code>：相当于<code>@RequestMapping(method=RequestMethod.GET)</code>，下面三个同理</li>
+<li><code>@PostMapping</code></li>
+<li><code>@PutMapping</code></li>
+<li><code>@DeleteMapping</code></li>
+</ul>
+<h3 id="配置启动"><a href="#配置启动" class="headerlink" title="配置启动"></a>配置启动</h3><ul>
+<li><p><code>@ComponentScan</code></p>
+<p>配置扫描包的路径，相当于你之前在 <code>xml</code>中配置 <code>bean</code></p>
+</li>
+<li><p><code>@Configuration</code></p>
+<p>允许在上下文中注册额外的bean或导入额外的配置类</p>
+</li>
+<li><p><code>@SpringBootApplication</code>：SpringBoot的启动类需要添加的注解</p>
+<p>这个注解相当于三个注解：</p>
+<ul>
+<li><code>@EnableAutoConfiguration</code>：启用自动装配机制（即如果你有）</li>
+<li><code>@ComponentScan</code></li>
+<li><code>@SpringBootConfiguration</code>：其实就是<code>@Configuration</code>注解</li>
+</ul>
+</li>
+<li><p><code>@EnableAutoConfiguration</code>：<strong>类级别的注解</strong>，这个注解告诉 <code>Spring Boot</code> 根据添加的<code>jar</code>依赖猜测你想如何配置<code>Spring</code></p>
+<p><strong>非侵入式</strong>自动配置：即SpringBoot会自动为你装配，如果你有自己的配置，会优先使用你的配置</p>
+</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>《Java编程思想》一如既往的牛！</li>
+<li>《Java核心技术 卷二》讲的略差一些</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+              <a href="/tags/%E6%B3%A8%E8%A7%A3/" rel="tag"><i class="fa fa-tag"></i> 注解</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/16/docker/Docker/" rel="prev" title="Docker">
+                  <i class="fa fa-chevron-left"></i> Docker
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/14/%E5%AE%9E%E6%88%98/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="next" title="定时任务的实现方式总结">
+                  定时任务的实现方式总结 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

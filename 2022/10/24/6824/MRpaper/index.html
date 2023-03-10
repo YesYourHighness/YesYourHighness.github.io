@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：分布式基础MapReduce的paper的阅读及理解，内容有所参考，也有自己思考的部分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce">
+<meta property="og:url" content="http://yoursite.com/2022/10/24/6824/MRpaper/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：分布式基础MapReduce的paper的阅读及理解，内容有所参考，也有自己思考的部分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221017192816192.png">
+<meta property="article:published_time" content="2022-10-24T10:46:43.000Z">
+<meta property="article:modified_time" content="2022-10-26T11:07:54.212Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="分布式">
+<meta property="article:tag" content="MapReduce">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20221017192816192.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/10/24/6824/MRpaper/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/10/24/6824/MRpaper/","path":"2022/10/24/6824/MRpaper/","title":"MapReduce"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MapReduce | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Map-Reduce"><span class="nav-number">1.</span> <span class="nav-text">Map Reduce</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Programming-Model"><span class="nav-number">1.3.</span> <span class="nav-text">Programming Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation"><span class="nav-number">1.4.</span> <span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Execution-Overview"><span class="nav-number">1.4.1.</span> <span class="nav-text">Execution Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Master-Data-Structures"><span class="nav-number">1.4.2.</span> <span class="nav-text">Master Data Structures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fault-Tolerance"><span class="nav-number">1.4.3.</span> <span class="nav-text">Fault Tolerance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Locality"><span class="nav-number">1.4.4.</span> <span class="nav-text">Locality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Task-Granularity"><span class="nav-number">1.4.5.</span> <span class="nav-text">Task Granularity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backup-Tasks"><span class="nav-number">1.4.6.</span> <span class="nav-text">Backup Tasks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Refinements"><span class="nav-number">1.4.7.</span> <span class="nav-text">Refinements</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/24/6824/MRpaper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MapReduce | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MapReduce
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-24 18:46:43" itemprop="dateCreated datePublished" datetime="2022-10-24T18:46:43+08:00">2022-10-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-26 19:07:54" itemprop="dateModified" datetime="2022-10-26T19:07:54+08:00">2022-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+         <center>
+引言：分布式基础MapReduce的paper的阅读及理解，内容有所参考，也有自己思考的部分
+</center>
+
+
+<span id="more"></span>
+
+<h1 id="Map-Reduce"><a href="#Map-Reduce" class="headerlink" title="Map Reduce"></a>Map Reduce</h1><p><a target="_blank" rel="noopener" href="http://nil.csail.mit.edu/6.824/2020/papers/mapreduce.pdf">paper link</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><blockquote>
+<p>Map函数：处理键值对，生成一个中间键值对</p>
+<p>Reduce函数：将中间值中相同中间键的联系在一起</p>
+</blockquote>
+<p>这两个函数作用-&gt;简化分布式的开发（没有经验的人一样可以轻松编写分布式程序）</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>遇到的问题：并发计算、分发数据、处理失败的这些代码，把原本最简单的计算变成了复杂的代码（简单的问题变得复杂）</p>
+<p>解决办法：使用一种模型，这种模型只需要用户指定map与reduce函数，就可以自动的完成并行与分发的操作</p>
+<h2 id="Programming-Model"><a href="#Programming-Model" class="headerlink" title="Programming Model"></a>Programming Model</h2><ul>
+<li>Map方法：（<code>(k1, v1)-&gt;list(k2, v2)</code>）<ol>
+<li>输入一个键值对，输出一个<strong>中间键值对intermediate key/value</strong></li>
+<li>利用中间键值对，将含有相同key的分为到同一组</li>
+<li>然后交给Reduce处理</li>
+</ol>
+</li>
+<li>Reduce方法：（<code>(k2, list(v2))-&gt;list(v2)</code>）<ol>
+<li>输入一个中间键及其一系列的中间值（中间值通过迭代器Iterator运送到Reduce函数，以免内存无法容纳）</li>
+<li>将这些值合并在一起，构成一个可能会小一点集合</li>
+<li>通常只有0或1个输出</li>
+</ol>
+</li>
+</ul>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><blockquote>
+<p>The right choice depends on the environment</p>
+</blockquote>
+<p>这篇paper的实现适用的环境：连在因特网上的大型商用<strong>计算机集群 pc clusers</strong></p>
+<p>要求的配置很低，2-4g的内存等等，意在表达MapReduce不需要很硬的计算机环境</p>
+<h3 id="Execution-Overview"><a href="#Execution-Overview" class="headerlink" title="Execution Overview"></a>Execution Overview</h3><p><img src="http://img.yesmylord.cn//image-20221017192816192.png" alt="执行总览"></p>
+<p>1、用户在用户程序内输入文件后，首先会拆为M块（每块大小不一16M到64M，这是以前的标准了），然后在一个集群内的机器上启动许多副本</p>
+<p>2、这些副本中，有一个为Master，其余由Master分配给Worker。其中有M个map任务+R个reduce任务；Master会选择空闲的worker，分配给他们一个map或是一个reduce任务</p>
+<p>（之后我会将分配到Map任务的Worker称为MWorker，同理也有RWorker）</p>
+<p>3、MWorker：读入之前拆分的数据，送到用户定义的Map函数内（Map函数生成的<strong>中间键值对</strong>会存放在内存内）</p>
+<p>4、内存内的缓存会<strong>周期写入</strong>到disk，并通过<strong>分区函数partitioning function</strong>划分为R个区域。其在disk上的<strong>地址</strong>会被发送到Master，Master负责将这些地址发给RWorker</p>
+<p>5、当Master通知那些RWorker时，RWorker会通过<strong>RPC</strong>读取MWorker的机器上的数据（如图，可以看到第四步是local write，而第五步是remote write，这也表示两者的区别）</p>
+<p>在读取完成所有的中间数据后，它会按照中间键 intermediate keys去<strong>排序</strong>，以便于所有相同key的value可以被分在一起</p>
+<blockquote>
+<p>此处的排序是必须的：（这里多说两句）</p>
+<p>MapReduce本质就是一个分布式Sort程序，不管是Map还是Reduce都会去进行Sort操作，Map的Sort操作就是为了减少Reduce部分Sort的负担。</p>
+<p>这里的sort算法使用的是<strong>快排</strong>，而且当内存不够用的时候，会触发<strong>外部排序</strong></p>
+</blockquote>
+<p>6、 Reduce的Worker会<strong>迭代</strong>排序好的中间数据，对遇到的每一个唯一的key，都会传输key和一堆value给Reduce函数。</p>
+<p>7、当所有任务完成，Master就会唤醒用户程序（将对MR程序的调用返回到用户程序中）</p>
+<p>最后每个Reduce任务都会有一个输出文件，文件名用户可以指定</p>
+<h3 id="Master-Data-Structures"><a href="#Master-Data-Structures" class="headerlink" title="Master Data Structures"></a>Master Data Structures</h3><p>Master的数据结构：</p>
+<ul>
+<li>存储了每个Map任务与Reduce任务的状态：<strong>idle</strong> 空闲、<strong>in-progress</strong>处理中、<strong>completed</strong>已完成</li>
+<li>对于处于非空闲的任务还会存储对应Worker的id</li>
+</ul>
+<p>可以说，Master是Map任务与Reduce任务沟通的管道。</p>
+<ul>
+<li>对于每一个完成的Map任务都要存储Map输出的文件的地址<strong>location</strong>和大小<strong>size</strong></li>
+<li>在Map任务完成后，更新地址和大小</li>
+<li>将这些信息<strong>逐步 incremently推送</strong>给in-progress的reduce任务</li>
+</ul>
+<h3 id="Fault-Tolerance"><a href="#Fault-Tolerance" class="headerlink" title="Fault Tolerance"></a>Fault Tolerance</h3><blockquote>
+<p>MR联系了成千上万台PC，因此如果有PC宕机，MR需要考虑如何优雅的容灾。</p>
+</blockquote>
+<p>1、Worker Failure</p>
+<p><strong>Master会定期给Worker发送PING信号，如果一定时间内收不到receive，就会将此Worker标记为failed</strong></p>
+<p>当一个in-progress任务completed后，会把它的状态变为idle。同样，当任务失败时，也会将失败的任务重置为idle，但Map和Reduce有一些区别：</p>
+<ul>
+<li>已完成的map任务失败：需要重新执行任务，因为它的输出存在它的local，其他人访问不了</li>
+<li>已完成的reduce任务失败：不需要重新执行，因为他的输出存在<strong>全局的文件系统 Global File System</strong></li>
+</ul>
+<p>当Map任务失败后，由WorkerA（运行失败了）切换到WorkerB后，<strong>所有</strong>在处理Reduce任务的Worker都会<strong>重新执行</strong></p>
+<p>2、Master Failure</p>
+<p>Master会周期性的写<strong>检查点</strong>，如果Master的任务失败了，那么会在检查点的位置重新copy一个新的任务进行执行</p>
+<p>（此时的结构，如果Master本身宕机了，由于只有一个依然会导致整个系统挂掉，此时只能重启整个MR服务了）</p>
+<p>3、避免并发错误的措施</p>
+<blockquote>
+<p>如何保证整个分布式系统最终输出正确——依赖于Map和Reduce的<strong>原子提交 atomic commits</strong>操作</p>
+</blockquote>
+<ul>
+<li>一个Reduce task会产生一个临时文件</li>
+<li>一个Map task会产生R个临时文件（取决于整个Map任务交给多少Reduce任务）</li>
+</ul>
+<p>Map任务完成会向Master发送整个文件的<strong>名称</strong>、大小、位置，如果收到一个已经完成的临时文件名，则忽略它</p>
+<p>Reduce任务完成会把临时文件名改为最终文件名，如果多个相同的Reduce任务完成，那么会执行多次的Rename操作（Rename也是原子操作）</p>
+<blockquote>
+<p>对于绝大多数确定性的Map与Reduce，我们可以认为就是在顺序执行；</p>
+<p>对于不太确定的MR，会提供微弱的语义</p>
+</blockquote>
+<h3 id="Locality"><a href="#Locality" class="headerlink" title="Locality"></a>Locality</h3><p>为了<strong>节省网络带宽</strong>的一些操作：</p>
+<p>将Map任务尽可能的分配给文件所在的机器上，本地读取文件以节省网络带宽，如果对应的机器宕机，那么就找和他在同一个交换机上的机器</p>
+<h3 id="Task-Granularity"><a href="#Task-Granularity" class="headerlink" title="Task Granularity"></a>Task Granularity</h3><p>任务粒度：M个map任务，R个reduce任务</p>
+<p>每个机器都可能运行map或是reduce，因为这可以提高负载均衡，以及更快的恢复速度（完成的map任务可以迅速的分配给其他工作机）</p>
+<p>时间复杂度<code>O(M+R)</code>，空间复杂度<code>O(M*R)</code></p>
+<h3 id="Backup-Tasks"><a href="#Backup-Tasks" class="headerlink" title="Backup Tasks"></a>Backup Tasks</h3><p>使MR操作时间变长的原因有很多（称为 <strong>straggler</strong>）：</p>
+<ul>
+<li>可能有些pc上的磁盘有坏道，这会导致他的读取性能从30M/s降到1MB/s</li>
+<li>可能由于CPU、内存、DISK、网络带宽之间的竞争，导致一个任务开始的较慢</li>
+<li>机器的其他意外，比如缓存被禁用</li>
+</ul>
+<p>如何解决这些<strong>Straggler</strong>：</p>
+<p>在MR任务快要完成的时候，启动一个相同的MR任务作为备份，当Master收到原本的或是备份的任务完成的信息后，标记任务为完成。</p>
+<h3 id="Refinements"><a href="#Refinements" class="headerlink" title="Refinements"></a>Refinements</h3><p>一些额外的优化与扩展：</p>
+<p>1、分区函数 Partitioning Function</p>
+<p>MR产生的临时文件会被<strong>分区</strong>，默认的分区方式是<code>hash(key) mod R</code>（R是用户指定的输出文件的数量）</p>
+<p>2、排序的作用</p>
+<p>在分区内，按Key的升序排列</p>
+<p>排序后可以输出排好序的临时文件（方便之后的Reduce操作），而且保证了可以<strong>支持随机查找</strong></p>
+<p>3、组合函数 Combiner Function</p>
+<p>组合函数和Reduce类似，常用在要处理Map端的重复元素时使用。</p>
+<p>比如词频统计这个问题，在Map端很容易产生很多类似<code>&lt;&quot;sky&quot;, 1&gt;</code>这样的键值对，我们可以在发送给Reduce之前，调用一下combiner 函数，将所有<code>key=&quot;sky&quot;</code>的字符串加在一起</p>
+<p>Combiner和Reduce的唯一区别：输出不同</p>
+<ul>
+<li>Combiner的输出到中间文件</li>
+<li>Reduce输出为最终输出文件</li>
+</ul>
+<p>4、输入和输出类型</p>
+<p>输入类型：</p>
+<ul>
+<li>text类型：会将输入视为键值对，key为文件的偏移量，value为该行的内容</li>
+<li>另一种格式也是键值对，按key序排列</li>
+</ul>
+<p>用户也可以自己重写输入输出的api</p>
+<p>5、副作用</p>
+<p>某些情况下，用户可以方便的产生额外的文件（可以输出中间文件），但是这算是一个副作用，因为MR不支持多个输出文件的<strong>原子两阶段提交</strong>（两阶段提交可以看一看mysql）</p>
+<p>6、跳过Bad记录</p>
+<p>有时第三方库可能有bug，产生一些bad record，MR支持跳过这些崩溃的记录</p>
+<p>原理：每个worker都安装了可以捕获<strong>分段冲突segmentation violations</strong>和<strong>总线错误bus errors</strong>的信号处理器 <code>signal handler</code>，在MR操作开始前，MR的库就将参数的序列号记录在全局变量内，如果遇到了一些bad record，那么这个信号处理器就会给Master发送一个UDP包，称为<code>last gasp</code>，Master就会指示跳过这条record</p>
+<p>7、本地执行</p>
+<p>本地提供了帮助测试的库，以便于调试（为了帮助你在分布式系统中调试）</p>
+<p>8、状态信息</p>
+<p>Master运行了一个内部的HTTP服务器，用户可以在此查看各个任务的进度等各种信息</p>
+<p>9、计数</p>
+<p>MR提供了专门用来计数的API，通过PING信号传递到Master</p>
+<p>（之后的paper内容没有必要看了）</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+              <a href="/tags/MapReduce/" rel="tag"><i class="fa fa-tag"></i> MapReduce</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E5%AE%9E%E8%B7%B5/" rel="prev" title="卷积神经网络CNN">
+                  <i class="fa fa-chevron-left"></i> 卷积神经网络CNN
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/26/6824/GFSpaper/" rel="next" title="GFS">
+                  GFS <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

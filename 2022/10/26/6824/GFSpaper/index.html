@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：分布式基础GFS，有参考的部分也有自己理解的部分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GFS">
+<meta property="og:url" content="http://yoursite.com/2022/10/26/6824/GFSpaper/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：分布式基础GFS，有参考的部分也有自己理解的部分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221022100942367.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221022100942367.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221022191649629.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221024180722278.png">
+<meta property="article:published_time" content="2022-10-26T10:46:43.000Z">
+<meta property="article:modified_time" content="2022-10-26T11:12:10.836Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="分布式">
+<meta property="article:tag" content="GFS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20221022100942367.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/10/26/6824/GFSpaper/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/10/26/6824/GFSpaper/","path":"2022/10/26/6824/GFSpaper/","title":"GFS"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GFS | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Google-File-System"><span class="nav-number">1.</span> <span class="nav-text">Google File System</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Overview"><span class="nav-number">1.3.</span> <span class="nav-text">Design Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Assumption"><span class="nav-number">1.3.1.</span> <span class="nav-text">Assumption</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface"><span class="nav-number">1.3.2.</span> <span class="nav-text">Interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Architecture"><span class="nav-number">1.3.3.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Master"><span class="nav-number">1.3.4.</span> <span class="nav-text">Single Master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chunk-Size"><span class="nav-number">1.3.5.</span> <span class="nav-text">Chunk Size</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Metadata"><span class="nav-number">1.3.6.</span> <span class="nav-text">Metadata</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consistency-Model"><span class="nav-number">1.3.7.</span> <span class="nav-text">Consistency Model</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Interaction"><span class="nav-number">1.4.</span> <span class="nav-text">System Interaction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Leases-and-Mutation-Order"><span class="nav-number">1.4.1.</span> <span class="nav-text">Leases and Mutation Order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Flow"><span class="nav-number">1.4.2.</span> <span class="nav-text">Data Flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Atomic-Record-Appends"><span class="nav-number">1.4.3.</span> <span class="nav-text">Atomic Record Appends</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Snapshot"><span class="nav-number">1.4.4.</span> <span class="nav-text">Snapshot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Master-Operation"><span class="nav-number">1.5.</span> <span class="nav-text">Master Operation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Namespace-Management-and-Locking"><span class="nav-number">1.5.1.</span> <span class="nav-text">Namespace Management and Locking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Replica-Placement"><span class="nav-number">1.5.2.</span> <span class="nav-text">Replica Placement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Creation%EF%BC%8CRe-replication%EF%BC%8CRebalancing"><span class="nav-number">1.5.3.</span> <span class="nav-text">Creation，Re-replication，Rebalancing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Garbage-Collection"><span class="nav-number">1.5.4.</span> <span class="nav-text">Garbage Collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stale-Replica-Detection"><span class="nav-number">1.5.5.</span> <span class="nav-text">Stale Replica Detection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAULT-TOLERANCE-AND-DIAGNOSIS"><span class="nav-number">1.6.</span> <span class="nav-text">FAULT TOLERANCE AND DIAGNOSIS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#High-Availability"><span class="nav-number">1.6.1.</span> <span class="nav-text">High Availability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Integrity"><span class="nav-number">1.6.2.</span> <span class="nav-text">Data Integrity</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/26/6824/GFSpaper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GFS | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GFS
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-10-26 18:46:43 / 修改时间：19:12:10" itemprop="dateCreated datePublished" datetime="2022-10-26T18:46:43+08:00">2022-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+         <center>
+引言：分布式基础GFS，有参考的部分也有自己理解的部分
+</center>
+
+
+<span id="more"></span>
+
+<h1 id="Google-File-System"><a href="#Google-File-System" class="headerlink" title="Google File System"></a>Google File System</h1><h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>GFS：一个适用于大型分布式<strong>数据密集型应用</strong></p>
+<p>运行在低配置的机器上就可以获得<strong>容灾 fault tolerance</strong>和对大量客户端的<strong>高聚合 aggregate</strong></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>分布式文件系统的目标除了：性能、可扩展性、可靠性、可用性之外，还从<strong>应用负载</strong>和<strong>技术环境</strong>驱动，去考虑新的观点：</p>
+<ul>
+<li><strong>组件故障是常态而不是例外</strong>：因此还需要<strong>持续监控constant monitoring、错误检测 error detection、容灾 fault tolerance、自动恢复automatic recovery</strong></li>
+<li>与传统相比文件会更大：几到几十G很常见，因此需要重新设计预计值和参数（比如IO操作块的大小）</li>
+<li>大多数文件都是append而不是overwrite：要更考虑文件的append性能（随机写实际上是不存在的）</li>
+<li>设计时从APP和FS两方面来考虑，简化复杂度：比如放宽一致性模型，比如引入原子附加操作</li>
+</ul>
+<h2 id="Design-Overview"><a href="#Design-Overview" class="headerlink" title="Design Overview"></a>Design Overview</h2><h3 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h3><p>设计在一定前提下实现：</p>
+<ul>
+<li>大部分机器廉价，而且经常损坏</li>
+<li>存储的文件中等，大概在几百万个100M的文件左右</li>
+<li>读取：由大部分顺序读和小部分随机读组成</li>
+<li>写入：大部分的顺序写</li>
+<li>对多用户的并发append操作有良好的设计（并发处理方式：生产者消费者队列）</li>
+<li>要高持续的带宽而不是低延迟</li>
+</ul>
+<h3 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h3><p>实现的功能：基本操作<code>create delete open close read write</code>，额外的设计<code> snapshot</code>与<code>record append</code>：</p>
+<ul>
+<li><code>snapshot</code>：低成本的创建一个文件或是目录树的copy</li>
+<li><code>record append</code>：保证用户可以并发对文件进行添加操作</li>
+</ul>
+<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p><img src="http://img.yesmylord.cn//image-20221022100942367.png" alt="GFS Architecture"></p>
+<p>1、系统由一个<strong>Master</strong>与多个<strong>chunkserver</strong>组成，并且被多个<strong>client</strong>访问</p>
+<ul>
+<li><p><strong>chunkserver</strong>的作用：</p>
+<ul>
+<li>文件被分为固定大小的<strong>块chunk</strong>（在chunk创建的时候，Master会给其一个64bit唯一标识符<strong>chunk handle</strong>）</li>
+<li>chunkserver负责存储这些块，而且同一份文件会在多台chunkserver上有多个备份（默认有三个备份）</li>
+</ul>
+</li>
+<li><p><strong>Master</strong>的作用：</p>
+<ul>
+<li>维护<strong>元信息 metadata</strong>：存储命名空间、访问控制信息、文件与chunk的映射、当前所在的chunk。</li>
+<li>控制系统活动：chunk lease management、孤立chunk的垃圾回收、chunk迁移</li>
+<li>周期性的联系chunkserver（心跳机制，发送HeartBeat信息）</li>
+</ul>
+</li>
+<li><p><strong>Client</strong>作用：</p>
+<ul>
+<li>提供给APP响应的API，最为APP的代理，请求Master和Chunkserver</li>
+<li>与Master交互：请求元数据</li>
+<li>与Chunkserver交互：请求真正的数据</li>
+</ul>
+</li>
+</ul>
+<p>Client与Chunkserver都<strong>不会缓存数据</strong>，<strong>但Client会缓存元数据</strong></p>
+<blockquote>
+<p>为什么不缓存？</p>
+<p>client为了尽可能的避免<strong>缓存一致性cache coherence issues</strong>问题，简化系统复杂度，而且大多数app的文件很大，导致无法缓存</p>
+<p>chunkserver本地存储了文件，而且linux系统已经将数据缓存在内存中，chunkserver本身不需要额外操作</p>
+</blockquote>
+<h3 id="Single-Master"><a href="#Single-Master" class="headerlink" title="Single Master"></a>Single Master</h3><p>单个Master去存放元信息，减少了很多复杂设计。</p>
+<p>客户机不会直接与Master数据通信，而是询问对应chunkserver的位置（并缓存这个信息一段时间，失效后再来与Master通信）之后直接与chunkserver数据交流</p>
+<p><img src="http://img.yesmylord.cn//image-20221022100942367.png" alt="GFS Architecture"></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/104427782">读数据的流程</a>：</p>
+<p>1、client将用户想要的filename和byte index利用<strong>固定的chunksize</strong>翻译成文件内的<strong>chunk index</strong></p>
+<p>2、client将<code>filename, chunk index</code>，Master就会返回<code>chunkhandle, chunk locations</code>（返回的chunk的handle以及<strong>多个文件副本的位置</strong>）client会将Master传来的信息用文件名+索引作为key缓存</p>
+<p>3、client请求对应的chunkserver上的chunk块，chunkserver会将数据返回（通常这个请求会一次请求多个chunk，而且也可以携带master的请求）（为了尽量减少Master的交互，避免单独的Master称为瓶颈）</p>
+<p>之后，client之后请求相同的块无需再与Master交互，直到<strong>cache过期</strong>或是<strong>文件被重新打开</strong></p>
+<h3 id="Chunk-Size"><a href="#Chunk-Size" class="headerlink" title="Chunk Size"></a>Chunk Size</h3><p>选定64MB（以前的标准）作为chunk的大小</p>
+<p>每一个chunk都是linux的一个普通的文件，而且使用<strong>lazy space allocation惰性的空间释放</strong>避免内部碎片而浪费空间</p>
+<blockquote>
+<p>惰性空间释放：</p>
+<p>比如一个文件5MB，我们会先释放5MB空间给这个文件，如果有需要再去扩展为64MB，而不是一开始就给64MB</p>
+</blockquote>
+<p>设置64MB（略大于文件系统block的块），有以下优点：</p>
+<ul>
+<li>可以减少与Master的交互次数（只需要一次初始化的与Master的交互，就可以多次read和write）</li>
+<li>由于块较大，因此一个块上的文件会更多，client可能多次操作都在同一个块上，因此可以延长一次TCP交互的时间，从而减少网络开销</li>
+<li>减少了Master上元数据的存储开销，使元数据可以在内存中放得下</li>
+</ul>
+<p>缺陷：</p>
+<ul>
+<li>即使使用了惰性空间分配，依然会存在内部碎片的问题（比如一个文件由一个chunk组成，可能还会存在内部碎片）</li>
+<li>可能会出现<strong>hot spots</strong>（很多client都会访问的热点chunk），这种情况实际上很少，但是为了避免这个问题：<ul>
+<li>给热点数据chunk更高的备份因子</li>
+<li>如果想长期解决，可以允许客户端从其他客户端读取数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h3><p>Master存储三种类型的数据在内存：</p>
+<ul>
+<li>file和chunk的命名空间</li>
+<li>file到chunks的映射</li>
+<li>chunk副本的位置（不会持久化存储）</li>
+</ul>
+<p>前两个会进行持久化存储（通过存储<strong>操作日志operation log</strong>在Master的disk上，并且会在远端的机器上备份）第三个不会持久化存储，而是在Master启动时询问所有chunkserver，或是集群中新增加chunkserver时加载到内存</p>
+<p>需要注意几个问题：</p>
+<p>1、In-Memory Data Structure</p>
+<p>元数据存储在内存，并且会定期扫描（为了实现GC、负载均衡等功能）</p>
+<blockquote>
+<p>每一个chunk需要存储一个64b的handle，而且命名空间使用<strong>前缀压缩</strong>，尽可能的缩减大小</p>
+<p>而且给Master添加内存条大小成本也不是很大</p>
+</blockquote>
+<blockquote>
+<p>关于前缀压缩：在mysql中的MyISAM引擎，索引块中的第一个值是“perform“，第二个值是”performance“，那么第二个值的前缀压缩后存储的是类似”7,ance“这样的形式</p>
+</blockquote>
+<p>2、chunk location</p>
+<p>这类信息不会持久化（为了使系统更加简单，避免考虑添加和移除chunkserver对文件的同步），而是在Master启动时<strong>轮询polls</strong>所有的chunkserver，之后通过心跳信息更新</p>
+<p>3、Operation Log</p>
+<p>是<strong>GFS的核心文件</strong></p>
+<ul>
+<li>保留了元数据历史改动的日志文件，便于文件恢复</li>
+</ul>
+<p>系统恢复只需要重新执行这个文件的操作即可，因此需要保证这个文件尽量的小：在日志超过某个大小后，都会重新设置<strong>检查点 checkpoint</strong></p>
+<blockquote>
+<p>检查点checkpoint：是压缩的<strong>B树</strong>格式，可以直接映射到内存中用于命名空间的查找，而无需额外的解析</p>
+</blockquote>
+<p>切换到新的检查点时，开启一个额外的线程</p>
+<ul>
+<li>定义并发操作的逻辑时间线（file、chunk以及他们的version全靠此文件决定）</li>
+</ul>
+<p>必须保证此文件的<strong>强一致性</strong>，否则可能会丢失用户的操作：因此除了在多个机器上有此日志文件的备份外，只有当本地和远端都将record刷新到磁盘后，才会响应用户的操作（刷新和复制都会批量操作，尽可能的减少对系统吞吐量的影响）</p>
+<h3 id="Consistency-Model"><a href="#Consistency-Model" class="headerlink" title="Consistency Model"></a>Consistency Model</h3><p>GFS实现了<strong>弱一致性</strong>，来保证分布式系统足够简单</p>
+<p>GFS通过以下设计来解决并发问题：</p>
+<p>1、<strong>文件名称空间file namespace</strong>的改变</p>
+<p>关于文件名称空间（<strong>file namespace mutations</strong>， 比如文件的创建）的改变<strong>只会被Master操作</strong>（并且operation log记录了关于这类操作的总体顺序）</p>
+<p>关于文件的内容（<strong>file region</strong>）改变，它的状态取决于下表：影响的因素有，操作是否成功、操作是否有并发</p>
+<p><img src="http://img.yesmylord.cn//image-20221022191649629.png" alt="File Region"></p>
+<p>这里有两个状态需要解释一下：<a target="_blank" rel="noopener" href="http://www.javashuo.com/article/p-mmsffreu-de.html">参考这篇博文</a></p>
+<ul>
+<li><strong>consistent</strong>：一个file region对于所有的client都是一致的</li>
+<li><strong>defined</strong>：要求更严格，除了要consistent，还需要保证<strong>写入有效</strong>（即client能够看到全部写入的内容）</li>
+</ul>
+<p>如上表所示，失败操作都将inconsistent；而当串行执行成功时，是defined；当出现并发操作且成功时，是consistent；</p>
+<p>还有两个操作需要区别一下：</p>
+<ul>
+<li><strong>write</strong>：指<strong>application</strong>去指定一个<strong>偏移offset</strong>去改变内容</li>
+<li><strong>record append</strong>：<strong>GFS</strong>去指定一个<strong>偏移offset</strong>，<strong>至少一次</strong>（说明存在重试）的去改变内容</li>
+</ul>
+<p>而常规的append只是在文件的结尾处添加数据，GFS指定的offset会被返回给client，并且表示一个<strong>已定义区域 defined region</strong>的起始位置（GFS通常填充padding或是重复的记录项，而这些区域是inconsistent的）</p>
+<hr>
+<p>在一连串的改变后，GFS通过以一定的顺序在一个文件所有的副本上按序执行，并且其中也有版本控制，对于过时的版本会自动忽略（过时的版本的副本称为 <strong>Stale replicas 过时副本</strong>）</p>
+<p>过时副本不会去响应改变，也不会去询问client最新的副本的location在哪里，而是<strong>被GC掉</strong></p>
+<p>而此时的client由于缓存了stale replicas的location，也有可能再去访问（这取决于缓存是否过期或是是否被重新打开）</p>
+<p>2、APP的实现</p>
+<p>GFS的应用为了适应弱一致性的特性，使用了一些简单的技术：依赖于<strong>追加append</strong>、<strong>检查点checkpoint</strong>、<strong>编写自我验证writing self-validating</strong>、<strong>自我识别记录self-identifying</strong></p>
+<p>大量情况下都是追加写。</p>
+<ul>
+<li>串行追加写</li>
+</ul>
+<p>在文件写入完成后，GFS会给文件一个永久的name；即使没有写完也会周期性检查成功写了多少（设置检查点checkpoints）</p>
+<p>设置完成后，检查点还包括APP级别的<strong>校验和checksum</strong>（检查时只会检查最新的检查点，也就是最后一个defined区域）</p>
+<p>检查点可以保证增量式的写入，并可以阻止写入那些应用看来还不完整的数据文件</p>
+<ul>
+<li>并发追加写</li>
+</ul>
+<p>writers会至少写入一次。</p>
+<p>Writers会给每个记录都准备一个checkpoint，以便于他们自我检验</p>
+<p>Readers会处理偶尔出现的填充和重复项（如何处理？可以直接忽略，也可以进行对其进行其他操作，比如删除重复项）</p>
+<h2 id="System-Interaction"><a href="#System-Interaction" class="headerlink" title="System Interaction"></a>System Interaction</h2><p>GFS设计的一切都是为了减少Master的交互（避免单独的Master成为整个系统的瓶颈）</p>
+<p>这一节介绍的内容主要是如何实现：数据变更data mutations、原子追加操作atomic append、快照snapshot</p>
+<h3 id="Leases-and-Mutation-Order"><a href="#Leases-and-Mutation-Order" class="headerlink" title="Leases and Mutation Order"></a>Leases and Mutation Order</h3><blockquote>
+<p>Mutations指的是改变了<strong>内容或者元数据</strong>的操作</p>
+</blockquote>
+<p>mutations会作用到所有的副本上，GFS通过<strong>租用 lease</strong>来保证各个副本的mutation的顺序一致</p>
+<p>大致过程是：Master会选择所有副本的其中一个作为<strong>primary主副本</strong>，主副本会决定一个顺序，这个顺序将会变成所有副本的顺序</p>
+<blockquote>
+<p>个人理解lease的含义在于：Master把权利租给其中一个副本，这样做是为了尽量减小Master的交互（下面把这个称为租约关系）</p>
+</blockquote>
+<p>一个租约关系超时时间为60s，只要chunk发生变化，primary就可以在每次的HeartBeat信息上携带mutation给master，而且Master可以收回租约，并且当primary宕机后，租约关系到期Master会选另外一个副本作为primary</p>
+<p><img src="http://img.yesmylord.cn//image-20221024180722278.png" alt="租约关系流程图"></p>
+<p>这里按顺序介绍一下GFS的运作流程：</p>
+<ol>
+<li>client请求Master：当前持有lease的primary副本以及其他副本（即图中的<strong>secondary replica</strong>）的位置</li>
+<li>Master回复client对应的位置，client将这些信息缓存起来以便下次mutation可以直接联系（直到primary失去联系，或是lease到期）</li>
+<li>client将数据推送到每一个副本上（这个顺序无所谓）chunkserver缓存这个数据（LRU方式）</li>
+<li>clients（可能不止一个客户端）向primary发送写请求（Mutations），primary会给这些mutations确定一个具体的顺序，然后primary将顺序update到本地</li>
+<li>primary推送确定顺序后的mutations给其他副本，其他副本也更新到本地</li>
+<li>secondary replica更新完成后，回复primary一个信息表示已完成</li>
+<li>primary向client答复：副本遇到的错误<ul>
+<li>如果primary更新失败：将不会推送到其他副本</li>
+<li>如果有的其他副本失败：那么可能会出现primary与其他副本版本不一致的情况（此时client会重试mutations的请求，重复3-7的步骤，尝试几次）</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>如果写请求比较大，或是跨越了chunk的边界，GFS会怎么处理呢？</p>
+<p>GFS会对这些请求进行拆分</p>
+<p>拆分的操作可能会出现多个客户端下的并发覆盖的现象</p>
+<p>（因此可能最终的file region会包含来自不同客户端的片段，并且这也是Consistency Model一节介绍的consistent but not defined的原因——即虽然最终生成的文件一样，但是存在有些客户端快，有些客户端慢，并且后执行的可能会覆盖前执行的，导致这个chunk的状态不能稳定）</p>
+</blockquote>
+<h3 id="Data-Flow"><a href="#Data-Flow" class="headerlink" title="Data Flow"></a>Data Flow</h3><p><strong>数据流和控制流解耦合</strong>，有利于提高网络效率</p>
+<ul>
+<li>控制流：从primary流向secondary</li>
+<li>数据流：<strong>沿着chunkserver的链线性推送</strong>（不是使用网络的拓扑结构，比如树）</li>
+</ul>
+<p>数据流这样传输可以最大利用网络带宽，client利用管道快速的发送data给最近的chunkserver</p>
+<p>比如S1发送给S4，可能并不会直接发送；可能S1最近的是一个S2，S2距离S4更近，这样就会先发给S2，然后S2发给S4（因为S1可能和S2是同一个交换机，这样可以充分利用带宽）</p>
+<h3 id="Atomic-Record-Appends"><a href="#Atomic-Record-Appends" class="headerlink" title="Atomic Record Appends"></a>Atomic Record Appends</h3><p>在consistency model说过，传统的write和record append方式的区别，在于offset是谁指定的。</p>
+<p>传统的write因为offset由client指定，所以不能做到并发，一个client去写，另外的必须等待；而record append由GFS指定偏移，最后将偏移返回给client，这样就可以实现并发</p>
+<p><strong>record append就是一种mutation</strong>，它遵循上述的mutation流程，但是有一点额外的操作：在client的数据推送到所有的副本上后，它会给primary发送请求，primary会判断即将的record append操作是否会使chunk超过预订的size 64M。</p>
+<ul>
+<li>如果超过了size的大小，primary就会将这个chunk填充padding（补到最大大小）然后通知其他副本也去padding，然后告诉client应该在下一个chunk上执行这个操作</li>
+</ul>
+<blockquote>
+<p>注意：record append<strong>最多</strong>为chunk size的1/4，这样可以一定程度的避免空间浪费</p>
+</blockquote>
+<ul>
+<li>如果符合大小，就返回写入后的偏移量给client</li>
+</ul>
+<h3 id="Snapshot"><a href="#Snapshot" class="headerlink" title="Snapshot"></a>Snapshot</h3><p>快照就是对file或是directory tree进行一个备份。</p>
+<p>类似于AFS，使用<strong>写时复制技术copy-on-write</strong></p>
+<ol>
+<li>当Master接收到snapshot请求后，它首先收回将要操作的chunk的lease（如果这时出现mutation，将会与Master进行交互）</li>
+<li>lease收回后，master将操作存入disk的operation log中，并将disk内的状态同步到内存中，新创建的快照与源文件指向同一个块（此时此chunk的<strong>引用计数+1</strong>）</li>
+<li>当client第一次要写入刚做完快照操作的chunk时，由于没有lease，所以会请求master，master发现他的引用计数&gt;1，Master就会指定一个新的chunk去备份这个chunk，然后选择其中一个给予lease，最后回复client primary是谁</li>
+<li>client将mutation写入chunk中</li>
+</ol>
+<p>这样利用本地做快照，减少了网络传输</p>
+<h2 id="Master-Operation"><a href="#Master-Operation" class="headerlink" title="Master Operation"></a>Master Operation</h2><p>Master的主要负责操作有：对命名空间的所有操作、备份相关操作、负载均衡、GC操作</p>
+<p>这一节介绍这些操作的内容</p>
+<h3 id="Namespace-Management-and-Locking"><a href="#Namespace-Management-and-Locking" class="headerlink" title="Namespace Management and Locking"></a>Namespace Management and Locking</h3><p>GFS维护了一个<strong>全路径名 Full pathnames</strong>到<strong>元数据 Metadata</strong>的一个Map表（前缀压缩过，可以高效的存放在Master的内存里）</p>
+<p>命名空间内的每一个<strong>结点 Node</strong>（绝对文件名或是绝对路径名）都联系着一个<strong>读写锁</strong></p>
+<blockquote>
+<p>比如一个例子：现在有操作要将<code>/home/user</code>备份一个快照到<code>/save/user</code>，同时要创建一个文件在上<code>/home/user/foo</code></p>
+</blockquote>
+<p>那么GFS会有这样的流程：</p>
+<ol>
+<li>假设先执行了快照，快照操作就会拿到<code>/home</code>与<code>/save</code>的<strong>读锁</strong>以及<code>/home/user</code>与<code>/save/user</code>的<strong>写锁</strong></li>
+<li>然后创建操作需要拿<code>/home</code>、<code>/home/user</code>的读锁，以及<code>/home/user/foo</code>的写锁</li>
+<li>发现1与2在获取<code>/home/user</code>时（1要获取写锁，2要获取读锁，读写不能同时）出现了冲突，那么GFS就会按一个正确的顺序去执行操作，比如先让快照操作写入，释放锁后，让创建操作去创建</li>
+</ol>
+<p>GFS对于名称空间锁的管理就是，一个对<code>/d1/d2/d3/file</code>的操作，会获取读锁和写锁，读锁会获取<code>/d1</code>、<code>/d1/d2</code>、<code>/d1/d2/d3</code>三个，写锁会获取<code>/d1/d2/d3/file</code></p>
+<hr>
+<p>总结一下，读锁与写锁的作用：</p>
+<ul>
+<li><strong>读锁</strong>是为了保证，操作在执行时，阻止读锁的路径上出现被删除、被重命名、被快照的操作</li>
+<li><strong>写锁</strong>是为了保证，在出现冲突后，GFS可以安排一个合理的顺序去正确的执行</li>
+</ul>
+<p>锁的获取严格按照顺序：首先按照名称空间树的级别，之后按照字典序排序</p>
+<h3 id="Replica-Placement"><a href="#Replica-Placement" class="headerlink" title="Replica Placement"></a>Replica Placement</h3><p>首先解释一下几个概念：<strong>分布式distribution</strong>与<strong>集群cluster</strong>、<strong>机架racks</strong>与<strong>节点node</strong></p>
+<blockquote>
+<p>分布式：指一个S系统，拆分为A、B、C等等多个服务，然后将不同的服务部署在不同的机器上</p>
+<p>集群：指一个相同的服务A，部署在多个机器上</p>
+</blockquote>
+<p>（分布式是多个人分活干，集群是多个人干同一个活）</p>
+<blockquote>
+<p>机架：一个机架上有多台服务器</p>
+<p>节点：机架上的一台服务器可能就是一个节点</p>
+</blockquote>
+<p>两个来自不同机架上的机器，交流时可能会走一个或多个交换机；</p>
+<p>并且一个机架的带宽<strong>小于</strong>这个机架上所有机器的带宽总和</p>
+<hr>
+<p>副本的放置策略只为了两个目的：</p>
+<ul>
+<li>最大化数据<strong>可靠性</strong>和<strong>可用性</strong></li>
+<li>最大化网络<strong>带宽利用率</strong></li>
+</ul>
+<p>一个chunk的默认有三个副本，有两个在同一个机架上，一个在另外的机架上（保证即使一个机架都宕机掉，我们依然有存活的chunk副本可以使用）</p>
+<p>对于读操作会利用多个机架的总带宽，但是写操作需要流过多个机架（一种权衡：<strong>利于读，不利于写</strong>）</p>
+<h3 id="Creation，Re-replication，Rebalancing"><a href="#Creation，Re-replication，Rebalancing" class="headerlink" title="Creation，Re-replication，Rebalancing"></a>Creation，Re-replication，Rebalancing</h3><p>引起备份的原因有三种：创建了新块Creation、重新备份Re-replication、重新平衡Rebalancing</p>
+<p>1、对于Creation</p>
+<p>放置副本考虑三个原因：</p>
+<ul>
+<li>优先放置在磁盘利用率低的chunkserver上</li>
+<li>最好不要放置在刚刚执行过Creation操作的chunkserver上</li>
+<li>放置在不同的机架上</li>
+</ul>
+<p>对于第二点，是因为我们的实际情况是<strong>append-once-read-many</strong>一次写后多次读的场景，因此最好将副本分散在多个机器上，可以更好的均衡负载</p>
+<p>（假设我们给一个机器一直分配creation操作，这会导致，当有很多读操作来的时候，这个机器的流量会很大，而其他的机器流量几乎没有）</p>
+<p>2、对于Re-replication</p>
+<p>只要副本的数量低于我们设定的备份数量，就会触发重新备份的操作。（可能我们重新指定了备份大小，也可能有一个chunkserver挂掉，也可能是有一台机架直接停电或是磁道损坏）</p>
+<p>重新备份操作有优先级：</p>
+<ul>
+<li>低于预设置更多的副本优先re-replication（比如A只有一个副本，但是B有两个，我们设定需要三个副本，那么会优先对A操作）</li>
+<li>优先备份<strong>live files</strong>而不是最近删除的文件</li>
+<li>优先备份那些可能会阻塞用户进程的chunk</li>
+</ul>
+<blockquote>
+<p>为了防止clone的流量压倒client的流量，Master限制了GFS系统内clone操作的数量</p>
+</blockquote>
+<p>3、对于Rebalancing</p>
+<p>Rebalancing操作是Master周期去执行的，检查当前副本的分布，移动到更好的位置上</p>
+<h3 id="Garbage-Collection"><a href="#Garbage-Collection" class="headerlink" title="Garbage Collection"></a>Garbage Collection</h3><p>1、Mechanism</p>
+<p>Master回收一个文件的资源有几种情况：</p>
+<ul>
+<li>用户主动删除了文件</li>
+<li>被标识为<strong>孤立文件 orphaned chunks</strong></li>
+</ul>
+<p>在第一种情况下：当用户删除一个文件时，<strong>并不会立即删除该文件</strong>，但是会立即在operation log内记录关于这个文件被删除的操作，然后将这个文件rename为一个隐藏的名称（通常是删除操作的时间戳），在过去一定间隔，比如说三天后，Master才会将这个文件的资源回收，并将它的元数据也删除</p>
+<p>当文件的名称被更改为隐藏名称后，使用这个名称去访问文件，依然可以访问到。并且如果将这个隐藏名称再改为正常的名称，就能阻止这个文件被GC掉</p>
+<p>在第二种情况下：Master会定期扫描chunk的名称空间，识别<strong>孤立文件</strong>（孤立文件就是那些访问到的，不可及的文件，类似于JVM去GC）</p>
+<p>在定期的HeartBeat消息中，每一个chunkserver都会向Master汇报它所拥有的chunk的集合，如果Master判断有些chunk不再需要了，就会回复给这个chunkserver（注意：master回复的是那些不在需要的chunk的标识）之后chunkserver会回收资源</p>
+<p>2、Discussion</p>
+<p>延迟删除比立即删除有几个优点：</p>
+<ul>
+<li>简单且可靠：创建、删除操作都有可能失败，所以Master要有“记忆力”去记住那些要删除的文件；而立即删除不能这么做</li>
+<li>节省资源：延迟删除合并到了常规的后台活动内（比如HeartBeat机制），减轻Master的负担</li>
+<li>安全：延迟收回资源给了我们后悔的可能</li>
+</ul>
+<p>但是也有缺点：</p>
+<ul>
+<li>在存储空间紧张时，可能会对妨碍用户的操作</li>
+</ul>
+<p>为了解决这个问题：GFS可以对不同的目录使用不同的备份策略（比如不备份某目录下的文件）；并且多次重复强调删除某文件，会加快删除的进程</p>
+<h3 id="Stale-Replica-Detection"><a href="#Stale-Replica-Detection" class="headerlink" title="Stale Replica Detection"></a>Stale Replica Detection</h3><p>副本可能会过期，对于每一个chunk，Master都维护了一个<strong>chunk version number 块版本号</strong>去区别最新副本和过时的副本。</p>
+<ul>
+<li>当Master授予新的lease时，对应副本的版本号就会增加，primary和secondary都会<strong>持久化存储</strong>最新的版本号。</li>
+<li>当chunkserver重新启动并向Master汇报它所拥有的chunk及其版本号时，这些过时的版本stale replica就会被发现；如果Master发现有的chunk版本号比自己的存储的版本号要高，Master会认为在lease过程中出现了失败，就会更新到最新的版本号</li>
+</ul>
+<p>Master在GC过程中回收过时的副本</p>
+<h2 id="FAULT-TOLERANCE-AND-DIAGNOSIS"><a href="#FAULT-TOLERANCE-AND-DIAGNOSIS" class="headerlink" title="FAULT TOLERANCE AND DIAGNOSIS"></a>FAULT TOLERANCE AND DIAGNOSIS</h2><h3 id="High-Availability"><a href="#High-Availability" class="headerlink" title="High Availability"></a>High Availability</h3><p>实现<strong>高可用high availability</strong>两个简单有效的措施：<strong>快速恢复fast recovery</strong>、<strong>备份replication</strong></p>
+<p>1、快速恢复</p>
+<p>master和chunkserver在宕机后都会尽快恢复（我们并不能判断造成中断的原因是什么）</p>
+<p>2、备份</p>
+<p>chunk备份就如前面提到的，除了备份外，还可以做其他形式的跨服务器备份，如奇偶校验parity或擦除码erasure codes</p>
+<p>master如果出现问题，检测设备会立即检测到，并利用备份的operation log文件立即启动一个master（<strong>shadow master</strong>），shadow master会立即提供一个仅供<strong>读操作</strong>的文件系统（是shadow而不是mirror，代表会有些许延迟）</p>
+<h3 id="Data-Integrity"><a href="#Data-Integrity" class="headerlink" title="Data Integrity"></a>Data Integrity</h3><p>数据完整性都是通过<strong>校验和 checksum</strong>来保证的</p>
+<blockquote>
+<p>不能使用不同的副本来互相比较：因为无法保证一个副本是定义的，所以不能让他们之间互相比较</p>
+</blockquote>
+<p>每一个副本都必须保证自己的数据完整</p>
+<p>一个chunk64M，被分成为了1024个64kb的block，每一个block都有一个32bit的checksum，checksum和其他元数据一样，存入内存中，并且会被持久化</p>
+<p>chunkserver在回复request之前，都会验证数据块的校验和（chunkserver不会把损坏的数据传给其他机器）；如果检验出有异常，那么会立即回复给请求者返回一个<code>error</code>，并且给master返回一个<code>mismatch</code>信息；之后请求者去找其他副本读取数据，而master从其他副本clone一份到这个位置，完成后删除原本损坏的副本。</p>
+<p>检验和在内存内，而且由于我们的操作不会跨很多的块，因此检验和读取也不需要多少，不会占用很多的性能。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+              <a href="/tags/GFS/" rel="tag"><i class="fa fa-tag"></i> GFS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/24/6824/MRpaper/" rel="prev" title="MapReduce">
+                  <i class="fa fa-chevron-left"></i> MapReduce
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/28/6824/vm-ft/" rel="next" title="VM-fault tolerance">
+                  VM-fault tolerance <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

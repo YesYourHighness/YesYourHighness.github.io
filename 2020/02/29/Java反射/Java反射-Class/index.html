@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：反射机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java反射_Class">
+<meta property="og:url" content="http://yoursite.com/2020/02/29/Java%E5%8F%8D%E5%B0%84/Java%E5%8F%8D%E5%B0%84-Class/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：反射机制">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-29T15:00:31.000Z">
+<meta property="article:modified_time" content="2021-09-08T02:29:53.510Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="反射">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/02/29/Java%E5%8F%8D%E5%B0%84/Java%E5%8F%8D%E5%B0%84-Class/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2020/02/29/Java%E5%8F%8D%E5%B0%84/Java%E5%8F%8D%E5%B0%84-Class/","path":"2020/02/29/Java反射/Java反射-Class/","title":"Java反射_Class"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java反射_Class | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84"><span class="nav-number">1.</span> <span class="nav-text">反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Class%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">Class类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">2.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Class"><span class="nav-number">2.2.</span> <span class="nav-text">使用Class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class%E5%AE%9E%E4%BE%8B%E6%AF%94%E8%BE%83%E5%92%8Cinstanceof%E5%8C%BA%E5%88%AB"><span class="nav-number">2.2.1.</span> <span class="nav-text">Class实例比较和instanceof区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%BF%A1%E6%81%AF"><span class="nav-number">2.3.</span> <span class="nav-text">获取信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%88%9B%E5%BB%BAclass%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.4.</span> <span class="nav-text">Class也可以创建class实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.5.</span> <span class="nav-text">动态加载</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Java%E5%8F%8D%E5%B0%84/Java%E5%8F%8D%E5%B0%84-Class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java反射_Class | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java反射_Class
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-29 23:00:31" itemprop="dateCreated datePublished" datetime="2020-02-29T23:00:31+08:00">2020-02-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-08 10:29:53" itemprop="dateModified" datetime="2021-09-08T10:29:53+08:00">2021-09-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/%E5%8F%8D%E5%B0%84/" itemprop="url" rel="index"><span itemprop="name">反射</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：反射机制
+</center>
+<span id="more"></span>
+
+<h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><p>反射是Java中比较高阶的技巧，理解了反射对理解JVM、使用Spring框架都有好处</p>
+<blockquote>
+<p>反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。</p>
+</blockquote>
+<h1 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h1><p>先来看一段官方API</p>
+<blockquote>
+<p>Instances of the class Class represent classes and interfaces in a running Java application.<br>（Class实例代表正在运行的类和接口）<br>An enum is a kind of class and an annotation is a kind of interface.<br>（枚举是类、注解是接口）<br>Every array also belongs to a class that is reflected as a Class object that is shared by all arrays with the same element type and number of dimensions.<br>（每个数组也属于一个反映为Class对象的类，该类对象由具有相同元素类型和维数的所有数组共享）<br>The primitive Java types (boolean, byte, char, short, int, long, float, and double), and the keyword void are also represented as Class objects.<br>（Java的原始数据类型以及void关键字也表现为Class对象）</p>
+</blockquote>
+<p>巴比巴卜、屋里哇啦说了些什么呢？</p>
+<p>意思是全部的Java数据类型，只要一运行，都<strong>可以</strong>是Class的对象。</p>
+<p>请注意，<strong>一个<code>Class</code>对象实际上表示的是一个类型</strong>，<strong>而这个类型未必一定是一种类</strong>。</p>
+<p>例如， <code>int</code> 不是类，但 <code>int.class</code> 是一个 Class 类型的对象。 </p>
+<p>在JVM第一次读取到一个<code>class</code>时，会把它加载到内存，而且会为他创建一个<code>Class</code>类型的实例（注意是Class还是class，不要搞错了！！）</p>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><blockquote>
+<p>官方API：Class has no public constructor. Instead Class objects are constructed automatically by the Java Virtual Machine as classes are loaded and by calls to the defineClass method in the class loader.</p>
+</blockquote>
+<p><strong>Class没有公有的构造方法，因为它的创建是当class加载时，通过类加载器的<code>defineClass</code>方法，由JVM自动创建的。</strong></p>
+<blockquote>
+<p>上文中提到：请注意，<strong>一个<code>Class</code>对象实际上表示的是一个类型</strong>，<strong>而这个类型未必一定是一种类</strong>。</p>
+</blockquote>
+<p>JVM持有的每个<code>Class</code>实例都指向一个<code>（class或interface）</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; String</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.lang.String&quot;  │</span><br><span class="line">└───────────────────────────┘</span><br><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; Random</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.util.Random&quot;  │</span><br><span class="line">└───────────────────────────┘</span><br><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; Runnable</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.lang.Runnable&quot;│</span><br><span class="line">└───────────────────────────┘</span><br></pre></td></tr></table></figure>
+<p>每个<code>Class</code>都详细的描述了这个<code>class</code>的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; String</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.lang.String&quot;  │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│package = &quot;java.lang&quot;      │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│super = &quot;java.lang.Object&quot; │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│interface = CharSequence...│</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│field = value[],hash,...   │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│method = indexOf()...      │</span><br><span class="line">└───────────────────────────┘</span><br></pre></td></tr></table></figure>
+<p><strong><code>JVM</code>为每个加载的class创建了对应的Class实例，并在实例中保存了该class的所有信息，包括类名、包名、父类、实现的接口、所有方法、字段等，因此，如果获取了某个Class实例，我们就可以通过这个Class实例获取到该实例对应的class的所有信息。</strong></p>
+<p>反射是什么呢？<br>反射就是通过<code>Class</code>实例来获取<code>class</code>信息</p>
+<h2 id="使用Class"><a href="#使用Class" class="headerlink" title="使用Class"></a>使用Class</h2><p>虽然我们没有创建<code>Class</code>的权利，但是我们可以调用它</p>
+<p>[法一]：通过类名</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class cls = String.class;</span><br></pre></td></tr></table></figure>
+<p>[法二]：通过实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">&quot;你好&quot;</span>;</span><br><span class="line">Class cls = str.getClass();</span><br></pre></td></tr></table></figure>
+<p>[法二]：通过调用<code>forName()</code>方法，这个方法需要知道包路径（但是这个方法的参数只能填类或者接口，否则会抛出异常）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&quot;java.lang.String&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>JVM对于相同类型的类只会为它创建一个<code>Class</code>，所以上述三个方法会调取到同一个<code>Class</code></p>
+<h3 id="Class实例比较和instanceof区别"><a href="#Class实例比较和instanceof区别" class="headerlink" title="Class实例比较和instanceof区别"></a><code>Class</code>实例比较和<code>instanceof</code>区别</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer i = <span class="keyword">new</span> Integer(<span class="number">1</span>);</span><br><span class="line">System.out.println(i <span class="keyword">instanceof</span> Integer);<span class="comment">//true</span></span><br><span class="line">System.out.println(i <span class="keyword">instanceof</span> Number);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p><code>instanceof</code>判定子类是父类的也是祖父类的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(i.getClass() == Integer.class);<span class="comment">//true</span></span><br><span class="line">System.out.println(i.getClass() == Number.class);<span class="comment">//不可比较，编译报错</span></span><br></pre></td></tr></table></figure>
+<p><code>Class</code>实例只能使用<code>==</code>比较，并且比较的两个必须相同类型（在参考资料中，最后这一个比较会返回false，而不是报错，而我实测编译报错，版本为JDK1.8）</p>
+<h2 id="获取信息"><a href="#获取信息" class="headerlink" title="获取信息"></a>获取信息</h2><p>反射的目的就是调用<code>Class</code>来获取<code>class</code>的信息</p>
+<p>Class中有大量的方法，我们写一个如下的函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printClassInfo</span><span class="params">(Class cls)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Class name: &quot;</span> + cls.getName());</span><br><span class="line">    System.out.println(<span class="string">&quot;Simple name: &quot;</span> + cls.getSimpleName());</span><br><span class="line">    <span class="keyword">if</span> (cls.getPackage() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Package name: &quot;</span> + cls.getPackage().getName());</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;is interface: &quot;</span> + cls.isInterface());</span><br><span class="line">    System.out.println(<span class="string">&quot;is enum: &quot;</span> + cls.isEnum());</span><br><span class="line">    System.out.println(<span class="string">&quot;is array: &quot;</span> + cls.isArray());</span><br><span class="line">    System.out.println(<span class="string">&quot;is primitive: &quot;</span> + cls.isPrimitive());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们输入参数为<code>String.class</code>（一个类）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class name: java.lang.String</span><br><span class="line">Simple name: String</span><br><span class="line">Package name: java.lang</span><br><span class="line">is interface: false</span><br><span class="line">is enum: false</span><br><span class="line">is array: false</span><br><span class="line">is primitive: false</span><br></pre></td></tr></table></figure>
+<p>当我们输入参数为<code>Runnable.class</code>（一个接口）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class name: java.lang.Runnable</span><br><span class="line">Simple name: Runnable</span><br><span class="line">Package name: java.lang</span><br><span class="line">is interface: true</span><br><span class="line">is enum: false</span><br><span class="line">is array: false</span><br><span class="line">is primitive: false</span><br></pre></td></tr></table></figure>
+<p>当我们输入参数为<code>java.time.Month.class</code>（一个枚举类）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class name: java.time.Month</span><br><span class="line">Simple name: Month</span><br><span class="line">Package name: java.time</span><br><span class="line">is interface: false</span><br><span class="line">is enum: true</span><br><span class="line">is array: false</span><br><span class="line">is primitive: false</span><br></pre></td></tr></table></figure>
+<p>当我们输入参数为<code>String[].class</code>（一个数组）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class name: [Ljava.lang.String;</span><br><span class="line">Simple name: String[]</span><br><span class="line">is interface: false</span><br><span class="line">is enum: false</span><br><span class="line">is array: true</span><br><span class="line">is primitive: false</span><br></pre></td></tr></table></figure>
+<p>当我们输入参数为<code>int[].class</code>（一个数组）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class name: [I</span><br><span class="line">Simple name: int[]</span><br><span class="line">is interface: false</span><br><span class="line">is enum: false</span><br><span class="line">is array: true</span><br><span class="line">is primitive: false</span><br></pre></td></tr></table></figure>
+<p>当我们输入参数为<code>int.class</code>（一个基本类型）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class name: int</span><br><span class="line">Simple name: int</span><br><span class="line">is interface: false</span><br><span class="line">is enum: false</span><br><span class="line">is array: false</span><br><span class="line">is primitive: true</span><br></pre></td></tr></table></figure>
+<p>当我们输入参数为<code>void.class</code>（一个基本类型）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class name: void</span><br><span class="line">Simple name: void</span><br><span class="line">is interface: false</span><br><span class="line">is enum: false</span><br><span class="line">is array: false</span><br><span class="line">is primitive: true</span><br></pre></td></tr></table></figure>
+<hr>
+<p>上面的例子，基本上提到了所有可能出现的情况，类、接口、数组、枚举、基本类型（void）</p>
+<p>Class都可以将他们的信息打印出来</p>
+<p>（有意思的是：在打印<code>void</code>的<code>primitive</code>属性时，显示为<code>true</code>，对这个感兴趣可以自己搜一下哈，在《Java编程思想》这本圣经级别的书中，它把<code>void</code>也规定为了基本类型）</p>
+<h2 id="Class也可以创建class实例"><a href="#Class也可以创建class实例" class="headerlink" title="Class也可以创建class实例"></a><code>Class</code>也可以创建<code>class</code>实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class cls = String.class;</span><br><span class="line">String s = (String) cls.newInstance();</span><br></pre></td></tr></table></figure>
+<p>以上这个方法相当于<code>new String()</code>，通过<code>newInstance()</code>方法可以创建实例，但是有一定的局限：<strong>只能调用<code>public</code>的无参数构造方法，带参数的构造方法，或者非<code>public</code>的构造方法都无法通过Class.newInstance()被调用</strong></p>
+<p>将 <code>forName</code> 与 <code>newlnstance</code> 配合起来使用， 可以根据存储在字符串中的类名创建一个对象 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">&quot;java.util.Random&quot;</span>;</span><br><span class="line">Object m = Class.forName(s).newlnstance();</span><br></pre></td></tr></table></figure>
+
+<h2 id="动态加载"><a href="#动态加载" class="headerlink" title="动态加载"></a>动态加载</h2><p>在<code>JVM</code>执行<code>Java</code>程序时，并不是一次性加载所有的类到内存，而是第一次要用到的时候才回去加载</p>
+<p>使用这个特性我们可以在运行期根据条件来控制加载<code>class</code>。</p>
+<blockquote>
+<p>参考资料<br><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1255945147512512">廖雪峰官方网站</a><br>官方API<br>《Java核心技术卷一》</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag"><i class="fa fa-tag"></i> 反射</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/02/27/Java%E5%BC%82%E5%B8%B8/Java%E5%BC%82%E5%B8%B8%E4%BC%A0%E6%92%AD/" rel="prev" title="Java异常传播">
+                  <i class="fa fa-chevron-left"></i> Java异常传播
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/03/01/Java%E5%8F%8D%E5%B0%84/Java%E5%8F%8D%E5%B0%84-%E6%A3%80%E6%9F%A5%E7%B1%BB%E7%BB%93%E6%9E%84/" rel="next" title="Java反射_检查类结构">
+                  Java反射_检查类结构 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

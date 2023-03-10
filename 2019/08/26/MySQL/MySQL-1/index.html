@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：  终于步入了正式的Web后端开发 数据库 MySQL的安装与基本配置 SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL-1">
+<meta property="og:url" content="http://yoursite.com/2019/08/26/MySQL/MySQL-1/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：  终于步入了正式的Web后端开发 数据库 MySQL的安装与基本配置 SQL">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-26T14:07:20.000Z">
+<meta property="article:modified_time" content="2021-09-14T06:44:51.579Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/08/26/MySQL/MySQL-1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2019/08/26/MySQL/MySQL-1/","path":"2019/08/26/MySQL/MySQL-1/","title":"MySQL-1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL-1 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93-DataBase"><span class="nav-number">1.</span> <span class="nav-text">数据库(DataBase)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是数据库？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">数据库的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">常见的数据库软件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-number">2.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD"><span class="nav-number">2.2.</span> <span class="nav-text">卸载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E4%B8%8E%E9%80%80%E5%87%BA"><span class="nav-number">2.4.</span> <span class="nav-text">登录与退出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0MySQL%E7%9A%84%E7%99%BB%E5%BD%95"><span class="nav-number">2.4.1.</span> <span class="nav-text">本地MySQL的登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E4%BB%96%E4%BA%BA%E7%9A%84MySQL"><span class="nav-number">2.4.2.</span> <span class="nav-text">连接他人的MySQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.5.</span> <span class="nav-text">MySQL的目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">2.5.1.</span> <span class="nav-text">安装目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">2.5.2.</span> <span class="nav-text">数据目录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL"><span class="nav-number">3.</span> <span class="nav-text">SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSQL%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">什么是SQL？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">SQL通用语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">3.3.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDL%EF%BC%9A%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%81%E8%A1%A8"><span class="nav-number">3.4.</span> <span class="nav-text">DDL：操作数据库、表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84CRUD"><span class="nav-number">3.4.1.</span> <span class="nav-text">操作数据库的CRUD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E8%A1%A8%E7%9A%84CRUD"><span class="nav-number">3.4.2.</span> <span class="nav-text">操作表的CRUD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navicat"><span class="nav-number">3.4.3.</span> <span class="nav-text">Navicat</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DML%EF%BC%9A%E5%A2%9E%E5%88%A0%E6%94%B9%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.5.</span> <span class="nav-text">DML：增删改表中的数据</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">83</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://star.rainbowsea.top/blog/index" title="https:&#x2F;&#x2F;star.rainbowsea.top&#x2F;blog&#x2F;index" rel="noopener" target="_blank">挽风</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/MySQL/MySQL-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MySQL-1 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL-1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-26 22:07:20" itemprop="dateCreated datePublished" datetime="2019-08-26T22:07:20+08:00">2019-08-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-09-14 14:44:51" itemprop="dateModified" datetime="2021-09-14T14:44:51+08:00">2021-09-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">后台</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E5%8F%B0/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+
+<p>终于步入了正式的Web后端开发</p>
+<p>数据库</p>
+<p>MySQL的安装与基本配置</p>
+<p>SQL</p>
+</center>
+
+<span id="more"></span>
+
+<hr>
+<h1 id="数据库-DataBase"><a href="#数据库-DataBase" class="headerlink" title="数据库(DataBase)"></a>数据库(DataBase)</h1><h2 id="什么是数据库？"><a href="#什么是数据库？" class="headerlink" title="什么是数据库？"></a>什么是数据库？</h2><p>用于存储和管理数据的仓库</p>
+<h2 id="数据库的特点"><a href="#数据库的特点" class="headerlink" title="数据库的特点"></a>数据库的特点</h2><ol>
+<li>持久化存储数据：其实数据库就是一个文件系统</li>
+<li>方便的管理数据：</li>
+<li>使用了统一的方式来操作数据库</li>
+</ol>
+<h2 id="常见的数据库软件"><a href="#常见的数据库软件" class="headerlink" title="常见的数据库软件"></a>常见的数据库软件</h2><ul>
+<li>MySQL：开源免费的数据库，Oracle收购</li>
+<li>Oracle：收费的大型数据库，Oracle公司的产品</li>
+<li>DB2：IBM公司的数据库产品，收费的，常用在银行系统</li>
+<li>SQLServer：微软公司的中型数据库</li>
+<li>DB2：IBM公司</li>
+</ul>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46905335">安装指南</a></p>
+<p>但我依然配置了图形界面，并且在环境变量里的系统变量配置了<code>MySQL</code>的实际<code>bin</code>路径</p>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><p>假如没有安装成功，那么需要先卸载再重新安装</p>
+<ol>
+<li> 卸载MySQL</li>
+<li> 删除<code>C:\ProgramData\MySQL</code>此文件</li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ul>
+<li>MySQL服务启动<ul>
+<li>cmd中输入<code>Services.msc</code>，打开图形界面启动关闭MySQL服务</li>
+<li>以管理员运行cmd，输入<code>net stop mysql80</code>来停止，<code>net start mysql80</code>来运行</li>
+</ul>
+</li>
+</ul>
+<h2 id="登录与退出"><a href="#登录与退出" class="headerlink" title="登录与退出"></a>登录与退出</h2><h3 id="本地MySQL的登录"><a href="#本地MySQL的登录" class="headerlink" title="本地MySQL的登录"></a>本地MySQL的登录</h3><ul>
+<li>登录<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>-u后是用户名，用户名都是root</p>
+<p>-p后是密码，可以此处直接输入也可以下一步再输入</p>
+<ul>
+<li>退出<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">//quit也可以</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="连接他人的MySQL"><a href="#连接他人的MySQL" class="headerlink" title="连接他人的MySQL"></a>连接他人的MySQL</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -h127.0.0.1 -uroot -p</span><br><span class="line">//mysql --host=127.0.0.1 --user=root --password也可以</span><br></pre></td></tr></table></figure>
+<p>-h后面填IP地址</p>
+<p>-p后是目标的密码</p>
+<h2 id="MySQL的目录结构"><a href="#MySQL的目录结构" class="headerlink" title="MySQL的目录结构"></a>MySQL的目录结构</h2><h3 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a>安装目录</h3><ul>
+<li><code>bin</code>：二进制可执行文件</li>
+<li><code>include</code>：c语言头信息</li>
+<li><code>lib</code>：所需库文件</li>
+<li><code>share</code>：错误信息</li>
+</ul>
+<h3 id="数据目录"><a href="#数据目录" class="headerlink" title="数据目录"></a>数据目录</h3><ul>
+<li>数据库：文件夹</li>
+<li>表：文件</li>
+<li>数据：文件的内容</li>
+</ul>
+<h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><h2 id="什么是SQL？"><a href="#什么是SQL？" class="headerlink" title="什么是SQL？"></a>什么是SQL？</h2><p>Structured Query Language：结构化查询语言</p>
+<p>定义了操作所有<strong>关系型数据库</strong>的通用规则</p>
+<p>每一种数据库操作的方式存在不一样的地方，称为方言</p>
+<h2 id="SQL通用语法"><a href="#SQL通用语法" class="headerlink" title="SQL通用语法"></a>SQL通用语法</h2><ol>
+<li>SQL语句以分号结尾，可以单行或者多行书写</li>
+<li>MySQL数据库的SQL语句不区分大小写，但是建议使用大写</li>
+<li>注释<ol>
+<li>单行注释：<code>-- 注释内容</code>MySQL独有<code>#注释内容</code></li>
+<li>多行注释1：/<em>注释</em>/<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">show databases; -- 你好</span><br><span class="line">//注意空格</span><br><span class="line">show databases; #你好</span><br><span class="line">//MySQL独有方法不需要空格</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>按功能分为四类</p>
+<ol>
+<li><p>DDL(Data Definition Language)</p>
+<p> 数据定义语言，用来定义数据库对象：数据库、表、列等。</p>
+<p> 关键字<code>create</code> <code>drop</code> <code>alter</code></p>
+</li>
+<li><p>DML(Data Manipulation Language)</p>
+<p> 数据操作语言，用来对数据库中表的数据进行增删改</p>
+<p> 关键字<code>insert</code> <code>delete</code> <code>update</code></p>
+</li>
+<li><p>DQL(Data Query Language)</p>
+<p> 数据查询语言，用来查询数据库表的数据</p>
+<p> 关键字<code>select</code> <code>where</code></p>
+</li>
+<li><p>DCL(Data Control Language)(了解即可)</p>
+<p> 数据控制语言，用来定义数据库的访问权限和安全级别及创建用户</p>
+<p> 关键字<code>GRANT</code> <code>REVOKE</code></p>
+<h2 id="DDL：操作数据库、表"><a href="#DDL：操作数据库、表" class="headerlink" title="DDL：操作数据库、表"></a>DDL：操作数据库、表</h2></li>
+</ol>
+<h3 id="操作数据库的CRUD"><a href="#操作数据库的CRUD" class="headerlink" title="操作数据库的CRUD"></a>操作数据库的CRUD</h3><ul>
+<li><p>Create增</p>
+<ul>
+<li><code>create database 库名称;</code>增加一个数据库</li>
+<li><code>create database if not exists 库名称;</code>先判断是否存在改库再创建库</li>
+<li><code>create database 库名称 character set utf8;</code>创建时指定字符集，MySQL8.0之后默认字符集是utf8mb4，是utf8的一个超集</li>
+</ul>
+</li>
+<li><p>Delete删</p>
+<ul>
+<li><code>drop database 库名称;</code>删除一个数据库</li>
+</ul>
+</li>
+<li><p>Update改</p>
+<ul>
+<li><code>alter database 库名称 character set utf8;</code>更改数据库的字符集</li>
+</ul>
+</li>
+<li><p>Retrieve查</p>
+<ul>
+<li><code>show databases;</code>查询所有的数据库</li>
+<li><code>show create database 库名称;</code>查询某一个数据库的创建语句，可以看到字符集</li>
+</ul>
+</li>
+<li><p>使用数据库</p>
+<ul>
+<li><code>select database();</code>查询当前正在使用的数据库名称</li>
+<li><code>use 库名称;</code>使用某库</li>
+</ul>
+</li>
+</ul>
+<h3 id="操作表的CRUD"><a href="#操作表的CRUD" class="headerlink" title="操作表的CRUD"></a>操作表的CRUD</h3><ul>
+<li>Create增<ul>
+<li><code>create table 表名(列名1 数据类型1,列名2 数据类型2...列名n 数据类型n);</code>创建一个表，注意最后一列不要加逗号</li>
+<li>常用数据类型：<ul>
+<li>int：整数类型</li>
+<li>double：小数类型<ul>
+<li><code>列表名 double(小数有几位,小数点后保留几位) </code></li>
+</ul>
+</li>
+<li>date：日期类型，yyyy-MM-dd</li>
+<li>datetime:日期类型：yyyy-MM-dd HH:mm:ss</li>
+<li>timestamp:时间戳类型，yyyy-MM-dd<ul>
+<li>如果不给这个字段赋值或赋值为null，则默认使用当前系统时间来默认赋值</li>
+</ul>
+</li>
+<li>varchar：字符串类型<ul>
+<li><code>列名 varchar(20)</code>最大二十个字符</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>create table 新表 like 旧表</code>复制表</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Delete删</p>
+<ul>
+<li><code>drop table 表名称;</code>删除表名称</li>
+<li><code>drop table if exists 表名;</code>判断删除</li>
+</ul>
+</li>
+<li><p>Updata改</p>
+<ul>
+<li><code>alter table 表名 rename to 新的表名</code>修改表名</li>
+<li><code>show create table 表名;</code>查看表的字符集</li>
+<li><code>alter table 表名 character set 字符集名称;</code>修改表的字符集</li>
+<li><code>alter table 表名 add 列名 数据类型;</code>添加列</li>
+<li><code>alter table 表名 change 旧表名 新表名 数据类型</code>修改列名及类型</li>
+<li><code>alter table 表名 modify 列名 类型;</code>只改类型</li>
+<li><code>alter table 表名 drop 列名</code>删除列</li>
+</ul>
+</li>
+<li><p>Retrieve查</p>
+<ul>
+<li><code>show tables;</code>查询当前库内所有的表</li>
+<li><code>desc 表名称</code>查询表结构</li>
+</ul>
+</li>
+</ul>
+<h3 id="Navicat"><a href="#Navicat" class="headerlink" title="Navicat"></a>Navicat</h3><p>使用命令行来处理数据是非常麻烦的，</p>
+<p>所以以后我们使用Navicat来对数据进行操作</p>
+<h2 id="DML：增删改表中的数据"><a href="#DML：增删改表中的数据" class="headerlink" title="DML：增删改表中的数据"></a>DML：增删改表中的数据</h2><ul>
+<li><p>添加数据：</p>
+<ul>
+<li><code>insert into 表名(列名1，列名2，...，列名n) values(值1，值2，...，值n);</code><ul>
+<li>注意要一一对应</li>
+<li>不定义列名会给所有值添加此值</li>
+<li>除数字外都得加引号</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>删除数据：</p>
+<ul>
+<li><code>delete from 表名 where 条件</code><ul>
+<li>不加条件会删除所有</li>
+<li>如果要删除所有记录不要用此方法</li>
+</ul>
+</li>
+<li><code>truncate table stu;</code>删除表再创建一个一模一样的空表</li>
+</ul>
+</li>
+<li><p>修改数据</p>
+<ul>
+<li><code>update 表名 set 列名1=值1,列名2=值2,... where 条件</code><ul>
+<li>不加条件会修改所有</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/26/Java/Java%E5%9F%BA%E7%A1%80%E6%89%A9%E5%B1%95/" rel="prev" title="Java基础扩展">
+                  <i class="fa fa-chevron-left"></i> Java基础扩展
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/31/MySQL/MySQL-2/" rel="next" title="MySQL-2">
+                  MySQL-2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:44</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>
