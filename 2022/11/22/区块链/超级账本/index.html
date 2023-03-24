@@ -30,6 +30,10 @@
 <meta property="og:site_name" content="Hynis">
 <meta property="og:description" content="引言：Hyperledger Fabric：一个私有的需要许可的区块链">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//identity.diagram.9.png">
+<meta property="og:image" content="http://img.yesmylord.cn//identity.diagram.11.png">
+<meta property="og:image" content="http://img.yesmylord.cn//identity.webp">
+<meta property="og:image" content="http://img.yesmylord.cn//membership.msp.diagram.png">
 <meta property="og:image" content="http://img.yesmylord.cn//network.diagram.1.png">
 <meta property="og:image" content="http://img.yesmylord.cn//network.diagram.2.png">
 <meta property="og:image" content="http://img.yesmylord.cn//network.diagram.2.1.png">
@@ -40,12 +44,12 @@
 <meta property="og:image" content="http://img.yesmylord.cn//network.diagram.7.png">
 <meta property="og:image" content="http://img.yesmylord.cn//network.diagram.1.png">
 <meta property="article:published_time" content="2022-11-22T02:32:23.000Z">
-<meta property="article:modified_time" content="2022-12-11T14:21:18.205Z">
+<meta property="article:modified_time" content="2023-03-19T05:16:14.356Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="区块链">
 <meta property="article:tag" content="超级账本">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://img.yesmylord.cn//network.diagram.1.png">
+<meta name="twitter:image" content="http://img.yesmylord.cn//identity.diagram.9.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2022/11/22/%E5%8C%BA%E5%9D%97%E9%93%BE/%E8%B6%85%E7%BA%A7%E8%B4%A6%E6%9C%AC/">
@@ -100,7 +104,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">147</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">209</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -163,7 +167,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hyperledger-Fabric"><span class="nav-number">1.</span> <span class="nav-text">Hyperledger Fabric</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fabric%E7%89%B9%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">Fabric特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">关键概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85MSP"><span class="nav-number">1.2.1.</span> <span class="nav-text">成员服务提供者MSP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E8%B4%A6%E6%9C%AC"><span class="nav-number">1.2.2.</span> <span class="nav-text">共享账本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E4%BA%A7%E4%B8%8E%E8%B4%A6%E6%9C%AC"><span class="nav-number">1.2.3.</span> <span class="nav-text">资产与账本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E7%A0%81"><span class="nav-number">1.2.4.</span> <span class="nav-text">链码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93"><span class="nav-number">1.2.5.</span> <span class="nav-text">通道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fabric%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">fabric网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">1.3.1.</span> <span class="nav-text">网络的成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.3.2.</span> <span class="nav-text">一、初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">1.3.3.</span> <span class="nav-text">二、添加网络管理员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9A%E4%B9%89%E8%81%94%E7%9B%9F"><span class="nav-number">1.3.4.</span> <span class="nav-text">三、定义联盟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BA%E8%81%94%E7%9B%9F%E5%88%9B%E5%BB%BA%E9%80%9A%E9%81%93"><span class="nav-number">1.3.5.</span> <span class="nav-text">四、为联盟创建通道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9%E4%B8%8E%E8%B4%A6%E6%9C%AC"><span class="nav-number">1.3.6.</span> <span class="nav-text">五、添加节点与账本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="nav-number">1.3.7.</span> <span class="nav-text">六、安装与运行智能合约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%AE%8C%E5%96%84%E8%81%94%E7%9B%9F%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.8.</span> <span class="nav-text">七、完善联盟网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.9.</span> <span class="nav-text">节点类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hyperledeger-Fabric%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.</span> <span class="nav-text">Hyperledeger Fabric实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">环境安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C"><span class="nav-number">2.2.</span> <span class="nav-text">运行测试网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E7%A0%81"><span class="nav-number">2.3.</span> <span class="nav-text">实现一个链码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86%E5%BA%94%E7%94%A8%E3%80%81%E9%93%BE%E7%A0%81%E3%80%81Fabric%E8%81%94%E7%B3%BB%E5%9C%A8%E4%B8%80%E8%B5%B7"><span class="nav-number">2.4.</span> <span class="nav-text">如何将应用、链码、Fabric联系在一起</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hyperledger-Fabric"><span class="nav-number">1.</span> <span class="nav-text">Hyperledger Fabric</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fabric%E7%89%B9%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">Fabric特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PKI"><span class="nav-number">1.2.</span> <span class="nav-text">PKI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E4%B8%AA%E5%85%B3%E9%94%AE%E8%A6%81%E7%B4%A0"><span class="nav-number">1.2.2.</span> <span class="nav-text">四个关键要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%E7%9A%84%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">公钥与私钥的认证流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CA%E6%9C%BA%E6%9E%84%E7%9A%84%E8%BF%90%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">CA机构的运作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E6%92%A4%E9%94%80%E5%88%97%E8%A1%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">证书撤销列表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%91%98%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85MSP"><span class="nav-number">1.3.</span> <span class="nav-text">成员服务提供者MSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%A6%82%E5%BF%B5"><span class="nav-number">1.4.</span> <span class="nav-text">其他概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E8%B4%A6%E6%9C%AC"><span class="nav-number">1.4.1.</span> <span class="nav-text">共享账本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E4%BA%A7%E4%B8%8E%E8%B4%A6%E6%9C%AC"><span class="nav-number">1.4.2.</span> <span class="nav-text">资产与账本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E7%A0%81"><span class="nav-number">1.4.3.</span> <span class="nav-text">链码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93"><span class="nav-number">1.4.4.</span> <span class="nav-text">通道</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fabric%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">fabric网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">1.5.1.</span> <span class="nav-text">网络的成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.5.2.</span> <span class="nav-text">一、初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">1.5.3.</span> <span class="nav-text">二、添加网络管理员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%9A%E4%B9%89%E8%81%94%E7%9B%9F"><span class="nav-number">1.5.4.</span> <span class="nav-text">三、定义联盟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BA%E8%81%94%E7%9B%9F%E5%88%9B%E5%BB%BA%E9%80%9A%E9%81%93"><span class="nav-number">1.5.5.</span> <span class="nav-text">四、为联盟创建通道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9%E4%B8%8E%E8%B4%A6%E6%9C%AC"><span class="nav-number">1.5.6.</span> <span class="nav-text">五、添加节点与账本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="nav-number">1.5.7.</span> <span class="nav-text">六、安装与运行智能合约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%AE%8C%E5%96%84%E8%81%94%E7%9B%9F%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.8.</span> <span class="nav-text">七、完善联盟网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.9.</span> <span class="nav-text">节点类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hyperledeger-Fabric%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.</span> <span class="nav-text">Hyperledeger Fabric实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">环境安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C"><span class="nav-number">2.2.</span> <span class="nav-text">运行测试网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%93%BE%E7%A0%81"><span class="nav-number">2.3.</span> <span class="nav-text">实现一个链码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86%E5%BA%94%E7%94%A8%E3%80%81%E9%93%BE%E7%A0%81%E3%80%81Fabric%E8%81%94%E7%B3%BB%E5%9C%A8%E4%B8%80%E8%B5%B7"><span class="nav-number">2.4.</span> <span class="nav-text">如何将应用、链码、Fabric联系在一起</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -178,7 +182,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-count">209</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -189,7 +193,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-count">147</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -304,7 +308,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-11 22:21:18" itemprop="dateModified" datetime="2022-12-11T22:21:18+08:00">2022-12-11</time>
+      <time title="修改时间：2023-03-19 13:16:14" itemprop="dateModified" datetime="2023-03-19T13:16:14+08:00">2023-03-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -330,14 +334,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.2k</span>
+      <span>12k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>11 分钟</span>
     </span>
 </div>
 
@@ -364,12 +368,61 @@
 <li><strong>CFT</strong>共识协议：不一定要实现BFT，CFT也是可以的</li>
 <li>智能合约支持的语言：Java、Go、NodeJS</li>
 </ul>
-<h2 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h2><h3 id="成员服务提供者MSP"><a href="#成员服务提供者MSP" class="headerlink" title="成员服务提供者MSP"></a>成员服务提供者MSP</h3><blockquote>
-<p>fabric提供了一个<strong>成员服务提供者MSP</strong>来注册新的成员</p>
+<h2 id="PKI"><a href="#PKI" class="headerlink" title="PKI"></a>PKI</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p><strong>公钥基础结构PKI</strong>：一组互联网技术，或是一种认证标准，用于在网络中进行安全通信；（比如HTTPS的TLS安全传输层服务就是PKI的模式）</p>
+<p>PKI的核心思想是：使用<strong>数字证书</strong>来验证身份和加密</p>
+<ul>
+<li>数字证书是一种包含<strong>公钥</strong>和身份信息的文件，由<strong>证书授权中心CA</strong>签发和管理。</li>
+<li>公钥是用来加密或是解密的密码学工具，与私钥对应（对称加密与非对称加密）</li>
+</ul>
+<blockquote>
+<p>PKI可以类比为身份证系统：</p>
 </blockquote>
-<p>fabric是一个<strong>私有</strong>的链：意思是不能像比特币或是以太坊那样允许任何节点加入，fabric需要<strong>基本的信任</strong>，因此fabric其实是一个私有的区块链</p>
-<p><strong>MSP用来匹配CA与组织</strong>（下一节网络模型会细说）</p>
-<h3 id="共享账本"><a href="#共享账本" class="headerlink" title="共享账本"></a>共享账本</h3><p>fabric账本子系统包括两个组件：</p>
+<p>数字证书就像身份证，包含了个人信息和照片（相当于公钥）。</p>
+<p>CA就像派出所，负责颁发和管理身份证，并做了防伪措施（相当于数字签名）。</p>
+<p>当两个人交流时，他们可以互相出示身份证，以确认对方是谁，并进行加密通话（相当于加密数据，当然这个现实中做不到）。</p>
+<h3 id="四个关键要素"><a href="#四个关键要素" class="headerlink" title="四个关键要素"></a>四个关键要素</h3><p>PKI 有四个关键要素：</p>
+<ul>
+<li><strong>数字证书</strong>：最常见的证书类型是符合 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/X.509">X.509标准</a>的证书</li>
+<li><strong>公钥和私钥</strong></li>
+<li><strong>证书授权中心</strong></li>
+<li><strong>证书撤销列表</strong></li>
+</ul>
+<h3 id="公钥与私钥的认证流程"><a href="#公钥与私钥的认证流程" class="headerlink" title="公钥与私钥的认证流程"></a>公钥与私钥的认证流程</h3><p>对于公钥和私钥：如图所示</p>
+<p><img src="http://img.yesmylord.cn//identity.diagram.9.png" alt="私钥加密、公钥解密"></p>
+<p>bob 发送时：</p>
+<ol>
+<li>将消息 “我爱你” 先进行数字摘要（比如 MD5），生成一个<strong>摘要 Digest</strong></li>
+<li>然后使用私钥对 Digest 加密，生成<strong>签名 Signature1</strong></li>
+<li>发送时发送：<strong>消息 + Signature</strong>（两个都要发送）</li>
+</ol>
+<p>Alice 接收时：</p>
+<ol>
+<li>Alice 接收到的消息是 “我不爱你”，对这个消息也进行摘要，生成 Signature2</li>
+<li>Alice 使用公钥对 Signature 进行解密，得到 Signature1</li>
+<li>对比 Signature1 与 Signature2，发现不同，Alice 就知道消息被篡改了</li>
+</ol>
+<hr>
+<h3 id="CA机构的运作流程"><a href="#CA机构的运作流程" class="headerlink" title="CA机构的运作流程"></a>CA机构的运作流程</h3><p>证书授权中心CA一般是被网站、系统认可的一个机构，它负责颁布数字证书。</p>
+<p><img src="http://img.yesmylord.cn//identity.diagram.11.png" alt="CA机构给参与者签名公钥"></p>
+<p>证书授权中心向不同的参与者颁发证书（证书是一个包含了公钥和身份的文件）</p>
+<p>这些证书由 CA 进行签名，并将参与者的公钥<strong>绑定在一起</strong></p>
+<p>因此：如果一个参与者信任这个CA机构，那么他也可以信任与它绑定在一起的证书内包含的公钥</p>
+<p><strong>根CA</strong>与<strong>中间CA</strong>：CA有两种，中间CA可以分担一部分根CA的任务，也可以防止根CA的暴露；</p>
+<p><strong>信任链</strong>：根CA与中间CA有信任链，并且中间CA可以与其他含有信任链的中间CA建立信任链</p>
+<p><img src="http://img.yesmylord.cn//identity.webp" alt="信任链"></p>
+<p>在区块链网络Fabric中，提供了<strong>Fabric CA</strong>（Fabric网络中的根CA），用于管理区块链网络中用户和节点的身份证书</p>
+<h3 id="证书撤销列表"><a href="#证书撤销列表" class="headerlink" title="证书撤销列表"></a>证书撤销列表</h3><p>证书撤销列表CRL：保存撤销的证书的列表</p>
+<p>第三方机构验证另一方的身份，就需要检查CA的CRL确保证书是否被撤销</p>
+<p>这个检查不是必须的，但是不检查就会承担无效身份的风险</p>
+<h2 id="成员服务提供者MSP"><a href="#成员服务提供者MSP" class="headerlink" title="成员服务提供者MSP"></a>成员服务提供者MSP</h2><p>Fabric是一个<strong>私有</strong>的链：意思是不能像比特币或是以太坊那样允许任何节点加入，fabric需要<strong>基本的信任</strong>，因此fabric其实是一个私有的区块链（联盟链）</p>
+<p>因为需要基本的信任，所以Fabric区块链的参与者需要一种向网络中的其他参与者证实自己身份的机制从而在网络中进行交易（好像与CA的职责很类似）</p>
+<blockquote>
+<p>MSP与CA的区别：</p>
+<p><img src="http://img.yesmylord.cn//membership.msp.diagram.png" alt="MSP与CA的区别"></p>
+<p>CA像是颁布信用卡的机构，CA可以颁布各式各样的信用卡；</p>
+<p>MSP是本商店承认的允许使用的信用卡列表</p>
+</blockquote>
+<h2 id="其他概念"><a href="#其他概念" class="headerlink" title="其他概念"></a>其他概念</h2><h3 id="共享账本"><a href="#共享账本" class="headerlink" title="共享账本"></a>共享账本</h3><p>fabric账本子系统包括两个组件：</p>
 <ul>
 <li><strong>世界状态</strong>：记录给定时间点的账本状态（世界状态就是<strong>账本数据库</strong>）</li>
 <li><strong>交易日志</strong>：记录产生当前世界状态的所有交易</li>
@@ -462,30 +515,59 @@
 <li><p>锚节点：如果一个节点需要同另外一个组织的一个节点进行通信的话，那么它可以使用对方组织的通道配置中定义的锚节点</p>
 </li>
 </ul>
-<h1 id="Hyperledeger-Fabric实践"><a href="#Hyperledeger-Fabric实践" class="headerlink" title="Hyperledeger Fabric实践"></a>Hyperledeger Fabric实践</h1><h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><p><a target="_blank" rel="noopener" href="https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html#linux-ubuntu-debian-based-distro">前置需求</a>：git、go、docker、docker-compose</p>
+<h1 id="Hyperledeger-Fabric实践"><a href="#Hyperledeger-Fabric实践" class="headerlink" title="Hyperledeger Fabric实践"></a>Hyperledeger Fabric实践</h1><h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><p><a target="_blank" rel="noopener" href="https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html#linux-ubuntu-debian-based-distro">前置需求</a>：git、docker、docker-compose、（go、Java、Node）</p>
+<p>（Go、Java、Node取决于你需要运行的链码属于什么语言，对于Java记得配置JAVA_HOME）</p>
 <p>下载<code>https://bit.ly/2ysbOFE</code>脚本，在linux下运行</p>
 <h2 id="运行测试网络"><a href="#运行测试网络" class="headerlink" title="运行测试网络"></a>运行测试网络</h2><p><a target="_blank" rel="noopener" href="https://hyperledger-fabric.readthedocs.io/en/release-2.3/test_network.html">参考官方文档</a></p>
-<p>运行：</p>
+<p>进入目录查看命令帮助：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入test-network文件目录</span></span><br><span class="line"><span class="built_in">cd</span> fabric-samples/test-network</span><br><span class="line"><span class="comment"># 查看帮助</span></span><br><span class="line">./network.sh -h </span><br></pre></td></tr></table></figure>
 
-<p>直接运行，注意查看你是否有docker的权限，如果没有记得加<code>sudo</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除先前运行的所有容器或工程</span></span><br><span class="line">./network.sh down</span><br><span class="line"><span class="comment"># 启动网络（不会创建channel）</span></span><br><span class="line">./network.sh up</span><br><span class="line"><span class="comment"># 创建通道</span></span><br><span class="line">./network.sh createChannel [-c 指定名称 默认为mychannel]</span><br></pre></td></tr></table></figure>
+<p><strong>第一步</strong>：直接运行，注意查看你是否有docker的权限，如果没有记得加<code>sudo</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除先前运行的所有容器或工程</span></span><br><span class="line">./network.sh down</span><br><span class="line"><span class="comment"># 启动网络（不会创建channel）</span></span><br><span class="line">./network.sh up</span><br><span class="line"><span class="comment"># 这个命令会完成两步操作：</span></span><br><span class="line"><span class="comment"># 1、使用cryptogen工具或者Fabric CA来创建Org1、Org2、Orderer组织的身份证书</span></span><br><span class="line"><span class="comment"># 2、使用configtxgen工具来创建联盟，生成系统通道的创世区块genesis.block</span></span><br></pre></td></tr></table></figure>
 
-<p>此时我们就创建了一个Fabric网络：有两个peer节点 + 一个排序节点orderer</p>
-<p>然后我们在这个网络上启动一个<strong>链码</strong>（智能合约）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -ccn 指定链码名称</span></span><br><span class="line"><span class="comment"># -ccp 指定文件路径</span></span><br><span class="line"><span class="comment"># -ccl 指定编码的语言：go, java, javascript, typescript</span></span><br><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go</span><br></pre></td></tr></table></figure>
+<p>此时我们就创建了一个Fabric网络：<strong>有两个peer节点 + 一个排序节点orderer</strong></p>
+<p>如果你仔细看此时的输出内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 测试网络使用 cryptogen帮我们创建认证证书</span><br><span class="line">Generating certificates using cryptogen tool </span><br><span class="line"># 创建 组织1的认证：使用./organizations/cryptogen目录下的配置文件生成证书</span><br><span class="line">Creating Org1 Identities</span><br><span class="line">+ cryptogen generate --config=./organizations/cryptogen/crypto-config-org1.yaml --output=organizations</span><br><span class="line">org1.example.com</span><br><span class="line">+ res=0</span><br></pre></td></tr></table></figure>
 
+<p>这个文件<code>./organizations/cryptogen/crypto-config-org1.yaml</code>的具体内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PeerOrgs:</span></span><br><span class="line">  <span class="comment"># Org1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Name:</span> <span class="string">Org1</span></span><br><span class="line">    <span class="attr">Domain:</span> <span class="string">org1.example.com</span></span><br><span class="line">    <span class="attr">EnableNodeOUs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">Template:</span> <span class="comment"># 从零开始起名：peer%d，也可以自己定义名称</span></span><br><span class="line">      <span class="attr">Count:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">SANS:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">localhost</span></span><br><span class="line">    <span class="attr">Users:</span> </span><br><span class="line">      <span class="attr">Count:</span> <span class="number">1</span> <span class="comment"># 节点总数</span></span><br></pre></td></tr></table></figure>
+
+<p>组织2的相同，这里再贴一个排序节点的：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">OrdererOrgs:</span></span><br><span class="line">  <span class="comment"># Orderer</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Name:</span> <span class="string">Orderer</span></span><br><span class="line">    <span class="attr">Domain:</span> <span class="string">example.com</span></span><br><span class="line">    <span class="attr">EnableNodeOUs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># &quot;Specs&quot; spec的每一个条目由两部分组成hostname、commonname</span></span><br><span class="line">    <span class="comment"># commonname默认是&#123;&#123;.Hostname&#125;&#125;.&#123;&#123;.Domain&#125;&#125;，在这里就是orderer.example.com</span></span><br><span class="line">    <span class="attr">Specs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">Hostname:</span> <span class="string">orderer</span></span><br><span class="line">        <span class="attr">SANS:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">localhost</span></span><br></pre></td></tr></table></figure>
+
+<p>此时如果我们看<code>test-network/organizations/</code>这个目录，会发现多了2个目录，与我们的配置相同，并且目录下就产生了对应的CA证书</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">├── ordererOrganizations</span><br><span class="line">│   └── example.com</span><br><span class="line">│       ├── ca</span><br><span class="line">│       ├── msp</span><br><span class="line">│       ├── orderers</span><br><span class="line">│       ├── tlsca</span><br><span class="line">│       └── users</span><br><span class="line">└── peerOrganizations</span><br><span class="line">    ├── org1.example.com</span><br><span class="line">    │   ├── ca</span><br><span class="line">    │   ├── connection-org1.json</span><br><span class="line">    │   ├── connection-org1.yaml</span><br><span class="line">    │   ├── msp</span><br><span class="line">    │   ├── peers</span><br><span class="line">    │   ├── tlsca</span><br><span class="line">    │   └── users</span><br><span class="line">    └── org2.example.com</span><br><span class="line">        ├── ca</span><br><span class="line">        ├── connection-org2.json</span><br><span class="line">        ├── connection-org2.yaml</span><br><span class="line">        ├── msp</span><br><span class="line">        ├── peers</span><br><span class="line">        ├── tlsca</span><br><span class="line">        └── users</span><br></pre></td></tr></table></figure>
+
+<p>然后就是进行第二步，创建联盟以及创建初始块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 生成CCP文件</span><br><span class="line">Generating CCP files for Org1 and Org2 </span><br><span class="line">/home/hynis/hynis/fabric-samples/test-network/../bin/configtxgen</span><br><span class="line"># 生成创世块</span><br><span class="line">Generating Orderer Genesis block</span><br><span class="line">+ configtxgen -profile TwoOrgsOrdererGenesis -channelID system-channel -outputBlock ./system-genesis-block/genesis.block</span><br></pre></td></tr></table></figure>
+
+<p>生成四个文件就是：<code>connection-org1.json</code>、<code>connection-org1.yaml</code>、<code>connection-org2.json</code>、<code>connection-org2.yaml</code></p>
+<p>以<code>connection-org1.json</code>为例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;test-network-org1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;client&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;organization&quot;</span>: <span class="string">&quot;Org1&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;connection&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;timeout&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;peer&quot;</span>: &#123;</span><br><span class="line">                    <span class="attr">&quot;endorser&quot;</span>: <span class="string">&quot;300&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;organizations&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;Org1&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;mspid&quot;</span>: <span class="string">&quot;Org1MSP&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;peers&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;peer0.org1.example.com&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">&quot;certificateAuthorities&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;ca.org1.example.com&quot;</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;peers&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;peer0.org1.example.com&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;grpcs://localhost:7051&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;tlsCACerts&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;pem&quot;</span>: <span class="string">&quot;---省去公钥内容\n---\n&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;grpcOptions&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;ssl-target-name-override&quot;</span>: <span class="string">&quot;peer0.org1.example.com&quot;</span>,</span><br><span class="line">                <span class="attr">&quot;hostnameOverride&quot;</span>: <span class="string">&quot;peer0.org1.example.com&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;certificateAuthorities&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;ca.org1.example.com&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://localhost:7054&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;caName&quot;</span>: <span class="string">&quot;ca-org1&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;tlsCACerts&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;pem&quot;</span>: [<span class="string">&quot;---省去公钥内容\n---\n&quot;</span>]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;httpOptions&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;verify&quot;</span>: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们使用<code>docker ps</code>命令就可以看到三个镜像了：</p>
+<p>启动了orderer.example.com、peer0.org1.example.com、peer0.org2.example.com三个镜像</p>
+<p><strong>第二步</strong>：创建一个通道</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建通道</span></span><br><span class="line">./network.sh createChannel [-c 指定名称 默认为mychannel]</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步</strong>：然后我们在这个网络上启动一个<strong>链码</strong>（智能合约）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -ccn 指定链码名称</span></span><br><span class="line"><span class="comment"># -ccp 指定文件路径</span></span><br><span class="line"><span class="comment"># -ccl 指定编码的语言：go, java, javascript, typescript</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署Java链码</span></span><br><span class="line">./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-java -ccl java</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>PS：部署Go链码可能会遇到的问题解决办法</p>
 <p><strong>但是</strong>直接运行上面的命令会报错，我们需要去对应的链码路径下安装其依赖</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ../asset-transfer-basic/chaincode-go/</span><br><span class="line">go mod vendor</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/64315723/hyperledger-fabric-chaincode-installation-on-peer0-org1-has-failed">运行链码出错，你可能需要改一下测试文件对应位置的go.mod内的go版本1.14为1.13</a></p>
+<hr>
+<p><strong>第四步</strong>：进入<code>sudo bash</code>执行以下操作</p>
 <p>然后配置几个与网络交互的环境</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 $&#123;PWD&#125;表示pwd 当前路径位置</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;PWD&#125;</span>/../bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="built_in">export</span> FABRIC_CFG_PATH=<span class="variable">$PWD</span>/../config/</span><br></pre></td></tr></table></figure>
 
 <p>添加组织1：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ENABLED=<span class="literal">true</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_LOCALMSPID=<span class="string">&quot;Org1MSP&quot;</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ROOTCERT_FILE=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_MSPCONFIGPATH=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_ADDRESS=localhost:7051</span><br><span class="line"><span class="comment"># ----分割线---</span></span><br><span class="line"><span class="comment"># 其中 CORE_PEER_TLS_ROOTCERT_FILE与CORE_PEER_MSPCONFIGPATH</span></span><br><span class="line"><span class="comment"># 指向组织1 organizations文件夹中的加密材料</span></span><br></pre></td></tr></table></figure>
 
-<p>初始化账本：</p>
+<p>初始化账本：（<a target="_blank" rel="noopener" href="https://blog.csdn.net/wybnmsl/article/details/113743268">如果此步失败，请进入<code>sudo bash</code>重试</a>）</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c <span class="string">&#x27;&#123;&quot;function&quot;:&quot;InitLedger&quot;,&quot;Args&quot;:[]&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>查询账本内容：</p>
@@ -493,6 +575,23 @@
 
 <p>输出：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">&quot;ID&quot;</span>:<span class="string">&quot;asset1&quot;</span>,<span class="string">&quot;color&quot;</span>:<span class="string">&quot;blue&quot;</span>,<span class="string">&quot;size&quot;</span>:5,<span class="string">&quot;owner&quot;</span>:<span class="string">&quot;Tomoko&quot;</span>,<span class="string">&quot;appraisedValue&quot;</span>:300&#125;,</span><br><span class="line">&#123;<span class="string">&quot;ID&quot;</span>:<span class="string">&quot;asset2&quot;</span>,<span class="string">&quot;color&quot;</span>:<span class="string">&quot;red&quot;</span>,<span class="string">&quot;size&quot;</span>:5,<span class="string">&quot;owner&quot;</span>:<span class="string">&quot;Brad&quot;</span>,<span class="string">&quot;appraisedValue&quot;</span>:400&#125;,&#123;<span class="string">&quot;ID&quot;</span>:<span class="string">&quot;asset3&quot;</span>,<span class="string">&quot;color&quot;</span>:<span class="string">&quot;green&quot;</span>,<span class="string">&quot;size&quot;</span>:10,<span class="string">&quot;owner&quot;</span>:<span class="string">&quot;Jin Soo&quot;</span>,<span class="string">&quot;appraisedValue&quot;</span>:500&#125;,</span><br><span class="line">&#123;<span class="string">&quot;ID&quot;</span>:<span class="string">&quot;asset4&quot;</span>,<span class="string">&quot;color&quot;</span>:<span class="string">&quot;yellow&quot;</span>,<span class="string">&quot;size&quot;</span>:10,<span class="string">&quot;owner&quot;</span>:<span class="string">&quot;Max&quot;</span>,<span class="string">&quot;appraisedValue&quot;</span>:600&#125;,</span><br><span class="line">&#123;<span class="string">&quot;ID&quot;</span>:<span class="string">&quot;asset5&quot;</span>,<span class="string">&quot;color&quot;</span>:<span class="string">&quot;black&quot;</span>,<span class="string">&quot;size&quot;</span>:15,<span class="string">&quot;owner&quot;</span>:<span class="string">&quot;Adriana&quot;</span>,<span class="string">&quot;appraisedValue&quot;</span>:700&#125;,</span><br><span class="line">&#123;<span class="string">&quot;ID&quot;</span>:<span class="string">&quot;asset6&quot;</span>,<span class="string">&quot;color&quot;</span>:<span class="string">&quot;white&quot;</span>,<span class="string">&quot;size&quot;</span>:15,<span class="string">&quot;owner&quot;</span>:<span class="string">&quot;Christopher&quot;</span>,<span class="string">&quot;appraisedValue&quot;</span>:800&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>调用 asset-transfer (basic) 链码改变账本上的资产所有者：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c <span class="string">&#x27;&#123;&quot;function&quot;:&quot;TransferAsset&quot;,&quot;Args&quot;:[&quot;asset6&quot;,&quot;Christopher&quot;]&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>因为<code>asset-transfer (basic)</code>链码的背书策略需要交易同时被<code>Org1</code>和<code>Org2</code>签名，使用 <code>--peerAddresses</code> 标签来指向 <code>peer0.org1.example.com</code> 和 <code>peer0.org2.example.com</code>，因为网络TLS也被开启，所以也需要指定TLS证书</p>
+<p>然后我们使用另外一个身份：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Environment variables for Org2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ENABLED=<span class="literal">true</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_LOCALMSPID=<span class="string">&quot;Org2MSP&quot;</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ROOTCERT_FILE=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_MSPCONFIGPATH=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_ADDRESS=localhost:9051</span><br></pre></td></tr></table></figure>
+
+<p>查询：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c <span class="string">&#x27;&#123;&quot;Args&quot;:[&quot;ReadAsset&quot;,&quot;asset6&quot;]&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出，发现<code>&quot;appraisedValue&quot;</code>比原来少了100</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;owner&quot;:&quot;Christopher&quot;,&quot;color&quot;:&quot;white&quot;,&quot;size&quot;:15,&quot;appraisedValue&quot;:700,&quot;assetID&quot;:&quot;asset6&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>第五步</strong>：关闭网络</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./network.sh down</span><br></pre></td></tr></table></figure>
 
 <h2 id="实现一个链码"><a href="#实现一个链码" class="headerlink" title="实现一个链码"></a>实现一个链码</h2><p>详见下面两个link，本节不再赘述：</p>
 <ul>
@@ -565,13 +664,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">1m</span>
+    <span title="站点总字数">1.1m</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:44</span>
+    <span title="站点阅读时长">15:56</span>
   </span>
 </div>
 <div class="busuanzi-count">
