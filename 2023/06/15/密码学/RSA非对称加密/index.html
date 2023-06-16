@@ -23,19 +23,22 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="引言：RSA算法的逻辑与代码实现">
+    <meta name="description" content="引言：RSA算法及RSA在代理重加密中的应用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RSA非对称加密">
 <meta property="og:url" content="http://yoursite.com/2023/06/15/%E5%AF%86%E7%A0%81%E5%AD%A6/RSA%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/index.html">
 <meta property="og:site_name" content="Hynis">
-<meta property="og:description" content="引言：RSA算法的逻辑与代码实现">
+<meta property="og:description" content="引言：RSA算法及RSA在代理重加密中的应用">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230616103708954.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230616103849990.png">
 <meta property="article:published_time" content="2023-06-15T12:51:18.000Z">
-<meta property="article:modified_time" content="2023-06-15T14:01:47.596Z">
+<meta property="article:modified_time" content="2023-06-16T02:43:33.899Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="密码学">
 <meta property="article:tag" content="非对称加密">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20230616103708954.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2023/06/15/%E5%AF%86%E7%A0%81%E5%AD%A6/RSA%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/">
@@ -153,7 +156,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RSA%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">RSA算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">RSA如何生成公钥与私钥？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">RSA如何进行加密解密？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">完整代码</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RSA%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">RSA算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E5%85%AC%E9%92%A5%E4%B8%8E%E7%A7%81%E9%92%A5%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">RSA如何生成公钥与私钥？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">RSA如何进行加密解密？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E9%87%8D%E5%8A%A0%E5%AF%86%E4%B8%AD%E4%BD%BF%E7%94%A8RSA"><span class="nav-number">1.3.</span> <span class="nav-text">代理重加密中使用RSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">完整代码</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -286,9 +289,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-06-15 20:51:18 / 修改时间：22:01:47" itemprop="dateCreated datePublished" datetime="2023-06-15T20:51:18+08:00">2023-06-15</time>
+      <time title="创建时间：2023-06-15 20:51:18" itemprop="dateCreated datePublished" datetime="2023-06-15T20:51:18+08:00">2023-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-16 10:43:33" itemprop="dateModified" datetime="2023-06-16T10:43:33+08:00">2023-06-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -318,7 +327,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -337,7 +346,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <center>
-引言：RSA算法的逻辑与代码实现
+引言：RSA算法及RSA在代理重加密中的应用
 </center>
 
 <span id="more"></span>
@@ -367,6 +376,14 @@
 <li>加密：使用公钥(e, n)，将明文数据m加密为密文c。加密操作为<code>c = m^e mod n</code>。</li>
 <li>解密：使用私钥(d, n)，将密文c解密为明文数据m。解密操作为<code>m = c^d mod n</code>。</li>
 </ul>
+<h2 id="代理重加密中使用RSA"><a href="#代理重加密中使用RSA" class="headerlink" title="代理重加密中使用RSA"></a>代理重加密中使用RSA</h2><p>在代理重加密的过程中，我们常用一个代理Proxy，代理使用重加密秘钥对已加密的数据进行第二次加密。</p>
+<p>一种常见的重加密秘钥生成方式是：使用<strong>发送者的私钥与接受者的公钥做乘积</strong></p>
+<p>为什么使用乘积作为新的公钥去加密数据，接受者依然可以解密呢？</p>
+<p>下面来证明一下其正确性：</p>
+<p>首先我们需要知道基本的模运算法则和幂运算法则</p>
+<p><img src="http://img.yesmylord.cn//image-20230616103708954.png" alt="基本运算法则"></p>
+<p>举个例子：</p>
+<p><img src="http://img.yesmylord.cn//image-20230616103849990.png" alt="接受者解密使用重加密秘钥加密的数据"></p>
 <h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RSA</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> BigInteger p, q;</span><br><span class="line">    <span class="keyword">public</span> BigInteger n;</span><br><span class="line">    <span class="keyword">public</span> BigInteger PhiN;</span><br><span class="line">    <span class="keyword">public</span> BigInteger e, d;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RSA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Initialize();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Generate e and d</span></span><br><span class="line">    <span class="comment">//e:- Public Key</span></span><br><span class="line">    <span class="comment">//d:- Private Key</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密钥生成：</span></span><br><span class="line"><span class="comment">     * 1 选择两个大素数p和q，并计算它们的乘积n，即n = p * q。</span></span><br><span class="line"><span class="comment">     * 2 计算欧拉函数φ(n)，即φ(n) = (p-1) * (q-1)。</span></span><br><span class="line"><span class="comment">     * 3 选择一个小于φ(n)且与φ(n)互质的整数e，作为公钥的指数。</span></span><br><span class="line"><span class="comment">     * 4 计算与e关于模φ(n)的乘法逆元d，作为私钥的指数。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> SIZE = <span class="number">512</span>;</span><br><span class="line">        <span class="comment">// p and q are 2 154 digit Prime Numbers which are used in the generation of RSA Keys</span></span><br><span class="line">        p = <span class="keyword">new</span> BigInteger(<span class="string">&quot;8513222065247162701695105220665738877312063308356937563625345485856710133446374665834898192825484459951443770023314504441479244278247980992441766519074969&quot;</span>);</span><br><span class="line">        q = <span class="keyword">new</span> BigInteger(<span class="string">&quot;8364581280641288933593527550533091363060086128207408134848028170130641974184553465641962883238792572920670310338579332490687347012348067644317739328586993&quot;</span>);</span><br><span class="line">        n = p.multiply(q);</span><br><span class="line">        PhiN = p.subtract(BigInteger.valueOf(<span class="number">1</span>));</span><br><span class="line">        PhiN = PhiN.multiply(q.subtract(BigInteger.valueOf(<span class="number">1</span>)));</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            e = <span class="keyword">new</span> BigInteger(<span class="number">2</span> * SIZE, <span class="keyword">new</span> Random());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 前面的条件表示 e&gt;PhiN，后面的条件表示e与PhiN的最大公约数不为1，即表示不互质</span></span><br><span class="line">        <span class="comment">// 当e&gt;PhiN或e与PhiN不互质时就不断循环，直到两个条件都满足</span></span><br><span class="line">        <span class="keyword">while</span> ((e.compareTo(PhiN) != <span class="number">1</span>) || (e.gcd(PhiN).compareTo(BigInteger.valueOf(<span class="number">1</span>)) != <span class="number">0</span>));</span><br><span class="line">        d = e.modInverse(PhiN);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 加密：使用接收者的公钥(e, n)，将明文数据m加密为密文c。加密操作为c = m^e mod n。</span></span><br><span class="line"><span class="comment">     * 解密：使用接收者的私钥(d, n)，将密文c解密为明文数据m。解密操作为m = c^d mod n。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BigInteger <span class="title">encrypt</span><span class="params">(BigInteger plaintext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> plaintext.modPow(e, n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BigInteger <span class="title">decrypt</span><span class="params">(BigInteger ciphertext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ciphertext.modPow(d, n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
