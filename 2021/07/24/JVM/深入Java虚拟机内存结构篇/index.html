@@ -54,11 +54,13 @@
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210722220547142.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210720210910082.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210817145349764.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230618225510753.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210817144328318.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230618232956193.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210817155630683.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210817155642070.png">
 <meta property="article:published_time" content="2021-07-24T09:20:20.000Z">
-<meta property="article:modified_time" content="2021-09-09T13:18:20.619Z">
+<meta property="article:modified_time" content="2023-07-06T14:10:38.800Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
@@ -180,7 +182,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E7%AF%87"><span class="nav-number">1.</span> <span class="nav-text">深入Java虚拟机内存结构篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E4%BD%93%E7%B3%BB"><span class="nav-number">1.1.</span> <span class="nav-text">JVM体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">JVM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">Java代码执行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.3.</span> <span class="nav-text">JVM指令集架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.1.4.</span> <span class="nav-text">JVM生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HotSpot"><span class="nav-number">1.1.5.</span> <span class="nav-text">HotSpot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">JVM结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jvm%E7%AE%80%E7%95%A5%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">Jvm简略结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-Loader-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">Class Loader 类加载器子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-Loader-%E4%BD%9C%E7%94%A8"><span class="nav-number">1.3.1.</span> <span class="nav-text">Class Loader 作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">类的加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loading-%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Loading 加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linking-%E9%93%BE%E6%8E%A5"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Linking 链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Initialization-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Initialization 初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.3.</span> <span class="nav-text">类加载器的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.4.</span> <span class="nav-text">三个类加载器之间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-number">1.3.5.</span> <span class="nav-text">自定义类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E6%88%91%E4%BB%AC%E6%89%8D%E4%BC%9A%E8%A6%81%E5%8E%BB%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%9F"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">什么时候我们才会要去自定义类加载器？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">实现自定义类加载器的步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96ClassLoader%E7%9A%84%E9%80%94%E5%BE%84"><span class="nav-number">1.3.6.</span> <span class="nav-text">获取ClassLoader的途径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">1.3.7.</span> <span class="nav-text">双亲委派机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%EF%BC%9A%E5%A6%82%E4%BD%95%E5%B0%86%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84java-lang-String%E5%AF%BC%E5%85%A5JVM"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">面试常见问题：如何将自己写的java.lang.String导入JVM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">1.3.7.2.</span> <span class="nav-text">双亲委派机制的优势</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.3.8.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime-Data-Areas-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="nav-number">1.4.</span> <span class="nav-text">Runtime Data Areas 运行时数据区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Runtime-Data-Areas-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.</span> <span class="nav-text">Runtime Data Areas 基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PC"><span class="nav-number">1.4.2.</span> <span class="nav-text">PC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">两个问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-Stack"><span class="nav-number">1.4.3.</span> <span class="nav-text">JVM Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-1"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-1"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84Stack-Overflow-%E4%B8%8E-OOM"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">栈的Stack Overflow 与 OOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E5%B8%A7-Stack-Frame"><span class="nav-number">1.4.3.4.</span> <span class="nav-text">栈帧 Stack Frame</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8"><span class="nav-number">1.4.3.4.1.</span> <span class="nav-text">1. 局部变量表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88"><span class="nav-number">1.4.3.4.2.</span> <span class="nav-text">2. 操作数栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%EF%BC%88%E5%BE%85%E4%BF%AE%E6%94%B9%EF%BC%89"><span class="nav-number">1.4.3.4.3.</span> <span class="nav-text">3. 动态链接（待修改）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80"><span class="nav-number">1.4.3.4.4.</span> <span class="nav-text">4. 方法返回地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E4%B8%80%E4%BA%9B%E9%99%84%E5%8A%A0%E4%BF%A1%E6%81%AF"><span class="nav-number">1.4.3.4.5.</span> <span class="nav-text">5. 一些附加信息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EJVM%E6%A0%88%E7%9A%84%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">1.4.3.5.</span> <span class="nav-text">关于JVM栈的几个问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Native-Method-Stack"><span class="nav-number">1.4.4.</span> <span class="nav-text">Native Method Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Heap"><span class="nav-number">1.4.5.</span> <span class="nav-text">Java Heap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-2"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">堆内存结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">堆内存的设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E7%94%9F%E4%BB%A3%E4%B8%8E%E8%80%81%E5%B9%B4%E4%BB%A3"><span class="nav-number">1.4.5.4.</span> <span class="nav-text">新生代与老年代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%86%E9%85%8D%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.5.5.</span> <span class="nav-text">对象的分配过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Minor-GC%E3%80%81Major-GC%E3%80%81Full-GC%E5%8C%BA%E5%88%86"><span class="nav-number">1.4.5.6.</span> <span class="nav-text">Minor GC、Major GC、Full GC区分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E7%A9%BA%E9%97%B4%E5%88%86%E4%BB%A3%E6%80%9D%E6%83%B3"><span class="nav-number">1.4.5.7.</span> <span class="nav-text">堆空间分代思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%8F%90%E5%8D%87%E8%A7%84%E5%88%99"><span class="nav-number">1.4.5.8.</span> <span class="nav-text">对象提升规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TLAB"><span class="nav-number">1.4.5.9.</span> <span class="nav-text">TLAB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.5.10.</span> <span class="nav-text">参数设置总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90"><span class="nav-number">1.4.5.11.</span> <span class="nav-text">逃逸分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method-Areas-Metaspace"><span class="nav-number">1.4.6.</span> <span class="nav-text">Method Areas (Metaspace)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E3%80%81%E5%A0%86%E3%80%81%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E4%BA%A4%E4%BA%92%E5%85%B3%E7%B3%BB"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">栈、堆、方法区的交互关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-3"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E6%BC%94%E8%BF%9B%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.6.3.</span> <span class="nav-text">方法区的演进过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.4.6.4.</span> <span class="nav-text">方法区设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.6.5.</span> <span class="nav-text">方法区内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="nav-number">1.4.6.5.1.</span> <span class="nav-text">运行时常量池</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E6%BC%94%E8%BF%9B%E7%BB%86%E8%8A%82"><span class="nav-number">1.4.6.6.</span> <span class="nav-text">方法区演进细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.6.7.</span> <span class="nav-text">方法区垃圾回收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Native-Method-Interface-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.5.</span> <span class="nav-text">Native Method Interface 本地方法接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Execution-Engine-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E"><span class="nav-number">1.6.</span> <span class="nav-text">Execution Engine 执行引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="nav-number">1.6.2.</span> <span class="nav-text">解释器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JIT%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.6.3.</span> <span class="nav-text">JIT编译器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98"><span class="nav-number">1.7.</span> <span class="nav-text">直接内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-4"><span class="nav-number">1.7.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-number">1.8.</span> <span class="nav-text">对象的实例化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.8.1.</span> <span class="nav-text">创建对象的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.8.2.</span> <span class="nav-text">对象创建的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">1.8.3.</span> <span class="nav-text">对象的内存布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.8.4.</span> <span class="nav-text">对象访问定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE"><span class="nav-number">1.8.4.1.</span> <span class="nav-text">句柄访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88"><span class="nav-number">1.8.4.2.</span> <span class="nav-text">直接指针</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringTable"><span class="nav-number">1.9.</span> <span class="nav-text">StringTable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%B1%BB"><span class="nav-number">1.9.1.</span> <span class="nav-text">String类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.9.2.</span> <span class="nav-text">String内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%9A%84%E6%8B%BC%E6%8E%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">1.9.3.</span> <span class="nav-text">String的拼接操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-String"><span class="nav-number">1.9.4.</span> <span class="nav-text">new String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%9A%84intern-%E6%96%B9%E6%B3%95"><span class="nav-number">1.9.5.</span> <span class="nav-text">String的intern()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84String%E7%9A%84%E5%8E%BB%E9%87%8D%E6%93%8D%E4%BD%9C%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">1.9.6.</span> <span class="nav-text">G1编译器的String的去重操作（了解）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM"><span class="nav-number">1.10.</span> <span class="nav-text">Java内存模型JMM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JMM%E4%B8%8E%E7%A1%AC%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">1.10.1.</span> <span class="nav-text">JMM与硬件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E5%86%85%E5%AD%98%E4%B8%8E%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98"><span class="nav-number">1.10.2.</span> <span class="nav-text">主内存与工作内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F"><span class="nav-number">1.10.3.</span> <span class="nav-text">共享变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMM%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8E%9F%E5%AD%90%E6%80%A7%E3%80%81%E5%8F%AF%E8%A7%81%E6%80%A7%E3%80%81%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">1.10.4.</span> <span class="nav-text">JMM如何实现原子性、可见性、有序性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before%E5%8E%9F%E5%88%99"><span class="nav-number">1.10.5.</span> <span class="nav-text">happens before原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8EJMM%E7%90%86%E8%A7%A3volatile"><span class="nav-number">1.10.6.</span> <span class="nav-text">从JMM理解volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">1.10.6.1.</span> <span class="nav-text">实现可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">1.10.6.2.</span> <span class="nav-text">实现有序性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">1.11.</span> <span class="nav-text">文章相关链接</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E7%AF%87"><span class="nav-number">1.</span> <span class="nav-text">深入Java虚拟机内存结构篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">JVM概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">JVM特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">Java代码执行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.3.</span> <span class="nav-text">JVM指令集架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.1.4.</span> <span class="nav-text">JVM生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HotSpot"><span class="nav-number">1.1.5.</span> <span class="nav-text">HotSpot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">JVM结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jvm%E7%AE%80%E7%95%A5%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">Jvm简略结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-Loader-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">Class Loader 类加载器子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-Loader-%E4%BD%9C%E7%94%A8"><span class="nav-number">1.3.1.</span> <span class="nav-text">Class Loader 作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">类的加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loading-%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Loading 加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linking-%E9%93%BE%E6%8E%A5"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Linking 链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Initialization-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Initialization 初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.3.</span> <span class="nav-text">类加载器的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.4.</span> <span class="nav-text">三个类加载器之间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-number">1.3.5.</span> <span class="nav-text">自定义类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">实现自定义类加载器的步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96ClassLoader%E7%9A%84%E9%80%94%E5%BE%84"><span class="nav-number">1.3.6.</span> <span class="nav-text">获取ClassLoader的途径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">1.3.7.</span> <span class="nav-text">双亲委派机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">双亲委派机制的作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.8.</span> <span class="nav-text">其他相关问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime-Data-Areas-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="nav-number">1.4.</span> <span class="nav-text">Runtime Data Areas 运行时数据区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Runtime-Data-Areas-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.</span> <span class="nav-text">Runtime Data Areas 基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PC"><span class="nav-number">1.4.2.</span> <span class="nav-text">PC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">两个问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-Stack"><span class="nav-number">1.4.3.</span> <span class="nav-text">JVM Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-1"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-1"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84Stack-Overflow-%E4%B8%8E-OOM"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">栈的Stack Overflow 与 OOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E5%B8%A7-Stack-Frame"><span class="nav-number">1.4.3.4.</span> <span class="nav-text">栈帧 Stack Frame</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8"><span class="nav-number">1.4.3.4.1.</span> <span class="nav-text">1. 局部变量表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88"><span class="nav-number">1.4.3.4.2.</span> <span class="nav-text">2. 操作数栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%EF%BC%88%E5%BE%85%E4%BF%AE%E6%94%B9%EF%BC%89"><span class="nav-number">1.4.3.4.3.</span> <span class="nav-text">3. 动态链接（待修改）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80"><span class="nav-number">1.4.3.4.4.</span> <span class="nav-text">4. 方法返回地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E4%B8%80%E4%BA%9B%E9%99%84%E5%8A%A0%E4%BF%A1%E6%81%AF"><span class="nav-number">1.4.3.4.5.</span> <span class="nav-text">5. 一些附加信息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EJVM%E6%A0%88%E7%9A%84%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">1.4.3.5.</span> <span class="nav-text">关于JVM栈的几个问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Native-Method-Stack"><span class="nav-number">1.4.4.</span> <span class="nav-text">Native Method Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Heap"><span class="nav-number">1.4.5.</span> <span class="nav-text">Java Heap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-2"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">堆内存结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">堆内存的设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B0%E7%94%9F%E4%BB%A3%E4%B8%8E%E8%80%81%E5%B9%B4%E4%BB%A3"><span class="nav-number">1.4.5.4.</span> <span class="nav-text">新生代与老年代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%86%E9%85%8D%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.5.5.</span> <span class="nav-text">对象的分配过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Minor-GC%E3%80%81Major-GC%E3%80%81Full-GC%E5%8C%BA%E5%88%86"><span class="nav-number">1.4.5.6.</span> <span class="nav-text">Minor GC、Major GC、Full GC区分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E7%A9%BA%E9%97%B4%E5%88%86%E4%BB%A3%E6%80%9D%E6%83%B3"><span class="nav-number">1.4.5.7.</span> <span class="nav-text">堆空间分代思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%8F%90%E5%8D%87%E8%A7%84%E5%88%99"><span class="nav-number">1.4.5.8.</span> <span class="nav-text">对象提升规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TLAB"><span class="nav-number">1.4.5.9.</span> <span class="nav-text">TLAB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.5.10.</span> <span class="nav-text">参数设置总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90"><span class="nav-number">1.4.5.11.</span> <span class="nav-text">逃逸分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method-Areas-Metaspace"><span class="nav-number">1.4.6.</span> <span class="nav-text">Method Areas (Metaspace)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E3%80%81%E5%A0%86%E3%80%81%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E4%BA%A4%E4%BA%92%E5%85%B3%E7%B3%BB"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">栈、堆、方法区的交互关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-3"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E6%BC%94%E8%BF%9B%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.6.3.</span> <span class="nav-text">方法区的演进过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.4.6.4.</span> <span class="nav-text">方法区设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.6.5.</span> <span class="nav-text">方法区内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="nav-number">1.4.6.5.1.</span> <span class="nav-text">运行时常量池</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E6%BC%94%E8%BF%9B%E7%BB%86%E8%8A%82"><span class="nav-number">1.4.6.6.</span> <span class="nav-text">方法区演进细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.6.7.</span> <span class="nav-text">方法区垃圾回收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Native-Method-Interface-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.5.</span> <span class="nav-text">Native Method Interface 本地方法接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Execution-Engine-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E"><span class="nav-number">1.6.</span> <span class="nav-text">Execution Engine 执行引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="nav-number">1.6.2.</span> <span class="nav-text">解释器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JIT%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.6.3.</span> <span class="nav-text">JIT编译器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98"><span class="nav-number">1.7.</span> <span class="nav-text">直接内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-4"><span class="nav-number">1.7.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-number">1.8.</span> <span class="nav-text">对象的实例化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.8.1.</span> <span class="nav-text">创建对象的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.8.2.</span> <span class="nav-text">对象创建的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">1.8.3.</span> <span class="nav-text">对象的内存布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.8.4.</span> <span class="nav-text">对象访问定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE"><span class="nav-number">1.8.4.1.</span> <span class="nav-text">句柄访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88"><span class="nav-number">1.8.4.2.</span> <span class="nav-text">直接指针</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringTable"><span class="nav-number">1.9.</span> <span class="nav-text">StringTable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%B1%BB"><span class="nav-number">1.9.1.</span> <span class="nav-text">String类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.9.2.</span> <span class="nav-text">String内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%9A%84%E6%8B%BC%E6%8E%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">1.9.3.</span> <span class="nav-text">String的拼接操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-String"><span class="nav-number">1.9.4.</span> <span class="nav-text">new String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%9A%84intern-%E6%96%B9%E6%B3%95"><span class="nav-number">1.9.5.</span> <span class="nav-text">String的intern()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84String%E7%9A%84%E5%8E%BB%E9%87%8D%E6%93%8D%E4%BD%9C%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">1.9.6.</span> <span class="nav-text">G1编译器的String的去重操作（了解）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%EF%BC%88JMM%EF%BC%89"><span class="nav-number">1.10.</span> <span class="nav-text">Java内存模型（JMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JMM%E4%B8%8E%E7%A1%AC%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">1.10.1.</span> <span class="nav-text">JMM与硬件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E5%86%85%E5%AD%98%E4%B8%8E%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98"><span class="nav-number">1.10.2.</span> <span class="nav-text">主内存与工作内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F"><span class="nav-number">1.10.3.</span> <span class="nav-text">共享变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMM%E7%9A%84%E5%85%AB%E7%A7%8D%E5%86%85%E5%AD%98%E6%93%8D%E4%BD%9C"><span class="nav-number">1.10.4.</span> <span class="nav-text">JMM的八种内存操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before%E5%8E%9F%E5%88%99"><span class="nav-number">1.10.5.</span> <span class="nav-text">happens before原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8EJMM%E7%90%86%E8%A7%A3volatile"><span class="nav-number">1.10.6.</span> <span class="nav-text">从JMM理解volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">1.10.6.1.</span> <span class="nav-text">实现可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">1.10.6.2.</span> <span class="nav-text">实现有序性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">1.11.</span> <span class="nav-text">文章相关链接</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -321,7 +323,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-09-09 21:18:20" itemprop="dateModified" datetime="2021-09-09T21:18:20+08:00">2021-09-09</time>
+      <time title="修改时间：2023-07-06 22:10:38" itemprop="dateModified" datetime="2023-07-06T22:10:38+08:00">2023-07-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -347,14 +349,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>31k</span>
+      <span>32k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>28 分钟</span>
+      <span>29 分钟</span>
     </span>
 </div>
 
@@ -376,10 +378,9 @@
 <h1 id="深入Java虚拟机内存结构篇"><a href="#深入Java虚拟机内存结构篇" class="headerlink" title="深入Java虚拟机内存结构篇"></a>深入Java虚拟机内存结构篇</h1><blockquote>
 <p>前言：Java真正的核心从这里开始</p>
 </blockquote>
-<h2 id="JVM体系"><a href="#JVM体系" class="headerlink" title="JVM体系"></a>JVM体系</h2><h3 id="JVM特点"><a href="#JVM特点" class="headerlink" title="JVM特点"></a>JVM特点</h3><blockquote>
+<h2 id="JVM概述"><a href="#JVM概述" class="headerlink" title="JVM概述"></a>JVM概述</h2><h3 id="JVM特点"><a href="#JVM特点" class="headerlink" title="JVM特点"></a>JVM特点</h3><blockquote>
 <p>语言无关性:</p>
-<p>Java——跨平台的语言</p>
-<p>Java——跨语言的平台</p>
+<p>Java——跨平台的语言；JVM——跨语言的平台</p>
 </blockquote>
 <p>Java虚拟机不关心你是否使用了Java语言编写，她<strong>只关心Class文件</strong></p>
 <p>只要这个class文件符合规范，那么他就可以运行，至于是Java还是Scala还是其他，no care </p>
@@ -401,20 +402,17 @@
 </li>
 <li><p>Java虚拟机，读取<code>.class</code>文件</p>
 <ol>
-<li><p>类加载器</p>
-</li>
-<li><p>字节码校验器</p>
-</li>
-<li><p><strong>两种</strong>执行方式：</p>
-</li>
-</ol>
-</li>
-</ol>
-<ul>
+<li>类加载器</li>
+<li>字节码校验器</li>
+<li><strong>两种</strong>执行方式：<ol>
 <li>翻译字节码（解释执行）</li>
-<li>JIT编译器（编译执行）</li>
-</ul>
-<h3 id="JVM指令集架构"><a href="#JVM指令集架构" class="headerlink" title="JVM指令集架构"></a>JVM指令集架构</h3><blockquote>
+<li>JIT编译器（编译执行）<h3 id="JVM指令集架构"><a href="#JVM指令集架构" class="headerlink" title="JVM指令集架构"></a>JVM指令集架构</h3></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
 <p>指令集架构</p>
 </blockquote>
 <p>有两种指令集架构：</p>
@@ -477,7 +475,7 @@
 <li>Execution Engine：执行引擎</li>
 </ul>
 <h2 id="Class-Loader-类加载器子系统"><a href="#Class-Loader-类加载器子系统" class="headerlink" title="Class Loader 类加载器子系统"></a>Class Loader 类加载器子系统</h2><h3 id="Class-Loader-作用"><a href="#Class-Loader-作用" class="headerlink" title="Class Loader 作用"></a>Class Loader 作用</h3><ol>
-<li>负责从文件系统或网络中<strong>加载Class文件</strong></li>
+<li>负责从文件系统或网络中<strong>加载Class文件，生成运行时数据结构</strong></li>
 <li>只负责加载，不确保可以运行（Execution Engine决定）</li>
 <li>加载的类信息存放在 Method Area 方法区</li>
 </ol>
@@ -506,15 +504,7 @@
 <li>在内存中<strong>生成一个代表这个类的<code>java.lang.Class</code>对象</strong>，作为方法区对这个类的各种数据的访问入口</li>
 </ol>
 <hr>
-<p>对于加载来源的补充， <code>.class</code>文件可以来自：</p>
-<ul>
-<li>本地直接加载</li>
-<li>网络获取</li>
-<li>zip压缩包直接读取的（jar、war格式的基础）</li>
-<li>运行时自动生成（动态代理技术）</li>
-<li>其他文件生成（例如JSP文件）</li>
-<li>从加密文件中获取（防止反编译）</li>
-</ul>
+<p>对于加载来源的补充， <code>.class</code>文件可以来自：本地直接加载、网络获取、zip压缩包直接读取的（jar、war格式的基础）、<strong>运行时自动生成</strong>（动态代理技术）、其他文件生成（例如JSP文件）、从加密文件中获取（防止反编译）</p>
 <h4 id="Linking-链接"><a href="#Linking-链接" class="headerlink" title="Linking 链接"></a>Linking 链接</h4><p>链接有三个步骤：</p>
 <ol>
 <li>验证 verify</li>
@@ -545,29 +535,38 @@
 </ol>
 <p>目的：将常量池中的<strong>符号引用</strong>转换为<strong>直接引用</strong></p>
 <p>（假如程序中用到<code>System.out.println</code>，那么符号引用就会引入<code>java.lang.System</code>包，紧接着把符号引用转换为直接引用）</p>
+<blockquote>
+<p>ps：</p>
+<ul>
+<li>符号引用（Symbolic Reference）是指在编译时期或者运行时期使用的一种符号名称，它并不直接指向内存中的位置。它是一个符号，用于表示某个类或者类的成员（字段、方法）</li>
+<li>直接引用：直接引用（Direct Reference）是指直接指向内存中的位置的引用。</li>
+</ul>
+</blockquote>
+<p>这里举一个例子，解释一下什么叫符号引用转换为直接引用：</p>
+<p>假设我们有如下一段程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Database database; <span class="comment">// 这里就是符号引用</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">connect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        database.connect();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在编译阶段和初始类加载阶段，User类中的database字段只是一个符号引用</li>
+<li>在链接阶段的解析阶段，JVM会将符号引用转换为直接引用，在链接阶段的解析阶段，JVM会将符号引用转换为直接引用，以便在程序执行时能够直接访问。</li>
+</ol>
+<p>在解析阶段，JVM会根据运行时常量池中的符号引用信息，查找并确定<code>database</code>字段的直接引用，然后将其与<code>User</code>类的字段进行关联。</p>
+<p>通过这个转换，当我们在<code>User</code>类的<code>connect()</code>方法中调用<code>database.connect()</code>时，JVM能够直接定位到<code>database</code>字段对应的内存位置，并执行相关操作。这样就<strong>避免了在每次访问<code>database</code>字段时进行符号解析的开销，提高了程序的执行效率</strong>。</p>
 <p>注意：</p>
 <ul>
 <li>实际上，解析过程通常在<strong>JVM初始化完后才会执行</strong></li>
 </ul>
+<h4 id="Initialization-初始化"><a href="#Initialization-初始化" class="headerlink" title="Initialization 初始化"></a>Initialization 初始化</h4><p>初始化阶段就是执行类构造器方法<code>&lt;clinit&gt;()</code>的过程（<code>&lt;clinit&gt;()</code>被称为<strong>类构造器方法</strong>，与类的构造器完全不同）</p>
 <blockquote>
-<p>ps：</p>
-<ul>
-<li>符号引用：一组符号描述所引用的目标</li>
-<li>直接引用：指针、相对偏移量或一个间接定位到目标的句柄</li>
-</ul>
+<p> ps:     <code>&lt;clinit&gt;()</code>方法<strong>不需要定义</strong>，是<strong>javac编译器自动收集类中的所有类变量的赋值动作和静态代码块中的语句合并而来</strong></p>
 </blockquote>
-<h4 id="Initialization-初始化"><a href="#Initialization-初始化" class="headerlink" title="Initialization 初始化"></a>Initialization 初始化</h4><p>初始化阶段就是执行**类构造器方法<code>&lt;clinit&gt;()</code>**的过程</p>
-<blockquote>
-<p> ps:</p>
-<p>此方法<strong>不需要定义</strong>，是<strong>javac编译器自动收集类中的所有类变量的赋值动作和静态代码块中的语句合并而来</strong></p>
-</blockquote>
-<p>只要程序中有<strong>静态代码块</strong>或是对于<strong>普通类变量</strong>（指没有用final修饰），就会出现<code>&lt;clinit&gt;()</code>方法</p>
+<p>只要程序中有<strong>静态代码块</strong>或是<strong>普通的类变量</strong>（指没有用final修饰），就会出现<code>&lt;clinit&gt;()</code>方法</p>
 <p><img src="http://img.yesmylord.cn//image-20210713201052604.png" alt="使用idea的jclasslib插件查看"></p>
 <p>注意：</p>
 <ul>
-<li><p>类构造器**<code>&lt;clinit&gt;()</code>方法<strong>不同于类的构造器（即<code>&lt;clinit&gt;</code>与<code>&lt;init&gt;</code>不同！！</strong>后者每一个类都有，前者则不一定**）</p>
+<li><p>类构造器<code>&lt;clinit&gt;()</code>方法不同于类的构造器（即<code>&lt;clinit&gt;</code>与<code>&lt;init&gt;</code>不同！！<strong>后者每一个类都有，前者则不一定</strong>）</p>
 </li>
-<li><p>类构造器方法<strong>按顺序执行初始化</strong></p>
+<li><p>类构造器方法<strong>按顺序执行初始化</strong>（参见下文代码示例）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        temp = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> temp = <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(temp); <span class="comment">//输出 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> temp = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        temp = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(temp); <span class="comment">//输出 2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -575,7 +574,7 @@
 </li>
 <li><p>如果该类有父类，会确保父类的<code>&lt;clinit&gt;</code>方法先执行</p>
 </li>
-<li><p>一个类的<code>&lt;clinit&gt;</code>方法只会在首次使用这个类的时候运行，只运行一次！</p>
+<li><p>一个类的<code>&lt;clinit&gt;</code>方法只会在<strong>首次使用这个类的时候运行，只运行一次</strong>！</p>
 </li>
 <li><p>虚拟机必须保证，一个类的<code>&lt;clinit&gt;</code>方法会在并发下被<strong>同步加锁</strong>（即这个方法只会运行一次）</p>
 </li>
@@ -592,10 +591,10 @@
 <ul>
 <li><strong>使用C/C++实现</strong>，<strong>在JVM内部</strong></li>
 <li>用来<strong>加载Java核心库</strong>（<code>JAVA_HOME/jre/lib/rt.jar</code>、<code>resources.jar</code>、<code>sun.boot.class.path</code>路径下的内容，用于提供JVM自身运行所需要的类）（比如String类、Integer类等等核心类库）</li>
-<li><strong>并没有继承 ClassLoader</strong>，没有父类加载器</li>
+<li><strong>没有继承 ClassLoader</strong>，没有父类加载器</li>
 <li>加载另两个加载器，是他们的父类加载器</li>
 <li>出于安全考虑，只会加载包名为<code>java, javax, sun</code>开头的类</li>
-<li>如果一个类使用<code>name.class.getClassLoader</code>方法获**取到为<code>NULL</code>**说明它是由引导类加载器加载的</li>
+<li>如果一个类使用<code>name.class.getClassLoader</code>方法获取到为<code>NULL</code>说明它是由引导类加载器加载的</li>
 </ul>
 </li>
 <li><p>扩展类加载器（Extension ClassLoader）</p>
@@ -629,7 +628,10 @@
 <blockquote>
 <p>注意：他们俩都是<code>sun.misc.Launcher</code>的<strong>内部类</strong>，<code>Launcher</code>本身只是一个启动器</p>
 </blockquote>
-<h3 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h3><h4 id="什么时候我们才会要去自定义类加载器？"><a href="#什么时候我们才会要去自定义类加载器？" class="headerlink" title="什么时候我们才会要去自定义类加载器？"></a>什么时候我们才会要去自定义类加载器？</h4><ul>
+<h3 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h3><blockquote>
+<p>什么时候我们才会要去自定义类加载器？</p>
+</blockquote>
+<ul>
 <li><strong>隔离加载类</strong>（防止用中间件导致命名空间冲突）</li>
 <li>修改类加载的方式</li>
 <li>扩展加载源</li>
@@ -642,7 +644,7 @@
 </ol>
 <p><code>ClassLoader</code>是一个抽象类，除了<code>BootStrapClassLoader</code>，其余全部继承了<code>ClassLoader</code>类，它的抽象方法如下：</p>
 <ul>
-<li>**<code>getParent()</code>**：返回该类加载器的超类加载器</li>
+<li><code>getParent()</code>：返回该类加载器的超类加载器</li>
 <li><strong><code>loadClass(String name)</code><strong>：</strong>加载</strong>名称为name的类，返回<code>java.lang.Class</code>类</li>
 <li><strong><code>findClass(String name)</code><strong>：</strong>查找</strong>名称为name的类，返回<code>java.lang.Class</code>类</li>
 <li><code>defineClass(String name, byte[] b, int off, int len)</code>：把字节数组 b 中的内容转换为一个Java类，返回结果为<code>java.lang.Class</code>类的实例</li>
@@ -658,9 +660,12 @@
 <p><img src="http://img.yesmylord.cn//image-20210714223831305.png" alt="双亲委派机制"></p>
 <p>当我们加载自定义的一个类时，也会走这么一个流程：</p>
 <p>会一级一级向上传递，然后引导类加载器和拓展类加载器都说自己不加载，才会轮到系统类加载器加载。</p>
-<h4 id="面试常见问题：如何将自己写的java-lang-String导入JVM"><a href="#面试常见问题：如何将自己写的java-lang-String导入JVM" class="headerlink" title="面试常见问题：如何将自己写的java.lang.String导入JVM"></a>面试常见问题：如何将自己写的<code>java.lang.String</code>导入JVM</h4><p>答：</p>
+<blockquote>
+<p>1、面试常见问题：如何将自己写的<code>java.lang.String</code>导入JVM</p>
+</blockquote>
+<p>答：</p>
 <p>​        如果是<code>java.lang</code>包下的内容，是无法加载的，因为双亲委派机制的存在，<code>java.lang</code>包下的内容全部会被引导类加载器加载。</p>
-<p>​        即使使用了自定义的类加载器去加载，规避双亲委派机制，但也会被<strong>沙箱安全机制</strong>拦截，报出安全异常。</p>
+<p>​        即使使用了自定义的类加载器去加载，规避双亲委派机制，但由于是<code>java.</code>开头的包，也会被<strong>沙箱安全机制</strong>拦截，报出安全异常。</p>
 <blockquote>
 <p>某<a target="_blank" rel="noopener" href="https://blog.csdn.net/Doit_kang/article/details/107159232?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&spm=1001.2101.3001.4242">博客</a>看到如下的表格就直接拿来用了</p>
 </blockquote>
@@ -676,40 +681,46 @@
 <td>当从程序内部加载自定义类时，加载失败，默认加载Java中的String；当从外部加载时（即写自定义类加载器），加载失败，Java加载类时存在检测机制，不允许加载任何包路径以<code>java.</code>开头的自定义类</td>
 </tr>
 </tbody></table>
-<h4 id="双亲委派机制的优势"><a href="#双亲委派机制的优势" class="headerlink" title="双亲委派机制的优势"></a>双亲委派机制的优势</h4><ol>
+<h4 id="双亲委派机制的作用"><a href="#双亲委派机制的作用" class="headerlink" title="双亲委派机制的作用"></a>双亲委派机制的作用</h4><ol>
 <li><p><strong>避免类的重复加载</strong></p>
 <p>一个类只会由一个加载器加载，不会出现多个加载器加载一个类的情况</p>
 </li>
 <li><p><strong>保护程序安全，防止核心API被随意更改</strong></p>
 </li>
 </ol>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
-<p>JVM中表示 <strong>两个class对象是否为同一个类</strong> 的两个必要条件</p>
+<h3 id="其他相关问题"><a href="#其他相关问题" class="headerlink" title="其他相关问题"></a>其他相关问题</h3><blockquote>
+<p>问题1：JVM中表示 <strong>两个class对象是否为同一个类</strong> 的两个必要条件是什么？</p>
 </blockquote>
 <ul>
 <li>类的全限定类名必须一致</li>
 <li>加载这个类的<code>ClassLoader</code>必须相同</li>
 </ul>
 <hr>
-<blockquote>
-<p>JVM必须知道一个类是由哪个加载器加载的！</p>
+<p>注意：JVM必须知道一个类是由哪个加载器加载的！</p>
 <p>对于非启动类加载器加载的类，JVM会将类加载器的<strong>引用</strong>做为类型信息的一部分放在<strong>方法区</strong></p>
 <p>JVM解析一个类型到另一个类型的引用时，JVM需要保证这两个类加载器是相同的</p>
-</blockquote>
 <hr>
 <blockquote>
-<p>类的主动使用与被动使用（类的主动使用和被动使用<strong>区别</strong>就在于，<strong>有没有类加载过程中的初始化过程</strong>）</p>
+<p>问题2：类的主动使用与被动使用（类的主动使用和被动使用<strong>区别</strong>就在于，<strong>有没有类加载过程中的初始化过程</strong>）</p>
 </blockquote>
 <p>主动使用，有七种情况：</p>
 <ul>
-<li>创建类的实例</li>
+<li>创建类的实例：通过关键字<code>new</code>实例化一个类</li>
 <li>访问某个类或接口的静态变量，或者对静态变量赋值</li>
-<li>调用静态方法</li>
-<li>反射</li>
+<li>调用类的静态方法</li>
+<li>反射：使用Java反射机制访问类的方法或字段。</li>
 <li>初始化一个类的子类</li>
 <li>JVM启动时被标明为启动类的类</li>
 <li>JDK 7开始提供的动态语言</li>
 </ul>
+<p>被动使用是指没有直接引用类，而是通过其他途径间接引用类，<strong>不会导致类的初始化，只会触发类的加载</strong>：</p>
+<ol>
+<li>访问类的常量：访问类的常量（被<code>final</code>修饰的基本类型或字符串类型）。</li>
+<li>引用类的静态变量：通过子类引用父类的静态变量。</li>
+<li>使用类的数组：使用数组类型，该数组的元素类型是类，不会触发该类的初始化。</li>
+<li>通过子类引用父类的静态变量：通过子类引用父类的静态变量，不会触发子类的初始化。</li>
+<li>通过类名获取<code>Class</code>对象：通过<code>Class.forName(&quot;ClassName&quot;)</code>获取类的<code>Class</code>对象，不会触发该类的初始化。</li>
+</ol>
 <h2 id="Runtime-Data-Areas-运行时数据区"><a href="#Runtime-Data-Areas-运行时数据区" class="headerlink" title="Runtime Data Areas 运行时数据区"></a>Runtime Data Areas 运行时数据区</h2><h3 id="Runtime-Data-Areas-基本结构"><a href="#Runtime-Data-Areas-基本结构" class="headerlink" title="Runtime Data Areas 基本结构"></a>Runtime Data Areas 基本结构</h3><p>有五大部分：</p>
 <ul>
 <li><strong>方法区 Method Area</strong>（在JDK1.8后 叫<strong>元数据区</strong>）</li>
@@ -1465,7 +1476,7 @@
 <p>为什么Java是半编译半解释性语言？</p>
 </blockquote>
 <p>Java一开始只是解释型语言，只可以通过解释器进行解释执行，但是后来JIT的引入，使得Java可以编译执行。</p>
-<p>解释可以使Java跨平台、编译可以使Java运行更高效。</p>
+<p><strong>解释可以使Java跨平台、编译可以使Java运行更高效</strong></p>
 <h3 id="解释器"><a href="#解释器" class="headerlink" title="解释器"></a>解释器</h3><blockquote>
 <p>解释器：根据预定义的规范，对字节码采用<strong>逐行解释</strong>的方式执行，目的是<strong>将字节码文件中的内容翻译</strong>为对应平台的本地<strong>机器指令</strong>执行</p>
 </blockquote>
@@ -1845,7 +1856,7 @@
 </li>
 <li>使用一个HashTable来记录所有被String对象引用的不重复的<code>char</code>数组。去重时，会查这个hashmap，来看堆上是否存在相同的<code>char</code>数组</li>
 </ul>
-<h2 id="Java内存模型JMM"><a href="#Java内存模型JMM" class="headerlink" title="Java内存模型JMM"></a>Java内存模型JMM</h2><p>注意，JMM与JVM的结构或者是运行时数据区的组成要分清楚，完全不是一码事</p>
+<h2 id="Java内存模型（JMM）"><a href="#Java内存模型（JMM）" class="headerlink" title="Java内存模型（JMM）"></a>Java内存模型（JMM）</h2><p>注意，JMM与JVM的结构或者是运行时数据区的组成要分清楚，完全不是一码事</p>
 <blockquote>
 <p>Java内存模型(即Java Memory Model，简称JMM)本身是一种抽象的概念，并不真实存在</p>
 <p>它描述的是一组规则或规范，通过这组规范<strong>定义了程序中各个变量（包括实例字段，静态字段和构成数组对象的元素）的访问方式</strong></p>
@@ -1864,23 +1875,45 @@
 <p>缓存是为了解决主存与寄存器速度不匹配而引入的，但是带来了新的问题，一个变量如果在三个地方都存在，那么他的更新就有延迟，于是JMM有协议规定这方面协同</p>
 <p><img src="http://img.yesmylord.cn//image-20210817145349764.png" alt="图片出处见相关链接"></p>
 <p>可见，运行时数据区与硬件结构并没有直接的对应关系。</p>
-<h3 id="主内存与工作内存"><a href="#主内存与工作内存" class="headerlink" title="主内存与工作内存"></a>主内存与工作内存</h3><ul>
-<li>所有的变量（包括对象的、方法的、类的变量）都存储在主内存（Main Memory）中。</li>
-<li>每个线程都有一个私有的本地内存（Local Memory 也叫工作内存），本地内存中存储了该线程以读/写共享变量的拷贝副本。</li>
-<li><strong>线程对变量的所有操作都必须在本地内存中进行，而不能直接读写主内存。</strong></li>
+<h3 id="主内存与工作内存"><a href="#主内存与工作内存" class="headerlink" title="主内存与工作内存"></a>主内存与工作内存</h3><p><img src="http://img.yesmylord.cn//image-20230618225510753.png" alt="JMM与工作内存"></p>
+<p>主内存存储：存储所有的变量（包括对象的、方法的、类的变量）</p>
+<p>工作内存存储：每个线程对应有一个工作内存，存储对应线程使用到的变量</p>
+<p>JMM规定了：</p>
+<ul>
+<li>线程对变量的<strong>所有操作</strong>（读+写）都必须在工作内存中进行，而不能直接读写主内存。（<strong>即使是volatile变量</strong>，也必须操作工作内存）</li>
 <li>不同的线程之间无法直接访问对方本地内存中的变量。</li>
 </ul>
-<h3 id="共享变量"><a href="#共享变量" class="headerlink" title="共享变量"></a>共享变量</h3><p>在JMM中，共享变量存放在<strong>主内存</strong>中，每一个线程都可以访问主内存，而且线程内部还有一块<strong>工作内存</strong>，存放共享变量的副本</p>
+<h3 id="共享变量"><a href="#共享变量" class="headerlink" title="共享变量"></a>共享变量</h3><p>在JMM中，共享变量存放在主内存中，工作内存共享变量的副本</p>
 <p>线程只可以对自己工作内存中的共享变量进行操作，但却不能对主存内的共享变量进行直接的操作</p>
 <p>浏览blog过程中发现一张特别容易理解的图：</p>
 <p>（通过这个图可以好好想想<code>volatile</code>的原理）</p>
 <p><img src="http://img.yesmylord.cn//image-20210817144328318.png" alt="此图出处见相关链接"></p>
-<h3 id="JMM如何实现原子性、可见性、有序性"><a href="#JMM如何实现原子性、可见性、有序性" class="headerlink" title="JMM如何实现原子性、可见性、有序性"></a>JMM如何实现原子性、可见性、有序性</h3><p>原子性：操作必须一次性不可中断的完成</p>
-<p>可见性：变量修改后，线程是否能马上获取到这个新值</p>
-<p>有序性：指令会被进行重新排序，而JMM不能让有序的操作被乱执行</p>
-<p>JMM通过<code>synchronized</code>、<code>ReentrantLock</code>等锁机制保证原子性</p>
-<p>通过<code>volatile</code>保证可见性和有序性</p>
-<p>除此外，还有happens before原则（保证基本内容的顺序）</p>
+<p>如图所示，主内存一开始A=1，线程1想将A赋值为2，必须先更改自己本地内存为2，再将数据刷回主内存中，线程2步骤同理。</p>
+<h3 id="JMM的八种内存操作"><a href="#JMM的八种内存操作" class="headerlink" title="JMM的八种内存操作"></a>JMM的八种内存操作</h3><blockquote>
+<p>在较早的版本有8种操作，后来缩减为了4种操作，但是缩减只是通过合并实现的，所以可以继续研究8种操作。</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20230618232956193.png" alt="JMM八种基本操作"></p>
+<p>JVM保证这八种操作都是原子的（double与long之后讨论）</p>
+<p>首先解释一下：</p>
+<ul>
+<li><strong>lock</strong>：（主内存）将主内存的某一个变量标识为某线程独占（lock可以执行N次，unlock需要执行N次才能释放该lock状态）</li>
+<li><strong>unlock</strong>：（主内存）释放lock状态</li>
+</ul>
+<p>其次read与load是一对，不允许单独出现，而且必须read后load（<strong>不要求连续执行</strong>）</p>
+<ul>
+<li><strong>read</strong>：（主内存）将主内存变量传输到线程的工作内存</li>
+<li><strong>load</strong>：（工作内存）接收read到的变量，作为副本存入工作内存</li>
+</ul>
+<p>store与write也是一对，不允许单独出现，而且必须store后write（<strong>不要求连续执行</strong>）</p>
+<ul>
+<li><strong>store</strong>：（工作内存）将工作内存的变量传输给主内存</li>
+<li><strong>write</strong>：（主内存）将store传来的变量保存在主内存</li>
+</ul>
+<p>额外解释一下：</p>
+<ul>
+<li><strong>use</strong>：（工作内存）将一个变量传输给执行引擎（执行引擎负责编译执行）</li>
+<li><strong>assign</strong>：（工作内存）将从执行引擎接收到的值<strong>赋值</strong>给工作内存中的变量</li>
+</ul>
 <h3 id="happens-before原则"><a href="#happens-before原则" class="headerlink" title="happens before原则"></a>happens before原则</h3><ol>
 <li><strong>程序顺序规则</strong>（线程内必须串行执行）</li>
 <li><strong>锁规则</strong>（解锁必须发生在上锁后）</li>
@@ -1990,7 +2023,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:33</span>
+    <span title="站点阅读时长">16:35</span>
   </span>
 </div>
 <div class="busuanzi-count">
