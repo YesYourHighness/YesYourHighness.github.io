@@ -60,7 +60,7 @@
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210817155630683.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210817155642070.png">
 <meta property="article:published_time" content="2021-07-24T09:20:20.000Z">
-<meta property="article:modified_time" content="2023-07-06T14:10:38.800Z">
+<meta property="article:modified_time" content="2023-07-11T14:02:49.234Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">148</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">85</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">151</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">85</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">210</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -197,7 +197,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-count">210</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -208,7 +208,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">148</span>
+        <span class="site-state-item-count">151</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -323,7 +323,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-06 22:10:38" itemprop="dateModified" datetime="2023-07-06T22:10:38+08:00">2023-07-06</time>
+      <time title="修改时间：2023-07-11 22:02:49" itemprop="dateModified" datetime="2023-07-11T22:02:49+08:00">2023-07-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -370,7 +370,6 @@
         <center>
   引言:
   JVM内存结构有关内容，不包括GC部分。
-
 </center>
 
 <span id="more"></span>
@@ -406,13 +405,13 @@
 <li>字节码校验器</li>
 <li><strong>两种</strong>执行方式：<ol>
 <li>翻译字节码（解释执行）</li>
-<li>JIT编译器（编译执行）<h3 id="JVM指令集架构"><a href="#JVM指令集架构" class="headerlink" title="JVM指令集架构"></a>JVM指令集架构</h3></li>
+<li>JIT编译器（编译执行）</li>
 </ol>
 </li>
 </ol>
 </li>
 </ol>
-<blockquote>
+<h3 id="JVM指令集架构"><a href="#JVM指令集架构" class="headerlink" title="JVM指令集架构"></a>JVM指令集架构</h3><blockquote>
 <p>指令集架构</p>
 </blockquote>
 <p>有两种指令集架构：</p>
@@ -503,7 +502,6 @@
 <li>将这个字节流所代表的 <strong>静态存储结构</strong> 转化为 <strong>方法区</strong>的 <strong>运行时数据结构</strong></li>
 <li>在内存中<strong>生成一个代表这个类的<code>java.lang.Class</code>对象</strong>，作为方法区对这个类的各种数据的访问入口</li>
 </ol>
-<hr>
 <p>对于加载来源的补充， <code>.class</code>文件可以来自：本地直接加载、网络获取、zip压缩包直接读取的（jar、war格式的基础）、<strong>运行时自动生成</strong>（动态代理技术）、其他文件生成（例如JSP文件）、从加密文件中获取（防止反编译）</p>
 <h4 id="Linking-链接"><a href="#Linking-链接" class="headerlink" title="Linking 链接"></a>Linking 链接</h4><p>链接有三个步骤：</p>
 <ol>
@@ -697,7 +695,7 @@
 </ul>
 <hr>
 <p>注意：JVM必须知道一个类是由哪个加载器加载的！</p>
-<p>对于非启动类加载器加载的类，JVM会将类加载器的<strong>引用</strong>做为类型信息的一部分放在<strong>方法区</strong></p>
+<p>对于非启动类加载器加载的类，JVM会将类加载器的<strong>引用</strong>做为类型信息的一部分放在方法区</p>
 <p>JVM解析一个类型到另一个类型的引用时，JVM需要保证这两个类加载器是相同的</p>
 <hr>
 <blockquote>
@@ -716,7 +714,6 @@
 <p>被动使用是指没有直接引用类，而是通过其他途径间接引用类，<strong>不会导致类的初始化，只会触发类的加载</strong>：</p>
 <ol>
 <li>访问类的常量：访问类的常量（被<code>final</code>修饰的基本类型或字符串类型）。</li>
-<li>引用类的静态变量：通过子类引用父类的静态变量。</li>
 <li>使用类的数组：使用数组类型，该数组的元素类型是类，不会触发该类的初始化。</li>
 <li>通过子类引用父类的静态变量：通过子类引用父类的静态变量，不会触发子类的初始化。</li>
 <li>通过类名获取<code>Class</code>对象：通过<code>Class.forName(&quot;ClassName&quot;)</code>获取类的<code>Class</code>对象，不会触发该类的初始化。</li>
@@ -766,7 +763,7 @@
 </blockquote>
 <p>如果不设置PC为私有，那么就得把PC内的值存到一个地方，这样切换线程时，需要不停的存PC读PC，增大了切换线程的开销。要是给每个线程一个PC，那么切换就消除了这个开销。</p>
 <h3 id="JVM-Stack"><a href="#JVM-Stack" class="headerlink" title="JVM Stack"></a>JVM Stack</h3><blockquote>
-<p>一个硬骨头</p>
+<p>一块硬骨头，核心部分</p>
 </blockquote>
 <h4 id="功能-1"><a href="#功能-1" class="headerlink" title="功能"></a>功能</h4><p>保存程序运行期间的局部变量（8种基本数据对象、引用对象的<strong>地址</strong>）、部分结果、参与方法的返回和调用</p>
 <h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ul>
@@ -807,10 +804,7 @@
 </li>
 </ul>
 <hr>
-<blockquote>
-<p>栈帧的结构</p>
-</blockquote>
-<p>有五个部分：</p>
+<p>栈帧的结构，由五个部分组成：</p>
 <ul>
 <li><strong>局部变量表</strong> Local Variables （LV）</li>
 <li><strong>操作数栈</strong> Oprand Stack （或叫表达式栈 OS）</li>
@@ -837,8 +831,8 @@
 <p>局部变量表还有一个概念就是 <strong>插槽 Slot</strong>，Slot是<strong>局部变量表最基本的存储单元</strong>，他有这样几个特点：</p>
 <ul>
 <li><code>byte short char bool</code>存储前会被转换为<code>int</code></li>
-<li>32位以内占用一个slot（包括<strong>引用类型</strong> 和 **<code>returnAddress</code>**）；64位占用两个slot 如<code>long double</code></li>
-<li>JVM会给每一个槽都分配一个索引，通过这个索引则可以取到值；方法被调用时，它的方法参数和局部变量都会<strong>按照顺序</strong>被复制到局部变量表的一个<code>slot</code>上</li>
+<li>32位以内占用一个slot（包括<strong>引用类型</strong> 和 <code>returnAddress</code>）；64位占用两个slot 如<code>long double</code></li>
+<li>JVM会给每一个槽都分配一个索引，通过这个索引则可以取到值；方法被调用时，它的<strong>方法参数</strong>和<strong>局部变量</strong>都会<strong>按照顺序</strong>被复制到局部变量表的一个<code>slot</code>上</li>
 <li>对于<strong>构造方法</strong>和<strong>实例方法</strong>，会自动引入一个<strong>this变量</strong>，放在index为0的插槽（也就是第一个插槽）</li>
 </ul>
 <p>举个例子：</p>
@@ -859,9 +853,9 @@
 <p><img src="http://img.yesmylord.cn//image-20210715233306525.png" alt="slot的重用"></p>
 <p>JVM执行这个方法时，执行过程如下：</p>
 <ol>
-<li>实例方法<code>this</code>来一个槽 (slot: 0)</li>
-<li>变量 <code>a b</code>各来一个槽 (slot: 1, 2)</li>
-<li>有<code>c</code>再来一个槽 (slot: 3)</li>
+<li>实例方法<code>this</code>用一个槽 (slot: 0)</li>
+<li>变量 <code>a b</code>各用一个槽 (slot: 1, 2)</li>
+<li>有<code>c</code>再用一个槽 (slot: 3)</li>
 <li>诶，<code>c</code>消失了，那就让<code>i</code>用<code>c</code>的槽吧 (slot: 3)</li>
 <li>诶，<code>i</code>也无了，变量<code>d</code>去用吧 (slot: 3)</li>
 </ol>
@@ -953,12 +947,8 @@
 <p><code>c</code>方法线程不安全，因为它将<code>StringBuilder</code>返回出去（逃逸），没有完完全全在VMS内产生，又在VMS内消亡，所以会有线程安全问题</p>
 <p>总结：方法内什么样的局部变量不会出现线程安全问题呢？<strong>就是既在方法内产生，又在方法内消亡的局部变量。</strong></p>
 <h3 id="Native-Method-Stack"><a href="#Native-Method-Stack" class="headerlink" title="Native Method Stack"></a>Native Method Stack</h3><p><code>VMS</code>用来管理Java方法调用，<code>NMS</code>来管理本地方法调用</p>
-<p>作用：</p>
-<ul>
-<li>登记方法中使用到的本地方法</li>
-</ul>
+<p>作用：登记方法中使用到的本地方法</p>
 <p>注意，当调用本地方法时，就不再受虚拟机控制了！</p>
-<hr>
 <h3 id="Java-Heap"><a href="#Java-Heap" class="headerlink" title="Java Heap"></a>Java Heap</h3><blockquote>
 <p>另一块硬骨头</p>
 </blockquote>
@@ -1041,7 +1031,7 @@
 <p>但去验证一下，会发现其实并不是完全的<code>8:1:1</code>，因为默认开启<strong>自适应</strong>，JVM会自动进行调整（但就算显示关闭自适应，也不会是<code>8:1:1</code>，只有显示声明参数设<code>-XX:SurvivorRatio=8</code>，才会是<code>8:1:1</code>）</p>
 <ul>
 <li><strong>几乎所有</strong>的Java对象都在Eden区被new（例外：直接new了一个大于Eden区的对象）</li>
-<li><strong>绝大部分</strong>Java对象都再新生代被销毁了</li>
+<li><strong>绝大部分</strong>Java对象都在新生代被销毁了</li>
 </ul>
 <h4 id="对象的分配过程"><a href="#对象的分配过程" class="headerlink" title="对象的分配过程"></a>对象的分配过程</h4><blockquote>
 <p>重点！</p>
@@ -1054,9 +1044,11 @@
 <li><code>Eden</code>区未满：直接放入</li>
 </ul>
 </li>
-<li>触发**<code>YGC/Minor GC</code>**，清除游离的对象（会对<code>Survivor</code>与<code>Eden</code>都进行清理）</li>
-<li>将剩余的对象转至<code>to</code>区，并将<code>from</code>区内依然存在的对象也放入<code>to</code>区，对象每经历一次<code>YGC</code>，就会将一个属性值<code>+1</code></li>
+<li>触发<code>YGC/Minor GC</code>，清除游离的对象（会对<code>Survivor</code>与<code>Eden</code>都进行清理）<ol>
+<li>清楚后，将剩余的对象转至<code>to</code>区，并将<code>from</code>区内依然存在的对象也放入<code>to</code>区，对象每经历一次<code>YGC</code>，就会将一个属性值<code>+1</code></li>
 <li>若此属性值，大于设置的<strong>阈值</strong>（默认是15），就会<code>promotion</code>（晋升）进入老年代</li>
+</ol>
+</li>
 </ol>
 <p>流程如图：</p>
 <p><img src="http://img.yesmylord.cn//image-20210719000049373.png" alt="对象内存分配流程图"></p>
@@ -1071,10 +1063,7 @@
 </ul>
 <p>另外还有一个拼音问题：</p>
 <p><strong>阈值 （yu zhi）</strong>，阀值就是阈值的错写而已，并不存在阀值这个词（我还念了十几年 fa zhi，没文化，真可怕 &gt;_&lt; ）</p>
-<h4 id="Minor-GC、Major-GC、Full-GC区分"><a href="#Minor-GC、Major-GC、Full-GC区分" class="headerlink" title="Minor GC、Major GC、Full GC区分"></a>Minor GC、Major GC、Full GC区分</h4><blockquote>
-<p>分类：</p>
-</blockquote>
-<p>HotSpot VM的实现，把GC分为两大种类型：</p>
+<h4 id="Minor-GC、Major-GC、Full-GC区分"><a href="#Minor-GC、Major-GC、Full-GC区分" class="headerlink" title="Minor GC、Major GC、Full GC区分"></a>Minor GC、Major GC、Full GC区分</h4><p>HotSpot VM的实现，把GC分为两大种类型：</p>
 <ul>
 <li><strong>部分收集（Partial GC）</strong><ul>
 <li>新生代收集（Minor GC / Young GC）：只对新生代进行垃圾收集</li>
@@ -1083,7 +1072,7 @@
 </ul>
 </li>
 <li>混合收集（Mixed GC）：收集<strong>整个新生代及部分老年代</strong><ul>
-<li>只有<code>G1 GC</code>会有Mixed GC</li>
+<li>只有<strong>G1 GC</strong>会有Mixed GC</li>
 </ul>
 </li>
 </ul>
@@ -1141,7 +1130,7 @@
 </blockquote>
 <ul>
 <li>堆是线程共享的区域，TLAB是堆上属于线程私有的区域</li>
-<li><code>TLAB</code>在<code>Eden</code>区，仅占<code>Eden</code>空间的**%1**，我们可以通过选项<code>-XX:TLABWasteTargetPercent</code>来设置TLAB空间所占的大小</li>
+<li><code>TLAB</code>在<code>Eden</code>区，仅占<code>Eden</code>空间的1%，我们可以通过选项<code>-XX:TLABWasteTargetPercent</code>来设置TLAB空间所占的大小</li>
 <li>JVM首选<code>TLAB</code>进行分配，如果内存不够大，会使用<strong>锁方式</strong>确保原子性，在非<code>TLAB</code>的<code>Eden</code>区域进行分配</li>
 </ul>
 <blockquote>
@@ -1217,7 +1206,7 @@
 </ol>
 <p>逃逸分析技术并不成熟：</p>
 <p>​        其根本原因就是<strong>无法保证逃逸分析的性能消耗一定能高于他的消耗</strong>。虽然经过逃逸分析可以做标量替换、栈上分配、和锁消除。但是逃逸分析自身也是需要进行一系列复杂的分析的，这其实也是一个相对耗时的过程。</p>
-<p>​        所以呢<strong>HotSpot VM没有采用</strong>栈上分配这种方式，所以<strong>在Java中所有对象都是在栈上分配的</strong>。</p>
+<p>​        所以呢<strong>HotSpot VM没有采用</strong>栈上分配这种方式，所以<strong>在Java中所有对象都是在堆上分配的</strong>。</p>
 <hr>
 <p>（具体Java对象会不会栈上分配，这有一些争议。很多博客都写着，因为new 100w个user，开启逃逸分析后，堆中只会存放30w，少了很多，就认为对象可以在栈上存放，但是这些只能说明标量替换的效果，并不能证明真正实现了栈上分配；我查阅多个较为靠谱的资料，可以总结以下内容，如果有错误，请指正！）</p>
 <p>结论如下：</p>
@@ -2023,7 +2012,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:35</span>
+    <span title="站点阅读时长">16:39</span>
   </span>
 </div>
 <div class="busuanzi-count">
