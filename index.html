@@ -288,7 +288,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-21 13:45:47" itemprop="dateModified" datetime="2023-07-21T13:45:47+08:00">2023-07-21</time>
+      <time title="修改时间：2023-07-21 13:51:34" itemprop="dateModified" datetime="2023-07-21T13:51:34+08:00">2023-07-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -328,167 +328,14 @@
           <center>
 引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0
 </center>
-# QUIC
-
-<blockquote>
-<p>Quick UDP Internet Connections 快速UDP网络连接</p>
-</blockquote>
-<h2 id="QUIC出现的背景"><a href="#QUIC出现的背景" class="headerlink" title="QUIC出现的背景"></a>QUIC出现的背景</h2><p>QUIC的提出源自于HTTP存在的问题：<a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/">关于HTTP存在的问题查看此篇</a></p>
-<ul>
-<li>HTTP1.0存在的问题：无状态、明文传输、无认证、无完整性校验、非持续连接、串行发送、队头阻塞</li>
-<li>HTTP1.1（1997）遗留的问题：队头阻塞、串行发送、数据包头无压缩且重复发送、服务器只能被动响应客户端的请求<ul>
-<li>无状态：使用Cookie来解决（严格意义来讲，无状态不是一个缺点，是HTTP的特性）</li>
-<li>明文传输、无认证、无完整性校验：结合TLS解决（即HTTPS）</li>
-<li>非持续连接：使用<code>Connection:Keep-Alive</code>解决</li>
-<li>队头阻塞：使用管道网络传输解决，可以无需等待响应就可以发送第二个请求，<strong>但是</strong>接收的响应必须是按顺序的，这意味着，如果返回的其中一个响应出现意外，之后的响应仍然不能接受。（管道网络解决了，但是没有解决）</li>
-</ul>
-</li>
-<li>HTTP2.0（2015）仍存在的问题：<strong>队头阻塞</strong>（只解决了应用层面的队头阻塞，TCP的队头阻塞依然存在，如果出现丢包，就需要等待TCP重传）<ul>
-<li>头部压缩：<strong>HPACK算法</strong>解决，在客户端与服务端维护关于数据包头的表，每次发送的包头将不再发送重复部分</li>
-<li>二进制化：HTTP2.0下的消息头和消息体都是二进制格式，加快了识别的速度，称为<strong>帧</strong>：头信息帧和数据帧</li>
-<li>并行发送：2.0使用<strong>多路复用</strong>解决，可以在一个连接中并行发送多个请求</li>
-<li>队头阻塞：2.0对于响应无需再按顺序，报文拆分为首部帧和数据帧，数据帧有<strong>流标识符</strong>标记顺序，以此实现无序接收的问题</li>
-<li>服务器推送：服务器可以主动推送静态资源给客户端（对于客户端：如果用户只是点错了，那么他的浏览器也会承担巨多的资源响应，增大负担；对于服务端：可能会带来DDoS攻击）</li>
-</ul>
-</li>
-<li>HTTP3.0（2019）：仅仅四年就推出了3.0，说明克服TCP的性能障碍刻不容缓<ul>
-<li>基于QUIC：QUIC整合了TCP与TLS，总的来说有</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>问题1：QUIC的提出是为了解决TCP存在的问题的，为什么不修改TCP协议呢？</p>
-</blockquote>
-<p>市面上所有的OS内核，均设计了TCP的实现，修改TCP原有的实现不太现实，而恰好传输层还有一个UDP，就可以依赖于UDP实现TCP的功能了</p>
-<h2 id="TLS1-2与1-3"><a href="#TLS1-2与1-3" class="headerlink" title="TLS1.2与1.3"></a>TLS1.2与1.3</h2><p>这里插一点额外的知识，介绍一下TLS1.2与1.3的区别</p>
-<h3 id="TLS1-2握手细则"><a href="#TLS1-2握手细则" class="headerlink" title="TLS1.2握手细则"></a>TLS1.2握手细则</h3><p>在TCP连接建立后，在TLS协议中，DH用于密钥交换，RSA用于数字签名和证书验证：</p>
-<blockquote>
-<p>RSA与DH算法的区别：</p>
-<p>RSA也可以进行秘钥交换，只不过不满足<strong>前向安全</strong>特性，这意味着一旦私钥暴露，这意味着之前的所有消息都暴露；而DH算法却不会。</p>
-<p>“Diffie-Hellman Key Exchange”（迪菲-赫尔曼密钥交换协议）：通过每次设置不同的随机数来保证即使密钥暴露，也不会暴露之前的消息内容</p>
-</blockquote>
-<p>下面是TLS1.2的握手细则：</p>
-<ol>
-<li><strong>客户端发起握手</strong>：客户端向服务器发送一个<strong>ClientHello</strong>消息<ul>
-<li>消息包含：TLS版本（客户端支持的版本）、<strong>加密套件</strong>、<strong>Client Random第1随机数</strong>（32字节的随机数）</li>
-</ul>
-</li>
-<li><strong>服务器回应</strong>：收到ClientHello后，向客户端发送一个<strong>ServerHello</strong>消息<ul>
-<li>消息包含：TLS版本（服务端选择具体使用什么版本）、<strong>加密套件</strong>、<strong>Server Random第2随机数</strong>（32字节随机数）</li>
-</ul>
-</li>
-<li><strong>服务器发送数字证书给客户端（可选）</strong>：服务端发送<strong>Certificate</strong>消息，证书包含<strong>公钥</strong>与证书信息（注意：这一步与上一步是两条响应消息）<ul>
-<li>浏览器收到Certificate消息，对照信任证书列表，确认证书是否可信</li>
-</ul>
-</li>
-<li><strong>服务器端发送ServerKeyExchange消息（可选）</strong>：<ul>
-<li>对于RSA算法，它的公钥在数字证书内，因此不需要发送ServerKeyExchange</li>
-<li>对于DH算法或是ECDH算法，服务器将在ServerKeyExchange消息中发送DH协商参数，包括DH公共参数和DH签名等信息</li>
-</ul>
-</li>
-<li>服务器端发送<strong>ServerHelloDone</strong>消息：告诉自己发完了</li>
-<li><strong>客户端认证证书与密钥交换</strong>：Client Key Exchange、Change Ciper Spec、Encrypted Handshake Message消息<ul>
-<li>验证数字证书是否合法：如果认证通过，客户端生成一个48字节的随机数作为<strong>预主秘钥</strong>（Pre-Master Secret，<strong>第3随机数</strong>）且使用公钥加密，然后发送给服务器，服务器使用自己的私钥解密，得到预主秘钥</li>
-</ul>
-</li>
-<li><strong>计算获得会话秘钥</strong>：<strong>服务器和客户端都使用第1、2随机数</strong>生成一个<strong>对称加密密钥</strong>，该密钥将用于后续通信的加密和解密。</li>
-</ol>
-<blockquote>
-<p>解释一下第1随机数、第2随机数、预主密钥、主密钥之间的关系：</p>
-</blockquote>
-<p>预主密钥的生成依赖于客户端和服务器的随机数，而主秘钥的生成依赖于预主密钥；</p>
-<p>预主密钥是一个临时的对称秘钥，为了临时密钥交换和生成后续加密所需密钥；</p>
-<p>主秘钥是一个对称秘钥，加密会话。</p>
-<p>换句话说：预主密钥就是临时使用一下，之后可以升级为主秘钥</p>
-<blockquote>
-<p>解释一下这里的安全套件：</p>
-</blockquote>
-<p>安全套件是在客户端与服务器进行握手时，协商的一些加密的具体细则，TLS1.2中有37种不同的组合，这里给出其中一种：<code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code></p>
-<ul>
-<li>TLS：表示协议</li>
-<li>ECDHE：表示秘钥交换协议，ECDHE是椭圆曲线的DH算法</li>
-<li>RSA：证书验证、数字签名使用RSA</li>
-<li>AES_256：对称加密算法</li>
-<li>GCM：GCM是一种加密模式，它结合了加密和认证，并提供高效的加密性能</li>
-<li>SHA384：哈希算法（散列算法）</li>
-</ul>
-<h3 id="TLS1-3优化"><a href="#TLS1-3优化" class="headerlink" title="TLS1.3优化"></a>TLS1.3优化</h3><p>TLS1.3在方方面面对1.2进行了优化</p>
-<ul>
-<li><strong>前向安全问题</strong>：<ul>
-<li>1.2：静态的（即每次不设置随机数来生成秘钥）RSA算法和DH算法均存在前向不安全问题</li>
-<li>1.3：移除了静态的RSA密钥交换算法和静态的DH密钥交换算法（即现在只能使用动态的DH做密钥交换）</li>
-</ul>
-</li>
-<li><strong>握手建立</strong>：<ul>
-<li>1.2：一开始的握手消息，即<code>ClientHello</code>与<code>ServerHello</code>是明文的，因此如果黑客截获<code>ClientHello</code>，通知服务器使用低版本的TLS协议，安全性就会变差</li>
-<li>1.3：优化了握手步骤</li>
-</ul>
-</li>
-<li><strong>加密套件</strong>：<ul>
-<li>1.2：给出了37种不同组合的加密套件，格式为协议、秘钥交换、对称加密、哈希算法<code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code></li>
-<li>1.3：建议支持五种，格式为协议、对称加密、哈希<code>TLS_AES_256_GCM_SHA384</code>（去掉了密钥交换算法的部分）</li>
-</ul>
-</li>
-<li>秘钥交换算法：<ul>
-<li>1.3：只支持三种密钥交换算法，分别是(EC)DHE、PSK-only（类似一种对称加密的方式）、PSK with (EC)DHE，而且去掉了很多不安全的加密算法</li>
-</ul>
-</li>
-<li>0-RTT恢复（一个RTT代表一次往返时间）<ul>
-<li>1.2：2RTT</li>
-<li>1.3：1RTT</li>
-</ul>
-</li>
-</ul>
-<p><strong>TLS1.3握手细则</strong>：</p>
-<ol>
-<li> 客户端ClientHello消息：第一随机数、密码套件、<strong>直接生成DH随机参数</strong></li>
-</ol>
-<ul>
-<li>由于减少了加密套件的可选策略，因此1.3的握手可以在第一次就决定DH参数</li>
-</ul>
-<ol start="2">
-<li>服务器发送ServerHello：第二随机数、DH参数</li>
-<li>服务器发送证书给客户端</li>
-<li>客户端收到证书，验证证书合法性，生成预主秘钥，发送给服务器</li>
-<li>客户端和服务器通过预主秘钥得到主秘钥，即会话秘钥（对称秘钥）</li>
-</ol>
-<p>总结：TLS1.3主要优化掉了协商DH参数的部分来加快连接的建立</p>
-<h3 id="0-RTT"><a href="#0-RTT" class="headerlink" title="0-RTT"></a>0-RTT</h3><p>TLS 1.3中引入了0-RTT（零往返时间）的优化机制。</p>
-<p>如果客户端和服务器之前已经建立过TLS 1.3连接并拥有有效的会话票据（session ticket），在后续的重连时，可以使用0-RTT模式来加快连接的建立</p>
-<p>注意：<strong>0-RTT是存在安全性问题的</strong></p>
-<h2 id="QUIC网络模型"><a href="#QUIC网络模型" class="headerlink" title="QUIC网络模型"></a>QUIC网络模型</h2><p>QUIC的特点：</p>
-<ul>
-<li>整合了HTTP2.0的多路复用、流量控制</li>
-<li>整合了TLS1.3的安全加密方式</li>
-<li>整合了TCP的握手、拥塞控制、流量控制</li>
-<li>依托于UDP</li>
-</ul>
-<p>QUIC虽然是应用层协议HTTP3依赖的协议，但QUIC本质还是一个应用层协议，其依托于运输层的UDP，设计的核心思想都是来源于TCP和TLS</p>
-<p>QUIC的数据包裹在UDP的用户报内发送：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mg411s7mP/?spm_id_from=333.788&vd_source=c8709f8826bf296abab8aeee72b0e338">如图所示</a></p>
-<p><img src="http://img.yesmylord.cn//image-20230721132042394.png" alt="图源见link"></p>
-<p><img src="http://img.yesmylord.cn//image-20230721132215082.png" alt="图源见link"></p>
-<p>每一个QUIC包都有独立的编号，丢失某一个只需重传那一个，依次解决了TCP存在的队头阻塞问题</p>
-<p><img src="http://img.yesmylord.cn//image-20230721133024653.png" alt="QUIC建立连接对比"></p>
-<p><strong>QUIC和TLS1.3一样，首次需要1RTT，重新建立连接只需要0RTT</strong></p>
-<p>并且，QUIC规定了<strong>连接ID</strong>：</p>
-<ul>
-<li>在TCP连接中，一个TCP连接的建立依赖于源IP、源端口、目的IP、目的端口，只要一个发生变化，就需要重新建立TCP连接</li>
-<li>在QUIC定义连接ID，只要连接ID不变，就不会重新建立连接</li>
-</ul>
-<h2 id="QUIC总结"><a href="#QUIC总结" class="headerlink" title="QUIC总结"></a>QUIC总结</h2><p>QUIC的优点：</p>
-<ul>
-<li><strong>QUIC连接建立快</strong>：QUIC与TLS1.3一样，有1RTT和0RTT的设计，QUIC还有连接ID，这些都是为了减少连接交互，减少连接次数而设计的</li>
-<li><strong>QUIC扛丢包能力强</strong></li>
-<li><strong>自带加密，多路复用</strong>：因为融合了TLS和HTTP2</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>兼容性与部署问题：一种新型协议，对中间设备、运营商、浏览器都需要支持</li>
-<li>比较耗CPU性能</li>
-<li>报文头部比较大</li>
-<li>0RTT将没有前向安全性</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/QUIC/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -542,9 +389,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-07-20 17:13:39 / 修改时间：17:13:55" itemprop="dateCreated datePublished" datetime="2023-07-20T17:13:39+08:00">2023-07-20</time>
+      <time title="创建时间：2023-07-20 17:13:39" itemprop="dateCreated datePublished" datetime="2023-07-20T17:13:39+08:00">2023-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-21 13:51:26" itemprop="dateModified" datetime="2023-07-21T13:51:26+08:00">2023-07-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -584,47 +437,14 @@
           <center>
 引言：Virtual Private Network，也称为网络隧道
 </center>
-
-<h1 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h1><blockquote>
-<p>Virtual Private Network 虚拟私人网络，通过<strong>加密和隧道技术</strong>在公共网络上创建一条安全的、私密的通信通道</p>
-</blockquote>
-<h2 id="VPN出现的背景"><a href="#VPN出现的背景" class="headerlink" title="VPN出现的背景"></a>VPN出现的背景</h2><ul>
-<li><p>在1996年，互联网还处于HTTP交互时代，而HTTP是明文传输的，传输的数据容易被窃取或篡改</p>
-</li>
-<li><p>远程办公的需要，而企业或学校内部的网络无法被外网连接（站点到站点的通信）</p>
-</li>
-</ul>
-<h2 id="VPN原理"><a href="#VPN原理" class="headerlink" title="VPN原理"></a>VPN原理</h2><p>假设现在中国分公司上班的Alice需要访问在美国的总公司：</p>
-<ol>
-<li>Alice将请求发送给<strong>VPN服务器</strong>（或称为VPN集线器、VPN网关）</li>
-<li>VPN服务器会将Alice的源地址与目的地址封装起来，发送给在美国的VPN服务器</li>
-<li>美国的VPN服务器拆包，发送到真正要发送的目的地址</li>
-</ol>
-<p>这样在外人（ISP）看来，只是两个VPN服务器在通信，就达到了隐私的目的。</p>
-<p>VPN还需要保证数据加密（AES等）、数据完整（HASH校验）、以及身份认证（RSA、用户名密码、或是PKI）</p>
-<h2 id="VPN主要的核心两大协议"><a href="#VPN主要的核心两大协议" class="headerlink" title="VPN主要的核心两大协议"></a>VPN主要的核心两大协议</h2><p>VPN的最大作用就是安全，他使用两种协议来保证安全：</p>
-<ul>
-<li>SSL/TLS（Secure Socket Layer/Transport Layer Security）</li>
-<li>IPSec（Internet Protocol Security）</li>
-</ul>
-<h3 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h3><p>即HTTPs中的s，SSL（Secure Socket Layer）是TLS（Transport Layer Security）的前身。<strong>TLS是SSL的升级版</strong>，它是在SSL的基础上发展而来的，提供更强大的加密和安全性。</p>
-<p>SSL/TLS建立连接在TCP三次握手建立连接之后，服务器就会返回给浏览器一个数字证书，浏览器向CA机构验证证书完整性，然后混合使用对称加密与非对称加密：</p>
-<ul>
-<li>通信建立前：采用<strong>非对称秘钥加密</strong>的方式交换<strong>会话秘钥</strong>，后续就不再使用非对称加密</li>
-<li>通信过程中：全部使用<strong>对称加密</strong>来加密明文数据</li>
-</ul>
-<h3 id="IPSec"><a href="#IPSec" class="headerlink" title="IPSec"></a>IPSec</h3><p>TLS是位于传输层与应用层之间的协议，这意味着，在应用层的下三层，数据依旧是透明的。</p>
-<p>IPSec是网络层的协议（与IP同一层）负责加密IP包，保证网络层到网络层的通信也是加密后的。</p>
-<h2 id="使用VPN是否万无一失"><a href="#使用VPN是否万无一失" class="headerlink" title="使用VPN是否万无一失"></a>使用VPN是否万无一失</h2><blockquote>
-<p>问题1：既然VPN保密了我们访问的目的地址，就真的万无一失了吗？</p>
-</blockquote>
-<p>有这几种情况可能暴露我们访问的目的地址：</p>
-<ol>
-<li>浏览器的隐私设置：浏览器保存的浏览历史、Cookie、缓存</li>
-<li>不靠谱的VPN提供商：VPN服务商出卖了我们（免费的或是不可信的VPN经常这么做，他们出卖数据给第三方）</li>
-<li>DNS解析：DNS解析请求暴露我们将要访问的网站，好的VPN服务商会使用自己的DNS服务器。</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/VPN/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -686,7 +506,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-20 16:36:06" itemprop="dateModified" datetime="2023-07-20T16:36:06+08:00">2023-07-20</time>
+      <time title="修改时间：2023-07-21 13:51:41" itemprop="dateModified" datetime="2023-07-21T13:51:41+08:00">2023-07-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -726,117 +546,14 @@
           <center>
 引言：CDN不是一个单独的应用层协议，而是一种基于网络架构和技术的内容分发解决方案
 </center>
-
-<h1 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h1><h2 id="CDN本质"><a href="#CDN本质" class="headerlink" title="CDN本质"></a>CDN本质</h2><blockquote>
-<p>CDN（Content Delivery Networks，或CDNs）内容分发网络：本质是一个<strong>网络层面的分布式缓存架构</strong></p>
-</blockquote>
-<p>目的：在全球范围内部署分布式缓存节点，<strong>将内容存储在离用户更近的位置</strong>，从而减少传输延迟，提高内容的访问速度和性能</p>
-<blockquote>
-<p>问题1：所谓的内容分发，其中的“内容”具体指网页的什么内容？</p>
-</blockquote>
-<p>一个网页通常有：</p>
-<ul>
-<li>静态数据：HTML、CSS、JavaScript、图像、字体、文件、视频和流媒体</li>
-<li>动态数据：用户的个人数据、视频的点赞量、收藏量</li>
-</ul>
-<p>静态数据通常不会发生变化，CDN可以将这些数据缓存起来，当用户访问时就无需将请求发送到源服务器，加快响应速度。</p>
-<p>（注意：CDN并不是只能缓存静态数据，有些情况下也缓存了动态数据）</p>
-<h2 id="CDN内容分发的流程"><a href="#CDN内容分发的流程" class="headerlink" title="CDN内容分发的流程"></a>CDN内容分发的流程</h2><p>CDN的网络布局有三种角色构成：客户端、服务器、CDN服务器</p>
-<p>如图所示：</p>
-<p><img src="http://img.yesmylord.cn//CDN%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6.png" alt="CDN缓存机制"></p>
-<p>假设现在有客户端A、B：</p>
-<ol start="0">
-<li>服务器会将静态资源主动push到CDN服务器</li>
-<li>客户端A发送请求</li>
-<li>CDN缓存命中，直接响应</li>
-<li>客户端B发送请求</li>
-<li>CDN缓存未命中，执行pull操作，请求源服务器<ul>
-<li>关于未命中的原因有很多，需要根据具体的缓存策略来考虑</li>
-</ul>
-</li>
-<li>响应给客户端的同时缓存在本地CDN缓存中</li>
-</ol>
-<blockquote>
-<p>问题2：为什么会出现缓存未命中呢？CDN如何判断资源是否过期？</p>
-</blockquote>
-<p>缓存未命中的原因有很多：比如资源过期、或是其中含有动态数据</p>
-<p>判断资源过期由不同的缓存策略决定：</p>
-<ul>
-<li><strong>时间戳过期</strong>：根据文件的时间戳判断是否过期，当时间戳发生变化时，CDN服务器会重新请求最新的内容。</li>
-<li><strong>HTTP头部控制</strong>：通过HTTP头部中的<code>Cache-Control</code>、<code>Expires</code>等字段来控制缓存过期时间。</li>
-<li><strong>内容分片</strong>：将内容分成多个小块进行缓存，可以更灵活地更新和替换内容。（比如HLS（HTTP Live Streaming）将视频和音频源文件编码并切割成小的<code>.ts</code>分段）</li>
-</ul>
-<blockquote>
-<p>问题3：CDN与Nginx的关系</p>
-</blockquote>
-<p>CDN服务器的具体实现和使用的软件可以有多种选择，其中Nginx是一个常见且广泛应用于CDN架构中的服务器软件之一</p>
-<p>Nginx是一个web服务器软件，提供高性能的静态资源服务、反向代理等功能，他与Java服务端软件Tomcat经常配合使用，<strong>可以将Nginx作为反向代理服务器，将静态资源交给Nginx处理，动态请求转发给Tomcat</strong>。这种结合使用的方式可以充分利用Nginx的高性能和Tomcat的动态内容处理能力</p>
-<h2 id="CDN内容分发的原理：任播"><a href="#CDN内容分发的原理：任播" class="headerlink" title="CDN内容分发的原理：任播"></a>CDN内容分发的原理：任播</h2><blockquote>
-<p>任播（Anycast）是一种网络技术，并不是某个特定的应用或协议。</p>
-<p>用户无论位于世界的哪个地方，都可以通过最近的缓存节点获取内容，减少了数据传输的延迟和网络拥塞，任播广泛应用于负载均衡、内容分发网络（CDN）、域名系统（DNS）等</p>
-</blockquote>
-<p>任播的主要特点是它不依赖于特定的源节点和目标节点之间的一对一连接，而是将数据包传输到最近的可用节点，使得数据能够快速到达用户或目标地点。</p>
-<p><strong>CDN使用任播来实现内容的分发和路由</strong></p>
-<blockquote>
-<p>问题4：任播如何判断距离远近？</p>
-</blockquote>
-<p>任播的实现依赖于网络路由协议和底层网络设备的支持：</p>
-<p><img src="http://img.yesmylord.cn//image-20230719224602944.png" alt="任播的IP地址共享"></p>
-<ul>
-<li><strong>IP地址共享</strong>：在任播中规定，<strong>多个不同位置的节点共享同一个IP地址</strong>。<ul>
-<li>这意味着在网络中的不同位置都存在具有相同IP地址的节点。当有数据包发送到该IP地址时，路由器会根据一定的规则选择距离最近的节点来处理数据包。</li>
-</ul>
-</li>
-<li><strong>路由选择</strong>：路由器在选择处理数据包的节点时，会根据网络拓扑和距离等因素进行选择。它可能使用基于距离向量的路由协议（如RIP、BGP）或链路状态协议（如OSPF）来获取网络拓扑信息并做出路由决策。</li>
-</ul>
-<blockquote>
-<p>问题5：任播与组播的区别</p>
-</blockquote>
-<ul>
-<li>工作方式：<ul>
-<li>组播：数据包从一个发送者传输给<strong>一组IP地址</strong>（多个节点，不同IP）</li>
-<li>任播：数据包从一个发送者传输给<strong>一个IP地址</strong>（多个节点，相同IP）</li>
-</ul>
-</li>
-<li>数据包：<ul>
-<li>组播：只需被发送一次，但可以被多个接收者共享</li>
-<li>任播：一个数据包被发送到多个服务器，但只有最近的服务器会处理该数据包</li>
-</ul>
-</li>
-<li>应用场景：<ul>
-<li>组播：实时视频、在线会议</li>
-<li>任播：负载均衡、CDN</li>
-</ul>
-</li>
-</ul>
-<h2 id="补充：HTTP头部关于缓存的字段"><a href="#补充：HTTP头部关于缓存的字段" class="headerlink" title="补充：HTTP头部关于缓存的字段"></a>补充：HTTP头部关于缓存的字段</h2><p><code>Cache-Control</code>是HTTP/1.1引入的缓存控制机制，而<code>Expires</code>与<code>Last-Modified</code>是HTTP/1.0中的一种旧有的缓存机制，在HTTP/1.1中被<code>Cache-Control</code>所取代，但由于向下兼容的原因，依然保留这两个字段：</p>
-<ol>
-<li><code>Cache-Control</code>字段：<ul>
-<li><code>Cache-Control</code>是一个通用的头部字段，用于控制缓存行为。它可以包含多个指令，指定缓存的行为方式。</li>
-<li>常见的<code>Cache-Control</code>指令包括：<ul>
-<li><code>public</code>：响应可以被任何缓存（包括公共缓存）缓存。</li>
-<li><code>private</code>：响应只能被单个用户缓存，不可被共享缓存存储。</li>
-<li><code>no-cache</code>：需要进行重新验证，缓存必须向服务器发送请求进行确认。</li>
-<li><code>max-age=&lt;seconds&gt;</code>：指定响应的有效时间，单位为秒。</li>
-</ul>
-</li>
-<li><code>Cache-Control</code>的值可以是单个指令，也可以是多个指令通过逗号分隔。例如：<code>Cache-Control: max-age=3600, private</code></li>
-</ul>
-</li>
-<li><code>Expires</code>字段：<ul>
-<li><code>Expires</code>是一个HTTP响应头部字段，用于指定响应的过期时间。</li>
-<li>它的值是一个GMT（格林尼治标准时间）格式的日期时间字符串，指定了响应在该日期时间之后将被认为是过期的。</li>
-<li>如果<code>Expires</code>字段的日期时间已经过去，那么客户端会发送一个新的请求来获取最新的内容，而不是使用缓存中的过期内容。</li>
-<li>注意，<code>Expires</code>字段的缺点是它使用的是服务器的时间，而客户端和服务器的时间可能不完全同步。</li>
-</ul>
-</li>
-<li><code>Last-Modified</code>字段：<ul>
-<li><code>Last-Modified</code>是一个表示资源最后修改时间的头部字段，由服务器在响应中返回。</li>
-<li>客户端可以通过发送<code>If-Modified-Since</code>头部字段，携带先前获取的<code>Last-Modified</code>值，来验证资源是否发生了修改。</li>
-</ul>
-</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/19/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/CDN/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

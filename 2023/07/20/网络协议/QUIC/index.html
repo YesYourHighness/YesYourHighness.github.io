@@ -23,18 +23,18 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0  # QUIC   Quick UDP Internet Connections 快速UDP网络连接  QUIC出现的背景QUIC的提出源自于HTTP存在的问题：关于HTTP存在的问题查看此篇  HTTP1.0存在的问题：无状态、明文传输、无认证、无完整性校验、非持续连接、串行发送、队头阻塞 H">
+    <meta name="description" content="引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0">
 <meta property="og:type" content="article">
 <meta property="og:title" content="QUIC协议">
 <meta property="og:url" content="http://yoursite.com/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/QUIC/index.html">
 <meta property="og:site_name" content="Hynis">
-<meta property="og:description" content="引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0  # QUIC   Quick UDP Internet Connections 快速UDP网络连接  QUIC出现的背景QUIC的提出源自于HTTP存在的问题：关于HTTP存在的问题查看此篇  HTTP1.0存在的问题：无状态、明文传输、无认证、无完整性校验、非持续连接、串行发送、队头阻塞 H">
+<meta property="og:description" content="引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20230721132042394.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20230721132215082.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20230721133024653.png">
 <meta property="article:published_time" content="2023-07-20T12:59:39.000Z">
-<meta property="article:modified_time" content="2023-07-21T05:45:47.685Z">
+<meta property="article:modified_time" content="2023-07-21T05:51:34.362Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="QUIC">
@@ -157,7 +157,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E5%87%BA%E7%8E%B0%E7%9A%84%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">QUIC出现的背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS1-2%E4%B8%8E1-3"><span class="nav-number">2.</span> <span class="nav-text">TLS1.2与1.3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS1-2%E6%8F%A1%E6%89%8B%E7%BB%86%E5%88%99"><span class="nav-number">2.1.</span> <span class="nav-text">TLS1.2握手细则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS1-3%E4%BC%98%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">TLS1.3优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-RTT"><span class="nav-number">2.3.</span> <span class="nav-text">0-RTT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">QUIC网络模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">QUIC总结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#QUIC"><span class="nav-number">1.</span> <span class="nav-text">QUIC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E5%87%BA%E7%8E%B0%E7%9A%84%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">QUIC出现的背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS1-2%E4%B8%8E1-3"><span class="nav-number">1.2.</span> <span class="nav-text">TLS1.2与1.3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS1-2%E6%8F%A1%E6%89%8B%E7%BB%86%E5%88%99"><span class="nav-number">1.2.1.</span> <span class="nav-text">TLS1.2握手细则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS1-3%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">TLS1.3优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-RTT"><span class="nav-number">1.2.3.</span> <span class="nav-text">0-RTT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">QUIC网络模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">QUIC总结</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -298,7 +298,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-21 13:45:47" itemprop="dateModified" datetime="2023-07-21T13:45:47+08:00">2023-07-21</time>
+      <time title="修改时间：2023-07-21 13:51:34" itemprop="dateModified" datetime="2023-07-21T13:51:34+08:00">2023-07-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -345,9 +345,9 @@
         <center>
 引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0
 </center>
-# QUIC
+<span id="more"></span>
 
-<blockquote>
+<h1 id="QUIC"><a href="#QUIC" class="headerlink" title="QUIC"></a>QUIC</h1><blockquote>
 <p>Quick UDP Internet Connections 快速UDP网络连接</p>
 </blockquote>
 <h2 id="QUIC出现的背景"><a href="#QUIC出现的背景" class="headerlink" title="QUIC出现的背景"></a>QUIC出现的背景</h2><p>QUIC的提出源自于HTTP存在的问题：<a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/">关于HTTP存在的问题查看此篇</a></p>
