@@ -32,8 +32,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210816092621294.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210903213620655.png">
+<meta property="og:image" content="http://img.yesmylord.cn//v2-fa46380ebb0ee25a23ffea04126f2aad_1440w.webp">
+<meta property="og:image" content="http://img.yesmylord.cn//v2-fbd6fc64ffd848fc2009999063a7c77e_1440w.webp">
 <meta property="article:published_time" content="2021-08-20T08:33:39.000Z">
-<meta property="article:modified_time" content="2021-09-06T11:40:29.827Z">
+<meta property="article:modified_time" content="2023-09-06T11:59:02.244Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="运输层">
@@ -95,7 +97,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">150</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">85</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">211</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">85</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">205</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -158,7 +160,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-UDP%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">TCP&#x2F;UDP知识点总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%88%E6%9C%AA%E5%AE%8C%E6%88%90%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">运输层（未完成）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%88%86%E8%A7%A3%E4%B8%8E%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">多路分解与多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97Socket"><span class="nav-number">2.</span> <span class="nav-text">套接字Socket</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP"><span class="nav-number"></span> <span class="nav-text">UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">报文段结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E5%92%8C"><span class="nav-number">2.</span> <span class="nav-text">检验和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88UDP%E8%BF%98%E8%A6%81%E6%9C%89%E5%B7%AE%E9%94%99%E6%A3%80%E9%AA%8C%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">为什么UDP还要有差错检验功能？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E5%92%8C%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">检验和的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BA%E9%94%99%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">出错的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP"><span class="nav-number"></span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%93%E5%8C%85%E2%80%94%E2%80%94%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">0.1.</span> <span class="nav-text">抓包——三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E2%80%9C%E7%B2%98%E5%8C%85%E2%80%9D%E9%97%AE%E9%A2%98"><span class="nav-number">0.2.</span> <span class="nav-text">TCP“粘包”问题</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-UDP%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">TCP&#x2F;UDP知识点总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%88%E6%9C%AA%E5%AE%8C%E6%88%90%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">运输层（未完成）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%88%86%E8%A7%A3%E4%B8%8E%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">多路分解与多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97Socket"><span class="nav-number">2.2.</span> <span class="nav-text">套接字Socket</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP"><span class="nav-number">3.</span> <span class="nav-text">UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">报文段结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E5%92%8C"><span class="nav-number">3.2.</span> <span class="nav-text">检验和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88UDP%E8%BF%98%E8%A6%81%E6%9C%89%E5%B7%AE%E9%94%99%E6%A3%80%E9%AA%8C%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="nav-number">3.2.1.</span> <span class="nav-text">为什么UDP还要有差错检验功能？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E5%92%8C%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">3.2.2.</span> <span class="nav-text">检验和的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BA%E9%94%99%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">3.2.3.</span> <span class="nav-text">出错的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.2.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP"><span class="nav-number">4.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%93%E5%8C%85%E2%80%94%E2%80%94%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">4.0.1.</span> <span class="nav-text">抓包——三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E2%80%9C%E7%B2%98%E5%8C%85%E2%80%9D%E9%97%AE%E9%A2%98"><span class="nav-number">4.0.2.</span> <span class="nav-text">TCP“粘包”问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">4.0.3.</span> <span class="nav-text">拥塞控制</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,7 +175,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">211</span>
+          <span class="site-state-item-count">205</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -184,7 +186,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">150</span>
+        <span class="site-state-item-count">145</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -299,7 +301,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-09-06 19:40:29" itemprop="dateModified" datetime="2021-09-06T19:40:29+08:00">2021-09-06</time>
+      <time title="修改时间：2023-09-06 19:59:02" itemprop="dateModified" datetime="2023-09-06T19:59:02+08:00">2023-09-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -329,7 +331,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.2k</span>
+      <span>6.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -354,7 +356,7 @@
 
 <span id="more"></span>
 
-<h2 id="TCP-UDP知识点总结"><a href="#TCP-UDP知识点总结" class="headerlink" title="TCP/UDP知识点总结"></a>TCP/UDP知识点总结</h2><p>此处仅供复习，省去废话，只有干货！</p>
+<h1 id="TCP-UDP知识点总结"><a href="#TCP-UDP知识点总结" class="headerlink" title="TCP/UDP知识点总结"></a>TCP/UDP知识点总结</h1><p>此处仅供复习，省去废话，只有干货！</p>
 <p>注意，没有标单位的数，单位将均为字节</p>
 <ol>
 <li>运输层的主要任务：<strong>多路复用、多路分解</strong></li>
@@ -464,15 +466,13 @@
 <h2 id="套接字Socket"><a href="#套接字Socket" class="headerlink" title="套接字Socket"></a>套接字Socket</h2><p>socket可以简单理解为 <code>IP + 端口号</code>（这与JavaAPI内的Socket有些区别）</p>
 <p>一台计算机上有很多进程，OS收到数据后，依据端口号来区分哪些信息是传给哪些进程的</p>
 <blockquote>
-<p>端口号：占用2字节，16bit </p>
-<p>大小在0~65535之间</p>
+<p>端口号：占用2字节，16bit ，大小在0~65535之间</p>
 <p>其中0-1023是<strong>周知端口号</strong>，自己的APP应避免周知端口号</p>
 </blockquote>
 <ul>
 <li>UDP套接字：一个二元组标识，分别是<strong>目的IP地址</strong>与<strong>目的端口号</strong></li>
 <li>TCP套接字：一个四元组标识，除了<strong>目的的IP与端口号</strong>，还包括<strong>源端口号与源IP地址</strong></li>
 </ul>
-<hr>
 <h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><blockquote>
 <p>UDP：一种简单的无连接的协议，IP层传来的数据，只进行了简单的封装（只有8个字节）</p>
 </blockquote>
@@ -559,6 +559,43 @@
 </ul>
 </li>
 </ol>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>首先要知道几个结构：</p>
+<ul>
+<li><strong>发送窗口</strong>：发送窗口的大小是<strong>拥塞窗口</strong>和<strong>接收窗口</strong>的较小值<code>swnd=min(cwnd, rwnd)</code></li>
+<li><strong>拥塞窗口</strong>：拥塞控制的核心组件<code>cwnd</code></li>
+<li><strong>拥塞窗口门限</strong>：在越过这个门限后<code>ssthresh</code>会有不同的操作</li>
+</ul>
+<p>其次我们要知道几个控制算法：</p>
+<ul>
+<li><strong>慢开始</strong>：指<code>cwnd</code>从1开始增长，并且每次翻倍（慢开始指的是起点低，而不是增长速度慢）</li>
+<li><strong>拥塞避免</strong>：在超过<code>ssthresh</code>后，进入拥塞避免算法，会让<code>cwnd</code>线性增长</li>
+</ul>
+<p>如果出现了拥塞，那么就将<code>ssthresh</code>的值调整为当前<code>cwnd</code>的一半：<code>ssthresh = cwnd / 2</code>，然后重新进入慢开始阶段。</p>
+<p>如果发送端接收到了三个重复的ACK请求（证明当前的网络也不太好，但是也没拥塞那么严重），那么会进入快重传+快恢复阶段</p>
+<p><img src="http://img.yesmylord.cn//v2-fa46380ebb0ee25a23ffea04126f2aad_1440w.webp" alt="图源来自知乎"></p>
+<ul>
+<li><p><strong>快重传</strong>：要求接收方立即发送确，</p>
+<ul>
+<li>即使收到了失序的报文段，也要立即发出对已收到的报文段的重复确认</li>
+<li>发送确认也不要等缓存区满再发了，加急直接发</li>
+</ul>
+</li>
+<li><p><strong>快恢复</strong>：cwnd的初始值不是1了，而是<code>ssthresh</code></p>
+</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//v2-fbd6fc64ffd848fc2009999063a7c77e_1440w.webp" alt="图源来自知乎"></p>
+<p>注意：</p>
+<p><strong>问题1</strong>：什么时候会出现<code>ssthresh = cwnd / 2</code>呢？</p>
+<ul>
+<li>出现拥塞（即超时）</li>
+<li>收到3个连续的ACK请求</li>
+</ul>
+<p><strong>问题2</strong>：如何判断出现了拥塞？</p>
+<ul>
+<li>丢包</li>
+<li>滑动窗口变小</li>
+<li>ACK延迟或是重复出现</li>
+</ul>
 
     </div>
 
@@ -625,7 +662,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:48</span>
+    <span title="站点阅读时长">16:40</span>
   </span>
 </div>
 <div class="busuanzi-count">
