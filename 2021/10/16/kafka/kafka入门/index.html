@@ -23,34 +23,35 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="引言:   Kafka入门">
+    <meta name="description" content="引言:   Kafka——分布式发布&#x2F;订阅模式消息队列">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kafka入门">
+<meta property="og:title" content="kafka">
 <meta property="og:url" content="http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="Hynis">
-<meta property="og:description" content="引言:   Kafka入门">
+<meta property="og:description" content="引言:   Kafka——分布式发布&#x2F;订阅模式消息队列">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://img.yesmylord.cn//image-20211016091852120.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230917112853203.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20211016153442425.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230917113442465.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20211016144948106.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20211016153442425.png">
 <meta property="article:published_time" content="2021-10-16T01:00:12.000Z">
-<meta property="article:modified_time" content="2021-10-16T12:48:44.327Z">
+<meta property="article:modified_time" content="2023-09-20T11:26:12.464Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="kafka">
 <meta property="article:tag" content="消息队列">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://img.yesmylord.cn//image-20211016091852120.png">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20230917112853203.png">
 
 
 <link rel="canonical" href="http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/","path":"2021/10/16/kafka/kafka入门/","title":"kafka入门"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/","path":"2021/10/16/kafka/kafka入门/","title":"kafka"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>kafka入门 | Hynis</title>
+<title>kafka | Hynis</title>
   
 
 
@@ -95,7 +96,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">145</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">85</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">205</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">146</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">85</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">206</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -158,7 +159,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.1.</span> <span class="nav-text">Kafka是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E6%B6%88%E6%81%AF%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">传递消息的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E"><span class="nav-number">1.1.3.</span> <span class="nav-text">为什么要使用消息引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%B8%8A%E4%B8%8B%E6%B8%B8%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.4.</span> <span class="nav-text">一个上下游例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMS%E4%B8%8EKafka%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.5.</span> <span class="nav-text">JMS与Kafka的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">kafka基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.2.1.</span> <span class="nav-text">Kafka术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.2.</span> <span class="nav-text">Kafka的物理结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E5%B7%A5%E4%BD%9C%E7%9A%84%E4%B8%89%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.3.</span> <span class="nav-text">Kafka工作的三层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">1.2.4.</span> <span class="nav-text">Kafka的消费者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">Kafka的高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka%E9%9B%86%E7%BE%A4"><span class="nav-number">1.3.1.</span> <span class="nav-text">kafka集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E6%9C%BA%E5%88%B6"><span class="nav-number">1.3.2.</span> <span class="nav-text">备份机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">kafka数据的持久化</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">Kafka是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%B6%88%E6%81%AF%E6%A8%A1%E5%9E%8B%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.2.</span> <span class="nav-text">常见的消息模型及消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E7%9A%84%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F%E4%B8%8E%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">kafka的消息格式与传输方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">为什么要使用消息引擎？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">kafka基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E8%A7%92%E8%89%B2"><span class="nav-number">1.5.1.</span> <span class="nav-text">Kafka角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka%E6%A0%B8%E5%BF%83%E7%BB%84%E6%88%90"><span class="nav-number">1.5.2.</span> <span class="nav-text">kafka核心组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E9%9B%86%E7%BE%A4%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.3.</span> <span class="nav-text">Kafka集群结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">1.5.4.</span> <span class="nav-text">Kafka的消费者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">Kafka的高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka%E9%9B%86%E7%BE%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">kafka集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E6%9C%BA%E5%88%B6"><span class="nav-number">1.6.2.</span> <span class="nav-text">备份机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.7.</span> <span class="nav-text">kafka数据的持久化</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">205</span>
+          <span class="site-state-item-count">206</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -184,7 +185,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-count">146</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -276,12 +277,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="kafka入门 | Hynis">
+      <meta itemprop="name" content="kafka | Hynis">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          kafka入门
+          kafka
         </h1>
 
         <div class="post-meta-container">
@@ -291,9 +292,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-10-16 09:00:12 / 修改时间：20:48:44" itemprop="dateCreated datePublished" datetime="2021-10-16T09:00:12+08:00">2021-10-16</time>
+      <time title="创建时间：2021-10-16 09:00:12" itemprop="dateCreated datePublished" datetime="2021-10-16T09:00:12+08:00">2021-10-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-20 19:26:12" itemprop="dateModified" datetime="2023-09-20T19:26:12+08:00">2023-09-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -319,14 +326,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -339,20 +346,40 @@
     <div class="post-body" itemprop="articleBody">
         <center>
   引言:
-  Kafka入门
+  Kafka——分布式发布/订阅模式消息队列
 </center>
-
 <span id="more"></span>
 
 <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>可以从其他很多知识中，串联到kafka中，很多设计思想都是相同的。</p>
-<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="Kafka是什么"><a href="#Kafka是什么" class="headerlink" title="Kafka是什么"></a>Kafka是什么</h3><p>Kafka是一款 开源的<strong>消息引擎系统</strong></p>
-<blockquote>
-<p>那么消息引擎是什么？</p>
-</blockquote>
-<p>消息引擎是<strong>一组规范</strong>，可以利用这组规范在不同系统之间传递消息。</p>
-<p>说人话即：系统A发送消息给消息引擎系统，系统B从消息引擎系统中读取A发送的消息</p>
-<p><img src="http://img.yesmylord.cn//image-20211016091852120.png" alt="image-20211016091852120"></p>
-<h3 id="传递消息的步骤"><a href="#传递消息的步骤" class="headerlink" title="传递消息的步骤"></a>传递消息的步骤</h3><p>消息引擎主要的作用就是发送消息，消息的格式如何以及如何发送消息是消息引擎的主要设计的内容，也是核心</p>
+<h2 id="Kafka是什么"><a href="#Kafka是什么" class="headerlink" title="Kafka是什么"></a>Kafka是什么</h2><ul>
+<li><p>在0.9.0版本中，Kafka的官方定义是一个<strong>分布式、分区、复制的提交日志服务</strong>。它提供消息传递系统的功能。</p>
+</li>
+<li><p>在0.10.0版本中，Kafka的官方定义是<strong>分布式的流处理平台</strong></p>
+</li>
+</ul>
+<p>Kafka起源于Linkedin公司，2010年贡献给Apache开源基金会，2012年成为顶级项目，2014年成立了Confluent商业化公司，目前为止，Kafka的版本更新到了3.5。</p>
+<p>kafka的发行版有很多，除了商业化的Confluent Kafka，还有Cloudera Kafka和Hortonworks Kafka两个面向于大数据的Kafka发行版。</p>
+<h2 id="常见的消息模型及消息队列"><a href="#常见的消息模型及消息队列" class="headerlink" title="常见的消息模型及消息队列"></a>常见的消息模型及消息队列</h2><p>首先需要介绍几种消息通信模型：</p>
+<ul>
+<li><strong>JMS</strong>：Java Message Service API（Java消息服务）<ul>
+<li>专门针对于Java语言</li>
+<li>定义两种通信方式：点对点模型（P2P）、发布订阅模型（Pub/Sub）</li>
+<li>代表实现有：<strong>ActiveMQ</strong></li>
+</ul>
+</li>
+<li><strong>AMQP</strong>：Advanced Message Queuing Protocol（高级消息队列协议）<ul>
+<li>支持事务，数据一致性高，多用于银行、金融行业</li>
+<li>协议模型：队列（queues）信箱（exchanges）绑定（bindings），消息先放于信箱，根据绑定的不同的路由规则，再发送到对应的队列中。 </li>
+<li>代表实现有：<strong>RabbitMQ、Spring AMQP、Spring JMS</strong></li>
+</ul>
+</li>
+<li><strong>MQTT</strong>：Message Queuing Telemetry Transport<ul>
+<li>用于IOT</li>
+<li>为小型无声设备之间通过低带宽发送短消息而设计</li>
+</ul>
+</li>
+</ul>
+<h2 id="kafka的消息格式与传输方式"><a href="#kafka的消息格式与传输方式" class="headerlink" title="kafka的消息格式与传输方式"></a>kafka的消息格式与传输方式</h2><p>消息引擎主要的作用就是发送消息，消息的格式如何以及如何发送消息是消息引擎的主要设计的内容，也是核心</p>
 <ol>
 <li><strong>消息格式</strong>：<ul>
 <li>可以使用JSON、CSV、XML格式等</li>
@@ -360,68 +387,74 @@
 </ul>
 </li>
 <li><strong>传输模型</strong>：一般来说主要有两种传输模型<ul>
-<li>**点对点模型 (Peer to Peer)**：指的是A发送的消息只可以传输给B（不能有其他系统染指）</li>
-<li><strong>发布订阅模型 (Pub / Sub)<strong>：发布订阅机制，有一个</strong>主题</strong>的概念，发送方（发布者）与接收方（订阅者）可以关注同一个主题，相同的主题下接收方可以接收到发送方发送的消息</li>
+<li><p>**点对点模型 (Peer to Peer)**：指的是A发送的消息只可以传输给B（不能有其他系统染指）</p>
+</li>
+<li><p><strong>发布订阅模型 (Pub / Sub)<strong>：发布订阅机制，有一个</strong>主题</strong>的概念，发送方（发布者）与接收方（订阅者）可以关注同一个主题，相同的主题下接收方可以接收到发送方发送的消息</p>
+</li>
 </ul>
 </li>
 </ol>
-<blockquote>
-<p><strong>Kafka的选择</strong></p>
-</blockquote>
-<p>kafka提供两种传输模型，但是其消息格式有一些特殊：</p>
-<p><strong>kafka传输的是纯二进制的字节序列</strong></p>
-<p>（消息是结构化的，但是使用之前要转化为二进制的字节序列）</p>
-<h3 id="为什么要使用消息引擎"><a href="#为什么要使用消息引擎" class="headerlink" title="为什么要使用消息引擎"></a>为什么要使用消息引擎</h3><p>两个原因：</p>
-<p>1、为了信息传输的<strong>松耦合</strong></p>
-<p>​        松耦合好理解，系统A发系统B，系统C发系统D，如果不使用消息引擎，直接发送，那么会构成一张复杂的通信图，但是如果使用消息引擎，发送端与接收端就解耦了</p>
-<p>2、<strong>削峰填谷</strong>（这也是<strong>根本原因</strong>）</p>
+<p><strong>Kafka的选择</strong>：kafka同时提供了P2P与Pub/Sub两种模式，消息在kafka内以日志的方式记录</p>
+<h2 id="为什么要使用消息引擎？"><a href="#为什么要使用消息引擎？" class="headerlink" title="为什么要使用消息引擎？"></a>为什么要使用消息引擎？</h2><p>三个原因：</p>
+<ol>
+<li>为了信息传输的<strong>松耦合</strong></li>
+</ol>
+<p>当下的数据存储方案很多很多：mysql、Flume、SparkStreaming、Flink，他们之间的数据传输可以使用消息队列来进行解耦的数据传输。</p>
+<ol start="2">
+<li><strong>削峰填谷</strong>（这也是<strong>根本原因</strong>）</li>
+</ol>
 <blockquote>
 <p>何为<strong>削峰填谷</strong>？</p>
 </blockquote>
-<p>​        <strong>上游的服务一般会由很多下游的服务提供</strong>，如果上游的请求量在一瞬间达到了很大的程度，那么很有可能冲垮下游的服务，导致<strong>雪崩</strong>（类似于Redis缓存雪崩的概念）</p>
-<p>​        <strong>削峰填谷</strong>就是要将上游的流量以一种<strong>平滑的方式</strong>将数据传输给下游</p>
-<h3 id="一个上下游例子"><a href="#一个上下游例子" class="headerlink" title="一个上下游例子"></a>一个上下游例子</h3><blockquote>
-<p> 场景：一个订单系统，它的下级会有很多，比如支付系统、验证登录信息的接口，此时有很多请求突然请求订单系统</p>
-</blockquote>
-<ul>
-<li>不使用消息引擎：</li>
-</ul>
-<p>​        如果订单系统与下游直接对接，可能就会导致上游突然激增的TPS（每秒事务请求数）压垮下游的支付系统、登录验证接口，进而导致整个系统崩溃等</p>
-<ul>
-<li>使用消息引擎：</li>
-</ul>
-<p>​        而引入Kafka 能够将瞬时增加的订单流量全部<strong>以消息形式保存在对应的主题中</strong>，既不影响上游服务 的 TPS，同时也给下游子服务留出了充足的时间去消费它们</p>
-<h3 id="JMS与Kafka的关系"><a href="#JMS与Kafka的关系" class="headerlink" title="JMS与Kafka的关系"></a>JMS与Kafka的关系</h3><p>​        <strong>Java消息服务</strong>(Java Message Service，JMS)是<strong>一组API</strong>，不止Kafka，还有很多消息引擎都实现了这一套API</p>
-<h2 id="kafka基本结构"><a href="#kafka基本结构" class="headerlink" title="kafka基本结构"></a>kafka基本结构</h2><h3 id="Kafka术语"><a href="#Kafka术语" class="headerlink" title="Kafka术语"></a>Kafka术语</h3><ul>
-<li><strong>主题(Topic)<strong>：发布订阅模型有一个概念</strong>主题</strong>，它存放一类的消息</li>
-<li>主题划分为多个<strong>分区(Partition)<strong>：每个分区都是一组</strong>有序的消息日志</strong><ul>
-<li>生产者生产的消息<strong>只会被发送到一个分区中</strong>（如果一个Topic有2个Partition，只会被发到其中一个中，不在partition0就在partition1）</li>
-</ul>
-</li>
+<p>上游的服务一般会由很多下游的服务提供，如果上游的请求量在一瞬间达到了很大的程度，那么很有可能冲垮下游的服务，导致<strong>雪崩</strong>（类似于Redis缓存雪崩的概念）</p>
+<p><strong>削峰填谷</strong>就是要将上游的流量以一种<strong>平滑的方式</strong>将数据传输给下游。</p>
+<p>举个例子：如果上游突然激增TPS（每秒事务请求数），引入Kafka 能够将瞬时增加的订单流量全部<strong>以消息形式保存在对应的主题中</strong>，既不影响上游服务的 TPS，同时也给下游子服务留出了充足的时间去消费它们</p>
+<ol start="3">
+<li>异步通信</li>
+</ol>
+<p>比如：用户在官网投递了A公司的简历，官网的页面会立即返回“投递成功”，但是发送短信和发送邮件的操作会先发送给消息队列（因为这两步的操作也有耗时时间），然后由下游的短信模块和邮件模块慢慢消费。</p>
+<h2 id="kafka基本结构"><a href="#kafka基本结构" class="headerlink" title="kafka基本结构"></a>kafka基本结构</h2><h3 id="Kafka角色"><a href="#Kafka角色" class="headerlink" title="Kafka角色"></a>Kafka角色</h3><ul>
 <li><strong>生产者</strong>：即向主题发送消息的客户端</li>
 <li><strong>消费者</strong>：从主题接收消息的客户端</li>
 <li><strong>客户端</strong>：统称生产者与消费者</li>
-<li><strong>Broker</strong>：主题的服务器端（英文的意思是代理；经纪商；代理人），他有两个主要的作用<ol>
-<li><strong>接收和处理</strong>客户端发送来的<strong>请求</strong></li>
-<li>对消息进行<strong>持久化</strong></li>
+</ul>
+<h3 id="kafka核心组成"><a href="#kafka核心组成" class="headerlink" title="kafka核心组成"></a>kafka核心组成</h3><ul>
+<li><p>**主题(Topic)**：它存放同一类的消息，比如点赞、评论、收藏各是一个Topic</p>
+</li>
+<li><p><strong>分区（Partition）</strong>：Topic会划分为多个<strong>分区(Partition)<strong>：每个分区都是一组</strong>有序的、不可变的消息日志</strong>（日志的格式就是key、value键值对）</p>
+<ul>
+<li>消息的存储是以键值对的方式，如果key为null，那么就按照轮询的方式写到不同的分区中（同一个Topic的不同分区）；如果key不为null，相同key的消息会有序的排放在相同的分区中。</li>
+<li>生产者生产的消息<strong>只会被发送到一个分区中</strong>（如果一个Topic有2个Partition，只会被发到其中一个中，不在partition0就在partition1）</li>
+</ul>
+</li>
+<li><p><strong>Replication</strong>：一个主题有多个分区，一个分区可以有多个副本</p>
+<p><img src="http://img.yesmylord.cn//image-20230917112853203.png" alt="分区的工作原理"></p>
+<ul>
+<li>与Hadoop的分区容备不同的是，kafka的副本分为Leader和follower，<strong>Leader负责读写请求，follower不负责读！只是实时复制leader的变化</strong>。</li>
+<li>图中还显示了一个ISR的集合，这个集合存储了分区的副本的ID，如果有一个副本掉队，就会删除，等到其跟上leader的进度，才会将其填入。</li>
+</ul>
+</li>
+<li><p><strong>Broker</strong>：主题的服务器端（消息代理），他有两个主要的作用</p>
+<ol>
+<li><strong>接收和处理</strong>客户端发送来的请求</li>
+<li>消息<strong>持久化</strong>：将消息写入到磁盘</li>
 </ol>
 </li>
 </ul>
-<h3 id="Kafka的物理结构"><a href="#Kafka的物理结构" class="headerlink" title="Kafka的物理结构"></a>Kafka的物理结构</h3><ul>
-<li>很多PC通过Zookeeper搭建kafka集群</li>
-<li>一台PC可以有多个Broker</li>
+<h3 id="Kafka集群结构"><a href="#Kafka集群结构" class="headerlink" title="Kafka集群结构"></a>Kafka集群结构</h3><p>3.0之前的kafka需要Zookeeper来配合使用</p>
+<ul>
+<li>一台服务器可以有多个Broker（但是一般一个服务器只维护一个Broker）</li>
 <li>一个Broker可以有多个Topic（不同Broker的Topic是一样的）</li>
+<li>一个Topic可以有多个Partition</li>
+<li>一个Partition可以有多个Replication</li>
 </ul>
-<p>如图示：（一定要好好看这个图！）</p>
-<p><img src="http://img.yesmylord.cn//image-20211016153442425.png" alt="物理结构"></p>
-<blockquote>
-<p>副本与分区的关系：</p>
-</blockquote>
-<p>一个主题有多个分区，一个分区可以有多个副本，如图示，<strong>他们可以不在同一个Broker</strong></p>
-<p>（所以我们如果分析工作原理，完全可以抛开Broker不谈，因为它属于物理结构）</p>
-<h3 id="Kafka工作的三层结构"><a href="#Kafka工作的三层结构" class="headerlink" title="Kafka工作的三层结构"></a>Kafka工作的三层结构</h3><p>如图示：</p>
+<p>如图示：</p>
+<p><img src="http://img.yesmylord.cn//image-20211016153442425.png" alt="kafka集群示意图1"></p>
+<p>上图表示的集群中：有4个Broker，2个Topic；Topic0有5个分区（0-4），每个分区有2个副本；Topic1有3个分区（0-2），每个分区有3个副本；标为红色的副本表示其为leader，绿色的为follower；</p>
+<p><img src="http://img.yesmylord.cn//image-20230917113442465.png" alt="kafka集群示意图2"></p>
+<p>在上图的集群中：有8个Broker，1个Topic；8个Partition；每个Partition有3个replication</p>
 <p><img src="http://img.yesmylord.cn//image-20211016144948106.png" alt="工作三层结构"></p>
-<p>总共有三层：</p>
+<p>Kafka工作总共有三层结构：</p>
 <ul>
 <li><p>【第一层：<strong>主题层</strong>】</p>
 <ul>
@@ -560,7 +593,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16:44</span>
+    <span title="站点阅读时长">16:48</span>
   </span>
 </div>
 <div class="busuanzi-count">
