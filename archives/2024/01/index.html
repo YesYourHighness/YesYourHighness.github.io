@@ -23,34 +23,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="引言：感知机是神经网络与支持向量机的基础">
-<meta property="og:type" content="article">
-<meta property="og:title" content="感知机">
-<meta property="og:url" content="http://yoursite.com/2022/09/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%84%9F%E7%9F%A5%E6%9C%BA/index.html">
+    <meta name="description" content="A blog about IT knowledge">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hynis">
+<meta property="og:url" content="http://yoursite.com/archives/2024/01/index.html">
 <meta property="og:site_name" content="Hynis">
-<meta property="og:description" content="引言：感知机是神经网络与支持向量机的基础">
+<meta property="og:description" content="A blog about IT knowledge">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://img.yesmylord.cn//image-20220908172849997.png">
-<meta property="og:image" content="http://img.yesmylord.cn//image-20220908183530529.png">
-<meta property="og:image" content="http://img.yesmylord.cn//image-20220908183530529.png">
-<meta property="og:image" content="http://img.yesmylord.cn//image-20220908204137767.png">
-<meta property="og:image" content="http://img.yesmylord.cn//image-20220908204219147.png">
-<meta property="article:published_time" content="2022-09-07T09:46:19.000Z">
-<meta property="article:modified_time" content="2022-09-08T14:03:20.815Z">
 <meta property="article:author" content="Hynis">
-<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://img.yesmylord.cn//image-20220908172849997.png">
 
 
-<link rel="canonical" href="http://yoursite.com/2022/09/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%84%9F%E7%9F%A5%E6%9C%BA/">
+<link rel="canonical" href="http://yoursite.com/archives/2024/01/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/09/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%84%9F%E7%9F%A5%E6%9C%BA/","path":"2022/09/07/机器学习/感知机/","title":"感知机"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2024/01/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>感知机 | Hynis</title>
+<title>归档 | Hynis</title>
   
 
 
@@ -80,7 +71,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">Hynis</p>
+      <h1 class="site-title">Hynis</h1>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -95,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">147</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">86</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">207</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">151</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">87</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">208</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -139,7 +130,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
 
 <!-- 网易云外链-->
     <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
@@ -158,7 +149,6 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA-1"><span class="nav-number">1.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E8%A7%A3%E9%87%8A"><span class="nav-number">1.2.2.</span> <span class="nav-text">几何解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5"><span class="nav-number">1.3.</span> <span class="nav-text">策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">损失函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">原始形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E5%81%B6%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">对偶形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">1.5.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,18 +163,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">207</span>
+          <span class="site-state-item-count">208</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">87</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">147</span>
+        <span class="site-state-item-count">151</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -255,186 +245,70 @@
 </noscript>
 
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner archive posts-collapse">
 
 
   
-
-
-<div class="post-block">
   
   
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        
+        <span class="collection-header">非常好! 目前共计 208 篇日志。 继续努力。</span>
+      </div>
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%84%9F%E7%9F%A5%E6%9C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
-      <meta itemprop="name" content="Hynis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hynis">
-      <meta itemprop="description" content="A blog about IT knowledge">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="感知机 | Hynis">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          感知机
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-09-07 17:46:19" itemprop="dateCreated datePublished" datetime="2022-09-07T17:46:19+08:00">2022-09-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-08 22:03:20" itemprop="dateModified" datetime="2022-09-08T22:03:20+08:00">2022-09-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <center>
-引言：感知机是神经网络与支持向量机的基础
-</center>
-
-<span id="more"></span>
-
-<h1 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h1><h2 id="感知机-1"><a href="#感知机-1" class="headerlink" title="感知机"></a>感知机</h2><blockquote>
-<p><strong>感知机 perceptron</strong> 是二类分类的线性模型，在输入特征向量后，可以输出类别，取+1与-1二值</p>
-</blockquote>
-<p>感知机是一个<strong>判别模型</strong>，目的是求出可以将训练数据线性划分的分离<strong>超平面</strong></p>
-<p>感知机的数据必须满足<strong>线性可分性</strong>，即存在一个超平面可以将正实例点和负实例点完全分开</p>
-<p>对于只有两个输入属性的数据，此时的超平面就是一条线</p>
-<p>我们知道方法=模型+策略+算法，本文的感知机=<code>sign(ω·x+b)</code>+损失函数+梯度下降算法</p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>感知机是一个判别模型，这意味着我们不需要求概率分布P(x,y)就可以得到决策函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(x) = sign(ω·x+b)</span><br></pre></td></tr></table></figure>
-
-<p>参数注意：</p>
-<ul>
-<li><code>ω</code>表示<strong>权值向量</strong>，其与向量<code>x</code>的点积<code>ω·x</code>为一个标量</li>
-<li><code>b</code>表示<strong>偏置 bias</strong></li>
-<li><code>sign(x)</code>是符号函数，<code>x&gt;=0</code>值为+1，<code>x&lt;0</code>值为-1</li>
-</ul>
-<p>因为感知机是一个线性分类模型，因此我们的<strong>假设空间</strong>就是全体线性方程集合<code>&#123;f|f(x)=ω·x+b&#125;</code></p>
-<p>我们要做的就是从假设空间中找出一个合适的模型</p>
-<h3 id="几何解释"><a href="#几何解释" class="headerlink" title="几何解释"></a>几何解释</h3><p>假设特征空间为二维平面，如图所示：</p>
-<p><img src="http://img.yesmylord.cn//image-20220908172849997.png" alt="感知机模型"></p>
-<ul>
-<li><code>ω</code>此时就是法向量</li>
-<li><code>b</code>为截距</li>
-<li>坐标原点到直线的距离为<code>-b/||ω||</code></li>
-</ul>
-<p>在我们规定<code>ω</code>的方向后，如图，线上及线的右上方就为+1，左下方为-1</p>
-<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><p>为了从假设空间找出合适的模型，我们需要确定一个学习策略，就是定义一个损失函数并将其最小化</p>
-<p>对于感知机来说，有正确的分类就有<strong>误分类</strong>，如果统计误分类的个数，这个数将是离散的，不是对于<code>ω</code>和<code>b</code>的连续可导函数</p>
-<p>因此我们可以选择求<strong>误分类点到超平面的总距离</strong></p>
-<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>假设实例<code>(xi, yi)</code>被误分类，代入xi应该得到1，但是误分类的结果为-1</p>
-<p>因此就有此不等式成立：<code>-yi(ω·x+b)&gt;0</code></p>
-<p>我们还知道点到直线距离为：<code>|ω·x+b|/||ω||</code></p>
-<p>设误分类点集合为M，忽略<code>-1/||ω||</code>，就得到了如图所示的损失函数，我们要做的就是将此损失函数求得最小</p>
-<p><img src="http://img.yesmylord.cn//image-20220908183530529.png" alt="损失函数"></p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>求损失函数的最小的最优化问题，此处使用<strong>随机梯度下降</strong></p>
-<blockquote>
-<p>随机梯度下降：任意选一个初始值<code>ω</code>、<code>b</code>，通常为0，然后每次随机选择一个实例，如果其分类错误，就更新<code>ω</code>与<code>b</code>，直到每一个实例都分类正确为止</p>
-</blockquote>
-<h3 id="原始形式"><a href="#原始形式" class="headerlink" title="原始形式"></a>原始形式</h3><p><img src="http://img.yesmylord.cn//image-20220908183530529.png" alt="损失函数"></p>
-<p>损失函数分别对ω与b求偏导，就可以得到<strong>梯度</strong>，然后去更新ω与b，如此反复</p>
-<p><img src="http://img.yesmylord.cn//image-20220908204137767.png" alt="原始形式步骤"></p>
-<h3 id="对偶形式"><a href="#对偶形式" class="headerlink" title="对偶形式"></a>对偶形式</h3><p>相比原始形式，对偶形式其实最大的变化就是需要<strong>提前计算样本点的内积</strong>，也就说可以用一个矩阵提前存储样本点的内积，这样可以大大加快效率</p>
-<p><img src="http://img.yesmylord.cn//image-20220908204219147.png" alt="对偶形式"></p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><p>《统计学习方法》</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/6042320.html">刘建平大佬的博客</a>：学完了这章才看到大佬的博客！！十个赞，这章结束之后不会更新统计学习的博客了，可能会有一些汇总，但是知识体系这边完全可以看这个博客</p>
-</li>
-</ul>
-
+      
+    <div class="collection-year">
+      <span class="collection-header">2024</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2024-01-03T00:16:39+08:00"
+              content="2024-01-03">
+          01-03
+        </time>
+      </div>
 
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
-          </div>
+      <div class="post-title">
+          <a class="post-title-link" href="/2024/01/03/Java%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/mark1/" itemprop="url">
+            <span itemprop="name">Caffeine与缓存算法</span>
+          </a>
+      </div>
 
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2022/08/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" rel="prev" title="机器学习概述">
-                  <i class="fa fa-chevron-left"></i> 机器学习概述
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2022/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/" rel="next" title="朴素贝叶斯">
-                  朴素贝叶斯 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+      
+    </header>
   </article>
-</div>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2024-01-03T00:09:39+08:00"
+              content="2024-01-03">
+          01-03
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2024/01/03/%E5%BA%8F%E5%88%97%E5%8C%96/Protobuf/" itemprop="url">
+            <span itemprop="name">Protobuf及其不同方式的测试</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
 
 
-
-
-
+    </div>
+  </div>
+  
+  
+  
 
 </div>
   </main>
@@ -447,7 +321,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -464,7 +338,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">17:07</span>
+    <span title="站点阅读时长">17:24</span>
   </span>
 </div>
 <div class="busuanzi-count">
