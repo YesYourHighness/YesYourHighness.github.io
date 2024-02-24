@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言： 我们经常会使用到Redis，但是如何估计我们的数据量可能会占用多大的Redis内存呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis容量估计">
+<meta property="og:url" content="http://yoursite.com/2024/02/24/Redis/Redis%E5%AE%B9%E9%87%8F%E4%BC%B0%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言： 我们经常会使用到Redis，但是如何估计我们的数据量可能会占用多大的Redis内存呢？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240224203615803.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240224203628070.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240224203836079.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240224204007253.png">
+<meta property="article:published_time" content="2024-02-24T12:50:36.000Z">
+<meta property="article:modified_time" content="2024-02-24T12:53:43.763Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20240224203615803.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2024/02/24/Redis/Redis%E5%AE%B9%E9%87%8F%E4%BC%B0%E8%AE%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2024/02/24/Redis/Redis%E5%AE%B9%E9%87%8F%E4%BC%B0%E8%AE%A1/","path":"2024/02/24/Redis/Redis容量估计/","title":"Redis容量估计"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis容量估计 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">153</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">89</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">211</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E5%AE%B9%E9%87%8F%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">Redis容量估计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E7%9A%84%E4%BC%B0%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">错误的估计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6"><span class="nav-number">3.</span> <span class="nav-text">原理探究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-String%E7%9A%84%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">Redis String的编码方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E9%9C%80%E8%A6%81%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">Redis存储数据需要维护的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%AE%B9%E9%87%8F%E9%A2%84%E4%BC%B0%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">Redis容量预估计算公式</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">211</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">89</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">153</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.xlong.xyz/" title="https:&#x2F;&#x2F;blog.xlong.xyz&#x2F;" rel="noopener" target="_blank">晓龙的小站</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://hurrygosword.cn/" title="http:&#x2F;&#x2F;hurrygosword.cn" rel="noopener" target="_blank">HurrygoSword</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.codesheng.top/" title="https:&#x2F;&#x2F;blog.codesheng.top&#x2F;" rel="noopener" target="_blank">sheng</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.mingmingisme.site/" title="https:&#x2F;&#x2F;blog.mingmingisme.site" rel="noopener" target="_blank">鸣鸣是我</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/02/24/Redis/Redis%E5%AE%B9%E9%87%8F%E4%BC%B0%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis容量估计 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis容量估计
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-02-24 20:50:36 / 修改时间：20:53:43" itemprop="dateCreated datePublished" datetime="2024-02-24T20:50:36+08:00">2024-02-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+我们经常会使用到Redis，但是如何估计我们的数据量可能会占用多大的Redis内存呢？
+</center>
+
+<span id="more"></span>
+
+<h1 id="Redis容量估计"><a href="#Redis容量估计" class="headerlink" title="Redis容量估计"></a>Redis容量估计</h1><blockquote>
+<p>错误的理解：误以为序列化后的Size与存到redis后的Size差不多，但实际上，差距还是蛮大的。</p>
+</blockquote>
+<p>实际工程中，可以直接使用这个工具快速判断可能的占用大小：<a target="_blank" rel="noopener" href="http://www.redis.cn/redis_memory/">Redis容量估计工具</a></p>
+<h1 id="错误的估计"><a href="#错误的估计" class="headerlink" title="错误的估计"></a>错误的估计</h1><p>现有任务1与任务2需要向redis写入数据：<br>任务1：</p>
+<ul>
+<li>其一天的的数据个数有：293, 659, 385个（约3亿数据）</li>
+<li>其序列化后的value的大小共有：50.14 GB</li>
+<li>均到3亿数据上，大约每一个value大小为：180 字节</li>
+</ul>
+<p>任务2：</p>
+<ul>
+<li>其一天的数据个数有：231419688个（约2.3亿数据）</li>
+<li>其序列化后的value的大小有：23.55GB</li>
+<li>均到2.3亿数据上，平均每一个value大小为：107 字节</li>
+</ul>
+<p>就认为总共的数据也就：23 + 50 GB，但是实际占用Redis集群空间：303 GB（2倍副本，实际存储150GB数据）<br>这和预估数据远远不符，因此使用Redis容量预估工具 <a target="_blank" rel="noopener" href="http://www.redis.cn/redis_memory/">http://www.redis.cn/redis_memory/</a> 重新进行估算：<br><img src="http://img.yesmylord.cn//image-20240224203615803.png" alt="任务1"></p>
+<p><img src="http://img.yesmylord.cn//image-20240224203628070.png" alt="任务2"><br>预估的容量为89GB与49GB，和为138GB（与实际占用150GB差距不大)</p>
+<h1 id="原理探究"><a href="#原理探究" class="headerlink" title="原理探究"></a>原理探究</h1><p>为什么我们23 + 50 GB的数据存入Redis变为了150GB？Redis都维护了怎样的结构？</p>
+<h2 id="Redis-String的编码方式"><a href="#Redis-String的编码方式" class="headerlink" title="Redis String的编码方式"></a>Redis String的编码方式</h2><p>由于我们只使用了redis的String存储结构（本质是<code>byte[]</code>），因此这里只分析String。<br>String在redis内有三种编码方式（如下图所示）</p>
+<ul>
+<li><code>int</code> 编码：在保存 64 位有符号整数时</li>
+<li><code>embstr</code>编码：在保存的字符串小于 44 字节时</li>
+<li><code>raw </code>编码：大于 44 字节时（embstr与raw的区别仅在于SDS是否与元数据的指针紧挨）</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20240224203836079.png" alt="String的编码方式"></p>
+<h2 id="Redis存储数据需要维护的结构"><a href="#Redis存储数据需要维护的结构" class="headerlink" title="Redis存储数据需要维护的结构"></a>Redis存储数据需要维护的结构</h2><p>Redis存储数据，需要维护的数据有：（如下图所示）</p>
+<ul>
+<li><code>dictEntry</code>结构：24字节，向上取整为32字节</li>
+<li><code>key</code>：存储键key，自己维护9字节的信息，因此大小为key+9，且大小向上取整 16/32/64/128/256/…字节</li>
+<li><code>redisObjet</code>：16字节<ul>
+<li>元数据：存放LRU、LFU的关键信息：时间戳、频次</li>
+<li>指针：指向具体结构，对于String就是一个SDS（简单动态字符串）</li>
+</ul>
+</li>
+<li><code>value</code>：存储对应value，由于存储String，也需要维护9字节信息，也是向上取整16/32/64/128/256/…字节</li>
+<li><code>bucket</code>个数信息：key的个数增多，redis需要rehash扩展Dict数组，每一个数组的元素是一个8字节指针，因此需要存储key的个数的幂次向上取整。（比如有2000个key，需要有2048个bucket，每个bucket需要8字节）</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20240224204007253.png" alt="Redis全局哈希表结构"></p>
+<h2 id="Redis容量预估计算公式"><a href="#Redis容量预估计算公式" class="headerlink" title="Redis容量预估计算公式"></a>Redis容量预估计算公式</h2><p>因此，可以得出<strong>Redis容量计算的推理公式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 此处 Pow(x) 表示对x求 最近的2的幂次且向上取整</span></span><br><span class="line">RedisSize <span class="operator">=</span> (<span class="number">32</span> <span class="operator">+</span> Pow(Size(key) <span class="operator">+</span> <span class="number">9</span>) <span class="operator">+</span> <span class="number">16</span> <span class="operator">+</span> Pow(Size(<span class="keyword">value</span>) <span class="operator">+</span> <span class="number">9</span>)) <span class="operator">*</span> Num <span class="operator">+</span> Pow(Num)<span class="operator">*</span><span class="number">8</span></span><br></pre></td></tr></table></figure>
+<p>我们可以自己估算一下，上一节提到的两个任务的大小：</p>
+<p>对于任务1：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Value</span> <span class="operator">=</span> (<span class="number">32</span> <span class="operator">+</span> Pow(<span class="number">22</span> <span class="operator">+</span> <span class="number">9</span>) <span class="operator">+</span> Pow(<span class="number">180</span> <span class="operator">+</span> <span class="number">9</span>) <span class="operator">+</span> <span class="number">16</span>) <span class="operator">*</span> <span class="number">300</span>_000_000 <span class="operator">+</span> Pow(<span class="number">300</span>_000_000) <span class="operator">*</span> <span class="number">8</span></span><br><span class="line"><span class="operator">=</span> (<span class="number">32</span> <span class="operator">+</span> <span class="number">32</span> <span class="operator">+</span> <span class="number">256</span> <span class="operator">+</span> <span class="number">16</span>) <span class="operator">*</span> <span class="number">300</span>_000_000 <span class="operator">+</span> <span class="number">2</span><span class="operator">^</span><span class="number">29</span> <span class="operator">*</span> <span class="number">8</span></span><br><span class="line"><span class="operator">=</span> <span class="number">100800000000</span> <span class="operator">+</span> <span class="number">4294967296</span></span><br><span class="line"><span class="operator">=</span> <span class="number">105094967296</span> Byte</span><br></pre></td></tr></table></figure>
+<p>105094967296换算为97GB，这与Redis容量工具计算基本一致 </p>
+<p>对于任务2：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Value</span> <span class="operator">=</span> (<span class="number">32</span> <span class="operator">+</span> <span class="number">32</span> <span class="operator">+</span> <span class="number">128</span> <span class="operator">+</span> <span class="number">16</span>) <span class="operator">*</span> <span class="number">230</span>_000_000 <span class="operator">+</span> <span class="number">2</span><span class="operator">^</span><span class="number">28</span> <span class="operator">*</span> <span class="number">8</span></span><br><span class="line"><span class="operator">=</span> <span class="number">47840000000</span> <span class="operator">+</span> <span class="number">268</span>_435_456 <span class="operator">*</span> <span class="number">8</span></span><br><span class="line"><span class="operator">=</span> <span class="number">49987483648</span></span><br></pre></td></tr></table></figure>
+<p>49987483648字节换算为46GB，这也与Redis容量工具计算基本一致</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/02/24/%E5%B7%A5%E7%A8%8B%E9%A1%B9%E7%9B%AE/%E6%8A%BD%E5%A5%96%E7%B3%BB%E7%BB%9F/" rel="prev" title="抽奖系统">
+                  <i class="fa fa-chevron-left"></i> 抽奖系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">17:28</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>
