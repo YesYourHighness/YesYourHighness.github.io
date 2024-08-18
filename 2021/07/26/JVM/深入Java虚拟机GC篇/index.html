@@ -39,8 +39,9 @@
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210726124053697.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210726130334252.png">
 <meta property="og:image" content="http://img.yesmylord.cn//image-20210726131443680.png">
+<meta property="og:image" content="https://img.yesmylord.cn//image-20240803113159804.png">
 <meta property="article:published_time" content="2021-07-26T11:36:12.000Z">
-<meta property="article:modified_time" content="2023-07-13T12:47:23.409Z">
+<meta property="article:modified_time" content="2024-08-18T06:34:05.116Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="JVM">
 <meta property="article:tag" content="GC">
@@ -100,7 +101,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">155</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">215</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">160</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">216</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -163,7 +164,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5Java%E8%99%9A%E6%8B%9F%E6%9C%BAGC%E7%AF%87"><span class="nav-number">1.</span> <span class="nav-text">深入Java虚拟机GC篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GC-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">GC 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9E%83%E5%9C%BE%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AFGC%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是垃圾？什么是GC？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">GC相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E9%98%B6%E6%AE%B5%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">标记阶段算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">引用计数算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">可达性分析算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E9%98%B6%E6%AE%B5%E7%9A%84%E8%A1%A5%E5%85%85%EF%BC%9Afinalization%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">标记阶段的补充：finalization机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#finalize-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">finalize()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">对象的三种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">对象是否可以回收</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E9%98%B6%E6%AE%B5%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">清除阶段算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">标记-清除算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">复制算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0-%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">标记-压缩算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">三种清除算法的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">分代收集算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">增量收集算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">分区算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.8.</span> <span class="nav-text">三色标记算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.</span> <span class="nav-text">GC相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#System-gc-%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">System.gc()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">内存溢出与内存泄露</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stop-The-World"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">Stop The World</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">垃圾回收的并行与并发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%82%B9%E4%B8%8E%E5%AE%89%E5%85%A8%E5%8C%BA%E5%9F%9F"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">安全点与安全区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E5%BC%95%E7%94%A8"><span class="nav-number">1.3.0.6.</span> <span class="nav-text">深入引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">GC回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.4.1.</span> <span class="nav-text">垃圾回收器基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%9E%E5%90%90%E9%87%8Fvs%E6%9A%82%E5%81%9C%E6%97%B6%E9%97%B4"><span class="nav-number">1.4.2.</span> <span class="nav-text">吞吐量vs暂停时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="nav-number">1.4.3.</span> <span class="nav-text">不同的垃圾回收器概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serial-GC%E2%80%94%E2%80%94%E4%B8%B2%E8%A1%8C%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.4.</span> <span class="nav-text">Serial GC——串行回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ParNew%E2%80%94%E2%80%94%E5%B9%B6%E8%A1%8C%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.5.</span> <span class="nav-text">ParNew——并行回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel%E2%80%94%E2%80%94%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88"><span class="nav-number">1.4.6.</span> <span class="nav-text">Parallel——吞吐量优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMS%E2%80%94%E2%80%94%E4%BD%8E%E5%BB%B6%E8%BF%9F"><span class="nav-number">1.4.7.</span> <span class="nav-text">CMS——低延迟</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.7.1.</span> <span class="nav-text">CMS特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.7.2.</span> <span class="nav-text">CMS工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS%E4%BC%98%E4%B8%8E%E5%8A%A3"><span class="nav-number">1.4.7.3.</span> <span class="nav-text">CMS优与劣</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1%E2%80%94%E2%80%94%E5%8C%BA%E5%9F%9F%E5%8C%96%E5%88%86%E4%BB%A3%E5%BC%8F"><span class="nav-number">1.4.8.</span> <span class="nav-text">G1——区域化分代式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#G1%E5%9F%BA%E6%9C%AC%E4%BA%86%E8%A7%A3"><span class="nav-number">1.4.8.1.</span> <span class="nav-text">G1基本了解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.8.2.</span> <span class="nav-text">G1的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Region%EF%BC%9A%E5%8C%96%E6%95%B4%E4%B8%BA%E9%9B%B6"><span class="nav-number">1.4.8.3.</span> <span class="nav-text">Region：化整为零</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.8.4.</span> <span class="nav-text">G1的垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%B9%B4%E8%BD%BB%E4%BB%A3GC"><span class="nav-number">1.4.8.4.1.</span> <span class="nav-text">一、年轻代GC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E3%80%81-%E5%B9%B6%E5%8F%91%E6%A0%87%E8%AE%B0-YGC"><span class="nav-number">1.4.8.4.2.</span> <span class="nav-text">二、 并发标记+YGC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B7%B7%E5%90%88%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.8.4.3.</span> <span class="nav-text">三、混合回收</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%9B%E3%80%81-Full-GC"><span class="nav-number">1.4.8.4.4.</span> <span class="nav-text">四、 Full GC</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">1.5.</span> <span class="nav-text">文章相关链接</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5Java%E8%99%9A%E6%8B%9F%E6%9C%BAGC%E7%AF%87"><span class="nav-number">1.</span> <span class="nav-text">深入Java虚拟机GC篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GC-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">GC 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9E%83%E5%9C%BE%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AFGC%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是垃圾？什么是GC？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">GC相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E9%98%B6%E6%AE%B5%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">标记阶段算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">引用计数算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">可达性分析算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E9%98%B6%E6%AE%B5%E7%9A%84%E8%A1%A5%E5%85%85%EF%BC%9Afinalization%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">标记阶段的补充：finalization机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#finalize-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">finalize()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">对象的三种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">对象是否可以回收</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E9%98%B6%E6%AE%B5%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">清除阶段算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">标记-清除算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">复制算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0-%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">标记-压缩算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">三种清除算法的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">分代收集算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">增量收集算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">分区算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.8.</span> <span class="nav-text">三色标记算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.</span> <span class="nav-text">GC相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#System-gc-%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">System.gc()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2"><span class="nav-number">1.3.2.</span> <span class="nav-text">内存溢出与内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.3.3.</span> <span class="nav-text">可能的内存泄漏的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stop-The-World"><span class="nav-number">1.3.4.</span> <span class="nav-text">Stop The World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91"><span class="nav-number">1.3.5.</span> <span class="nav-text">垃圾回收的并行与并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%82%B9%E4%B8%8E%E5%AE%89%E5%85%A8%E5%8C%BA%E5%9F%9F"><span class="nav-number">1.3.6.</span> <span class="nav-text">安全点与安全区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E5%BC%95%E7%94%A8"><span class="nav-number">1.3.7.</span> <span class="nav-text">深入引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">GC回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.4.1.</span> <span class="nav-text">垃圾回收器基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%9E%E5%90%90%E9%87%8Fvs%E6%9A%82%E5%81%9C%E6%97%B6%E9%97%B4"><span class="nav-number">1.4.2.</span> <span class="nav-text">吞吐量vs暂停时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="nav-number">1.4.3.</span> <span class="nav-text">不同的垃圾回收器概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serial-GC%E2%80%94%E2%80%94%E4%B8%B2%E8%A1%8C%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.4.</span> <span class="nav-text">Serial GC——串行回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ParNew%E2%80%94%E2%80%94%E5%B9%B6%E8%A1%8C%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.5.</span> <span class="nav-text">ParNew——并行回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel%E2%80%94%E2%80%94%E5%90%9E%E5%90%90%E9%87%8F%E4%BC%98%E5%85%88"><span class="nav-number">1.4.6.</span> <span class="nav-text">Parallel——吞吐量优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMS%E2%80%94%E2%80%94%E4%BD%8E%E5%BB%B6%E8%BF%9F"><span class="nav-number">1.4.7.</span> <span class="nav-text">CMS——低延迟</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.7.1.</span> <span class="nav-text">CMS特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.7.2.</span> <span class="nav-text">CMS工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS%E4%BC%98%E4%B8%8E%E5%8A%A3"><span class="nav-number">1.4.7.3.</span> <span class="nav-text">CMS优与劣</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1%E2%80%94%E2%80%94%E5%8C%BA%E5%9F%9F%E5%8C%96%E5%88%86%E4%BB%A3%E5%BC%8F"><span class="nav-number">1.4.8.</span> <span class="nav-text">G1——区域化分代式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#G1%E5%9F%BA%E6%9C%AC%E4%BA%86%E8%A7%A3"><span class="nav-number">1.4.8.1.</span> <span class="nav-text">G1基本了解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.8.2.</span> <span class="nav-text">G1的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Region%EF%BC%9A%E5%8C%96%E6%95%B4%E4%B8%BA%E9%9B%B6"><span class="nav-number">1.4.8.3.</span> <span class="nav-text">Region：化整为零</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.8.4.</span> <span class="nav-text">G1的垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%B9%B4%E8%BD%BB%E4%BB%A3GC"><span class="nav-number">1.4.8.4.1.</span> <span class="nav-text">一、年轻代GC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E3%80%81-%E5%B9%B6%E5%8F%91%E6%A0%87%E8%AE%B0-YGC"><span class="nav-number">1.4.8.4.2.</span> <span class="nav-text">二、 并发标记+YGC</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B7%B7%E5%90%88%E5%9B%9E%E6%94%B6"><span class="nav-number">1.4.8.4.3.</span> <span class="nav-text">三、混合回收</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%9B%E3%80%81-Full-GC"><span class="nav-number">1.4.8.4.4.</span> <span class="nav-text">四、 Full GC</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMS%E4%B8%8EG1%E7%9A%84%E8%B7%A8%E4%BB%A3%E5%BC%95%E7%94%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.</span> <span class="nav-text">CMS与G1的跨代引用问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G1%E7%9A%84%E6%B8%85%E7%90%86%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.6.</span> <span class="nav-text">G1的清理步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMS%E5%AF%B9%E6%AF%94G1"><span class="nav-number">1.7.</span> <span class="nav-text">CMS对比G1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">1.8.</span> <span class="nav-text">文章相关链接</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -178,7 +179,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-count">216</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -189,7 +190,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">155</span>
+        <span class="site-state-item-count">160</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -307,7 +308,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-13 20:47:23" itemprop="dateModified" datetime="2023-07-13T20:47:23+08:00">2023-07-13</time>
+      <time title="修改时间：2024-08-18 14:34:05" itemprop="dateModified" datetime="2024-08-18T14:34:05+08:00">2024-08-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -337,14 +338,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>16k</span>
+      <span>18k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>15 分钟</span>
+      <span>16 分钟</span>
     </span>
 </div>
 
@@ -603,7 +604,7 @@
 <p>浮动垃圾：标记前不是垃圾，标记后变为垃圾，导致没有GC掉</p>
 <p>漏标：标记前是垃圾，但是标记后不是垃圾了，导致被错误的GC掉</p>
 </blockquote>
-<h2 id="GC相关概念"><a href="#GC相关概念" class="headerlink" title="GC相关概念"></a>GC相关概念</h2><h4 id="System-gc-方法"><a href="#System-gc-方法" class="headerlink" title="System.gc()方法"></a><code>System.gc()</code>方法</h4><ul>
+<h2 id="GC相关概念"><a href="#GC相关概念" class="headerlink" title="GC相关概念"></a>GC相关概念</h2><h3 id="System-gc-方法"><a href="#System-gc-方法" class="headerlink" title="System.gc()方法"></a><code>System.gc()</code>方法</h3><ul>
 <li>程序员可以使用<code>System.gc()</code>来显示的触发<code>Full GC</code></li>
 <li>这个方法相当于调用<code>Runtime.getRuntime().gc()</code>，实际上<code>System.gc()</code>底层也是这么写的</li>
 <li>只是提醒，无法保证对垃圾回收器的调用</li>
@@ -623,7 +624,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">localVarGC3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">1024</span> * <span class="number">5</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    System.gc();</span><br><span class="line">    <span class="comment">//[GC (System.gc()) [PSYoungGen: 10375K-&gt;5896K(76288K)]</span></span><br><span class="line">    <span class="comment">//[Full GC (System.gc()) [PSYoungGen: 5896K-&gt;0K(76288K)] [ParOldGen: 8K-&gt;5728K(175104K)]</span></span><br><span class="line">    <span class="comment">// 注意：没有被回收，放在了老年代！是因为buffer还占用着局部变量表的slot槽</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">localVarGC4</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">1024</span> * <span class="number">5</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0</span>; <span class="comment">// 把槽占用掉</span></span><br><span class="line">    System.gc();</span><br><span class="line">    <span class="comment">//[GC (System.gc()) [PSYoungGen: 7741K-&gt;224K(76288K)]</span></span><br><span class="line">    <span class="comment">//[Full GC (System.gc()) [PSYoungGen: 224K-&gt;0K(76288K)] [ParOldGen: 5728K-&gt;629K(175104K)]</span></span><br><span class="line">    <span class="comment">// 这里就被YGC回收掉了！因为槽被占用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中<code>localVarGC3()</code>方法中的对象，在<code>&#123;&#125;</code>中，按理来说应该被回收，但其实没有，因为<code>buffer</code>变量还占用着局部变量表的slot槽；下面的例子将槽复用后，这个对象就被回收掉了</p>
-<h4 id="内存溢出与内存泄露"><a href="#内存溢出与内存泄露" class="headerlink" title="内存溢出与内存泄露"></a>内存溢出与内存泄露</h4><blockquote>
+<h3 id="内存溢出与内存泄露"><a href="#内存溢出与内存泄露" class="headerlink" title="内存溢出与内存泄露"></a>内存溢出与内存泄露</h3><blockquote>
 <p>内存溢出OOM：</p>
 <p>没有足够的内存使用（即使GC后内存也不够）</p>
 </blockquote>
@@ -654,14 +655,38 @@
 <li>单例模式：单例的生命周期和应用程序一样长，所以单例程序中，如果用一个单例的对象关联外部对象的引用的话，那么这个外部对象是不能被回收的，会导致内存泄漏的产生。</li>
 <li>一些提供close的资源未关闭导致内存泄露：数据库连接、网络连接、io连接等必须手动close，否则是不能被回收的。</li>
 </ol>
-<h4 id="Stop-The-World"><a href="#Stop-The-World" class="headerlink" title="Stop The World"></a>Stop The World</h4><blockquote>
+<h3 id="可能的内存泄漏的原因"><a href="#可能的内存泄漏的原因" class="headerlink" title="可能的内存泄漏的原因"></a>可能的内存泄漏的原因</h3><ol>
+<li>静态的集合类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>类的变量的生命周期很长，类信息被回收的条件比较苛刻，需要满足三个条件：1、没有任何实例。2、子类也没有任何实例。3、加载该类的类加载器已被回收</p>
+<p>注意：类的静态常量一般属于常量池，其实际的位置在堆中，是可以方便回收的。</p>
+<ol start="2">
+<li>单例对象</li>
+</ol>
+<p>单例对象一般是static修饰的，如果其含有外部引用，那么也不会被回收。</p>
+<ol start="3">
+<li>数据库连接、IO、Socket没有关闭</li>
+</ol>
+<p>连接如果没有调用<code>close</code>方法关闭，是不会被回收的。</p>
+<ol start="4">
+<li>hash值发生变化</li>
+</ol>
+<p>使用HashMap等容器，如果存入之后，对象的hash值发生变化，那么也就找不到对应的对象了，也就无法回收。</p>
+<p>（这也是为什么String被设计为不可变类型的原因）</p>
+<ol start="5">
+<li>ThreadLocal使用不当</li>
+</ol>
+<p>ThreadLocalMap的Entry是弱引用的，弱引用会在每一次GC时被回收，但是如果创建该线程仍然存活，value还是处于被引用的状态，就不会被回收</p>
+<h3 id="Stop-The-World"><a href="#Stop-The-World" class="headerlink" title="Stop The World"></a>Stop The World</h3><blockquote>
 <p>STW：指GC事件中，整个应用线程被暂停，没有响应的状态。</p>
 </blockquote>
 <ul>
 <li>所有的GC回收器都有STW事件</li>
 <li>STW由JVM在后台自动发起和自动完成，用户不可见。</li>
 </ul>
-<h4 id="垃圾回收的并行与并发"><a href="#垃圾回收的并行与并发" class="headerlink" title="垃圾回收的并行与并发"></a>垃圾回收的并行与并发</h4><p>操作系统的并发并行：</p>
+<h3 id="垃圾回收的并行与并发"><a href="#垃圾回收的并行与并发" class="headerlink" title="垃圾回收的并行与并发"></a>垃圾回收的并行与并发</h3><p>操作系统的并发并行：</p>
 <ul>
 <li>并发：同一个时间段发生；互相抢占资源</li>
 <li>并行：同一个时间点发生；不互相抢占资源</li>
@@ -677,7 +702,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="安全点与安全区域"><a href="#安全点与安全区域" class="headerlink" title="安全点与安全区域"></a>安全点与安全区域</h4><p>程序运行过程，<strong>不是所有的时间点都可以停下进行GC</strong></p>
+<h3 id="安全点与安全区域"><a href="#安全点与安全区域" class="headerlink" title="安全点与安全区域"></a>安全点与安全区域</h3><p>程序运行过程，<strong>不是所有的时间点都可以停下进行GC</strong></p>
 <blockquote>
 <p>安全点（Safe Point）：可以停顿下来进行GC的位置</p>
 </blockquote>
@@ -713,7 +738,7 @@
 <li>当线程运行到<code>safe Region</code>的代码时，首先**标识已经进入了<code>Safe Region</code>**，如果这段时间内发生GC，JVM会忽略标识为<code>Safe Region</code>状态的线程</li>
 <li>当线程即将离开<code>Safe Region</code>时，会检查JVM是否已经完成GC，如果完成了，则继续运行，否则线程必须等待直到收到可以安全离开<code>Safe Region</code>的信号为止</li>
 </ol>
-<h4 id="深入引用"><a href="#深入引用" class="headerlink" title="深入引用"></a>深入引用</h4><p>JDK1.2后，引用进行了扩展，分为了四种，其强度依次递减</p>
+<h3 id="深入引用"><a href="#深入引用" class="headerlink" title="深入引用"></a>深入引用</h3><p>JDK1.2后，引用进行了扩展，分为了四种，其强度依次递减</p>
 <ul>
 <li>强引用（StrongReference）：强引用下，<strong>不会被GC回收</strong>；会造成内存泄漏</li>
 <li>软引用（SoftReference）：系统<strong>将要发生OOM溢出之前</strong>，会将软引用回收，如果回收后依然没有足够的内存，才会抛出OOM</li>
@@ -1051,7 +1076,7 @@
 <p>新生代和老年代由Region组成，但不再是物理隔离的了</p>
 <p>G1中有四种角色，<strong>一个Region只能属于一个角色</strong>（<strong>角色是可以变化的</strong>）</p>
 <p><img src="http://img.yesmylord.cn//image-20210726130334252.png" alt="Region四种角色"></p>
-<p>对于H角色我们要详细说明：</p>
+<p>对于H角色我们要详细说明：H其实是Old区的一种，如果要存入的对象大于一个Region的一半，就视为一个H区，JVM对待H区等同于Old</p>
 <p>图中Humongous代表矩形对象，是G1新增的内存区域，用来<strong>存储大对象</strong>，如果超过1.5个Region就存放到H中，如果一个H不够，会去找<strong>连续的H</strong>进行存储（<strong>如果没有连续的H，会触发Full GC</strong>）</p>
 <p><strong>原因：</strong>在原有的JVM设计下，对于堆中超过新生代的大对象，会直接存放到老年代，但是如果是一个短期的大对象，这样处理显然是不好的，因此划分了H区，H的很多行为都被当做老年代来看待。</p>
 <h4 id="G1的垃圾回收机制"><a href="#G1的垃圾回收机制" class="headerlink" title="G1的垃圾回收机制"></a>G1的垃圾回收机制</h4><p>垃圾回收过程主要包括三个环节（最后一个环节作为保护方案）：</p>
@@ -1179,6 +1204,73 @@
 <li>并发处理过程完成之前空间耗尽</li>
 <li>最大GC停顿时间太短，导致在规定的时间间隔内无法完成垃圾回收，也会导致<code>Full GC</code></li>
 </ol>
+<h2 id="CMS与G1的跨代引用问题"><a href="#CMS与G1的跨代引用问题" class="headerlink" title="CMS与G1的跨代引用问题"></a>CMS与G1的跨代引用问题</h2><blockquote>
+<p>跨代引用问题：加入有<strong>老年代执行新生代的引用</strong>，GC时是否需要遍历所有的老年代对象呢？这就是跨代引用问题</p>
+</blockquote>
+<p>首先需要了解几个结构：卡表、写屏障。</p>
+<blockquote>
+<p><strong>卡表</strong>：一个字节数组，每一个字节代表一个<strong>卡页</strong>，卡页是一段内存区域（HotSpot实现中一个卡页代表512字节的内存范围），如果卡的范围内存在至少一个外部引用，那么就会置为为1，表示脏页</p>
+</blockquote>
+<blockquote>
+<p><strong>记忆集</strong>：记忆集是专门为了解决跨代引用问题提出的一种理想化的结构，卡表是记忆集的一种具体实现（类似于HashMap与Map的关系）</p>
+</blockquote>
+<blockquote>
+<p><strong>写屏障</strong>：是对象引用在被修改时执行的一段代码。（可以理解为一个机器码级别的AOP，会在对象引用发生变化的时候执行，更改卡表为脏）</p>
+</blockquote>
+<ul>
+<li>CMS中的卡表是一个字节数组，每一个字节代表一段512字节的区域，如果该区域至少存在一个对象存在外部的引用（CMS只会记录老年代指向新生代），就将该位置的卡表置位1,<code>card_table[this_addr &gt;&gt; 9] = 1</code>（当前地址右移9位，代表地址除以512，就是对应卡表的索引位置）</li>
+<li>G1的卡表是一个hashMap，key存储了外部region的起始地址，value是一个记录卡表索引号的集合，因此G1的这种结构可以找到哪个Region指向了我。</li>
+</ul>
+<p><img src="https://img.yesmylord.cn//image-20240803113159804.png" alt="G1的卡表"></p>
+<blockquote>
+<p>问题：假设没有记忆集这个结构，该如何进行一次YGC呢？</p>
+</blockquote>
+<p>为了防止年轻代的对象含有老年代的引用，我们需要遍历老年代的所有对象。（成本很大）</p>
+<h2 id="G1的清理步骤"><a href="#G1的清理步骤" class="headerlink" title="G1的清理步骤"></a>G1的清理步骤</h2><ul>
+<li>初始标记（STW）：标记GCRoots可以直接关联的对象</li>
+<li>并发标记：GC线程可以与用户线程同时执行，使用SATB（原始快照算法）扫描的更少</li>
+<li>最终标记（STW）：标记遗留的少部分STAB记录</li>
+<li>筛选回收（STW）：将各个region按可回收价值排序，选择任意个Region组成回收集合，将依然可以存活的对象复制到新的Region，然后清空对应的Region。</li>
+</ul>
+<p>与CMS不同的是，G1筛选回收的阶段也需要STW</p>
+<blockquote>
+<p>问题：并发标记阶段，如何保证用户线程和GC线程互不干扰？</p>
+</blockquote>
+<p>CMS使用增量更新的方式，G1使用STAB算法</p>
+<p>G1每一个Region有两个指针TAMS（Top at Mark Start），两个指针之间的空间用来担任回收期间的新对象分配</p>
+<h2 id="CMS对比G1"><a href="#CMS对比G1" class="headerlink" title="CMS对比G1"></a>CMS对比G1</h2><ul>
+<li>回收算法：<ul>
+<li>CMS是标记清除算法；</li>
+<li>G1宏观上是标记压缩算法，微观上是标记复制算法</li>
+</ul>
+</li>
+<li>卡表的设计：<ul>
+<li>CMS是一个简单的字节数组（为什么不是bit数组？操作系统最小的取值单位是字节，bit还需要移位操作，会慢一点），只管老年代指向新生代的跨代引用，对于新生代对老年代的引用，在极端情况下需要遍历所有新生代的对象。</li>
+<li>G1是一个hashmap，key是其他region的起始地址，value是对应卡表的索引，因此G1可以实现双向的指向</li>
+</ul>
+</li>
+<li>卡表的大小：<ul>
+<li>CMS的卡表全局唯一，且只负责老年代指向新生代的引用</li>
+<li>G1每一个Region有一个卡表</li>
+</ul>
+</li>
+<li>内存、CPU占用：<ul>
+<li>CMS相较于G1要少一些，G1需要额外10%<del>20%的内存来维持GC，这大约需要6</del>8G的堆大小才能安全工作，小内存下，CMS的效果更好</li>
+<li>CMS的额外负载要少于G1</li>
+</ul>
+</li>
+<li>STW：<ul>
+<li>CMS只有初始标记、重新标记需要STW</li>
+<li>G1在初始标记、最终标记、筛选回收都需要STW</li>
+</ul>
+</li>
+<li>其他特性：<ul>
+<li>G1可以实现指定时间内的GC</li>
+<li>G1可以同时完成新生代与老年代的回收，CMS只可以完成老年代的回收。</li>
+<li>G1使用的STAB算法比CMS更快，扫描的内容更少</li>
+</ul>
+</li>
+</ul>
 <h2 id="文章相关链接"><a href="#文章相关链接" class="headerlink" title="文章相关链接"></a>文章相关链接</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PJ411n7xZ">尚硅谷JVM教程</a>：强推，最强JVM视频教程</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/TangBean/understanding-the-jvm">《深入理解Java虚拟机》阅读笔记</a>：省下看书的时间</li>
@@ -1248,7 +1340,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">17:37</span>
+    <span title="站点阅读时长">18:46</span>
   </span>
 </div>
 <div class="busuanzi-count">
