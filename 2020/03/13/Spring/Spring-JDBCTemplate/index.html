@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：  Spring——JDBCTemplate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring_JDBCTemplate">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/Spring/Spring-JDBCTemplate/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：  Spring——JDBCTemplate">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-13T15:54:03.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.798Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/03/13/Spring/Spring-JDBCTemplate/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2020/03/13/Spring/Spring-JDBCTemplate/","path":"2020/03/13/Spring/Spring-JDBCTemplate/","title":"Spring_JDBCTemplate"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring_JDBCTemplate | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JDBC-Template"><span class="nav-number">1.</span> <span class="nav-text">JDBC Template</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">增删改相关方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#update%E6%96%B9%E6%B3%95%EF%BC%88%E5%AF%B9%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E5%A2%9E%E5%88%A0%E6%94%B9%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">update方法（对数据进行增删改）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#batchUpadate%E6%96%B9%E6%B3%95%EF%BC%88%E6%89%B9%E9%87%8F%E5%A2%9E%E5%88%A0%E6%94%B9%E6%93%8D%E4%BD%9C%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">batchUpadate方法（批量增删改操作）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">查询相关方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.1.</span> <span class="nav-text">简单的查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E7%9A%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">复杂的查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%A4%8D%E6%9D%82%E5%AF%B9%E8%B1%A1%EF%BC%88%E5%B9%B6%E5%B0%81%E8%A3%85%E4%B8%BA%E5%AE%9E%E4%BD%93%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">查询复杂对象（并封装为实体对象）</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/Spring/Spring-JDBCTemplate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring_JDBCTemplate | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring_JDBCTemplate
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-13 23:54:03" itemprop="dateCreated datePublished" datetime="2020-03-13T23:54:03+08:00">2020-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+
+<p>Spring——JDBCTemplate    </p>
+</center>
+
+<span id="more"></span>
+<hr>
+<h1 id="JDBC-Template"><a href="#JDBC-Template" class="headerlink" title="JDBC Template"></a>JDBC Template</h1><p>Spring为了简化JDBC的持久化操作，提供了<code>JDBC Template</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//原本操作数据库的流程</span><br><span class="line">我们的代码 -&gt; JDBC API -&gt; JDBC驱动 -&gt; MySql</span><br><span class="line"></span><br><span class="line">//现在</span><br><span class="line">我们的代码 -&gt; JDBC Template -&gt; JDBC API -&gt; JDBC驱动 -&gt; MySql</span><br></pre></td></tr></table></figure>
+<p>Maven配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Mysql--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.44<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--JDBC--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.2.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--事务管理--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-tx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.2.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置<code>SpringConfig</code>文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--约束文件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:aop</span>=<span class="string">&quot;http://www.springframework.org/schema/aop&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:tx</span>=<span class="string">&quot;http://www.springframework.org/schema/tx&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/context/spring-context.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/aop</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/aop/spring-aop.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/tx</span></span></span><br><span class="line"><span class="string"><span class="tag">    http://www.springframework.org/schema/tx/spring-tx.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置JDBC--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/selection_course?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置JDBCTemplate--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="增删改相关方法"><a href="#增删改相关方法" class="headerlink" title="增删改相关方法"></a>增删改相关方法</h2><h3 id="update方法（对数据进行增删改）"><a href="#update方法（对数据进行增删改）" class="headerlink" title="update方法（对数据进行增删改）"></a>update方法（对数据进行增删改）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">update</span><span class="params">(String sql, Obejct[] args)</span></span><br><span class="line"><span class="comment">//参数是SQL语句和一个数组</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">update</span><span class="params">(String sql, Obejct... args)</span></span><br><span class="line"><span class="comment">//参数是SQL和任意个参数</span></span><br></pre></td></tr></table></figure>
+<p>例如以下的操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql1</span> <span class="operator">=</span> <span class="string">&quot;insert into student(name,sex) values(?,?)&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">sql2</span> <span class="operator">=</span> <span class="string">&quot;update student set sex=? where id=?&quot;</span>;</span><br><span class="line">jdbcTemplate.update(sql1,<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;<span class="string">&quot;李白&quot;</span>,<span class="string">&quot;男&quot;</span>&#125;);</span><br><span class="line">jdbcTemplate.update(sql2,<span class="string">&quot;女&quot;</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="batchUpadate方法（批量增删改操作）"><a href="#batchUpadate方法（批量增删改操作）" class="headerlink" title="batchUpadate方法（批量增删改操作）"></a>batchUpadate方法（批量增删改操作）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] batchUpdate(String[] sql)</span><br><span class="line"><span class="comment">//执行一个数组内的全部sql</span></span><br><span class="line"><span class="type">int</span>[] batchUpdate(String sql,List&lt;Obejct[]&gt; args)</span><br><span class="line"><span class="comment">//可以将一个sql语句分别插入不同的值执行</span></span><br></pre></td></tr></table></figure>
+<p>例如以下操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testBatchUpdate1</span><span class="params">()</span>&#123;</span><br><span class="line">    String[] sql = &#123;</span><br><span class="line">            <span class="string">&quot;insert into student(name,sex) values(&#x27;杜哺&#x27;,&#x27;男&#x27;)&quot;</span>,</span><br><span class="line">            <span class="string">&quot;insert into student(name,sex) values(&#x27;孟浩然&#x27;,&#x27;男&#x27;)&quot;</span>,</span><br><span class="line">            <span class="string">&quot;insert into student(name,sex) values(&#x27;李清照&#x27;,&#x27;女&#x27;)&quot;</span>&#125;;</span><br><span class="line">    jdbcTemplate.batchUpdate(sql);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testBatchUpdate2</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;insert into selection(student,course) values(?,?)&quot;</span>;</span><br><span class="line">    List&lt;Object[]&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    list.add(<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;<span class="number">13</span>,<span class="number">1001</span>&#125;);</span><br><span class="line">    list.add(<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;<span class="number">15</span>,<span class="number">1002</span>&#125;);</span><br><span class="line">    list.add(<span class="keyword">new</span> <span class="title class_">Object</span>[]&#123;<span class="number">14</span>,<span class="number">1003</span>&#125;);</span><br><span class="line">    jdbcTemplate.batchUpdate(sql,list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询相关方法"><a href="#查询相关方法" class="headerlink" title="查询相关方法"></a>查询相关方法</h2><h3 id="简单的查询"><a href="#简单的查询" class="headerlink" title="简单的查询"></a>简单的查询</h3><p>查询结果只有一个字段，例如查询个数，查询所有的男生名字等等</p>
+<ul>
+<li>获取一个<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">T <span class="title function_">queryForObeject</span><span class="params">(String sql, Class&lt;T&gt; type)</span></span><br><span class="line"><span class="comment">//参数是Sql语句和查询结果是一个什么类</span></span><br><span class="line">T <span class="title function_">queryForObeject</span><span class="params">(String sql, Object[] args,Class&lt;T&gt; type)</span></span><br><span class="line">T <span class="title function_">queryForObeject</span><span class="params">(String sql, Class&lt;T&gt; type, Object... arg)</span></span><br></pre></td></tr></table></figure>
+例如以下操作<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select count(*) from student&quot;</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> jdbcTemplate.queryForObject(sql, Integer.class);</span><br><span class="line">System.out.println(count);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<ul>
+<li>获取多个</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; <span class="title function_">queryForList</span><span class="params">(String sql, Class&lt;T&gt; type)</span></span><br><span class="line">List&lt;T&gt; <span class="title function_">queryForList</span><span class="params">(String sql, Obejct[] args,Class&lt;T&gt; type)</span></span><br><span class="line">List&lt;T&gt; <span class="title function_">queryForList</span><span class="params">(String sql, Class&lt;T&gt; type, Object... arg)</span></span><br></pre></td></tr></table></figure>
+<p>例如下面的操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select name from student where sex=?&quot;</span>;</span><br><span class="line">List&lt;String&gt; names = jdbcTemplate.queryForList(sql, String.class,<span class="string">&quot;女&quot;</span>);</span><br><span class="line">System.out.println(names);</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂的查询"><a href="#复杂的查询" class="headerlink" title="复杂的查询"></a>复杂的查询</h3><p>复杂的查询会封装为<code>Map</code>类型</p>
+<ul>
+<li>获取一个<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map <span class="title function_">queryForMap</span><span class="params">(String sql)</span></span><br><span class="line">Map <span class="title function_">queryForMap</span><span class="params">(String sql, Object[] args)</span></span><br><span class="line">Map <span class="title function_">queryForMap</span><span class="params">(String sql, Object... arg)</span></span><br></pre></td></tr></table></figure>
+例如下面的操作<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from student where id=?&quot;</span>;</span><br><span class="line">Map&lt;String, Object&gt; stu = jdbcTemplate.queryForMap(sql, <span class="number">13</span>);</span><br><span class="line">System.out.println(stu);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>获取多个</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Map&lt;String, Object&gt;&gt; <span class="title function_">queryForList</span><span class="params">(String sql)</span></span><br><span class="line">List&lt;Map&lt;String, Object&gt;&gt; <span class="title function_">queryForList</span><span class="params">(String sql, Object[] args)</span></span><br><span class="line">List&lt;Map&lt;String, Object&gt;&gt; <span class="title function_">queryForList</span><span class="params">(String sql, Object... arg)</span></span><br></pre></td></tr></table></figure>
+<p>看完会发现，只要我们不指定返回的类型，他就是一个查询多个字段获取多个字段的方法</p>
+<p>例如下面操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from student&quot;</span>;</span><br><span class="line">List&lt;Map&lt;String, Object&gt;&gt; stus = jdbcTemplate.queryForList(sql);</span><br><span class="line">System.out.println(stus);</span><br></pre></td></tr></table></figure>
+<h3 id="查询复杂对象（并封装为实体对象）"><a href="#查询复杂对象（并封装为实体对象）" class="headerlink" title="查询复杂对象（并封装为实体对象）"></a>查询复杂对象（并封装为实体对象）</h3><p>方法主要有：</p>
+<ul>
+<li><p>获取一个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">T <span class="title function_">queryForObject</span><span class="params">(String sql, RowMapper&lt;T&gt; mapper)</span></span><br><span class="line">T <span class="title function_">queryForObject</span><span class="params">(String sql, Obeject[] args,RowMapper&lt;T&gt; mapper)</span></span><br><span class="line">T <span class="title function_">queryForObject</span><span class="params">(String sql, RowMapper&lt;T&gt; mapper, Object... arg)</span></span><br></pre></td></tr></table></figure>
+<p>例如下面的操作，其中<code>Student</code>类已经写出，只是一个示意</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from student where id = ?&quot;</span>;</span><br><span class="line"><span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> <span class="title class_">RowMapper</span>&lt;Student&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Student <span class="title function_">mapRow</span><span class="params">(ResultSet rs, <span class="type">int</span> rowNum)</span> <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">stu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">        stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">        stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">        stu.setSex(rs.getString(<span class="string">&quot;sex&quot;</span>));</span><br><span class="line">        stu.setBorn(rs.getDate(<span class="string">&quot;born&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> stu;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">13</span>);</span><br><span class="line">System.out.println(student);</span><br></pre></td></tr></table></figure></li>
+<li><p>获取多个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;T&gt; <span class="title function_">query</span><span class="params">(String sql, RowMapper&lt;T&gt; mapper)</span></span><br><span class="line">List&lt;T&gt; <span class="title function_">query</span><span class="params">(String sql, Object[] args,RowMapper&lt;T&gt; mapper)</span></span><br><span class="line">List <span class="title function_">query</span><span class="params">(String sql, RowMapper&lt;T&gt; maooer,Object... arg)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong><code>RowMapper</code>接口可以实现封装为实体对象</strong>,例如下面这个操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from student&quot;</span>;</span><br><span class="line">List&lt;Student&gt; student = jdbcTemplate.query(sql, <span class="keyword">new</span> <span class="title class_">RowMapper</span>&lt;Student&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Student <span class="title function_">mapRow</span><span class="params">(ResultSet rs, <span class="type">int</span> rowNum)</span> <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">stu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">        stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">        stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">        stu.setSex(rs.getString(<span class="string">&quot;sex&quot;</span>));</span><br><span class="line">        stu.setBorn(rs.getDate(<span class="string">&quot;born&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> stu;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(student);</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/03/12/Spring/Spring-AspectJ/" rel="prev" title="Spring_AspectJ">
+                  <i class="fa fa-chevron-left"></i> Spring_AspectJ
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/" rel="next" title="HTTP协议">
+                  HTTP协议 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：中本聪——比特币白皮书">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比特币白皮书">
+<meta property="og:url" content="http://yoursite.com/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：中本聪——比特币白皮书">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221101103152433.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221101110255983.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221101111605900.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221102211057693.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221101153204589.png">
+<meta property="article:published_time" content="2022-11-01T00:53:23.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.925Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="比特币">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20221101103152433.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/","path":"2022/11/01/区块链/比特币白皮书/","title":"比特币白皮书"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>比特币白皮书 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%EF%BC%9A%E4%B8%80%E7%A7%8D%E7%82%B9%E5%AF%B9%E7%82%B9%E7%9A%84%E7%94%B5%E5%AD%90%E7%8E%B0%E9%87%91%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">比特币：一种点对点的电子现金系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transactions"><span class="nav-number">1.3.</span> <span class="nav-text">Transactions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timestamp-server"><span class="nav-number">1.4.</span> <span class="nav-text">Timestamp server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-of-Work"><span class="nav-number">1.5.</span> <span class="nav-text">Proof of Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network"><span class="nav-number">1.6.</span> <span class="nav-text">Network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Incentive"><span class="nav-number">1.7.</span> <span class="nav-text">Incentive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reclaiming-Disk-Space"><span class="nav-number">1.8.</span> <span class="nav-text">Reclaiming Disk Space</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Simplified-Payment-Verification"><span class="nav-number">1.9.</span> <span class="nav-text">Simplified Payment Verification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-and-Splitting-Value"><span class="nav-number">1.10.</span> <span class="nav-text">Combining and Splitting Value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Privacy"><span class="nav-number">1.11.</span> <span class="nav-text">Privacy</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="比特币白皮书 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          比特币白皮书
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-01 08:53:23" itemprop="dateCreated datePublished" datetime="2022-11-01T08:53:23+08:00">2022-11-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" itemprop="url" rel="index"><span itemprop="name">区块链</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：中本聪——比特币白皮书
+</center>
+<span id="more"></span>
+
+<h1 id="比特币：一种点对点的电子现金系统"><a href="#比特币：一种点对点的电子现金系统" class="headerlink" title="比特币：一种点对点的电子现金系统"></a>比特币：一种点对点的电子现金系统</h1><p>内容参考：</p>
+<ul>
+<li><p>中本聪比特币paper</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/blockchain_guide">区块链技术指南</a></p>
+</li>
+</ul>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><blockquote>
+<p>比特币：一种纯粹的<strong>点对点peer2peer</strong>的<strong>无需金融机构</strong>介入的<strong>电子现金系统 electronic payments</strong></p>
+</blockquote>
+<p>本文提出一种使用<strong>p2p网络</strong>解决<strong>双重支出</strong>问题的解决方案，从而避免第三方机构的介入。</p>
+<blockquote>
+<p><strong>双重支付double spending</strong>：即一份钱花了两次甚至多次（这是<strong>数字货币</strong>存在的问题，因为数字货币就是一串数字，通常的避免方式是用第三方金融机构，比如银行来鉴定这个数字货币的真伪）</p>
+</blockquote>
+<p>手段：使用p2p网络将事务hash散列在一个不断增长的以<strong>工作量证明proof-of-work</strong>的链上，工作量证明的最长的链一定在CPU算力高的区域，如果攻击者不能完全控制这片高算力池，那么原本的最长链会不断发展，超过攻击者。</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>传统的解决双重支付的手段是让第三方机构进行校验，这样存在几个问题：</p>
+<ul>
+<li>限制了小型的交易</li>
+<li>无法对<strong>不可逆的服务</strong>提供<strong>完全不可逆的交易 Completely non-reversible transactions</strong></li>
+</ul>
+<p>（理解：仲裁机构有着绝对的话语权，如果买卖双方发生纠纷，一定会去寻找仲裁。仲裁调解本身也需要成本，也就导致小型的交易骗局只能让买卖有一方吃亏（限制了小型交易）；对于较为大型的交易，也必须有一个双方都信任的机构，比如碰到老赖，我们只能去法院打官司，如果法官被收买，我们也只能吃亏）</p>
+<blockquote>
+<p>即：原本的交易系统是<strong>依赖于信任</strong>的，现有的交易需要政府提供的公信力</p>
+</blockquote>
+<p>比特币的解决措施：解决信任问题，即提供一种基于<strong>密码证明cryptographic proof</strong>而不是信任的电子支付系统（使用密码学替代信任）</p>
+<h2 id="Transactions"><a href="#Transactions" class="headerlink" title="Transactions"></a>Transactions</h2><blockquote>
+<p>定义：将一枚<strong>电子硬币electronic coin</strong>定义为一个<strong>数字签名链 digital signatures</strong></p>
+</blockquote>
+<p>（<a target="_blank" rel="noopener" href="https://github.com/xiaolai/bitcoin-whitepaper-chinese-translation/blob/master/Bitcoin-Whitepaper-EN-CN.pdf">图片来自</a>）</p>
+<p><img src="http://img.yesmylord.cn//image-20221101103152433.png" alt="交易机制"></p>
+<p>当所有者1想把一枚货币转给所有者2时（交易），需要在数字签名链的末尾附加上<strong>数字签名</strong>（如图所示）</p>
+<p>数字签名的构成：</p>
+<ul>
+<li>上一笔交易的hash值 </li>
+<li>新的所有者的公钥</li>
+</ul>
+<p>收款人可以验证签名去验证数字签名链的所有权</p>
+<hr>
+<p>这种方式依然有double spending的问题，解决方式两种：</p>
+<ul>
+<li>中心化：比如银行、铸币厂，拥有所有交易的记录，可以验证此交易是否存在过</li>
+<li>去中心化：将所有的交易记录公开，维护一个可以让参与者认同唯一的一个交易历史的系统；若大多数节点可以认同这比交易，那么交易就是正常的</li>
+</ul>
+<h2 id="Timestamp-server"><a href="#Timestamp-server" class="headerlink" title="Timestamp server"></a>Timestamp server</h2><p>这种解决方案起步于一种<strong>时间戳服务器</strong></p>
+<blockquote>
+<p>时间戳服务器的工作方式：为一组记录（一个block）的hash打上时间戳，然后将hash广播出去。每个hash包含着之前的时间戳，形成一个链，如图所示：</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20221101110255983.png" alt="时间戳服务器"></p>
+<h2 id="Proof-of-Work"><a href="#Proof-of-Work" class="headerlink" title="Proof of Work"></a>Proof of Work</h2><blockquote>
+<p>区块如何避免双重支付？PoW</p>
+</blockquote>
+<p>先了解一下散列函数：</p>
+<blockquote>
+<p>散列函数<code>y=hash(x)</code>：对于相同的x返回相同的y，但是几乎无法从y反推x</p>
+<p>如果x1与x2差距很小，其y1与y2值差距会相当大（雪崩效应）</p>
+<p>比如sha256：他可以指定前导0，前导0越多，计算量将指数级增加</p>
+</blockquote>
+<p>工作量证明：不断的在区块增加<strong>随机数Nonce</strong>，直到一个满足条件的数值被找到（什么条件？我们指定前缀0的个数）CPU耗费算力得到的结果就是工作量证明，一旦得到工作量证明，这个区块将不能再被更改</p>
+<p><img src="http://img.yesmylord.cn//image-20221101111605900.png" alt="工作量证明"></p>
+<p>（从图中我们可以看到，一个区块包含多个交易）</p>
+<p>以CPU算力为基础的工作量证明解决了“谁能代表大多数”的问题：如果是基于IP的话，很容易被拥有IP多的人操纵</p>
+<p>如果大多数的CPU算力是<strong>诚实honest</strong>的，那么这个诚实链就会发展的很快，如果想要篡改一个已经证明的区块：</p>
+<ul>
+<li>重新完成那一个区块的证明</li>
+<li>完成那个区块之后的所有区块链的证明、</li>
+<li>追上并超过其他的诚实节点</li>
+</ul>
+<p>这些条件是极其苛刻的，并且链越长越难以篡改</p>
+<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><p>网络中的工作步骤：</p>
+<ol>
+<li>新的交易向所有node<strong>广播</strong></li>
+<li>每个node将新交易打包到一个<strong>区块block</strong></li>
+<li>每个node计算<strong>工作量证明PoW</strong></li>
+<li>当有一个node找到了PoW，它广播给其他nodes</li>
+<li>nodes接受这个block当且仅当：其中所有交易有效&amp;&amp;没有double spend</li>
+<li>nodes向网络中表达接受，在创建下一个block时，将把被接受区块的hash作为新区块的hash</li>
+</ol>
+<blockquote>
+<p>当两个node同时完成了PoW时：</p>
+<p>每一个node都始终认为<strong>最长的链</strong>是正确的</p>
+<p>一部分node会接受A，一部分node会接受B（但他们同时会保存另外一个链，产生一个branch）</p>
+<p>当下一个block加入后，更长的链会被认为是正确的，将分支取消掉</p>
+</blockquote>
+<blockquote>
+<p>新的交易不一定要广播到所有node，只要广播到足够多的node，就可以打包一个block</p>
+</blockquote>
+<blockquote>
+<p>如果广播的消息没有发送到某个node，这个node可能会少一个block，不过下一个区块他就会意识到缺失了，并且发出请求去补充区块</p>
+</blockquote>
+<h2 id="Incentive"><a href="#Incentive" class="headerlink" title="Incentive"></a>Incentive</h2><p>奖励机制：为了保证我们有足够多的node的算力的支持，系统内需要提供一定的奖励机制</p>
+<ul>
+<li><strong>每个block的第一笔交易</strong>：每个block包含很多个交易，但第一个交易比较特殊，它会生成一个新币，被生成者所有。</li>
+<li><strong>交易费用的差值</strong>：如果一笔交易的输入小于它的输出，那么产生的差值奖励给将此交易打包到block的node</li>
+</ul>
+<p>奖励机制也保证，有足够能力的攻击者（即拥有比honest node更多算力的用户）顺从规则比改变规则带来的收益要更多。</p>
+<h2 id="Reclaiming-Disk-Space"><a href="#Reclaiming-Disk-Space" class="headerlink" title="Reclaiming Disk Space"></a>Reclaiming Disk Space</h2><blockquote>
+<p>Merkle树（也称为哈希树）：<a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/blockchain_guide/05_crypto/merkle_trie">链接</a></p>
+<p><img src="http://img.yesmylord.cn//image-20221102211057693.png" alt="Merkle树"></p>
+<p>树的特点：</p>
+<ul>
+<li>叶子结点存储数据或hash值</li>
+<li>非叶子节点是其两个子节点内容的hash值</li>
+</ul>
+<p>Merkle树的性质：</p>
+<ul>
+<li>底层数据的任何变动都会逐渐影响到根节点</li>
+</ul>
+<p>Merkle树的主要使用场景：（详细内容check链接）</p>
+<ul>
+<li>证明集合是否存在某个元素</li>
+<li>快速比较大量数据</li>
+<li>快速定位修改</li>
+<li>零知识证明</li>
+</ul>
+</blockquote>
+<p>区块链的存储如图所示：某笔交易之前的交易记录可以丢弃以节省空间，如图删除了Tx2节点（注意到hash2并没有删除！），之前的Tx0，Tx1都被删除</p>
+<p><img src="http://img.yesmylord.cn//image-20221101153204589.png" alt="coin的存储结构"></p>
+<h2 id="Simplified-Payment-Verification"><a href="#Simplified-Payment-Verification" class="headerlink" title="Simplified Payment Verification"></a>Simplified Payment Verification</h2><p>上面介绍到了Merkle树的结构，就能知道快速的验证交易是否存在很简单。</p>
+<h2 id="Combining-and-Splitting-Value"><a href="#Combining-and-Splitting-Value" class="headerlink" title="Combining and Splitting Value"></a>Combining and Splitting Value</h2><p>价值的组合与分割：意思是一个交易可能包含一个或多个输入和最多两个输出</p>
+<p>输入：</p>
+<ul>
+<li>情况1：单笔相对较大的输入</li>
+<li>情况2：多个小金额的输入</li>
+</ul>
+<p>输出：</p>
+<ul>
+<li>输出到收款方</li>
+<li>输出到找零方（可能没有这一个输出）</li>
+</ul>
+<h2 id="Privacy"><a href="#Privacy" class="headerlink" title="Privacy"></a>Privacy</h2><p>交易使用<strong>公钥匿名</strong>。公众可以看到某某向某某转账，但是没有却不能知道交易双方是谁（像是股票，可以看到时间和交易的金额）</p>
+<p>交易者每一笔交易都使用一对新的公司要，以便于他人无法追溯（如果公钥所有者被曝光，那么他的相关交易都会被曝光）</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag"><i class="fa fa-tag"></i> 区块链</a>
+              <a href="/tags/%E6%AF%94%E7%89%B9%E5%B8%81/" rel="tag"><i class="fa fa-tag"></i> 比特币</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E5%AE%9E%E8%B7%B5/" rel="prev" title="卷积神经网络CNN">
+                  <i class="fa fa-chevron-left"></i> 卷积神经网络CNN
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/04/%E5%8C%BA%E5%9D%97%E9%93%BE/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF/" rel="next" title="区块链技术">
+                  区块链技术 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

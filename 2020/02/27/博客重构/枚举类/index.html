@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：枚举类；补充了一些额外知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="枚举类">
+<meta property="og:url" content="http://yoursite.com/2020/02/27/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%9E%9A%E4%B8%BE%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：枚举类；补充了一些额外知识点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-26T16:05:47.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.946Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Enum">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/02/27/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%9E%9A%E4%B8%BE%E7%B1%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2020/02/27/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%9E%9A%E4%B8%BE%E7%B1%BB/","path":"2020/02/27/博客重构/枚举类/","title":"枚举类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>枚举类 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">枚举类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%9E%9A%E4%B8%BE%E7%B1%BB%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用枚举类？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enum%E7%B1%BB%E7%9A%84%E6%A0%B8%E5%BF%83API"><span class="nav-number">1.2.</span> <span class="nav-text">Enum类的核心API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%9E%9A%E4%B8%BE%E7%9A%84Demo"><span class="nav-number">1.3.</span> <span class="nav-text">一个枚举的Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">枚举类的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">1.5.</span> <span class="nav-text">枚举类的本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8switch%E8%AF%AD%E5%8F%A5%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">在switch语句中使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%9A%84values-%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">枚举的values()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%9A%84%E6%9B%B4%E5%A4%9A%E5%86%99%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">枚举的更多写法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%86%85%E9%83%A8%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.8.1.</span> <span class="nav-text">接口的内部枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="nav-number">1.8.2.</span> <span class="nav-text">接口实现抽象方法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/27/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%9E%9A%E4%B8%BE%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="枚举类 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          枚举类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-27 00:05:47" itemprop="dateCreated datePublished" datetime="2020-02-27T00:05:47+08:00">2020-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/Enum/" itemprop="url" rel="index"><span itemprop="name">Enum</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+    引言：枚举类；补充了一些额外知识点
+</center>
+<span id="more"></span>
+
+<h1 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h1><h2 id="为什么要使用枚举类？"><a href="#为什么要使用枚举类？" class="headerlink" title="为什么要使用枚举类？"></a>为什么要使用枚举类？</h2><ol>
+<li><strong>安全性</strong>（使用枚举类不会被反射获取，不可以与其他类型的值进行比较，防止错误）</li>
+<li><strong>易读性</strong>（枚举类比原本使用数字可以携带更多的信息，尤其是在日志记录时，更加容易）</li>
+</ol>
+<h2 id="Enum类的核心API"><a href="#Enum类的核心API" class="headerlink" title="Enum类的核心API"></a>Enum类的核心API</h2><p>所有枚举类，<strong>默认继承自<code>java.lang.Enum</code>类</strong>，该类有以下几个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String <span class="title function_">name</span><span class="params">()</span> <span class="comment">//返回枚举类常量的名称（即指定的String）</span></span><br><span class="line">String <span class="title function_">toString</span><span class="params">()</span> <span class="comment">//返回枚举类常量的名称</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">ordinal</span><span class="params">()</span><span class="comment">//返回枚举常量的序数，取决于创建枚举类的位置</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>尽量使用<code>name()</code>方法来返回字符串等效串，而不去使用<code>toString</code></li>
+</ul>
+<blockquote>
+<p>为什么要使用<code>name()</code>？</p>
+</blockquote>
+<p>因为你不能保证<code>toString</code>没有被重写！</p>
+<p><strong>导致此枚举类在序列化时有可能使字符串失去等效性</strong>，而使用<code>name()</code>就没有这种情况</p>
+<h2 id="一个枚举的Demo"><a href="#一个枚举的Demo" class="headerlink" title="一个枚举的Demo"></a>一个枚举的Demo</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Color</span> &#123;</span><br><span class="line">    RED(<span class="string">&quot;红色&quot;</span>, <span class="number">1</span>),</span><br><span class="line">    GREEN(<span class="string">&quot;绿色&quot;</span>, <span class="number">2</span>),</span><br><span class="line">    BLANK(<span class="string">&quot;白色&quot;</span>, <span class="number">3</span>),</span><br><span class="line">    YELLO(<span class="string">&quot;黄色&quot;</span>, <span class="number">4</span>); <span class="comment">// 注意使用分号隔开</span></span><br><span class="line">    <span class="comment">// 成员变量</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> index;</span><br><span class="line">    <span class="comment">// 构造方法，默认就是私有的，枚举类不允许外部创建</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Color</span><span class="params">(String name, <span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.index = index;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//覆盖方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Color&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, index=&quot;</span> + index +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试一下API会返回什么？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Color</span> <span class="variable">color</span> <span class="operator">=</span> Color.BLANK;</span><br><span class="line">System.out.println(color.name()); <span class="comment">// BLANK</span></span><br><span class="line">System.out.println(color.toString()); <span class="comment">// Color&#123;name=&#x27;白色&#x27;, index=3&#125;</span></span><br><span class="line">System.out.println(color.ordinal()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="枚举类的特点"><a href="#枚举类的特点" class="headerlink" title="枚举类的特点"></a>枚举类的特点</h2><ul>
+<li>枚举类继承自<code>java.lang.Enum</code>（因此枚举类不能继承其他类，但是可以实现接口）</li>
+<li>无法使用<code>new</code>创建实例（因为构造方法是私有的）</li>
+<li>定义的每个实例都是引用类型的唯一实例（唯一一个安全的构造单例模式的方法）</li>
+<li>可以在<code>switch</code>语句中使用</li>
+</ul>
+<h2 id="枚举类的本质"><a href="#枚举类的本质" class="headerlink" title="枚举类的本质"></a>枚举类的本质</h2><p>我们自己建立的枚举类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Weekday</span> &#123;</span><br><span class="line">    SUN, MON, TUE, WED, THU, FRI, SAT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在被编译器编译后是这样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Weekday</span> <span class="keyword">extends</span> <span class="title class_">Enum</span> &#123; <span class="comment">// 继承自Enum，标记为final class</span></span><br><span class="line">    <span class="comment">// 每个实例均为全局唯一:</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Weekday</span> <span class="variable">SUN</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weekday</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Weekday</span> <span class="variable">MON</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weekday</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Weekday</span> <span class="variable">TUE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weekday</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Weekday</span> <span class="variable">WED</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weekday</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Weekday</span> <span class="variable">THU</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weekday</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Weekday</span> <span class="variable">FRI</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weekday</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Weekday</span> <span class="variable">SAT</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weekday</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// private构造方法，确保外部无法调用new操作符:</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Color</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于<code>ordinal()</code>方法依赖于排序树，所以改变枚举类常量的顺序就会发生变化，不利于程序的鲁棒性</p>
+<p>建议枚举类代码写为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Weekday</span> &#123;</span><br><span class="line">    SUN(<span class="number">0</span>), MON(<span class="number">1</span>), TUE(<span class="number">2</span>), WED(<span class="number">3</span>), THU(<span class="number">4</span>), FRI(<span class="number">5</span>), SAT(<span class="number">6</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> dayValue;</span><br><span class="line">    <span class="comment">//这里建议使用final修饰</span></span><br><span class="line">    Weekday(<span class="type">int</span> dayValue) &#123;</span><br><span class="line">        <span class="built_in">this</span>.dayValue = dayValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>判断枚举常量的名字，要始终使用name()方法，绝不能调用toString()！</strong></p>
+<h2 id="在switch语句中使用"><a href="#在switch语句中使用" class="headerlink" title="在switch语句中使用"></a>在switch语句中使用</h2><p><code>switch()</code>语句支持的类型有：<br><code>byte char short int</code>及其<strong>包装类</strong>、以及<strong>枚举类</strong>和<code>String</code></p>
+<p>有关<code>switch</code>这方面推荐博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/lijiawnen/article/details/82313366">CSDN博主 由零开始Leon</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Weekday</span> <span class="variable">day</span> <span class="operator">=</span> Weekday.SUN;</span><br><span class="line"><span class="keyword">switch</span>(day) &#123;</span><br><span class="line"><span class="keyword">case</span> MON:</span><br><span class="line"><span class="keyword">case</span> TUE:</span><br><span class="line"><span class="keyword">case</span> WED:</span><br><span class="line"><span class="keyword">case</span> THU:</span><br><span class="line"><span class="keyword">case</span> FRI:</span><br><span class="line">    System.out.println(<span class="string">&quot;Today is &quot;</span> + day + <span class="string">&quot;. Work at office!&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> SAT:</span><br><span class="line"><span class="keyword">case</span> SUN:</span><br><span class="line">    System.out.println(<span class="string">&quot;Today is &quot;</span> + day + <span class="string">&quot;. Work at home!&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;cannot process &quot;</span> + day);</span><br></pre></td></tr></table></figure>
+
+<h2 id="枚举的values-方法"><a href="#枚举的values-方法" class="headerlink" title="枚举的values()方法"></a>枚举的<code>values()</code>方法</h2><p>枚举类都有一个<code>values</code>方法，但注意，这个方法并不来自父类Enum，而是编译器增加的一个方法</p>
+<blockquote>
+<p>The compiler automatically adds some special methods when it creates an enum. For example, they have a static <code>values</code> method that returns an array containing all of the values of the enum in the order they are declared. （Oracle<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html">官方文档</a>）</p>
+<p>翻译：编译器在创建enum时，会自动添加一些方法。比如<code>values</code>静态方法，会返回一个该枚举类型的数组</p>
+</blockquote>
+<p>工作中经常会遇到一个枚举类，需要通过Int获取他的String（或是相反）的情况，这里给出一个<strong>模板</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">EnumTemplate</span> &#123;</span><br><span class="line">    CREATE(<span class="number">0</span>,<span class="string">&quot;create&quot;</span>),</span><br><span class="line">    TOUCH(<span class="number">1</span>,<span class="string">&quot;touch&quot;</span>),</span><br><span class="line">    SUBMIT(<span class="number">2</span>, <span class="string">&quot;submit&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> String tag;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    EnumTemplate(Integer id, String tag) &#123;</span><br><span class="line">        <span class="built_in">this</span>.tag = tag;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过int获取String（普通写法）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNameById</span><span class="params">(Integer id)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (EnumTemplate value : values()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(value.id.equals(id))&#123;</span><br><span class="line">                <span class="keyword">return</span> value.tag;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过String获取int（流式写法）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getIdByName</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(values())</span><br><span class="line">                .collect(Collectors.toList())</span><br><span class="line">                .stream()</span><br><span class="line">                .filter(x -&gt; name.equals(x.tag))</span><br><span class="line">                .map(EnumTemplate::getId)</span><br><span class="line">                .findFirst().orElse(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getTag</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> tag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">getId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：工作<strong>强烈建议使用普通方法</strong>而不是流式写法，<strong>效率差太多了</strong>（差距一百多倍）。</p>
+<h2 id="枚举的更多写法"><a href="#枚举的更多写法" class="headerlink" title="枚举的更多写法"></a>枚举的更多写法</h2><h3 id="接口的内部枚举"><a href="#接口的内部枚举" class="headerlink" title="接口的内部枚举"></a>接口的内部枚举</h3><p>有时候我们会遇到这种情况，枚举有了分类，比如：腾讯有QQ与微信，QQ有QQ登录的和平精英、王者荣耀，微信同样也有，但是我们想用枚举标识这两种不同的账号，我们可以如此创建这个枚举类。</p>
+<p>同一个接口<code>Tencent</code>下，实现了两个枚举类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Tencent</span> &#123;</span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">WX</span>&#123;</span><br><span class="line">        WX_WZRY(<span class="number">0</span>, <span class="string">&quot;王者荣耀&quot;</span>),</span><br><span class="line">        WX_HPJY(<span class="number">1</span>, <span class="string">&quot;和平精英&quot;</span>);</span><br><span class="line">        <span class="keyword">private</span> Integer id;</span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">        WX(Integer id, String name) &#123;</span><br><span class="line">            <span class="built_in">this</span>.id = id;</span><br><span class="line">            <span class="built_in">this</span>.name = name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Integer <span class="title function_">getId</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> id;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">QQ</span>&#123;</span><br><span class="line">        QQ_WZRY(<span class="number">0</span>, <span class="string">&quot;王者荣耀&quot;</span>),</span><br><span class="line">        QQ_HPJY(<span class="number">1</span>, <span class="string">&quot;和平精英&quot;</span>);</span><br><span class="line">        <span class="keyword">private</span> Integer id;</span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">        QQ(Integer id, String name) &#123;</span><br><span class="line">            <span class="built_in">this</span>.id = id;</span><br><span class="line">            <span class="built_in">this</span>.name = name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Integer <span class="title function_">getId</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> id;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在调用时，我们需要通过接口名调用，才能拿到想要的数据：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TencentEnum.WX.WX_HPJY.getName();</span><br></pre></td></tr></table></figure>
+
+<h3 id="接口实现抽象方法"><a href="#接口实现抽象方法" class="headerlink" title="接口实现抽象方法"></a>接口实现抽象方法</h3><p>枚举类可以有抽象方法，并且需要在实例中实现。</p>
+<p>假设现在需要给和平精英的玩家发红包，但是发的个数不同，就可以这么写：</p>
+<p>（但这种写法具体有什么好处，有待考究）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">TencentEnum2</span> &#123;</span><br><span class="line">    WX_HPJY(<span class="number">0</span>, <span class="string">&quot;和平精英&quot;</span>)&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Integer</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sendHongBao</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    QQ_HPJY(<span class="number">1</span>, <span class="string">&quot;和平精英&quot;</span>)&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">Integer</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sendHongBao</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    WX_WZRY(<span class="number">2</span>, <span class="string">&quot;王者荣耀&quot;</span>)&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sendHongBao</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sendHongBao</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    TencentEnum2(Integer id, String name) &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参考材料： <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1260473188087424">廖雪峰官方网站</a><br>官方API<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/lijiawnen/article/details/82313366">CSDN博主 由零开始Leon</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Enum/" rel="tag"><i class="fa fa-tag"></i> Enum</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/02/25/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/JavaBean/" rel="prev" title="JavaBean">
+                  <i class="fa fa-chevron-left"></i> JavaBean
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/27/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/%E5%A4%A7%E6%95%B0%E5%80%BC/" rel="next" title="大数值">
+                  大数值 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：概率论是另一种用数学看待真实世界的工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率论概念深入理解">
+<meta property="og:url" content="http://yoursite.com/2022/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：概率论是另一种用数学看待真实世界的工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828114541116.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828115148893.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828121550499.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828131635040.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828131809179.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828131635040.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828224204089.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828224953007.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828231521164.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220828230733373.png">
+<meta property="article:published_time" content="2022-08-28T14:22:04.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.059Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="概率论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20220828114541116.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A6%82%E5%BF%B5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A6%82%E5%BF%B5/","path":"2022/08/28/机器学习/概率论概念/","title":"概率论概念深入理解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>概率论概念深入理解 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A6%82%E5%BF%B5%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">概率论概念深入理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%91%E7%8E%87%E5%AD%A6%E6%B4%BE"><span class="nav-number">1.1.</span> <span class="nav-text">频率学派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A4%E5%85%B8%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">古典概率模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87"><span class="nav-number">1.1.2.</span> <span class="nav-text">条件概率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E6%B4%BE"><span class="nav-number">1.2.</span> <span class="nav-text">贝叶斯学派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">贝叶斯定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E9%99%A2%E6%B4%BE%E5%92%8C%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B4%BE%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">学院派和贝叶斯派的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%B0%E8%AE%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">估计的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.4.1.</span> <span class="nav-text">最大似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E6%A6%82%E7%8E%87"><span class="nav-number">1.4.2.</span> <span class="nav-text">最大后验概率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.5.</span> <span class="nav-text">随机变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84%E5%88%86%E5%B8%83%E5%8F%8A%E4%BB%96%E4%BB%AC%E5%AF%B9%E5%BA%94%E7%9A%84%E6%A6%82%E7%8E%87%E8%B4%A8%E9%87%8F-%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">重要的分布及他们对应的概率质量&#x2F;密度函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%88%86%E5%B8%83"><span class="nav-number">1.6.1.</span> <span class="nav-text">离散分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E5%B8%83"><span class="nav-number">1.6.2.</span> <span class="nav-text">连续分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E6%9C%9F%E6%9C%9B%E3%80%81%E6%96%B9%E5%B7%AE%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AE"><span class="nav-number">1.7.</span> <span class="nav-text">数学期望、方差、协方差</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="概率论概念深入理解 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          概率论概念深入理解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-28 22:22:04" itemprop="dateCreated datePublished" datetime="2022-08-28T22:22:04+08:00">2022-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">概率论</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：概率论是另一种用数学看待真实世界的工具
+</center>
+
+<span id="more"></span>
+
+<h1 id="概率论概念深入理解"><a href="#概率论概念深入理解" class="headerlink" title="概率论概念深入理解"></a>概率论概念深入理解</h1><p>在历史长河中，对概率的认知是有一个过程的，对概率的认知不同，分为了两个派系：频率学派与贝叶斯学派</p>
+<h2 id="频率学派"><a href="#频率学派" class="headerlink" title="频率学派"></a>频率学派</h2><h3 id="古典概率模型"><a href="#古典概率模型" class="headerlink" title="古典概率模型"></a>古典概率模型</h3><p>频率学派的依赖的基础是<strong>古典概率模型</strong>，这种模型的特点是：</p>
+<ul>
+<li>包含有限个基本事件</li>
+<li>每个基本事件发生的概率相同</li>
+</ul>
+<p>比如投骰子、比如投硬币，这些都是古典概率模型的体现</p>
+<p>投硬币一次是否能出现正面，我们并不确定，但是随着不断的投掷，我们会发现，正反面出现的次数几乎相同，这就是<strong>频率学派眼中的概率</strong>——其实是一个可独立重复实验<strong>出现单个结果频率的极限</strong></p>
+<p>古典概率中，事件A的概率计算公式为：</p>
+<p><img src="http://img.yesmylord.cn//image-20220828114541116.png" alt="古典概型概率计算公式"></p>
+<ul>
+<li><code>n</code>表示所有基本事件的数量</li>
+<li><code>k</code>表示发生A事件的基本事件数目</li>
+</ul>
+<p>比如，投一个骰子，点数小于3的概率为<code>P(A) = 2 / 6</code></p>
+<h3 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h3><p>古典概率针对的是单个事件，这种事件之间相互独立，互不影响，为了处理这种互相影响的情况，引入了<strong>条件概率conditional probability</strong></p>
+<p><img src="http://img.yesmylord.cn//image-20220828115148893.png" alt="条件概率公式"></p>
+<ul>
+<li><code>P(A|B)</code>表示在B事件发生的条件下，A事件发生的概率</li>
+<li><code>P(AB)</code>表示A和B共同发生的概率，也叫<strong>联合概率 joint probability</strong></li>
+<li>如果联合概率<code>P(AB) = P(A) * P(B)</code>，那么说明A与B相互独立</li>
+<li>对于相互独立的事件<code>P(A|B) = P(A)</code></li>
+</ul>
+<p>基于条件概率，可以得出<strong>全概率公式 law of total probability</strong>：</p>
+<p><img src="http://img.yesmylord.cn//image-20220828121550499.png" alt="全概率公式"></p>
+<p>全概率公式的意义在于：将复杂事件的概率求解  转化为  <strong>在不同情况下发生的简单事件的概率求和</strong></p>
+<blockquote>
+<p>这也是频率学派的核心观点，即：先做出假设，再在这些假设的前提下讨论随机事件的概率</p>
+</blockquote>
+<h2 id="贝叶斯学派"><a href="#贝叶斯学派" class="headerlink" title="贝叶斯学派"></a>贝叶斯学派</h2><blockquote>
+<p>而贝叶斯学派则是：在事件结果已经确定下，推断假设发生的可能性</p>
+<p>（或者说，事后诸葛亮，结果发生后推断其可能的原因，我们需要事先拟定一些假设）</p>
+</blockquote>
+<h3 id="贝叶斯定理"><a href="#贝叶斯定理" class="headerlink" title="贝叶斯定理"></a>贝叶斯定理</h3><p>对全概率公式稍作整理就可以得出逆概率理论，因为首先由英国牧师托马斯·贝叶斯提出，所以叫<strong>贝叶斯公式</strong>：</p>
+<p><img src="http://img.yesmylord.cn//image-20220828131635040.png" alt="贝叶斯公式"></p>
+<p>推到过程很简单，只需要套入全概率公式和条件概率公式就可以得到，建议手推一下</p>
+<p>进一步抽象，就可以得到<strong>贝叶斯定理 Bayes’ theorem</strong>（两步条件概率公式推导即可）</p>
+<p><img src="http://img.yesmylord.cn//image-20220828131809179.png" alt="贝叶斯定理"></p>
+<ul>
+<li><code>H</code>表示我们的假设，<code>D</code>表示数据</li>
+<li><code>P(H)</code>表示<strong>先验概率（prior probability）</strong>：即假设成立的概率</li>
+<li><code>P(D|H)</code>表示<strong>似然概率（likelihood function）</strong>：在假设H成立的条件下，可以观测到结果D的概率</li>
+<li><code>P(H|D)</code>表示<strong>后验概率（posterior probability）</strong>：在观测到结果的前提下，假设成立的概率</li>
+</ul>
+<blockquote>
+<p>贝叶斯派关注的核心是<strong>后验概率</strong>，而且贝叶斯学派认为概率描述的是<strong>随机事件的可信程度</strong></p>
+<p>比如预测今天85%的概率下雨，这就不能理解为频率了，而是得理解为明天下雨的可信度是85%</p>
+</blockquote>
+<p>贝叶斯定理应用的经典问题：</p>
+<blockquote>
+<p>有一种病在人群中的患病率是1%，其检查结果的可靠程度是95%，也就是得病的人95%会得到阳性结果，没得病的人95%会得到阴性结果。如果一个人检查的结果是阳性，那他得病的概率是多少？</p>
+</blockquote>
+<p>解：</p>
+<p><img src="http://img.yesmylord.cn//image-20220828131635040.png" alt="贝叶斯公式"></p>
+<p>套用到公式，此题的<code>B1</code>事件就是有病，<code>B2</code>事件就是没病，N就为2；<code>A</code>事件是结果为阳性的概率</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">P(B1|A) =  P(A|B1) * P(B1) /( P(A|B1)*P(B1) + P(A|B2)*P(B2) )</span><br><span class="line"></span><br><span class="line">由题意知：</span><br><span class="line">得病的概率 P(B1) = 0.01</span><br><span class="line">没病的概率 P(B2) = 0.99</span><br><span class="line">本身有病检测为阳性的概率 P(A|B1) = 0.95</span><br><span class="line">本身无病检测为阳性的概率 P(A|B2) = 1-0.95 = 0.05</span><br><span class="line">全部代入得：</span><br><span class="line">P(B1 | A) = 16.1%</span><br></pre></td></tr></table></figure>
+
+<p>结果大吃一惊，检测为阳性有病的概率竟然这么低</p>
+<h2 id="学院派和贝叶斯派的区别"><a href="#学院派和贝叶斯派的区别" class="headerlink" title="学院派和贝叶斯派的区别"></a>学院派和贝叶斯派的区别</h2><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20587681/answer/41436978">参考知乎</a>，他们最大的区别在于认为<strong>参数空间</strong>不同</p>
+<p>频率学派认为：数据都是在某个参数条件下产生的，一个模型中的<strong>参数是“固定”</strong>的，而数据是在分布中随机采样的。</p>
+<p>（即：我们相信这个分布的参数不管你怎么采样，根据参数对其的估计都应该是不会变的。如果根据数据估计出来的参数和真实模型不符合，只可能是引入了噪声而已）</p>
+<p>贝叶斯派认为：观察到的<strong>数据才是“固定”的</strong>，而我们的模型的参数才是在一直变化的。</p>
+<blockquote>
+<p>具体到人工智能这一应用领域，基于贝叶斯定理的各种方法与人类的认知机制吻合度更高，在机器学习等领域中也扮演着更加重要的角色</p>
+</blockquote>
+<h2 id="估计的方法"><a href="#估计的方法" class="headerlink" title="估计的方法"></a>估计的方法</h2><p>概率估计有两种方法：<strong>最大似然估计法（maximum likelihood estimation）和最大后验概率法（maximum a posteriori estimation）</strong></p>
+<h3 id="最大似然估计"><a href="#最大似然估计" class="headerlink" title="最大似然估计"></a>最大似然估计</h3><p>体现了频率派的思想观点。</p>
+<blockquote>
+<p>最大似然估计：<strong>使训练数据出现的概率最大化</strong>，依此确定概率分布中的未知参数，估计出的概率分布也就最符合训练数据的分布</p>
+</blockquote>
+<p>此方法<strong>只需要使用训练数据</strong></p>
+<h3 id="最大后验概率"><a href="#最大后验概率" class="headerlink" title="最大后验概率"></a>最大后验概率</h3><p>体现了贝叶斯派的思想观念</p>
+<blockquote>
+<p>根据训练数据和已知的其他条件，<strong>使未知参数出现的可能性最大化</strong>，并选取最可能的未知参数取值作为估计值</p>
+</blockquote>
+<p>此方法<strong>除了训练数据外还需要先验概率</strong></p>
+<p>举一个例子：</p>
+<p>一个优等生和一个差生打架，老师肯定想当然认为是差生的错，因为差生爱惹事，这就是最大似然估计；</p>
+<p>可如果老师知道优生和差生之间原本就有过节（先验信息），把这个因素考虑进来，就不会简单地认为是差生挑衅，这就是最大后验估计。</p>
+<h2 id="随机变量"><a href="#随机变量" class="headerlink" title="随机变量"></a>随机变量</h2><p>概率论的一个重要的应用就是描述<strong>随机变量</strong>，随机变量有两种：</p>
+<ul>
+<li>离散型随机变量（discrete random variable）</li>
+<li>连续型随机变量（continuous random variable）</li>
+</ul>
+<blockquote>
+<p>离散变量的每个可能的取值都有大于0的概率</p>
+</blockquote>
+<p>为了描述<strong>取值和概率之间的对应关系</strong>，对于离散型我们称为<strong>概率质量函数 probability mass function</strong>；对于连续型我们称为<strong>概率密度函数 probability density function</strong></p>
+<blockquote>
+<p>注意：对于连续型随机变量的概率密度函数来说，<strong>并非其真实概率，而是不同取值之间的相对关系</strong></p>
+<p>因为连续函数有无穷个取值，将1分配到每一个取值上面，约为0，概率密度函数的意义在于，虽然他们都为零但是也有相对关系</p>
+<p>比如<code>1/x</code>与<code>2/x</code>，虽然<code>x-&gt;∞</code>均为0，但后者永远是前者的两倍</p>
+<p>如果我们想求它的具体概率，需要在<strong>一个区间内内对其进行积分</strong></p>
+</blockquote>
+<h2 id="重要的分布及他们对应的概率质量-密度函数"><a href="#重要的分布及他们对应的概率质量-密度函数" class="headerlink" title="重要的分布及他们对应的概率质量/密度函数"></a>重要的分布及他们对应的概率质量/密度函数</h2><h3 id="离散分布"><a href="#离散分布" class="headerlink" title="离散分布"></a>离散分布</h3><blockquote>
+<p>两点分布：用于随机试验的结果是二进制的情形</p>
+<p>事件发生 / 不发生的概率分别为 <code>p</code>/<code>(1−p)</code></p>
+</blockquote>
+<p>比如抛硬币就是典型的两点分布</p>
+<blockquote>
+<p>二项分布：将满足参数为 p 的两点分布的随机试验独立重复 n 次</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20220828224204089.png" alt="二项分布公式"></p>
+<ul>
+<li>X表示事件，k表示第几次，共n次</li>
+<li>（国外Cnk 与国内Ckn书写相反，理解意思即可）</li>
+<li>C表示排列组合，在n个中拿出k个的种类数</li>
+</ul>
+<p>比如多次抛掷硬币，如果抛掷两次，那么就有正正、反反、正反、反正四种情况，因此公式中有排列组合C</p>
+<blockquote>
+<p>泊松分布：放射性物质在规定时间内释放出的粒子数所满足的分布</p>
+<p>通常被使用在估算在<strong>一段特定时间/空间内发生成功事件的数量的概率</strong></p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20220828224953007.png" alt="泊松分布公式"></p>
+<ul>
+<li><code>λ</code>表示在一段空间/时间内事件发生的平均值</li>
+<li><code>k</code>表示事件发生的次数</li>
+<li><code>e</code>为自然常量</li>
+<li>当二项分布中的n很大且p很小时，其概率值可以由参数为 <code>λ=np</code> 的泊松分布的概率值近似</li>
+</ul>
+<p>在Java中，HashMap的结构由链表变为红黑树的负载因子为0.75就是根据泊松分布找一个尽量使链表的长度小于8的概率</p>
+<h3 id="连续分布"><a href="#连续分布" class="headerlink" title="连续分布"></a>连续分布</h3><p>（连续分布的概率密度函数要记得我们上一节提到的，他们只是代表相对关系，求概率需要对其积分）</p>
+<blockquote>
+<p>均匀分布：在区间 <code>(a, b)</code> 上满足均匀分布的连续型随机变量，其概率密度函数为 <code>1/(b-a)</code></p>
+</blockquote>
+<p>均匀分布中，等长度概率相同</p>
+<blockquote>
+<p>指数分布：通常用于解决表示独立随机事件发生的时间间隔（或者说，发生某事件需要多长时间）</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20220828231521164.png" alt="指数分布公式"></p>
+<ul>
+<li>指数分布的一个重要特征是<strong>无记忆性</strong>：即 <code>P(X &gt; s + t | X &gt; s) = P(X &gt; t)</code>（这个式子就可以看出与s其实没有关系，t秒之前的概率与t秒之后的概率无关）</li>
+<li>比如客服接电话，假设5秒能接一个客户，那么他半个小时后，或是一个小时后还是需要等5s才能接一个客户，也就是说，过去的实验不影响未来事件发生的概率</li>
+</ul>
+<blockquote>
+<p>正态分布：自然界最常见的一种分布</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20220828230733373.png" alt="正态分布公式"></p>
+<ul>
+<li>当<code>μ=0, σ=1</code>为标准正态分布</li>
+</ul>
+<h2 id="数学期望、方差、协方差"><a href="#数学期望、方差、协方差" class="headerlink" title="数学期望、方差、协方差"></a>数学期望、方差、协方差</h2><p>描述随机变量除了函数外，还有刻画他们某些特性的常数：</p>
+<ul>
+<li><strong>数学期望 expected value</strong>：即均值</li>
+<li><strong>方差 variance</strong>：表示不同变量与期望的偏离程度。越小表示随机变量越趋近于期望，反之亦然。</li>
+<li><strong>协方差 covariance</strong>：期望和方差都是描述单个随机变量，而协方差<strong>描述两个变量之间的关系</strong></li>
+</ul>
+<blockquote>
+<p>协方差度量了<strong>两个随机变量之间的线性相关性</strong>，即变量 Y 能否表示成以另一个变量 X 为自变量的 <code>aX+b</code> 的形式</p>
+</blockquote>
+<p>协方差可以求出相关系数</p>
+<blockquote>
+<p>相关系数是一个绝对值不大于 1 的常数：</p>
+<ul>
+<li> <code>=1</code> 意味着两个随机变量满足完全正相关</li>
+<li><code>=-1</code> 意味着两者满足完全负相关</li>
+<li><code>=0</code> 意味着两者不相关</li>
+</ul>
+</blockquote>
+<p>注意：协方差和相关系数只能刻画线性相关的关系，对于<code>Y=X^2</code>这种非线性关系无法表达</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" rel="tag"><i class="fa fa-tag"></i> 概率论</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E6%A6%82%E5%BF%B5/" rel="prev" title="线性代数概念深入理解">
+                  <i class="fa fa-chevron-left"></i> 线性代数概念深入理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/29/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" rel="next" title="机器学习概述">
+                  机器学习概述 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

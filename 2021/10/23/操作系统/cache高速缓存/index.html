@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：进一步理解CPU缓存，理解CPU与缓存的协作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cache高速缓存">
+<meta property="og:url" content="http://yoursite.com/2021/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/cache%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：进一步理解CPU缓存，理解CPU与缓存的协作">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211024173633928.png">
+<meta property="article:published_time" content="2021-10-23T01:47:20.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.985Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="CPU">
+<meta property="article:tag" content="cache">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20211024173633928.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/cache%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/cache%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98/","path":"2021/10/23/操作系统/cache高速缓存/","title":"cache高速缓存"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>cache高速缓存 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cache%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text">Cache高速缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E5%BC%95%E5%85%A5%E4%BB%8A%E5%A4%A9%E7%9A%84Cache"><span class="nav-number">1.1.</span> <span class="nav-text">几个问题，引入今天的Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache"><span class="nav-number">1.2.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache%E7%9A%84%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">Cache的设计结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">工作流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">1.3.</span> <span class="nav-text">三级缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E7%BB%93%E6%9E%84%E4%B8%8E%E5%93%88%E4%BD%9B%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.</span> <span class="nav-text">冯诺依曼结构与哈佛结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.</span> <span class="nav-text">三级缓存的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4Cache%E4%B8%8E%E6%95%B0%E6%8D%AECache%E7%9A%84%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.3.</span> <span class="nav-text">指令Cache与数据Cache的缓存一致性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%B8%8EL2-Cache%E7%9A%84%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.4.</span> <span class="nav-text">核心与L2 Cache的缓存一致性问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94MESI"><span class="nav-number">1.4.</span> <span class="nav-text">缓存一致性协议——MESI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98"><span class="nav-number">1.5.</span> <span class="nav-text">缓存实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.1.</span> <span class="nav-text">开启缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%8F%AF%E4%BB%A5%E8%AF%BB%E5%86%99%E7%9A%84%E5%86%85%E5%AD%98"><span class="nav-number">1.5.2.</span> <span class="nav-text">获取可以读写的内存</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/cache%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="cache高速缓存 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cache高速缓存
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-23 09:47:20" itemprop="dateCreated datePublished" datetime="2021-10-23T09:47:20+08:00">2021-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+    引言：进一步理解CPU缓存，理解CPU与缓存的协作
+</center>
+
+<span id="more"></span>
+
+<h1 id="Cache高速缓存"><a href="#Cache高速缓存" class="headerlink" title="Cache高速缓存"></a>Cache高速缓存</h1><blockquote>
+<p>这一节的内容主要介绍Cache，<a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2020/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/">涉及到的相关知识可以看此篇</a>，比如：</p>
+<ul>
+<li>局部性原理</li>
+<li>SRAM的结构</li>
+</ul>
+</blockquote>
+<h2 id="几个问题，引入今天的Cache"><a href="#几个问题，引入今天的Cache" class="headerlink" title="几个问题，引入今天的Cache"></a>几个问题，引入今天的Cache</h2><ol>
+<li>为什么引入了Cache？</li>
+<li>引入Cache带来了什么问题？</li>
+<li>如何解决Cache带来的问题？</li>
+</ol>
+<p>第一个问题应该很好回答，此篇的目的是记录后两个问题。</p>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><h3 id="Cache的设计结构"><a href="#Cache的设计结构" class="headerlink" title="Cache的设计结构"></a>Cache的设计结构</h3><p>Cache由三部分组成：</p>
+<ul>
+<li><p>高速静态储存器</p>
+<p>SRAM，一种十分稳定的存储结构（使用6个晶体管，访问速度是DRAM的十倍，常用在cache）</p>
+</li>
+<li><p>地址转换模块</p>
+</li>
+<li><p>Cache行替换模块</p>
+<p>Cache中有一些<strong>标志位</strong>（脏位、回写位、访问位），Cache行替换模块的目的就是根据这些标志位进行相关操作</p>
+</li>
+</ul>
+<blockquote>
+<p>Cache与内存之间的交流</p>
+</blockquote>
+<p>Cache与内存交换数据的最小单位是<strong>一行</strong>（一行通常为32字节或是64字节）</p>
+<p>而且，Cache的很多行形成<strong>一组</strong></p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p>CPU发来的地址，到达Cache会经过以下步骤：</p>
+<ol>
+<li><p><strong>地址转换模块</strong>将CPU发来的地址转换为三部分：<strong>组号、行号、行内偏移</strong></p>
+</li>
+<li><p>Cache根据组号、行号查找cache中对应的行</p>
+<ul>
+<li><p>读操作</p>
+<ul>
+<li>命中：根据行内偏移，返回数据即可</li>
+<li>没有命中：<strong>分配一个新行，并访问内存</strong>，把从内存访问到的数据家载入Cache返回给内存</li>
+</ul>
+</li>
+<li><p>写操作（分为两种）</p>
+<ul>
+<li><strong>回写</strong>：写入Cache行就结束</li>
+<li><strong>直通写</strong>：写入Cache行<strong>并且写入内存</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>如果没有新行了，那么执行相关<strong>替换算法</strong></p>
+</li>
+</ol>
+<p>上述流程对程序员透明，全部由硬件实现</p>
+<p>注意：从结构中我们可以发现，Cache的流程与内存的工作流程，甚至是到Mysql、redis这些应用的缓存流程，基本一致（这也是缓存思想的广泛应用）</p>
+<h2 id="三级缓存"><a href="#三级缓存" class="headerlink" title="三级缓存"></a>三级缓存</h2><h3 id="冯诺依曼结构与哈佛结构"><a href="#冯诺依曼结构与哈佛结构" class="headerlink" title="冯诺依曼结构与哈佛结构"></a>冯诺依曼结构与哈佛结构</h3><blockquote>
+<p>进入正题之前，先介绍两种计算机的设计理念</p>
+</blockquote>
+<p>两者的区别：</p>
+<ul>
+<li><strong>冯诺依曼结构</strong>：讲求<strong>数据与指令混装</strong></li>
+<li><strong>哈佛结构</strong>：<strong>数据与指令分开装</strong></li>
+</ul>
+<p>基于冯诺依曼结构的计算机，设计简单，而且对硬件的要求也简单；</p>
+<p>基于哈佛结构的计算机，运行速度快，主要有两个优点：</p>
+<ol>
+<li>可以并发的读取指令与数据（冯需要分时执行）</li>
+<li>由于指令通常情况下不会动态修改，而数据则需要频繁的修改，因此可以进一步优化指令Cache的设计（冯需要全部重新载入）</li>
+</ol>
+<blockquote>
+<p>为什么我要引入两种计算机的结构设计思想？</p>
+</blockquote>
+<p>​        因为平常我们用到的计算机，其实大体都是基于冯诺依曼的设计理念，对于嵌入式的设备来说，哈佛结构更受欢迎</p>
+<p>​        而在Cache的设计中，L1 cache就使用了哈佛结构这种设计思想，整体上来看cache其实还是冯诺依曼的设计思想</p>
+<h3 id="三级缓存的结构"><a href="#三级缓存的结构" class="headerlink" title="三级缓存的结构"></a>三级缓存的结构</h3><p>现代CPU将Cache分为三级，如图：</p>
+<p><img src="http://img.yesmylord.cn//image-20211024173633928.png" alt="三级缓存"></p>
+<p>这是一个双核心的CPU，三级缓存等级不同：</p>
+<ul>
+<li><strong>一级缓存</strong>：指令与数据分开（如图：指令Cache与数据Cache）<ul>
+<li>指令进入指令Cache，指令涉及到的数据进入数据Cache</li>
+</ul>
+</li>
+<li><strong>二级缓存</strong>：CPU核心独占</li>
+<li><strong>三级缓存</strong>：核心之间共享</li>
+</ul>
+<blockquote>
+<p>三级缓存带来的问题：</p>
+</blockquote>
+<p>​        使用缓存，就会带来<strong>缓存一致性问题</strong>，CPU设计了三级缓存，就涉及到了三种缓存一致性问题</p>
+<p>（CPU 的 L3 Cache 与设备内存，如 DMA、网卡帧储存，显存之间的一致性问题此处不进行讨论）</p>
+<h3 id="指令Cache与数据Cache的缓存一致性问题"><a href="#指令Cache与数据Cache的缓存一致性问题" class="headerlink" title="指令Cache与数据Cache的缓存一致性问题"></a>指令Cache与数据Cache的缓存一致性问题</h3><p>一级缓存：将指令与数据分开存储，就涉及到了缓存一致性问题</p>
+<blockquote>
+<p>怎么样会出现？</p>
+</blockquote>
+<p>可能存在这么一种情况：</p>
+<p>CPU执行<code>指令1 + 地址A</code> ，去执行<code>地址A</code>所在的<code>指令2</code>，但是某些<strong>自修改程序</strong>（可以修改运行中代码指令数据）就改为了新的指令（即将<code>地址A</code>的代码修改为<code>指令3</code>）</p>
+<p>但是修改指令也需要CPU，因此CPU会将修改后的新的指令(<code>指令3</code>)放在<strong>数据缓存</strong>（注意，此时指令缓存还是旧的指令（<code>指令2</code>））</p>
+<p>此时如果执行，那么有可能运行的还是旧的指令</p>
+<p>因此存在指令Cache与数据Cache缓存一致性问题</p>
+<blockquote>
+<p>如何解决？</p>
+</blockquote>
+<p>对于这种情况，需要先将数据Cache的数据写回内存，并让指令Cache无效，重新去加载内存中的数据</p>
+<h3 id="核心与L2-Cache的缓存一致性问题"><a href="#核心与L2-Cache的缓存一致性问题" class="headerlink" title="核心与L2 Cache的缓存一致性问题"></a>核心与L2 Cache的缓存一致性问题</h3><p>L2 Cache是一个CPU核心独占的，L3是核心之前共享的；</p>
+<p><strong>但是读取相同的数据，是不需要走一遍<code>L3-&gt;L2-&gt;l1</code>的流程的</strong></p>
+<p>硬件上实现了：对于核心1已经读取的数据可以直接复制到核心2的L2、L1中</p>
+<blockquote>
+<p>怎么出现缓存一致性问题？</p>
+</blockquote>
+<p>​        核心1修改了指令，但是核心2拷贝的是旧的指令</p>
+<blockquote>
+<p>如何解决？</p>
+</blockquote>
+<p>​        通过缓存一致性协议，比如MESI</p>
+<h2 id="缓存一致性协议——MESI"><a href="#缓存一致性协议——MESI" class="headerlink" title="缓存一致性协议——MESI"></a>缓存一致性协议——MESI</h2><blockquote>
+<p>MESI：定义了四种基本状态</p>
+</blockquote>
+<ul>
+<li>M（Modified）已修改</li>
+<li>E（Exclusive）独占</li>
+<li>S（Shared）共享</li>
+<li>I（Invalid）无效</li>
+</ul>
+<p>举个栗子：</p>
+<ol>
+<li><p>最开始只有一个核读取了A数据，此时状态为<strong>E独占</strong>，数据是干净的；</p>
+</li>
+<li><p>后来另一个核又读取了A数据，此时状态为<strong>S共享</strong>，数据还是干净的；</p>
+</li>
+<li><p>接着其中一个核修改了数据A，数据变脏，此时会向其他核广播数据已被修改，让其他核的数据状态变为<strong>I失效</strong></p>
+</li>
+<li><p>而本核的数据还没回写内存，状态则变为<strong>M已修改</strong></p>
+</li>
+<li><p>等待后续刷新缓存后，数据变回E独占，其他核由于数据已失效，读数据A时需要重新从内存读到高速缓存，此时数据又共享了</p>
+</li>
+</ol>
+<h2 id="缓存实战"><a href="#缓存实战" class="headerlink" title="缓存实战"></a>缓存实战</h2><h3 id="开启缓存"><a href="#开启缓存" class="headerlink" title="开启缓存"></a>开启缓存</h3><p>x86 CPU 上<strong>默认是关闭 Cache 的</strong>，需要在 CPU 初始化时将其开启</p>
+<p>开启的方式：<strong>只需要将CR0寄存器的CD、NW位同时清理即可</strong></p>
+<ul>
+<li><code>CD=1</code>表示Cache关闭</li>
+<li><code>NW=1</code>表示CPU不维护内存数据一致性</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov eax, cr0</span><br><span class="line">;开启 CACHE    </span><br><span class="line">btr eax,29 ;CR0.NW=0</span><br><span class="line">btr eax,30  ;CR0.CD=0</span><br><span class="line">mov cr0, eax</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取可以读写的内存"><a href="#获取可以读写的内存" class="headerlink" title="获取可以读写的内存"></a>获取可以读写的内存</h3><p>对于程序员来说，最主要的目的，就是想知道哪块内存还可以使用</p>
+<p>我们可以直接调用BIOS实模式下的中断服务即可</p>
+<p>中断服务是<code>int 15h</code>，但是它需要一些参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">_getmemmap:</span><br><span class="line">  xor ebx,ebx ;ebx设为0</span><br><span class="line">  mov edi,E80MAP_ADR ;edi设为存放输出结果的1MB内的物理内存地址</span><br><span class="line">loop:</span><br><span class="line">  mov eax,0e820h ;eax必须为0e820h</span><br><span class="line">  mov ecx,20 ;输出结果数据项的大小为20字节：8字节内存基地址，8字节内存长度，4字节内存类型</span><br><span class="line">  mov edx,0534d4150h ;edx必须为0534d4150h</span><br><span class="line">  int 15h ;执行中断</span><br><span class="line">  jc error ;如果flags寄存器的C位置1，则表示出错</span><br><span class="line">  add edi,20;更新下一次输出结果的地址</span><br><span class="line">  cmp ebx,0 ;如ebx为0，则表示循环迭代结束</span><br><span class="line">  jne loop  ;还有结果项，继续迭代</span><br><span class="line">    ret</span><br><span class="line">error:;出错处理</span><br></pre></td></tr></table></figure>
+
+<p>每次中断都输出一个 20 字节大小数据项，最后会形成一个该数据项（结构体）的数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> RAM_USABLE 1 <span class="comment">//可用内存</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RAM_RESERV 2 <span class="comment">//保留内存不可使用</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RAM_ACPIREC 3 <span class="comment">//ACPI表相关的</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RAM_ACPINVS 4 <span class="comment">//ACPI NVS空间</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RAM_AREACON 5 <span class="comment">//包含坏内存</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">s_e820</span>&#123;</span></span><br><span class="line">    <span class="type">u64_t</span> saddr;    <span class="comment">/* 内存开始地址 */</span></span><br><span class="line">    <span class="type">u64_t</span> lsize;    <span class="comment">/* 内存大小 */</span></span><br><span class="line">    <span class="type">u32_t</span> type;    <span class="comment">/* 内存类型 */</span></span><br><span class="line">&#125;<span class="type">e820map_t</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+              <a href="/tags/CPU/" rel="tag"><i class="fa fa-tag"></i> CPU</a>
+              <a href="/tags/cache/" rel="tag"><i class="fa fa-tag"></i> cache</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/x86CPU%E5%B7%A5%E4%BD%9C%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" rel="prev" title="x86 CPU工作的三种模式">
+                  <i class="fa fa-chevron-left"></i> x86 CPU工作的三种模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/16/docker/Docker/" rel="next" title="Docker">
+                  Docker <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

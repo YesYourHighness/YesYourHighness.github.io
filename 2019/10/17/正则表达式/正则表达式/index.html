@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言:  正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="http://yoursite.com/2019/10/17/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言:  正则表达式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-17T01:47:28.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.067Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="正则表达式">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/10/17/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2019/10/17/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/","path":"2019/10/17/正则表达式/正则表达式/","title":"正则表达式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>正则表达式 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-1"><span class="nav-number">1.1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%8C%B9%E9%85%8D"><span class="nav-number">1.2.</span> <span class="nav-text">1. 基本匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%85%83%E5%AD%97%E7%AC%A6"><span class="nav-number">1.3.</span> <span class="nav-text">2. 元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%AE%80%E5%86%99%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="nav-number">1.4.</span> <span class="nav-text">3.简写字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%9B%B6%E5%AE%BD%E5%BA%A6%E6%96%AD%E8%A8%80-%E5%89%8D%E5%90%8E%E9%A2%84%E6%9F%A5"><span class="nav-number">1.5.</span> <span class="nav-text">4. 零宽度断言(前后预查)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%85%88%E8%A1%8C%E6%96%AD%E8%A8%80"><span class="nav-number">1.5.1.</span> <span class="nav-text">?&#x3D;正先行断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9F%E5%85%88%E8%A1%8C%E6%96%AD%E8%A8%80"><span class="nav-number">1.5.2.</span> <span class="nav-text">?!负先行断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-%E6%AD%A3%E5%90%8E%E5%8F%91%E6%96%AD%E8%A8%80"><span class="nav-number">1.5.3.</span> <span class="nav-text">?&lt;&#x3D;正后发断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-%E8%B4%9F%E5%90%8E%E5%8F%91%E6%96%AD%E8%A8%80"><span class="nav-number">1.5.4.</span> <span class="nav-text">?&lt;!负后发断言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%A0%87%E5%BF%97"><span class="nav-number">1.6.</span> <span class="nav-text">5. 标志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#i%E5%BF%BD%E7%95%A5%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="nav-number">1.6.1.</span> <span class="nav-text">i忽略大小写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g%E5%85%A8%E5%B1%80%E6%90%9C%E7%B4%A2"><span class="nav-number">1.6.2.</span> <span class="nav-text">g全局搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#m%E5%A4%9A%E8%A1%8C%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">1.6.3.</span> <span class="nav-text">m多行修饰符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D%E4%B8%8E%E6%83%B0%E6%80%A7%E5%8C%B9%E9%85%8D"><span class="nav-number">1.7.</span> <span class="nav-text">贪婪匹配与惰性匹配</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/17/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="正则表达式 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          正则表达式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-17 09:47:28" itemprop="dateCreated datePublished" datetime="2019-10-17T09:47:28+08:00">2019-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">正则表达式</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言:
+
+<p>正则表达式</p>
+</center>
+
+<span id="more"></span>
+
+
+<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h2 id="正则表达式-1"><a href="#正则表达式-1" class="headerlink" title="正则表达式"></a>正则表达式</h2><blockquote>
+<p>Regular expression 正则表达式，一组由字母数字符号组成的特殊文本</p>
+</blockquote>
+<p>功能： 从文本中找出让你满意的句子</p>
+<h2 id="1-基本匹配"><a href="#1-基本匹配" class="headerlink" title="1. 基本匹配"></a>1. 基本匹配</h2><p>正则表达式可以理解为 <strong>正在执行搜索的格式</strong></p>
+<p>例如：在<code> The fat cat sat on the mat.</code>搜索the</p>
+<p>我们就可以输入”the”来查找到the，大小写敏感，不会匹配到The</p>
+<h2 id="2-元字符"><a href="#2-元字符" class="headerlink" title="2. 元字符"></a>2. 元字符</h2><p>注：以下所有的元字符都使用这句来举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The fat cat sat on the mat</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>.</code> </p>
+</blockquote>
+<p>句号匹配任意的单个字符，换行符除外</p>
+<p>例如输入<code>.at</code>，会匹配fat，cat，sat，mat</p>
+<blockquote>
+<p> <code>[]</code> </p>
+</blockquote>
+<p>匹配方括号内的任意内容，</p>
+<p>例如<code>[the]</code>此时匹配所有的单个字母，匹配The内的he，匹配fat内的t等等</p>
+<p>再如，输入<code>[Tthe]</code>会匹配the和The</p>
+<p>输入<code>[.]</code>就代表句号</p>
+<blockquote>
+<p><code>[^]</code></p>
+</blockquote>
+<p>匹配除了方括号内的任意字符，即上个例子的补集</p>
+<p>例如输入<code>[^f]at</code>会匹配cat,sat,mat</p>
+<blockquote>
+<p><code>*</code></p>
+</blockquote>
+<p>匹配&gt;=0个重复在<code>*</code>之前的字符</p>
+<p>输入<code>[a-z]*</code>会匹配所有的小写字母</p>
+<p>输入<code>\s*cat\s*</code>，<code>\s</code>代表空格，会匹配所有零个或多个空格开头结尾的<code>cat</code></p>
+<blockquote>
+<p><code>+</code></p>
+</blockquote>
+<p>匹配&gt;=1个重复的+号前的字符</p>
+<p>输入<code>c.+t</code>会匹配<code>cat sat on the mat</code>,以c开头以t结尾中间至少有一个字符的字符串</p>
+<blockquote>
+<p><code>?</code></p>
+</blockquote>
+<p>标记?之前的字符为可选，</p>
+<p>例如f?at会匹配fat和所有的at</p>
+<blockquote>
+<p><code>&#123;n,m&#125;</code></p>
+</blockquote>
+<p>匹配num个大括号之前的字符，其中num&gt;=n&amp;&amp;num&lt;=m</p>
+<p>例如，输入表达式<code>[0-9]&#123;2,3&#125;</code>匹配最少两位最多三位的数字</p>
+<p>第二个可以不必输入<code>[0-9]&#123;2,&#125;</code>代表至少两位数字</p>
+<p>如果逗号都省略，则表示固定重复的次数，<code>[0-9]&#123;3&#125;</code>代表三位数字</p>
+<blockquote>
+<p><code>(xyz)</code> 特征标群</p>
+</blockquote>
+<p>字符集，匹配与xyz完全相等的字符串</p>
+<p>输入<code>(at)*</code>匹配连续出现0个或多个的<code>ab</code></p>
+<blockquote>
+<p><code>|</code></p>
+</blockquote>
+<p>或运算符，匹配符号前或后的字符</p>
+<p>例如输入a|t，a和t都会被匹配</p>
+<p>我们还可以在<code>()</code>中用字符<code>|</code>表示或</p>
+<p>例如<code>(f|c)at</code>只能匹配，fat，cat</p>
+<blockquote>
+<p><code>\</code></p>
+</blockquote>
+<p>反斜杠，转义字符，用来匹配保留字符</p>
+<p>例如，输入 <code>\.</code> 匹配语句最后的句号</p>
+<blockquote>
+<p><code>^</code></p>
+</blockquote>
+<p>从开始行开始匹配</p>
+<p>例如, 在 <code>abc</code> 中使用表达式 <code>^a</code> 会得到结果 <code>a</code>. 但如果使用 ^b 将匹配不到任何结果. 因为在字符串 abc 中并不是以 b 开头.</p>
+<blockquote>
+<p><code>$</code></p>
+</blockquote>
+<p>从末端开始匹配</p>
+<p>例如, <code>(at\.)$</code> 匹配以 <code>at</code>. 结尾的字符串</p>
+<h2 id="3-简写字符集"><a href="#3-简写字符集" class="headerlink" title="3.简写字符集"></a>3.简写字符集</h2><blockquote>
+<p><code>.</code> 匹配除换行符外的所有字符</p>
+</blockquote>
+<blockquote>
+<p><code>\w</code> 匹配所有数字字母，等同于<code>[0-9a-zA-Z_]</code></p>
+</blockquote>
+<blockquote>
+<p><code>\W</code> 匹配所有符号,即非字母数字，即<code>[^\w]</code></p>
+</blockquote>
+<blockquote>
+<p><code>\d</code> 匹配数字</p>
+</blockquote>
+<blockquote>
+<p><code>\D</code> 匹配非数字，等同于<code>[^\d]</code></p>
+</blockquote>
+<blockquote>
+<p><code>\s</code> 匹配所有空格字符，等同于<code>[\t\n\f\r\p&#123;z&#125;]</code></p>
+</blockquote>
+<blockquote>
+<p><code>\S</code> 匹配所有非空格字符,<code>[^\s]</code></p>
+</blockquote>
+<blockquote>
+<p><code>\f</code> 匹配换页符</p>
+</blockquote>
+<blockquote>
+<p><code>\n</code> 匹配换行符</p>
+</blockquote>
+<blockquote>
+<p><code>\r</code> 匹配回车符</p>
+</blockquote>
+<blockquote>
+<p><code>\t</code> 匹配制表符</p>
+</blockquote>
+<blockquote>
+<p><code>\v</code> 匹配一个垂直制表符</p>
+</blockquote>
+<blockquote>
+<p><code>\p</code> 匹配CR/LF,等同于(\r\n)，用来匹配DOS行终止符</p>
+</blockquote>
+<h2 id="4-零宽度断言-前后预查"><a href="#4-零宽度断言-前后预查" class="headerlink" title="4. 零宽度断言(前后预查)"></a>4. 零宽度断言(前后预查)</h2><p>例句：<code>The fat cat sat on the mat.</code></p>
+<h3 id="正先行断言"><a href="#正先行断言" class="headerlink" title="?=正先行断言"></a><code>?=</code>正先行断言</h3><p>表示第一部分表达式之后必须跟着<code>?=..</code>定义的表达式</p>
+<p>定义一个正先行断言要使用 <code>()</code>,在括号内部使用一个问号和等号: (?=…)</p>
+<p>例如：表达式<code>(T|t)he(?=\sfat)</code>,只会匹配第一个The，因为只有第一个The后跟着(空格)fat</p>
+<h3 id="负先行断言"><a href="#负先行断言" class="headerlink" title="?!负先行断言"></a><code>?!</code>负先行断言</h3><p>表达式其后不跟随着断言中定义的格式</p>
+<p>例如：表达式<code>(T|t)he(?!\sfat)</code>,只会匹配第二个the，因为第一个The后跟着(空格)fat</p>
+<h3 id="lt-正后发断言"><a href="#lt-正后发断言" class="headerlink" title="?&lt;=正后发断言"></a><code>?&lt;=</code>正后发断言</h3><p>其前跟随着断言中定义的格式</p>
+<p><code>(?&lt;=(T|t)he\s)(fat|mat)</code>会找出fat和mat</p>
+<h3 id="lt-负后发断言"><a href="#lt-负后发断言" class="headerlink" title="?&lt;!负后发断言"></a><code>?&lt;!</code>负后发断言</h3><p>其前不跟随着断言中定义的格式</p>
+<p><code>(?&lt;!(T|t)he\s)(cat)</code>只会匹配cat</p>
+<h2 id="5-标志"><a href="#5-标志" class="headerlink" title="5. 标志"></a>5. 标志</h2><p>标志也叫模式修正符, 因为它可以用来修改表达式的搜索结果. 这些标志可以任意的组合使用, 它也是整个正则表达式的一部分.</p>
+<h3 id="i忽略大小写"><a href="#i忽略大小写" class="headerlink" title="i忽略大小写"></a><code>i</code>忽略大小写</h3><p>修饰语 i 用于忽略大小写. </p>
+<p>例如, 表达式 /The/gi 表示在全局搜索 The, </p>
+<p>在后面的 i 将其条件修改为忽略大小写, 则变成搜索 the 和 The, g 表示全局搜索.</p>
+<h3 id="g全局搜索"><a href="#g全局搜索" class="headerlink" title="g全局搜索"></a><code>g</code>全局搜索</h3><p>修饰符 g 常用于执行一个全局搜索匹配</p>
+<p>即(不仅仅返回第一个匹配的, 而是返回全部). </p>
+<p>例如, 表达式 <code>/.(at)/g</code> 表示搜索 任意字符(除了换行) + at, 并返回全部结果</p>
+<h3 id="m多行修饰符"><a href="#m多行修饰符" class="headerlink" title="m多行修饰符"></a><code>m</code>多行修饰符</h3><p>多行修饰符 m 常用于执行一个多行匹配.</p>
+<p>像之前介绍的 <code>(^,$) </code>用于检查格式是否是在待检测字符串的开头或结尾. 但我们如果想要它在每行的开头和结尾生效, 我们需要用到多行修饰符 m.</p>
+<p>例如, 表达式 <code>/at(.)?$/gm </code>表示小写字符 a 后跟小写字符 t , 末尾可选除换行符外任意字符. 根据 m 修饰符, 现在表达式匹配每行的结尾.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;/.at(.)?$/gm&quot; =&gt; The fat</span><br><span class="line">                  cat sat</span><br><span class="line">                  on the mat.</span><br><span class="line">// 匹配到fat sat mat</span><br></pre></td></tr></table></figure>
+
+<h2 id="贪婪匹配与惰性匹配"><a href="#贪婪匹配与惰性匹配" class="headerlink" title="贪婪匹配与惰性匹配"></a>贪婪匹配与惰性匹配</h2><p>正则表达式默认采用贪婪匹配模式，</p>
+<p>在该模式下意味着会匹配尽可能长的子串。</p>
+<p>我们可以使用 <code>?</code> 将贪婪匹配模式转化为惰性匹配模式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;/(.*at)/&quot; =&gt; The fat cat sat on the mat. </span><br><span class="line">// 匹配所有</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;/(.*?at)/&quot; =&gt; The fat cat sat on the mat. </span><br><span class="line">// 匹配The fat</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 正则表达式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/11/Servlet/RequestAndResponse/" rel="prev" title="RequestAndResponse">
+                  <i class="fa fa-chevron-left"></i> RequestAndResponse
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/27/JQuery/JQuery-01%E5%9F%BA%E7%A1%80/" rel="next" title="JQuery-01基础">
+                  JQuery-01基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

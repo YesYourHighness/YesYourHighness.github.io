@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：操作系统死锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统死锁">
+<meta property="og:url" content="http://yoursite.com/2020/12/20/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：操作系统死锁">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201227165507824.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201227165605203.png">
+<meta property="article:published_time" content="2020-12-20T09:55:35.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.996Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="死锁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20201227165507824.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/12/20/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2020/12/20/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81/","path":"2020/12/20/操作系统/操作系统死锁/","title":"操作系统死锁"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统死锁 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81"><span class="nav-number">1.</span> <span class="nav-text">操作系统死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">死锁的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E6%AD%BB%E9%94%81%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">产生死锁的原因：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.2.</span> <span class="nav-text">死锁的一些结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B8%E4%B9%85%E6%80%A7%E8%B5%84%E6%BA%90%E5%92%8C%E4%B8%B4%E6%97%B6%E6%80%A7%E8%B5%84%E6%BA%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">永久性资源和临时性资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E6%AD%BB%E9%94%81%E7%9A%84%E6%A0%B9%E6%9C%AC%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.1.4.</span> <span class="nav-text">产生死锁的根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E6%AD%BB%E9%94%81%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.1.5.</span> <span class="nav-text">产生死锁的必要条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">死锁的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81"><span class="nav-number">1.2.1.</span> <span class="nav-text">预防死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="nav-number">1.2.2.</span> <span class="nav-text">避免死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">银行家算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">安全性算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B1%EF%BC%9A"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">例1：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B2%EF%BC%9A"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">例2：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E6%A3%80%E6%B5%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">死锁检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E8%A7%A3%E9%99%A4"><span class="nav-number">1.2.4.</span> <span class="nav-text">死锁解除</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/20/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%AD%BB%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统死锁 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统死锁
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-20 17:55:35" itemprop="dateCreated datePublished" datetime="2020-12-20T17:55:35+08:00">2020-12-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+    引言：操作系统死锁
+</center>
+
+<span id="more"></span>
+
+<h1 id="操作系统死锁"><a href="#操作系统死锁" class="headerlink" title="操作系统死锁"></a>操作系统死锁</h1><h2 id="死锁的基本概念"><a href="#死锁的基本概念" class="headerlink" title="死锁的基本概念"></a>死锁的基本概念</h2><h3 id="产生死锁的原因："><a href="#产生死锁的原因：" class="headerlink" title="产生死锁的原因："></a>产生死锁的原因：</h3><p><strong>多个进程之间竞争共享的资源</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2020/12/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B/#more">在进程一节讨论过原因</a></p>
+<p>假设：有两个临界资源为Q与W，我们使用记录型信号量处理以下两个进程的任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A进程：				B进程：</span><br><span class="line">	P(Q)					P(W)</span><br><span class="line">	P(W)					P(Q)</span><br><span class="line">	V(Q)					V(W)</span><br><span class="line">	V(W)					V(Q)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>进程A抢到了资源Q</li>
+<li>进程B抢到了资源W</li>
+<li>进程A想要资源W，没有，进入阻塞状态</li>
+<li>进程B想要资源Q，没有，进入阻塞状态</li>
+</ol>
+<p>我们发现两个进程都进入了阻塞状态，并且都不会释放他们已有的资源，这种情况叫做<strong>死锁</strong>状态</p>
+<h3 id="死锁的一些结论"><a href="#死锁的一些结论" class="headerlink" title="死锁的一些结论"></a>死锁的一些结论</h3><p>由于死锁是进程间竞争共享资源产生的，所以由如下结论</p>
+<ul>
+<li>死锁的进程至少是两个</li>
+<li>死锁的进程至少有两个已经占有了资源</li>
+<li>死锁的所有进程都在等待资源</li>
+<li>死锁的进程是当前进程中所有进程的子集</li>
+</ul>
+<h3 id="永久性资源和临时性资源"><a href="#永久性资源和临时性资源" class="headerlink" title="永久性资源和临时性资源"></a>永久性资源和临时性资源</h3><p><strong>永久性资源（可再用资源）</strong>：可以被多个进程多次使用，使用模式为“申请—分配—使用—释放模式”</p>
+<ul>
+<li>可抢占资源(可剥夺)；如：主存、CPU（<strong>不会引起死锁</strong>）</li>
+<li>不可抢占资源（不可剥夺）；如：打印机</li>
+</ul>
+<p><strong>临时性资源（可消耗性资源）：</strong>只可使用一次的资源；</p>
+<ul>
+<li>如信号量，中断信号，同步信号</li>
+</ul>
+<h3 id="产生死锁的根本原因"><a href="#产生死锁的根本原因" class="headerlink" title="产生死锁的根本原因"></a>产生死锁的根本原因</h3><p><strong>死锁起因是并发进程的资源竞争，但资源竞争并不一定产生死锁</strong></p>
+<p>所以，死锁产生的原因是：</p>
+<p><strong>系统能够提供的资源数少于需要该资源的进程数</strong></p>
+<ol>
+<li>竞争不可抢占资源</li>
+<li>竞争可消耗资源</li>
+<li>进程推进顺序不当</li>
+</ol>
+<p>其中1与2可以归为一点——竞争系统资源（非可剥夺）</p>
+<h3 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h3><p>必须同时具备以下条件，否则不会成立：</p>
+<ol>
+<li><strong>互斥条件</strong>：进程对其所要求的资源进行排它性控制，即一次只有一个进程可以使用一个资源。</li>
+<li><strong>请求和保持条件</strong>：进程已经保持了至少一个资源，但又提出了新的资源请求。</li>
+<li><strong>不可剥夺条件</strong>：进程所获得的资源在未被释放之前，不能被其它进程强行剥夺。</li>
+<li><strong>环路条件</strong>：在发生死锁时，必然存在一个进程资源的循环等待链， </li>
+</ol>
+<h2 id="死锁的处理"><a href="#死锁的处理" class="headerlink" title="死锁的处理"></a>死锁的处理</h2><ol>
+<li>预防死锁</li>
+<li>避免死锁</li>
+<li>检测死锁</li>
+<li>解除死锁</li>
+</ol>
+<h3 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h3><p>只需要破坏四个条件之一，即可避免死锁</p>
+<p>优点：直观、简单</p>
+<p>缺点：导致系统资源利用率和系统吞吐量降低</p>
+<ol>
+<li>破坏互斥条件：做不到，对于抢占式资源来说，不能共享操作</li>
+<li><strong>破坏请求和保持条件：</strong><ul>
+<li>第一种策略：保证资源的一次性分配（AND型信号量）<ul>
+<li>但是会导致资源的浪费、饥饿现象的产生</li>
+</ul>
+</li>
+<li>第二种策略：只获得初期所需资源后，开始运行。运行过程逐步释放已分配、已用完的全部资源，再请求新的所需资源</li>
+</ul>
+</li>
+<li>破坏不可剥夺条件：申请未果，则放弃<ul>
+<li>难度大、可能会使资源出现错误</li>
+</ul>
+</li>
+<li><strong>破坏环路等待条件：</strong>资源有序分配<ul>
+<li>做法：系统给每类资源赋予一个编号，每一个进程按编号递增的顺序请求资源，释放则相反</li>
+<li>编号的原则：较为紧缺的资源给以一个较大的序号</li>
+<li>优点：较前两种策略，资源利用率和系统吞吐量，都有显著的改善。</li>
+<li>问题：<ul>
+<li>限制了新设备类型的增加</li>
+<li>发生作业使用资源的顺序与系统规定顺序不同的情况，造成资源的浪费，如：某进程先用磁带机，后用打印机，但按系统规定，它应先申请打印机，后申请磁带机，致使打印机长期闲置</li>
+<li>限制了用户简单、自由的编程。      </li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h3><p><strong>允许动态的申请资源</strong>，提高了系统的资源利用率</p>
+<p>​        系统运行过程中，对进程发出的每一个系统能够满足的资源申请进行动态检查，并根据检查结果决定是否分配资源，若分配后系统可能发生死锁，则不予分配，否则予以分配。</p>
+<p>首先要明确两个概念：安全状态和不安全状态</p>
+<blockquote>
+<p>安全状态指系统<strong>能按某种进程顺序来为每个进程分配其所需资源，直至最大需求，使每个进程都可顺序完成</strong>。若系统不存在这样一个序列，则称系统处于不安全状态。</p>
+</blockquote>
+<p>注意：</p>
+<ol>
+<li>安全状态一定没有死锁发生</li>
+<li>并非所有的不安全状态都会转化为死锁状态</li>
+<li>避免死锁的实质：<strong>系统在进行资源分配时，使系统不进入不安全状态</strong></li>
+</ol>
+<p>例如：</p>
+<p>​        假定系统中有三个进程P1、P2和P3，共有12台磁带机。进程P1总共要求10台磁带机，P2和P3分别要求4台和9台。假设在T0时刻，进程P1、P2和P3已分别获得5台、2台和2台磁带机，尚有3台空闲未分配。</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>最大需求</th>
+<th>已分配</th>
+<th>可用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>10</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>4</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>P3</td>
+<td>9</td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>​        此时可以先给P2分配，等P2运行完毕后，就有5个磁带机了，此时满足了P1的要求，等P1结束后，也满足了P3的要求，三个进程都可以完成，此时就可以找到<strong>安全序列</strong>：<code>P2 -&gt; P1 -&gt; P3</code></p>
+<p>​        </p>
+<p>​        假如T0时刻P3要求3台磁带机</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>最大需求</th>
+<th>已分配</th>
+<th>可用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>10</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>4</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>P3</td>
+<td>9</td>
+<td>3</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>​        此时不管如何寻找，都找不到一个安全序列，所以此时<strong>不可以进行分配</strong></p>
+<p>代表算法：</p>
+<ul>
+<li>银行家算法</li>
+<li>安全性算法</li>
+</ul>
+<h4 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h4><blockquote>
+<p>Dijkstra设计的给银行发放贷款使用的算法，由此得名</p>
+</blockquote>
+<p><strong>数据结构：</strong></p>
+<ul>
+<li>可利用资源向量<code>Available</code>：含有m个元素的数组<ul>
+<li>如：<code>Available[j]=K</code>，表示系统中现有Rj类资源K个</li>
+<li>初始值是系统中所配置的该类全部可用资源的数目。</li>
+</ul>
+</li>
+<li>最大需求矩阵<code>Max</code>：一个n*m的矩阵，表示系统中n个进程中的每一个进程对m类资源的最大需求<ul>
+<li>如：<code>Max[i,j]=K</code>，表示进程i需要Rj类资源的最大数目为K。 </li>
+</ul>
+</li>
+<li>分配矩阵<code>Allocation</code>：一个n*m的矩阵，<ul>
+<li>如:<code>Allocation[i,j]=K</code>，则表示进程i当前已分得Rj类资源的数目为K。</li>
+</ul>
+</li>
+<li>需求矩阵<code>need</code>：一个n×m的矩阵<ul>
+<li><code>Need[i,j]=K</code>，则表示进程i还需要R j类资源K个，才能完成其任务。</li>
+</ul>
+</li>
+</ul>
+<p>上述三个矩阵存在以下关系：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Need[i, j] = Max[i, j]-Allocation[i, j] </span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>算法过程</strong>：</p>
+<p>设<code>Requesti</code>是进程Pi的请求向量，如果<code>Requesti[j]=K</code>表示进程pi的请求向量</p>
+<p><img src="http://img.yesmylord.cn//image-20201227165507824.png" alt="image-20201227165507824"></p>
+<h4 id="安全性算法"><a href="#安全性算法" class="headerlink" title="安全性算法"></a>安全性算法</h4><blockquote>
+<p>安全性算法：对银行家算法改进后的更通用的算法</p>
+</blockquote>
+<p>作用：判断状态是否安全，关键是寻找一个进程安全推进序列</p>
+<p>另外设置：</p>
+<ol>
+<li><strong>工作向量<code>Work</code><strong>：表示系统可提供</strong>给进程继续运行</strong>所需的各类资源数目，它含有m个元素，在执行安全算法开始时，<code>Work:=Available</code></li>
+<li><strong><code>Finish</code><strong>：它表示系统</strong>是否有足够的资源分配给进程</strong>，使之运行完成。开始时先做<code>Finish[i]:=false;</code>当有足够资源分配给进程时，再令<code>Finish[i]:=true</code></li>
+</ol>
+<p><img src="http://img.yesmylord.cn//image-20201227165605203.png" alt="image-20201227165605203"></p>
+<h4 id="例1："><a href="#例1：" class="headerlink" title="例1："></a>例1：</h4><p>​        假定系统中有五个进程<code>&#123;P0，P1，P2，P3，P4&#125;</code>和三类资源<code>&#123;A，B，C&#125;</code>，各种资源的数量分别为10、5、7，在T0时刻的资源分配情况如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Max</th>
+<th>Allocation</th>
+<th>Need</th>
+<th>Available</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P0</td>
+<td>7 5 3</td>
+<td>0 1 0</td>
+<td>7 4 3</td>
+<td>3 3 2</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>3 2 2</td>
+<td>2 0 0</td>
+<td>1 2 2</td>
+<td></td>
+</tr>
+<tr>
+<td>P2</td>
+<td>9 0 2</td>
+<td>3 0 2</td>
+<td>6 0 0</td>
+<td></td>
+</tr>
+<tr>
+<td>P3</td>
+<td>2 2 2</td>
+<td>2 1 1</td>
+<td>0 1 1</td>
+<td></td>
+</tr>
+<tr>
+<td>P4</td>
+<td>4 3 3</td>
+<td>0 0 2</td>
+<td>4 3 1</td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code>     可以找安全的进程推进序列：`P1-&gt;P3-&gt;P4-&gt;P2-&gt;P0`
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>work</th>
+<th>Need</th>
+<th>Allocation</th>
+<th>work+Allocation</th>
+<th>Finish</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>3 3 2</td>
+<td>1 2 2</td>
+<td>2 0 0</td>
+<td>5 3 2</td>
+<td>true</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>5 3 2</td>
+<td>0 1 1</td>
+<td>2 1 1</td>
+<td>7 4 3</td>
+<td>true</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>7 4 3</td>
+<td>4 3 1</td>
+<td>0 0 2</td>
+<td>7 4 5</td>
+<td>true</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>7 4 5</td>
+<td>6 0 0</td>
+<td>3 0 2</td>
+<td>10 4 7</td>
+<td>true</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>10 4 7</td>
+<td>7 4 3</td>
+<td>0 1 0</td>
+<td>10 5 7</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<p>​        work就是当前的<code>available</code>值         </p>
+<p>此时系统处于安全状态</p>
+<h4 id="例2："><a href="#例2：" class="headerlink" title="例2："></a>例2：</h4><blockquote>
+<p>某系统有同类资源m个，可并发执行且共享该类资源的进程最多n个，而每个进程申请该类资源的最大量为x<code>(1≤x≤m)</code>，只要不等式<code>n(x-1)+1≤m</code>成立，则系统一定不会发生死锁。</p>
+</blockquote>
+<p>​        例题: 某系统中有11台打印机，N个进程共享打印机资源，每个进程要求3台。但N的取值不超过____时，系统不会发生死锁。</p>
+<p>​    计算：m = 11，N，x=3，代入公式<code>n(x-1)+1&lt;=m</code>即可算出<code>n&lt;=5</code></p>
+<h3 id="死锁检测"><a href="#死锁检测" class="headerlink" title="死锁检测"></a>死锁检测</h3><p>当系统为进程分配资源时，若未采取任何限制性措施来保证不进入死锁状态，则系统必须提供<strong>检测和解除死锁</strong>的手段。</p>
+<p>系统检测要求系统做到：  </p>
+<ol>
+<li>保存有关资源的请求和分配信息</li>
+<li>提供一种算法，以利用这些信息来检测系统是否已进入死锁状态</li>
+</ol>
+<p><strong>发现死锁</strong>：根据死锁状态的定义，利用死锁描述中介绍的资源分配图来考察某一时刻系统状态是否合理，即是否能使所有进程都得到它们所申请的资源而运行结束。 </p>
+<h3 id="死锁解除"><a href="#死锁解除" class="headerlink" title="死锁解除"></a>死锁解除</h3><p><strong>解除死锁：</strong>与检测死锁相配套的一种措施。</p>
+<p>方法：剥夺资源、撤消进程 ；<br>死锁的检测和解除措施有可能使系统获得较好的资源利用率和吞吐量，但在实现上难度也最大。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+              <a href="/tags/%E6%AD%BB%E9%94%81/" rel="tag"><i class="fa fa-tag"></i> 死锁</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/17/Html/Html(Review)/" rel="prev" title="HTML5(Review)">
+                  <i class="fa fa-chevron-left"></i> HTML5(Review)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E5%BA%A6/" rel="next" title="处理器调度">
+                  处理器调度 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

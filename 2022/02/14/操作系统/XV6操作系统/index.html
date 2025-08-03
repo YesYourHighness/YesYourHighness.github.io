@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：MIT-S081课程——XV6操作系统（更新ing）；包括管道、重定向的实现原理；文件描述符的作用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XV6操作系统">
+<meta property="og:url" content="http://yoursite.com/2022/02/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/XV6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：MIT-S081课程——XV6操作系统（更新ing）；包括管道、重定向的实现原理；文件描述符的作用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20220202164647643.png">
+<meta property="article:published_time" content="2022-02-14T14:16:35.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.982Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20220202164647643.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/02/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/XV6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/02/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/XV6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/","path":"2022/02/14/操作系统/XV6操作系统/","title":"XV6操作系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>XV6操作系统 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XV6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">XV6操作系统接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O%E4%B8%8E%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">I&#x2F;O与文件描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%81%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">重定向实现的原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93PIPE"><span class="nav-number">1.3.</span> <span class="nav-text">管道PIPE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E9%81%93"><span class="nav-number">1.3.1.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.3.2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E7%9A%84Highlight"><span class="nav-number">1.3.3.</span> <span class="nav-text">管道的Highlight</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.4.</span> <span class="nav-text">文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xv6%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">Xv6创建文件或目录的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%81%E7%82%B9-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Question"><span class="nav-number">1.4.3.</span> <span class="nav-text">Question</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XV6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">XV6操作系统组成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%9C%80%E8%A6%81%E6%BB%A1%E8%B6%B3%E7%9A%84%E8%83%BD%E5%8A%9B"><span class="nav-number">2.1.</span> <span class="nav-text">操作系统需要满足的能力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E6%A8%A1%E5%BC%8F%E3%80%81%E7%9B%91%E7%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%81%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">机器模式、监管模式、用户模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.3.</span> <span class="nav-text">内核设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%86%85%E6%A0%B8"><span class="nav-number">2.3.1.</span> <span class="nav-text">单内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">2.3.2.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.3.3.</span> <span class="nav-text">Linux的实现</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/XV6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="XV6操作系统 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          XV6操作系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-14 22:16:35" itemprop="dateCreated datePublished" datetime="2022-02-14T22:16:35+08:00">2022-02-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+    引言：MIT-S081课程——XV6操作系统（更新ing）；包括管道、重定向的实现原理；文件描述符的作用
+</center>
+<span id="more"></span>
+
+<h1 id="XV6操作系统接口"><a href="#XV6操作系统接口" class="headerlink" title="XV6操作系统接口"></a>XV6操作系统接口</h1><h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><blockquote>
+<p>什么是系统调用？</p>
+</blockquote>
+<p>系统调用就是内核的一组API（比如<code>open write fork</code>），他们封装了更底层的与硬件交互的逻辑</p>
+<p>因此系统调用是应用程序访问内核的一种方式</p>
+<p>（即APP如果需要使用<strong>内核函数</strong>，就必须走内核提供的接口，也就是<strong>系统调用</strong>）</p>
+<p><code>fork</code>因为会copy父进程内存所有的数据，因此如果你没用到与父进程内存一样的数据，在某种意义上，这是一种浪费，因此提出了写入时复制（COW ），消除<code>fork</code> 中几乎所有明显的延迟</p>
+<h2 id="I-O与文件描述符"><a href="#I-O与文件描述符" class="headerlink" title="I/O与文件描述符"></a>I/O与文件描述符</h2><h3 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h3><ol>
+<li>每个进程都有专属的一套文件描述符（0、1、2、3….）：其中0、1、2分别为标准输入、标准输出、标准错误</li>
+<li>文件描述符这层抽象，屏蔽了文件、管道、或是设备，将他们统一看成IO来处理（这是Linux一切皆文件的原因）</li>
+<li><code>fork</code>会<code>copy</code>父进程的fd表；<code>exec</code>虽然会替换调用者的内存，但是fd表会保留</li>
+<li><code>close</code>关闭fd，会返还fd资源；新分配的fd将是最小的数字</li>
+</ol>
+<h3 id="重定向实现的原理"><a href="#重定向实现的原理" class="headerlink" title="重定向实现的原理"></a>重定向实现的原理</h3><p><strong>重定向依托于：<code>fork</code>、<code>exec</code>、文件描述符</strong></p>
+<p>比如这样的一个命令：<code>cat &lt; input.txt</code>（将<code>input.txt</code>文件的内容，作为<code>cat</code>命令的参数执行）</p>
+<p>它会这样去执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;cat&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">    close(<span class="number">0</span>);</span><br><span class="line">    open(<span class="string">&quot;input.txt&quot;</span>, O_RDONLY);</span><br><span class="line">    exec(<span class="string">&quot;cat&quot;</span>, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>创建一个参数数组：<code>[&quot;cat&quot;, 0]</code>（此时的0代表着标准输入）</li>
+<li><code>fork</code>创建了一个子进程，这个子进程会copy父进程的内存，即子进程也会拥有<code>argv</code>这个指针以及0、1、2的文件描述符</li>
+<li>当<code>fork()</code>函数返回0，代表<code>if</code>的执行体让<strong>子进程</strong>去执行</li>
+<li>关闭了0号文件描述符，将会回收0（标准输入）的资源；之后<code>open</code>打开文件，这个文件描述符就是当前最小的一个数字，也就是刚刚回收的0（此时的0代表着<code>input.txt</code>文件的fd，注意父进程的fd表不会被改变）</li>
+<li><code>exec</code>执行<code>cat</code>命令，会占用当前的内存，即会替换子进程的内存，去执行<code>cat</code>命令</li>
+</ol>
+<p>如此就完成了重定向，<code>fork</code>+<code>exec</code>是一种很常见的执行命令的手段，不会影响原有的进程，且执行完命令，子进程会自动销毁</p>
+<p>注意：</p>
+<ul>
+<li><p><code>exec</code>会调用其他程序，<strong>替换</strong>当前的内存（会把自己替换掉），没有返回值，除非出现了一些错误</p>
+<ul>
+<li>因此，<code>exec</code>执行完成后就会消失了</li>
+<li>所以经常使用一个<code>fork</code>去执行<code>exec</code>的程序</li>
+</ul>
+</li>
+<li><p>文件是共享资源，因此如果有两个进程同时读一个文件，那么有一个进程会阻塞</p>
+</li>
+<li><p>因为文件是共享资源，所以每个基础文件的<strong>偏移量在父级和子级之间共享</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(fork() == <span class="number">0</span>)&#123;</span><br><span class="line">        write(<span class="number">1</span>, <span class="string">&quot;hello&quot;</span>, <span class="number">6</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        write(<span class="number">1</span>, <span class="string">&quot; world\n&quot;</span>,<span class="number">7</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 因为父子进程共享偏移量，因此不会出现父子进程打印的值被对方覆盖的情况</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>dup</code>系统调用也可以复制一份fd（但是偏移量还是共享的），利用这个系统调用，可以实现这样的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls a.out b.out &gt; tmp1 2&gt;&amp;1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2&gt;&amp;1 表示用描述符2复制一份1(即 标准错误将是标准输出的一个复制)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">此时a.out 与b.out文件的错误信息，都会输出到tmp1文件中</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="管道PIPE"><a href="#管道PIPE" class="headerlink" title="管道PIPE"></a>管道PIPE</h2><h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p><a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2021/09/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">管道我的另一篇博客介绍很详细</a>，此处做一些补充</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><blockquote>
+<p>管道的实现原理</p>
+</blockquote>
+<p><code>pipe(int p[2])</code>：传入一个2个size的数组，调用后会分别存放管道的读端（下标0）与写端（下标1）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> p[<span class="number">2</span>];</span><br><span class="line"><span class="type">char</span>*argv[<span class="number">2</span>];</span><br><span class="line">argv[<span class="number">0</span>] = <span class="string">&quot;wc&quot;</span>;</span><br><span class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">pipe(p);</span><br><span class="line"><span class="comment">// 此时的fd：0、1、2、3、4</span></span><br><span class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// 子进程此时的fd：0、1、2、3、4</span></span><br><span class="line">    close(<span class="number">0</span>);<span class="comment">// 1、2、3、4</span></span><br><span class="line">    dup(p[<span class="number">0</span>]);<span class="comment">// 0、1、2、3、4 (此后的0表示管道的读端)</span></span><br><span class="line">    close(p[<span class="number">0</span>]);<span class="comment">//0、1、2、4</span></span><br><span class="line">    close(p[<span class="number">1</span>]);<span class="comment">//0、1、2</span></span><br><span class="line">    exec(<span class="string">&quot;/bin/wc&quot;</span>, argv);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 父进程此时的fd：0、1、2、3、4</span></span><br><span class="line">    close(p[<span class="number">0</span>]); <span class="comment">// 0、1、2、4</span></span><br><span class="line">    write(p[<span class="number">1</span>], <span class="string">&quot;hello world\n&quot;</span>, <span class="number">12</span>); <span class="comment">// 由写端写入数据 hello world</span></span><br><span class="line">    close(p[<span class="number">1</span>]); <span class="comment">// 0、1、2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="管道的Highlight"><a href="#管道的Highlight" class="headerlink" title="管道的Highlight"></a>管道的Highlight</h3><p>其实就是通过<code>dup + fork</code>命令，改写文件描述符</p>
+<blockquote>
+<p>使用管道vs使用临时文件:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> hello world | <span class="built_in">wc</span> <span class="comment"># 管道</span></span><br><span class="line"><span class="built_in">echo</span> hello world &gt; tmp.txt; <span class="built_in">wc</span> &lt; tmp.txt <span class="comment"># 使用临时文件+重定向</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<ol>
+<li>管道可以自动清理自己；重定向需要自己进行删除临时文件</li>
+<li>管道可以传输任意长的数据；而重定向需要有足够的磁盘存储临时文件</li>
+<li>管道可以在<code>pipeline stage</code>并行执行；而临时文件重定向，只能等一个执行完再去执行另一个</li>
+<li>如果要实现进程间通信，管道<code>read</code>阻塞要比文件阻塞更有意义</li>
+</ol>
+<blockquote>
+<p>名词解释 <code>pipeline</code> 与<code>stage</code>：</p>
+<p>一条指令的执行是被分成多个<code>stage</code>的，每个<code>stage</code>使用一个<code>cycle</code>，一条指令从第一个<code>stage</code>依次执行到结束，这个过程叫做<code>pipeline</code></p>
+</blockquote>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><h3 id="Xv6创建文件或目录的方式"><a href="#Xv6创建文件或目录的方式" class="headerlink" title="Xv6创建文件或目录的方式"></a>Xv6创建文件或目录的方式</h3><p>创建文件有这么几种方式：</p>
+<ul>
+<li>以CREATE的方式<code>OPEN</code>文件</li>
+<li><code>mkdir</code>创建目录</li>
+<li><code>mknod</code>创建设备文件</li>
+</ul>
+<h3 id="要点-1"><a href="#要点-1" class="headerlink" title="要点"></a>要点</h3><ol>
+<li>设备文件是一种特殊的文件<code>mknod(char *file, int 主设备号,int 次设备号)</code>，在进程打开一个设备文件时，内核会将<code>read</code>与<code>write</code>系统调用<strong>转移到内核设备实现，而不是递交给文件系统</strong></li>
+<li>文件名与文件的含义不同。同一个底层文件称为<code>inode</code>；可以有多个名称，称为<code>links</code><ul>
+<li>每个<code>link</code>由<code>文件名+inode的引用</code>组成</li>
+<li><code>inode</code>包含了文件的元数据（文件类型、长度、磁盘上的位置、link的数目）</li>
+</ul>
+</li>
+</ol>
+<p><code>fstat</code>系统调用可以从<code>inode</code>检索信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> T_DIR     1   <span class="comment">// Directory</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> T_FILE    2   <span class="comment">// File</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> T_DEVICE  3   <span class="comment">// Device</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stat</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> dev;     <span class="comment">// File system&#x27;s disk device</span></span><br><span class="line">  uint ino;    <span class="comment">// Inode number</span></span><br><span class="line">  <span class="type">short</span> type;  <span class="comment">// Type of file</span></span><br><span class="line">  <span class="type">short</span> nlink; <span class="comment">// Number of links to file</span></span><br><span class="line">  uint64 size; <span class="comment">// Size of file in bytes</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>link</code>系统调用可以给文件一个新名称链接到这个文件上</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open(<span class="string">&quot;a&quot;</span>, O_CREATE|O_WRONLY);</span><br><span class="line">link(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><blockquote>
+<p>文件什么时候会被回收？</p>
+</blockquote>
+<p>需要同时满足两个条件:</p>
+<ol>
+<li>链接数为0</li>
+<li>没有fd被使用</li>
+</ol>
+<blockquote>
+<p>创建一个没有名称的临时<code>inode</code>的方法（该<code>inode</code>将在进程关闭时自动被清除）</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fd = open(<span class="string">&quot;/tmp/xyz&quot;</span>, O_CREATE|O_RDWR);</span><br><span class="line">unlink(<span class="string">&quot;/tmp/xyz&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="XV6操作系统组成"><a href="#XV6操作系统组成" class="headerlink" title="XV6操作系统组成"></a>XV6操作系统组成</h1><h2 id="操作系统需要满足的能力"><a href="#操作系统需要满足的能力" class="headerlink" title="操作系统需要满足的能力"></a>操作系统需要满足的能力</h2><blockquote>
+<p>前一章提供了很多接口函数，<strong>为什么我们需要使用操作系统呢？直接让应用程序调用硬件资源不可以吗?</strong></p>
+</blockquote>
+<p>直接让APP调用硬件资源是可以的：在嵌入式系统及一些实时系统很常见</p>
+<ul>
+<li>优点：高性能（直接利用硬件资源，可以保证很高的性能）</li>
+<li>缺点：当APP多于硬件资源时，无法维护</li>
+</ul>
+<p>比如现在有五个打印机，但是只有一个CPU：</p>
+<p>​        你可能会说，那不能在APP级别实现共享CPU吗（<strong>时分复用</strong>）？</p>
+<p>​        但是APP可能会存在BUG，及时你能保证一个APP完美无缺，但是很多的APP一同运行，是无法避免BUG的，BUG的出现可能会导致资源被恶意利用。</p>
+<p>​        解决这个问题的一个好的办法就是，APP之间相互<strong>隔离</strong>，使用内核来控制进程之间的调度，使他们与CPU之间保持透明。</p>
+<p>​        但是某些程序之间需要合作来完成任务，我们就得提供他们<strong>交互</strong>的能力（管道）</p>
+<blockquote>
+<p>操作系统需要满足的能力：</p>
+</blockquote>
+<p>操作系统必须满足三个要求：</p>
+<ul>
+<li><strong>多路复用</strong>：进程之间共享计算机资源（进程都可以获取到CPU、内存、磁盘资源，得到执行）</li>
+<li><strong>隔离</strong>：进程之间互不影响</li>
+<li><strong>交互</strong>：进程之间可以通信</li>
+</ul>
+<h2 id="机器模式、监管模式、用户模式"><a href="#机器模式、监管模式、用户模式" class="headerlink" title="机器模式、监管模式、用户模式"></a>机器模式、监管模式、用户模式</h2><p>前面说了，操作系统需要保证进程之间的隔离，这个隔离必须很强（不然会被恶意利用，导致系统不安全）：</p>
+<ol>
+<li>一个进程的运行失败不能影响其他进程</li>
+<li>一个进程不能访问其他进程的地址</li>
+<li>进程不能改变操作系统的数据结构</li>
+</ol>
+<p>因此操作系统给出以下的方案：</p>
+<p>软件方面：（解决1与2）进程虚拟地址（<a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2021/09/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/">此篇博客详细介绍进程空间</a>）</p>
+<p>硬件方面：（解决3）硬件方面解决，比如<strong>RSIC-V指令架构</strong>给出三种模式：<code>machine mode,supervisor mode, user mode</code></p>
+<ul>
+<li><strong>机器模式</strong>(machine mode)：机器模式拥有全部权限（机器模式会用来装在计算机所需要的硬件，装载完成就会切换到监管模式）</li>
+<li><strong>监管模式</strong>(supervisor mode)：可以运行特权指令（常说的<strong>内核态</strong>）</li>
+<li><strong>用户模式</strong>(user mode)：只能运行普通指令（常说的<strong>用户态</strong>）</li>
+</ul>
+<p>如果一个APP需要执行<strong>系统调用</strong>，必须切换到内核态，CPU提供了特殊的指令，可以切换CPU到<strong>监管模式</strong>，进而执行内核函数（比如说RSIC-V提供的切换指令为<code>ecall</code>）</p>
+<p>一旦切换到监管模式，就可以检验参数（比如检验地址是否越界），再去判断是否要执行该命令</p>
+<h2 id="内核设计"><a href="#内核设计" class="headerlink" title="内核设计"></a>内核设计</h2><blockquote>
+<p>内核设计：哪些操作应该放在监管模式下？</p>
+</blockquote>
+<h3 id="单内核"><a href="#单内核" class="headerlink" title="单内核"></a>单内核</h3><p><code>monolithic kernel</code>：将整个操作系统全放在内核中</p>
+<p>好处：</p>
+<ul>
+<li>设计简单</li>
+<li>程序交互方便（可以共享缓存实现交互）</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>如果有bug，那么整个OS都会瘫痪（致命的缺点）</li>
+</ul>
+<h3 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h3><p>为了降低内核出错的风险，所以设计了微内核<code>micro kernel</code>（最小化监管模式的代码）</p>
+<p><img src="http://img.yesmylord.cn//image-20220202164647643.png" alt="微内核"></p>
+<p>但这样进程之间的交互将会变得麻烦，所以提出了IPC进程间通信，如图shell如果想读写文件，需要给File Server发送消息并且等待</p>
+<h3 id="Linux的实现"><a href="#Linux的实现" class="headerlink" title="Linux的实现"></a>Linux的实现</h3><p>两种设计理念都存在于Linux中。</p>
+<p>linux是一个单内核（但是有些程序是运行在用户级别的，比如窗口程序），但吸取了微内核的优点——模块化</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/14/Linux/Linux%E7%9A%84Crontab/" rel="prev" title="Crontab命令及Crontab语法">
+                  <i class="fa fa-chevron-left"></i> Crontab命令及Crontab语法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/27/Java%E5%BC%82%E5%B8%B8/Java%E5%BC%82%E5%B8%B8%E4%BC%A0%E6%92%AD/" rel="next" title="Java异常传播">
+                  Java异常传播 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

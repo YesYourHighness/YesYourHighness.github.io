@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：卷积神经网络 CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卷积神经网络CNN">
+<meta property="og:url" content="http://yoursite.com/2022/10/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：卷积神经网络 CNN">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221016165411619.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221015182258732.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221015190716282.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221015192557769.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221015190716282.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221015215720847.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221025154433654.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221025161231100.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221025161456208.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221025163804798.png">
+<meta property="article:published_time" content="2022-10-15T10:11:23.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.080Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="神经网络">
+<meta property="article:tag" content="PyTorch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20221016165411619.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/10/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E5%AE%9E%E8%B7%B5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/10/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E5%AE%9E%E8%B7%B5/","path":"2022/10/15/深度学习/PyTorch实践/","title":"卷积神经网络CNN"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>卷积神经网络CNN | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84CNN"><span class="nav-number">1.</span> <span class="nav-text">基本的CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="nav-number">1.1.</span> <span class="nav-text">数据准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">梯度下降存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%BD%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">载入数据的过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络模型设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">损失与优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8"><span class="nav-number">1.4.2.</span> <span class="nav-text">优化器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">1.5.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B"><span class="nav-number">1.6.</span> <span class="nav-text">预测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E7%9A%84CNN"><span class="nav-number">2.</span> <span class="nav-text">高级的CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inception"><span class="nav-number">2.1.</span> <span class="nav-text">Inception</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E7%9A%84%E5%8D%B7%E7%A7%AF%E6%A0%B8"><span class="nav-number">2.1.1.</span> <span class="nav-text">1*1的卷积核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Risidual-Net"><span class="nav-number">2.2.</span> <span class="nav-text">Risidual Net</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1"><span class="nav-number">2.2.1.</span> <span class="nav-text">梯度消失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.3.</span> <span class="nav-text">循环神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN%E5%87%BA%E7%8E%B0%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.3.1.</span> <span class="nav-text">RNN出现的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN-Cell"><span class="nav-number">2.3.2.</span> <span class="nav-text">RNN Cell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="卷积神经网络CNN | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          卷积神经网络CNN
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-15 18:11:23" itemprop="dateCreated datePublished" datetime="2022-10-15T18:11:23+08:00">2022-10-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：卷积神经网络 CNN
+</center>
+
+
+<span id="more"></span>
+
+<p>相关资料：</p>
+<ul>
+<li>b站 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y7411d7Ys/?from=search&seid=1631997590037031874&spm_id_from=333.337.0.0&vd_source=c8709f8826bf296abab8aeee72b0e338">刘二大人</a></li>
+</ul>
+<h1 id="基本的CNN"><a href="#基本的CNN" class="headerlink" title="基本的CNN"></a>基本的CNN</h1><h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>以MINST数据为例，搭建CNN并进行测试。</p>
+<p>MINST：入门级的CV数据库，内容全为手写的阿拉伯数字，包含了6w张训练集图片+1w张测试集图片</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms <span class="comment"># 数据原始处理</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets <span class="comment"># datasets包含了MINST数据集</span></span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader <span class="comment"># 分批量载入数据</span></span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F <span class="comment"># 激活函数</span></span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim <span class="comment"># 优化器</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="梯度下降存在的问题"><a href="#梯度下降存在的问题" class="headerlink" title="梯度下降存在的问题"></a>梯度下降存在的问题</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113714840">梯度下降 知乎Link</a></p>
+<ul>
+<li><strong>Batch梯度下降</strong> BGD——遍历所有数据，计算损失函数，计算梯度，更新梯度</li>
+</ul>
+<p>计算量大，收敛速度慢，训练的模型一般</p>
+<ul>
+<li><strong>随机梯度下降</strong> SGD ——每次从训练集中随机选择一个样本，计算其对应的损失和梯度，进行参数更新，反复迭代</li>
+</ul>
+<p>收敛速度比batch还要慢，还遇到<strong>鞍点问题</strong>；但是训练的模型好。</p>
+<blockquote>
+<p><strong>鞍点saddle point 问题</strong>：目标函数在此点的<strong>梯度为0</strong>，但从该点出发的一个方向存在函数极大值点，而另一个方向是函数的极小值点，在高度非凸空间中，存在大量的鞍点，这使得梯度下降法有时会失灵，虽然不是极小值，但是看起来确是收敛的。 </p>
+</blockquote>
+<blockquote>
+<p>注意：<strong>鞍点和局部最优解 local minima不同</strong></p>
+</blockquote>
+<p>critical point：包括local minima局部最优解 和 saddle point鞍点</p>
+<p><img src="http://img.yesmylord.cn//image-20221016165411619.png" alt="鞍点与局部最优解"></p>
+<blockquote>
+<p>如何鉴别是鞍点还是局部最优点？</p>
+<p>是否可以<strong>逃离</strong>：可以逃离的是鞍点，逃不掉的是局部最优解</p>
+<p>这部分可以看这个视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1zP4y1p73V/?spm_id_from=333.337.search-card.all.click&vd_source=c8709f8826bf296abab8aeee72b0e338">bilibili link</a>：</p>
+<p>根据hessian判断</p>
+<ul>
+<li>Hessian的所有特征值均大于0：local minima</li>
+<li>Hessian的所有特征值均小于0： max minima</li>
+<li>Hessian的特征值有时候大于0，有时候小于0：saddle point</li>
+</ul>
+</blockquote>
+<ul>
+<li>综合两者DataLoader——MINI-Batch</li>
+</ul>
+<p>使用MINI-Batch时要使用一个嵌套的循环：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(train_epochs):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(total_batch):</span><br><span class="line">        <span class="comment"># 每次执行一个MINI-Batch</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>三个重要的概念：：</p>
+<ul>
+<li><strong>Epoch</strong>：<strong>所有样本</strong>都经过一个<strong>前馈+反馈</strong>，就叫一个Epoch</li>
+<li><strong>Batch-size</strong>：一个前向+反向所用的样本的数量</li>
+<li><strong>Iteration</strong>：前+反的次数</li>
+</ul>
+</blockquote>
+<p>显然有：<code>Epoch = Batch-size * Iteration</code></p>
+<h3 id="载入数据的过程"><a href="#载入数据的过程" class="headerlink" title="载入数据的过程"></a>载入数据的过程</h3><p>在DataSet准备好样本数据后，会经过一个Shuffle过程，将样本数据打乱</p>
+<p>在这之后，在进行分批，每一批就是一个Batch</p>
+<p><img src="http://img.yesmylord.cn//image-20221015182258732.png" alt="数据载入过程"></p>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>这里关于<code>transform</code>做一个API介绍：<a target="_blank" rel="noopener" href="https://pytorch.org/vision/stable/transforms.html#transforms-on-pil-image-and-torch-tensor">这一部分的官方Link</a></p>
+<ul>
+<li><p><code>Compose()</code>：将多个转换操作组合在一起</p>
+</li>
+<li><p><code>ToTensor()</code>：将一个pillow图片或是ndarray转换为一个张量（即将0-255转为0-1）</p>
+</li>
+<li><p><code>Normalize</code>：用<strong>均值 mean</strong>和<strong>标准差 std</strong>归一化一个浮点张量图像（这个操作只能操作torch的tensor）</p>
+<ul>
+<li>参数<code>mean</code>：每个通道的均值序列</li>
+<li>参数<code>std</code>：每个通道的标准差序列</li>
+<li>计算公式：<code>image = (image - mean)/std</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">batch_size = <span class="number">64</span></span><br><span class="line"><span class="comment"># 前部分：将数据从原本的pillow（python处理图片的库）格式转为tensor，即将0-255转为0-1</span></span><br><span class="line"><span class="comment"># 后半部分：将每个channel的数据转换为标准高斯分布，两个参数：均值mean、方差std；计算式：</span></span><br><span class="line">transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((<span class="number">0.1307</span>,), (<span class="number">0.3081</span>,))])</span><br><span class="line"><span class="comment"># 这里的MIST数据集就一个通道因此只需要传一个值的序列</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有数据会自动下载</span></span><br><span class="line">train_dataset = datasets.MNIST(root=<span class="string">&#x27;../dataset/mnist/&#x27;</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>, transform=transform)</span><br><span class="line">train_loader = DataLoader(train_dataset, shuffle=<span class="literal">True</span>, batch_size=batch_size)</span><br><span class="line">test_dataset = datasets.MNIST(root=<span class="string">&#x27;../dataset/mnist/&#x27;</span>, train=<span class="literal">False</span>, download=<span class="literal">True</span>, transform=transform)</span><br><span class="line">test_loader = DataLoader(test_dataset, shuffle=<span class="literal">False</span>, batch_size=batch_size)</span><br></pre></td></tr></table></figure>
+
+<h2 id="神经网络模型设计"><a href="#神经网络模型设计" class="headerlink" title="神经网络模型设计"></a>神经网络模型设计</h2><p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#module">torch.nn官方API：</a>，这里列几个用到的：</p>
+<ul>
+<li><p><code>torch.nn.Module</code>：所有神经网络的类的<strong>基类</strong></p>
+</li>
+<li><p><code>torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0...)</code>：二维卷积</p>
+<ul>
+<li>参数1<code>in_channels</code>：输入通道</li>
+<li>参数2<code>out_channels</code>：输出通道</li>
+<li>参数3<code>kernel_size</code>：卷积核的大小</li>
+<li>参数4<code>stride</code>：步长</li>
+<li>参数5<code>padding</code>：图形填充0</li>
+</ul>
+</li>
+<li><p><code>torch.nn.MaxPool2d(kernel_size)</code>：二维最大值池化</p>
+<ul>
+<li>参数<code>kernel_size</code>：核大小</li>
+</ul>
+</li>
+<li><p><code>torch.nn.Linear</code>：linear unit线性单元<code>y = xA + b</code></p>
+<ul>
+<li>参数1<code>in_channels</code>：输入通道</li>
+<li>参数2<code>out_channels</code>：输出通道</li>
+<li>参数3<code>bias</code>：默认为True</li>
+</ul>
+</li>
+<li><p><code>tensor.view()</code>：用来改变tensor的形状，数据不会变</p>
+<ul>
+<li>返回的新tensor与原tensor<strong>共享内存</strong>，意味着你改变一个，另一个也会改变</li>
+<li>当某一维度是<code>-1</code>，会自动计算这一维度的大小</li>
+</ul>
+</li>
+</ul>
+<p>PyTorch固定的模板就是这样：<code>__init__</code>初始化卷积核、池化、全连接层，<code>forward</code>写神经网络的执行顺序，反馈由Module自动执行无需我们设计</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 神经网络模型</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Net</span>(torch.nn.Module): <span class="comment"># 继承nn.Module</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(Net, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="comment"># Conv2d参数：输入通道、输出通道、核的大小</span></span><br><span class="line">        <span class="variable language_">self</span>.conv1 = torch.nn.Conv2d(<span class="number">1</span>, <span class="number">10</span>, kernel_size=<span class="number">5</span>)</span><br><span class="line">        <span class="variable language_">self</span>.conv2 = torch.nn.Conv2d(<span class="number">10</span>, <span class="number">20</span>, kernel_size=<span class="number">5</span>)</span><br><span class="line">        <span class="comment"># 池化2*2</span></span><br><span class="line">        <span class="variable language_">self</span>.pooling = torch.nn.MaxPool2d(<span class="number">2</span>)</span><br><span class="line">        <span class="comment"># 全连接：输入通道，输出通道，结果为0-9数字</span></span><br><span class="line">        <span class="variable language_">self</span>.fc = torch.nn.Linear(<span class="number">320</span>, <span class="number">10</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="comment"># flatten data from (n,1,28,28) to (n, 784)</span></span><br><span class="line">        batch_size = x.size(<span class="number">0</span>) <span class="comment"># 0是x大小第1个参数，自动获取batch大小</span></span><br><span class="line">        <span class="comment"># 卷积核1-&gt;池化-&gt;激活-&gt;卷积核2-&gt;池化-&gt;激活</span></span><br><span class="line">        x = F.relu(<span class="variable language_">self</span>.pooling(<span class="variable language_">self</span>.conv1(x)))</span><br><span class="line">        x = F.relu(<span class="variable language_">self</span>.pooling(<span class="variable language_">self</span>.conv2(x)))</span><br><span class="line">        x = x.view(batch_size, -<span class="number">1</span>) <span class="comment"># -1 此处自动算出的是320</span></span><br><span class="line">        <span class="comment"># 全连接，拉成一维</span></span><br><span class="line">        x = <span class="variable language_">self</span>.fc(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"><span class="comment"># 实例化</span></span><br><span class="line">model = Net()</span><br><span class="line">device = torch.device(<span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)<span class="comment"># 如果有GPU使用gpu</span></span><br><span class="line">model.to(device) <span class="comment"># 将model存到显卡</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="损失与优化"><a href="#损失与优化" class="headerlink" title="损失与优化"></a>损失与优化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 损失函数：该准则计算输入和目标之间的交叉熵损失</span></span><br><span class="line">criterion = torch.nn.CrossEntropyLoss()</span><br><span class="line"><span class="comment"># 优化器：负责训练模型，反向传播更新参数：lr是学习率</span></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">0.01</span>, momentum=<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><blockquote>
+<p>损失函数也是Module的子类，他负责计算损失，计算损失的算法有很多种</p>
+</blockquote>
+<ul>
+<li><code>MSELoss</code>：求y与y_hat的差值平方</li>
+<li><code>CrossEntropyLoss</code>：交叉熵</li>
+</ul>
+<blockquote>
+<p><strong>交叉熵</strong>：它主要刻画的是<strong>实际输出（概率）与期望输出（概率）的距离</strong>，也就是交叉熵的值越小，两个概率分布就越接近</p>
+</blockquote>
+<h3 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/optim.html">优化器</a>：optim是一个实现了多个优化算法的包，直接调用即可。</p>
+</blockquote>
+<p>构造一个优化器：使用前需要创建一个优化器对象，必须传入一个module的参数对象，并可以配置学习率lr</p>
+<ul>
+<li><code>model.parameters()</code>：检查model所有单元的参数，发现有权重就拿走（假如内部有一个线性单元linear unit，就会调用他的<code>linear.parameters()</code>方法，如果还有其他单元，回依次获取）</li>
+</ul>
+<p>使用：只要梯度更新（例如<code>backward()</code>），就可以调用优化器方法<code>step()</code></p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>整个训练过程可以精炼为如下几个步骤：</p>
+<ol>
+<li>计算<code>y_hat</code></li>
+<li>计算损失<code>loss</code></li>
+<li>反馈<code>backward()</code>（<strong>注意</strong>：在此之前记得优化器清零<code>zero_grad()</code>）</li>
+<li>更新<code>step()</code></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 训练及更新</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">epoch</span>):</span><br><span class="line">    running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> batch_idx, data <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader, <span class="number">0</span>):<span class="comment"># 指定从零开始</span></span><br><span class="line">        inputs, target = data</span><br><span class="line">        <span class="comment"># 有GPU使用GPU</span></span><br><span class="line">        inputs, target = inputs.to(device), target.to(device)  </span><br><span class="line">        <span class="comment"># 计算y_hat</span></span><br><span class="line">        outputs = model(inputs)</span><br><span class="line">        <span class="comment"># 前馈：计算损失</span></span><br><span class="line">        loss = criterion(outputs, target)</span><br><span class="line">        <span class="comment"># 优化器清零：backward是累积的，因此在backward前记得将所有权重清0</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        <span class="comment"># 反馈：计算梯度</span></span><br><span class="line">        loss.backward()</span><br><span class="line">        <span class="comment"># 更新：根据梯度和学习率更新</span></span><br><span class="line">        optimizer.step()</span><br><span class="line">        <span class="comment"># 求和损失</span></span><br><span class="line">        running_loss += loss.item()</span><br><span class="line">        <span class="comment"># 300次计算一次平均损失</span></span><br><span class="line">        <span class="keyword">if</span> batch_idx % <span class="number">300</span> == <span class="number">299</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;[%d, %5d] loss: %.3f&#x27;</span> % (epoch+<span class="number">1</span>, batch_idx+<span class="number">1</span>, running_loss/<span class="number">300</span>))</span><br><span class="line">            running_loss = <span class="number">0.0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad(): <span class="comment"># 无需计算梯度</span></span><br><span class="line">        <span class="keyword">for</span> data <span class="keyword">in</span> test_loader:</span><br><span class="line">            images, labels = data</span><br><span class="line">            images, labels = images.to(device), labels.to(device)</span><br><span class="line">            <span class="comment"># 用训练的模型测试images</span></span><br><span class="line">            outputs = model(images)</span><br><span class="line">            _, predicted = torch.<span class="built_in">max</span>(outputs.data, dim=<span class="number">1</span>)</span><br><span class="line">            total += labels.size(<span class="number">0</span>)</span><br><span class="line">            <span class="comment"># 计算正确率</span></span><br><span class="line">            correct += (predicted == labels).<span class="built_in">sum</span>().item()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;accuracy on test set: %d %% &#x27;</span> % (<span class="number">100</span>*correct/total))</span><br></pre></td></tr></table></figure>
+
+<h1 id="高级的CNN"><a href="#高级的CNN" class="headerlink" title="高级的CNN"></a>高级的CNN</h1><h2 id="Inception"><a href="#Inception" class="headerlink" title="Inception"></a>Inception</h2><p>GoogleNet是一个比较出名的CNN模型</p>
+<blockquote>
+<p>Inception：对于比较复杂的结构，会有很多复用的结构，这样的结构就叫做Inception</p>
+</blockquote>
+<p>比如这样的一个Inception结构，优点是：往往并不能确定什么样的卷积核比较好，因此一个Inception就可以带多个卷积核，来比较他们之间的性能，如果其中一条线路的效果较好，那么就增大这条线的权重</p>
+<p><img src="http://img.yesmylord.cn//image-20221015190716282.png" alt="Inception"></p>
+<p>Concatnate会将不同通道的tensor合并在一起</p>
+<h3 id="1-1的卷积核"><a href="#1-1的卷积核" class="headerlink" title="1*1的卷积核"></a>1*1的卷积核</h3><blockquote>
+<p><code>1*1</code>卷积核的作用：<strong>信息融合，以便于降低运算量</strong></p>
+<p>在多通道的情况下，会将每个卷积核的特征融合到一起</p>
+<p>（类比与学校的加权成绩）</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20221015192557769.png" alt="1*1卷积核的作用"></p>
+<p>降低运算量：假设现在有要对<code>192*28*28</code>的张量进行卷积，卷积核为<code>5*5</code>，最后输出<code>32*28*28</code>：</p>
+<p>那么一共要<code>5*5*32*192*28*28=120_422_400</code></p>
+<p>如果给中间加一步<code>16</code>个卷积<code>1*1</code>，那么运算量会变为<code>1*1*28*28*192*16 + 5*5*28*28*16*32=12_433_648</code></p>
+<p>可见，降低了1/10的运算量</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p><img src="http://img.yesmylord.cn//image-20221015190716282.png" alt="Inception"></p>
+<p>设这四条线路分别为A、B、C、D，我们在构建模型时，构造方法就应该写以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_channels</span>):</span><br><span class="line">    <span class="built_in">super</span>(InceptionA, <span class="variable language_">self</span>).__init__()</span><br><span class="line">    <span class="comment"># A </span></span><br><span class="line">    <span class="variable language_">self</span>.branch_pool = nn.Conv2d(in_channels, <span class="number">24</span>, kernel_size=<span class="number">1</span>)<span class="comment"># 1*1的卷积核</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># B</span></span><br><span class="line">    <span class="variable language_">self</span>.branch1x1 = nn.Conv2d(in_channels, <span class="number">16</span>, kernel_size=<span class="number">1</span>)<span class="comment"># 1*1的卷积核</span></span><br><span class="line">    <span class="comment"># C</span></span><br><span class="line">    <span class="variable language_">self</span>.branch5x5_1 = nn.Conv2d(in_channels, <span class="number">16</span>, kernel_size=<span class="number">1</span>)</span><br><span class="line">    <span class="variable language_">self</span>.branch5x5_2 = nn.Conv2d(<span class="number">16</span>, <span class="number">24</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line">    <span class="comment"># D</span></span><br><span class="line">    <span class="variable language_">self</span>.branch3x3_1 = nn.Conv2d(in_channels, <span class="number">16</span>, kernel_size=<span class="number">1</span>)</span><br><span class="line">    <span class="variable language_">self</span>.branch3x3_2 = nn.Conv2d(<span class="number">16</span>, <span class="number">24</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    <span class="variable language_">self</span>.branch3x3_3 = nn.Conv2d(<span class="number">24</span>, <span class="number">24</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在初始化后，加入到forward中就可，最后的输出的通道数<code>24*3 + 16 = 88</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">    <span class="comment"># A</span></span><br><span class="line">    branch_pool = F.avg_pool2d(x, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>)<span class="comment"># 平均池化</span></span><br><span class="line">    branch_pool = <span class="variable language_">self</span>.branch_pool(branch_pool)</span><br><span class="line">    <span class="comment"># B</span></span><br><span class="line">    branch1x1 = <span class="variable language_">self</span>.branch1x1</span><br><span class="line">    <span class="comment"># C</span></span><br><span class="line">    branch3x3 = <span class="variable language_">self</span>.branch3x3_1(x)</span><br><span class="line">    branch3x3 = <span class="variable language_">self</span>.branch3x3_2(branch3x3) </span><br><span class="line">    <span class="comment"># D</span></span><br><span class="line">    branch5x5 = <span class="variable language_">self</span>.branch5x5_1(x)</span><br><span class="line">    branch5x5 = <span class="variable language_">self</span>.branch5x5_2(branch5x5)</span><br><span class="line">    <span class="comment"># 组合</span></span><br><span class="line">    outputs = [branch1x1, branch5x5, branch3x3, branch_pool]</span><br><span class="line">    <span class="comment"># cat函数会将各部分组合起来</span></span><br><span class="line">    <span class="comment"># 一共有四个dim：b(batch)、c(channel)、w(weight)、h(height)，这里的1就代表c</span></span><br><span class="line">    <span class="keyword">return</span> torch.cat(outputs, dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Risidual-Net"><a href="#Risidual-Net" class="headerlink" title="Risidual Net"></a>Risidual Net</h2><h3 id="梯度消失"><a href="#梯度消失" class="headerlink" title="梯度消失"></a>梯度消失</h3><p>在训练过程中可能会遇到<strong>梯度消失</strong>的问题</p>
+<blockquote>
+<p>梯度消失：我们嵌套的多层卷积层，如果每个算出的值都是十分接近于0的数，在不断的链式乘积后，就会变得更小，导致梯度消失</p>
+</blockquote>
+<p>解决办法：</p>
+<p>【法一】我们可以逐个增加卷积层，去查看哪一层发生了梯度消失</p>
+<p>显然这种方法很麻烦</p>
+<p>【法二】Risidual Net 残差网络</p>
+<p>在基础的NN上，加一个<strong>跳连接</strong>，如图所示</p>
+<p><img src="http://img.yesmylord.cn//image-20221015215720847.png" alt="Risidual Net"></p>
+<p>其中，<code>H(x)= F(x) + x</code>可以保证<code>H&#39;(x) = F&#39;(x) + 1</code>即使<code>F&#39;(x)</code>极小，也可以使梯度变化</p>
+<p>但是这种Net结构得保证经过卷积后的shape与原shape一样，因此在shape发生变化的位置，我们需要单独处理（处理方式：对x也做处理或是根本不做跳连接）</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ResidualBlock</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, channels</span>):</span><br><span class="line">        <span class="built_in">super</span> (ResidualBlock, <span class="variable language_">self</span>)._init_()</span><br><span class="line">        <span class="variable language_">self</span>.channels = channels</span><br><span class="line">        <span class="comment"># 输入和输出通道需要一样</span></span><br><span class="line">        <span class="variable language_">self</span>.convl = nn. Conv2d(channels, channels, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">		<span class="variable language_">self</span>.conv2 = nn. Conv2d (channels, channels, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,x</span>):</span><br><span class="line">        y = F.relu(<span class="variable language_">self</span>.conv1(x))</span><br><span class="line">        y = <span class="variable language_">self</span>.conv2(y)</span><br><span class="line">        <span class="comment"># 跳连接</span></span><br><span class="line">		<span class="keyword">return</span> F.relu(x + y)</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h2><h3 id="RNN出现的原因"><a href="#RNN出现的原因" class="headerlink" title="RNN出现的原因"></a>RNN出现的原因</h3><p>有时候会遇到类似于根据上一次的数据，去预测下一次的结果的情况。</p>
+<p>比如天气预报，假设我们的数据<code>温度|湿度|光照-&gt;天气</code>，那么我们根据当天的温度和湿度去预测当天的天气是没有意义的。</p>
+<blockquote>
+<p>如何去预测明天的天气呢？</p>
+</blockquote>
+<p>可以将4行记录为一组，3行接在一起作为训练集（<code>温度1|湿度1|光照1|温度2|湿度2|光照2|温度3|湿度3|光照3</code>），用第四天的天气作为验证集；这样就可以使用三天的数据去预测后一天的天气了。</p>
+<blockquote>
+<p>但是这里存在一个问题，如果单个行记录的参数就很多，那么我们拼凑起来的参数会更多，这样我们在之后的卷积、全连接过程中，可能会参数爆炸</p>
+<p>因此为了解决“参数爆炸”的问题，提出了<strong>循环神经网络RNN</strong></p>
+</blockquote>
+<h3 id="RNN-Cell"><a href="#RNN-Cell" class="headerlink" title="RNN Cell"></a>RNN Cell</h3><p>RNN适合去解决数据有序的问题：比如天气预测、比如语言类问题（我|要|去吃饭，语言也有顺序）</p>
+<p>RNN的结构如图所示：</p>
+<p><img src="http://img.yesmylord.cn//image-20221025154433654.png" alt="RNN结构"></p>
+<p>右图是左图的展开式，可以看到，每一次的计算都需要用到上一次的数据，而参数却还使用原来的同一层，这样可以大大减少计算所需要的参数。</p>
+<p> RNN cell的本质就是一个<strong>线性层</strong>，它的计算式如下：</p>
+<p><img src="http://img.yesmylord.cn//image-20221025161231100.png" alt="RNN cell的计算式"></p>
+<p><img src="http://img.yesmylord.cn//image-20221025161456208.png" alt="RNN cell具体运算"></p>
+<p>值得注意的是：xt和ht-1看起来做了两次线性变换，其实我们可以把两个矩阵合起来运算，因此其实就是一次线性运算</p>
+<p>比如<code>w1*h + w2*x = [w1, w2]*[h, x]^T</code></p>
+<h3 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h3><p>PyTorch中提供的对应框架有两个，可以使用<code>RNNCell</code>也可以直接使用<code>RNN</code></p>
+<ul>
+<li>RNNCell</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cell = torch.nn.RNNCell(input_size=input_size, hidden_size=hidden_size)</span><br><span class="line"><span class="comment"># 只需要提供参数 input_size 和 hidden_size即可</span></span><br><span class="line">hidden = cell(inputs, hidden)</span><br><span class="line"><span class="comment"># RNNcell只有一个输出，就是h1-hn</span></span><br></pre></td></tr></table></figure>
+
+<p>对于<code>inputs</code>要注意的是，他就是输入的序列值，他有三个维度<code>(seq_len, batch_size, input_size)</code></p>
+<p>对于<code>hidden</code>注意，他也有三个维度<code>(num_layers, batch_size, hidden_size)</code></p>
+<ul>
+<li>RNN</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cell = torch.nn.RNN(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers)</span><br><span class="line"><span class="comment"># 还需要提供 num_layers 即隐藏层的个数，需要几层的RNN</span></span><br><span class="line">out, hidden = cell(inputs, hidden)</span><br><span class="line"><span class="comment"># 使用时给inputs：所有的输入序列、hidden即h0</span></span><br><span class="line"><span class="comment"># 输出会有两个值 out就是h1-hn；hidden就是hn</span></span><br></pre></td></tr></table></figure>
+
+<p>比如一个三层的RNN运算时就是这样的：</p>
+<p><img src="http://img.yesmylord.cn//image-20221025163804798.png" alt="三层的RNN"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 神经网络</a>
+              <a href="/tags/PyTorch/" rel="tag"><i class="fa fa-tag"></i> PyTorch</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89CV/" rel="prev" title="计算机视觉CV">
+                  <i class="fa fa-chevron-left"></i> 计算机视觉CV
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE/%E6%AF%94%E7%89%B9%E5%B8%81%E7%99%BD%E7%9A%AE%E4%B9%A6/" rel="next" title="比特币白皮书">
+                  比特币白皮书 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

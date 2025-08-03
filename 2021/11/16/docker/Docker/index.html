@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：Build, Ship and Run Any App, Anywhere!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://yoursite.com/2021/11/16/docker/Docker/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：Build, Ship and Run Any App, Anywhere!">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211116165102160.png">
+<meta property="og:image" content="http://img.yesmylord.cn//architecture.svg">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230409133819626.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230409135550659.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230409144116869.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230409220551123.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411092917092.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411100725377.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411104332152.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411201140989.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411214240735.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411220405617.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411221335692.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230411222051250.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230412192012012.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230412194418493.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230412195411130.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230412203858417.png">
+<meta property="article:published_time" content="2021-11-16T12:30:36.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.894Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20211116165102160.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/11/16/docker/Docker/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/11/16/docker/Docker/","path":"2021/11/16/docker/Docker/","title":"Docker"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Docker | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker"><span class="nav-number">1.</span> <span class="nav-text">Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B0%E8%BF%9BDocker"><span class="nav-number">1.1.</span> <span class="nav-text">走进Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">Docker三大核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8FImage"><span class="nav-number">1.2.1.</span> <span class="nav-text">镜像Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8Container"><span class="nav-number">1.2.2.</span> <span class="nav-text">容器Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%93%E5%BA%93Repository"><span class="nav-number">1.2.3.</span> <span class="nav-text">仓库Repository</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E7%9A%84%E7%AE%80%E6%98%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">Docker的简易架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">Docker相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.1.</span> <span class="nav-text">启动相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.2.</span> <span class="nav-text">镜像相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96%E9%95%9C%E5%83%8F"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">1、获取镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">2、查看镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">3、搜索镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">4、删除镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F%E7%9A%84%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.4.2.5.</span> <span class="nav-text">5、查看镜像的占用空间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.3.</span> <span class="nav-text">容器相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">1、创建与运行容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">2、查看容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">3、进入容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E7%BB%88%E6%AD%A2%E3%80%81%E9%87%8D%E5%90%AF%E4%B8%8E%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.3.4.</span> <span class="nav-text">4、终止、重启与删除容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E3%80%81%E5%AF%BC%E5%85%A5%E4%B8%8E%E5%AF%BC%E5%87%BA"><span class="nav-number">1.4.4.</span> <span class="nav-text">拷贝、导入与导出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9A%84%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3"><span class="nav-number">1.5.</span> <span class="nav-text">镜像的深入理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.5.1.</span> <span class="nav-text">联合文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E9%95%9C%E5%83%8F%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">Docker镜像的加载原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Commit%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.3.</span> <span class="nav-text">Commit命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F%E6%8E%A8%E5%85%A5%E7%A7%81%E6%9C%89%E5%BA%93"><span class="nav-number">1.5.4.</span> <span class="nav-text">本地镜像推入私有库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">1.6.</span> <span class="nav-text">容器数据卷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">1.6.1.</span> <span class="nav-text">数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.2.</span> <span class="nav-text">相关命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker%E5%AE%9E%E6%88%98"><span class="nav-number">2.</span> <span class="nav-text">Docker实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%AE%9E%E7%8E%B0Mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5"><span class="nav-number">2.1.</span> <span class="nav-text">Docker实现Mysql主从同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A81-2%E4%BA%BF%E7%9A%84%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">如何存储1~2亿的缓存数据？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%8F%96%E4%BD%99%E5%88%86%E5%8C%BA"><span class="nav-number">2.2.1.</span> <span class="nav-text">哈希取余分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">一致性哈希算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E6%A7%BD%E5%88%86%E5%8C%BA"><span class="nav-number">2.2.3.</span> <span class="nav-text">哈希槽分区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%AE%9E%E7%8E%B0Redis%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E"><span class="nav-number">2.3.</span> <span class="nav-text">Docker实现Redis三主三从</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reids%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="nav-number">2.3.1.</span> <span class="nav-text">Reids集群搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.2.</span> <span class="nav-text">Redis集群的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E5%AE%B9%E7%81%BE%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="nav-number">2.3.3.</span> <span class="nav-text">Redis容灾主从切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E4%B8%BB%E4%BB%8E%E6%89%A9%E5%AE%B9"><span class="nav-number">2.3.4.</span> <span class="nav-text">Redis主从扩容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E4%B8%BB%E4%BB%8E%E7%BC%A9%E5%AE%B9"><span class="nav-number">2.3.5.</span> <span class="nav-text">Redis主从缩容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DockerFile"><span class="nav-number">3.</span> <span class="nav-text">DockerFile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DockerFile-1"><span class="nav-number">3.1.</span> <span class="nav-text">DockerFile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AADockerfile%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.2.</span> <span class="nav-text">一个Dockerfile的实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%82%AC%E9%95%9C%E5%83%8F"><span class="nav-number">3.3.</span> <span class="nav-text">虚悬镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker%E7%BD%91%E7%BB%9C"><span class="nav-number">4.</span> <span class="nav-text">Docker网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VMware%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">VMware的网络配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">Docker的网络模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bridge%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.3.</span> <span class="nav-text">bridge模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#host%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.4.</span> <span class="nav-text">host模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#none%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.5.</span> <span class="nav-text">none模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#container%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.6.</span> <span class="nav-text">container模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.7.</span> <span class="nav-text">自定义网络模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E6%95%B4%E4%BD%93%E7%9A%84%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">4.8.</span> <span class="nav-text">Docker整体的网络架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-compose"><span class="nav-number">5.</span> <span class="nav-text">Docker-compose</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-compose-1"><span class="nav-number">5.1.</span> <span class="nav-text">Docker-compose</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/16/docker/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Docker | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-16 20:30:36" itemprop="dateCreated datePublished" datetime="2021-11-16T20:30:36+08:00">2021-11-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>36k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>33 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：Build, Ship and Run Any App, Anywhere!
+</center>
+
+<span id="more"></span>
+
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>因为有了Docker，运维与开发的界限越来越模糊，甚至现在的研发的定位就是<strong>DevOps</strong></p>
+<h2 id="走进Docker"><a href="#走进Docker" class="headerlink" title="走进Docker"></a>走进Docker</h2><blockquote>
+<p>1、什么是Docker？</p>
+</blockquote>
+<p>Docker是基于Go的开源容器项目：可以将Docker容器理解为一种<strong>轻量级的虚拟机</strong></p>
+<blockquote>
+<p>2、Docker有什么作用？</p>
+</blockquote>
+<ul>
+<li>解耦应用程序与运行平台，可以保证快速的分发与部署；</li>
+</ul>
+<p>实际中的应用比如：开发与运维交互，运维需要安装一系列前置环境（mysql、redis、kafka等等），并且对他们的版本也有要求，之前的安装配置方式费时费力；再比如需要对mysql服务集群进行快速的扩容和缩容；</p>
+<blockquote>
+<p>3、Docker与虚拟机的区别</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Docker容器</th>
+<th>虚拟机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动速度</td>
+<td>秒级</td>
+<td>分钟级</td>
+</tr>
+<tr>
+<td>内存使用</td>
+<td>很少</td>
+<td>较多</td>
+</tr>
+<tr>
+<td>迁移性</td>
+<td>优秀</td>
+<td>一般</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>4、Docker容器与传统虚拟化技术的区别</p>
+</blockquote>
+<p><strong>Docker技术是操作系统级别的虚拟化，虚拟机是硬件级别的虚拟化</strong></p>
+<p><img src="http://img.yesmylord.cn//image-20211116165102160.png" alt="Docker和传统的虚拟化方式的不同之处"></p>
+<p>比方说Centos7是一个镜像文件，我们可以将其安装在VMWare上，这样就模拟了一个Linux操作系统；</p>
+<p>现在Docker会将一个项目：包括运行文档、配置环境、运行环境统统打包为一个镜像，直接跑在我们的OS上（Docker相当于VMWare，项目镜像相当于Centos镜像）</p>
+<hr>
+<p>实际上：Docker需要基本的Linux内核环境，所谓的操作系统级别的虚拟化，其实只是将APP所需要使用到的Linux内核支持拿了出来单独使用，这样做到的更小更快（Centos与Ubantu提出来的内核仅仅170M左右）。</p>
+<p>所以实际上Docker是需要Linux的内核支持的，因此如果我们使用Windows去跑Docker，其实Docker也是先模拟了一个mini的Linux环境，然后在此之上运行程序的</p>
+<h2 id="Docker三大核心概念"><a href="#Docker三大核心概念" class="headerlink" title="Docker三大核心概念"></a>Docker三大核心概念</h2><h3 id="镜像Image"><a href="#镜像Image" class="headerlink" title="镜像Image"></a>镜像Image</h3><p>可以理解为一个<strong>只读的模板</strong>（类似于Java的类模板）</p>
+<p>（一个镜像包含我们需要运行程序的必要环境）</p>
+<h3 id="容器Container"><a href="#容器Container" class="headerlink" title="容器Container"></a>容器Container</h3><p><strong>Docker利用容器来运行应用</strong>（类似于Java对象实例）</p>
+<ul>
+<li>容器是<strong>从镜像创建的应用运行实例</strong></li>
+<li>容器之间相互隔离</li>
+</ul>
+<p>注意：镜像本身是<strong>只读</strong>的，容器从镜像启动的时候，会在镜像的最上层创建一个<strong>可写层</strong></p>
+<h3 id="仓库Repository"><a href="#仓库Repository" class="headerlink" title="仓库Repository"></a>仓库Repository</h3><p>类似于代码仓库（Github、码云），<strong>存放镜像的场所</strong></p>
+<ul>
+<li>注册服务器是存放仓库的地方（比如一个注册服务器下，会有Ubantu的仓库、CentoOs的仓库等等）</li>
+</ul>
+<h2 id="Docker的简易架构"><a href="#Docker的简易架构" class="headerlink" title="Docker的简易架构"></a>Docker的简易架构</h2><p>如图所示，Docker的运行由三个构成：</p>
+<p><img src="http://img.yesmylord.cn//architecture.svg" alt="Docker Architecture diagram"></p>
+<ul>
+<li><strong>Client</strong>：发起Docker命令</li>
+<li><strong>Docker Host</strong>：docker安装的宿主机，运行着Docker这个后台进程（Docker是一个守护进程Daemon），宿主机内部有镜像（<strong>本地镜像</strong>）、容器</li>
+<li><strong>Register</strong>：远程仓库，对于宿主机没有的本地镜像需要从远程仓库下载</li>
+</ul>
+<h2 id="Docker相关命令"><a href="#Docker相关命令" class="headerlink" title="Docker相关命令"></a>Docker相关命令</h2><h3 id="启动相关命令"><a href="#启动相关命令" class="headerlink" title="启动相关命令"></a>启动相关命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动Docker</span></span><br><span class="line">systemctl start docker</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启</span></span><br><span class="line">systemctl restart docker</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭</span></span><br><span class="line">systemctl stop docker</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看docker状态</span></span><br><span class="line">systemctl status docker</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开机启动Docker</span></span><br><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="镜像相关命令"><a href="#镜像相关命令" class="headerlink" title="镜像相关命令"></a>镜像相关命令</h3><h4 id="1、获取镜像"><a href="#1、获取镜像" class="headerlink" title="1、获取镜像"></a>1、获取镜像</h4><p>我们可以去仓库下载镜像（类似于Git的操作）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull name:[tag]</span><br><span class="line"></span><br><span class="line"><span class="comment"># name 即要下载的应用名称，tag为标签</span></span><br><span class="line"><span class="comment"># 如果不选择的话，默认是`lastest`，也就是最新版本的（所以我们一定要指定标签）</span></span><br><span class="line"><span class="comment"># 严格来说，如果没有指定仓库，所以默认会从registry.hub.docker.com下载，即此命令相当于：</span></span><br><span class="line">docker pull registry.hub.docker.com/name:[tag]</span><br><span class="line"><span class="comment"># 如果需要安装非官方仓库的镜像的话，那么需要加上仓库名</span></span><br></pre></td></tr></table></figure>
+
+<p>demo：这里使用该命令下载<code>nginx</code>作为一个示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker pull nginx:1.20.1</span><br><span class="line">1.20.1: Pulling from library/nginx</span><br><span class="line">b380bbd43752: Already exists </span><br><span class="line">83acae5e2daa: Pull complete </span><br><span class="line">33715b419f9b: Pull complete </span><br><span class="line">eb08b4d557d8: Pull complete </span><br><span class="line">74d5bdecd955: Pull complete </span><br><span class="line">0820d7f25141: Pull complete </span><br><span class="line">Digest: sha256:a98c2360dcfe44e9987ed09d59421bb654cb6c4abe50a92ec9c912f252461483</span><br><span class="line">Status: Downloaded newer image for nginx:1.20.1</span><br><span class="line">docker.io/library/nginx:1.20.1</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，镜像文件由很多<strong>层<code>layer</code><strong>构成，前面的一串<code>b380bbd43752</code>表示这一层的唯一ID，当</strong>不同的镜像包括相同的层时，本地仅存储层的一份内容</strong>，减小了需要的存储空间。</p>
+<h4 id="2、查看镜像"><a href="#2、查看镜像" class="headerlink" title="2、查看镜像"></a>2、查看镜像</h4><p>查看镜像的命令有如下几个：</p>
+<ul>
+<li><strong>查看下载的镜像</strong></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line"><span class="comment"># -a 显示所有镜像，包括临时镜像</span></span><br><span class="line"><span class="comment"># --no-trunc 此参数可以完全显示镜像信息（默认情况下会截断显示内容）</span></span><br><span class="line"><span class="comment"># -q 仅输出ID信息</span></span><br></pre></td></tr></table></figure>
+
+<p>demo：此处做示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker images --no-trunc</span><br><span class="line">REPOSITORY   TAG       IMAGE ID                                                                  CREATED       SIZE</span><br><span class="line">mysql        5.7       sha256:938b57d64674c4a123bf8bed384e5e057be77db934303b3023d9be331398b761   4 weeks ago   448MB</span><br><span class="line">nginx        1.20.1    sha256:c8d03f6b8b915209c54fc8ead682f7a5709d11226f6b81185850199f18b277a2   5 weeks ago   133MB</span><br></pre></td></tr></table></figure>
+
+<p>可见，<code>Image Id</code>是很长的串，只不过可以用前几位代替完整的ID</p>
+<ul>
+<li><strong>给镜像添加自定义名称</strong></li>
+</ul>
+<p>命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag name:[tag] my-name</span><br><span class="line"><span class="comment"># my-tag：表示自己可以自定义的名称</span></span><br></pre></td></tr></table></figure>
+
+<p>demo：下面是一个示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker images</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">[root@slave1 ~]# docker tag nginx:1.20.1 my-nginx</span><br><span class="line">[root@slave1 ~]# docker images</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">my-nginx     latest    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<code>my-nginx</code>与<code>nginx</code>两个的ID值一样，说明两个指向同一个镜像，我们自定义的标签只是一个软连接而已</p>
+<ul>
+<li>查看镜像详细信息</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect name:tag</span><br></pre></td></tr></table></figure>
+
+<p>会返回一个json串，如果我们只想查看其中的部分数据可以加<code>-f</code>参数，例如这样（记着加<code>.</code>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect my-nginx -f &#123;&#123;&quot;.Metadata&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、搜索镜像"><a href="#3、搜索镜像" class="headerlink" title="3、搜索镜像"></a>3、搜索镜像</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker search name</span><br><span class="line"><span class="comment"># -f 可以指定额外的参数</span></span><br><span class="line"><span class="comment"># -f stars=100 显示star数大于100的镜像</span></span><br><span class="line"><span class="comment"># --limit 5 只显示5条信息</span></span><br></pre></td></tr></table></figure>
+
+<p>demo：显示所有stars大于100的并且可以自动装配的nginx镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker search -f stars=100 nginx</span><br><span class="line">NAME                          DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">jwilder/nginx-proxy           Automated Nginx reverse proxy <span class="keyword">for</span> docker con…   2094                 [OK]</span><br><span class="line">richarvey/nginx-php-fpm       Container running Nginx + PHP-FPM capable of…   818                  [OK]</span><br><span class="line">tiangolo/nginx-rtmp           Docker image with Nginx using the nginx-rtmp…   145                  [OK]</span><br><span class="line">jlesage/nginx-proxy-manager   Docker container <span class="keyword">for</span> Nginx Proxy Manager        143                  [OK]</span><br><span class="line">alfg/nginx-rtmp               NGINX, nginx-rtmp-module and FFmpeg from sou…   110                  [OK]</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、删除镜像"><a href="#4、删除镜像" class="headerlink" title="4、删除镜像"></a>4、删除镜像</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker rmi tag|<span class="built_in">id</span></span><br><span class="line"><span class="comment"># -f 强制删除，即使当前镜像已经启动了一些容器</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li><p>如果参数指定为一个tag，那么此命令只会删除该镜像的一个标签而已（如果这个镜像只有一个标签，那么会被立即删除）</p>
+</li>
+<li><p>参数指定为image id的话，会先删除该镜像的所有标签，然后删除该镜像本身</p>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@slave1 ~]# docker images</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">my-nginx     latest    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">[root@slave1 ~]# docker rmi my-nginx</span><br><span class="line">Untagged: my-nginx:latest</span><br><span class="line">[root@slave1 ~]# docker images</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br><span class="line">nginx        1.20.1    c8d03f6b8b91   5 weeks ago   133MB</span><br><span class="line">[root@slave1 ~]# docker rmi nginx:1.20.1</span><br><span class="line">Untagged: nginx:1.20.1</span><br><span class="line">Untagged: nginx@sha256:a98c2360dcfe44e9987ed09d59421bb654cb6c4abe50a92ec9c912f252461483</span><br><span class="line">Deleted: sha256:67a7407724b6c71e2355fc2236b5be27d1f03bf9cbdffdfbb97c1d2a326ccf94</span><br><span class="line">...// 真正删除了所有的镜像</span><br><span class="line">[root@slave1 ~]# docker images</span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED       SIZE</span><br><span class="line">mysql        5.7       938b57d64674   4 weeks ago   448MB</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、查看镜像的占用空间"><a href="#5、查看镜像的占用空间" class="headerlink" title="5、查看镜像的占用空间"></a>5、查看镜像的占用空间</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system <span class="built_in">df</span></span><br></pre></td></tr></table></figure>
+
+<p>输出docker目前占用的大小内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hynis@hynisVM:~$ docker system <span class="built_in">df</span></span><br><span class="line">TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE</span><br><span class="line">Images          14        1         2.612GB   2.612GB (99%)</span><br><span class="line">Containers      2         0         0B        0B</span><br><span class="line">Local Volumes   3         0         9.208kB   9.208kB (100%)</span><br><span class="line">Build Cache     0         0         0B        0B</span><br></pre></td></tr></table></figure>
+
+<h3 id="容器相关命令"><a href="#容器相关命令" class="headerlink" title="容器相关命令"></a>容器相关命令</h3><h4 id="1、创建与运行容器"><a href="#1、创建与运行容器" class="headerlink" title="1、创建与运行容器"></a>1、创建与运行容器</h4><ol>
+<li>创建容器（基于一个镜像，创建一个容器）</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker create [参数] name:tag</span><br><span class="line"><span class="comment"># 会返回一个容器的ID Container ID</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>启动容器</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>【<strong>推荐</strong>】创建并启动容器（建议直接使用<code>run</code>命令，等同于上述创建并启动容器）</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run [options] image</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">其中`options`可选的参数很多，下面介绍几个常用的：</span></span><br><span class="line">--name # 指定此容器的名字</span><br><span class="line">-i # 让容器的标准输入保持打开（交互式模式运行容器），通常与-t一起使用</span><br><span class="line">-t # 分配一个伪终端并绑定到容器的标准输出上</span><br><span class="line">-d # 后台运行（守护态运行）</span><br><span class="line">-P # 容器内随机映射一个端口</span><br><span class="line">-p # 指定端口映射，比如 -p 3306:3306 就指定主机的3306端口与容器的3306端口进行映射，此时访问主机的3306端口，相当于访问容器的3306端口</span><br></pre></td></tr></table></figure>
+
+<p>demo：启动一个交互式的Ubuntu系统：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hynis@hynisVM:~$ docker run -it ubuntu /bin/bash</span><br><span class="line"><span class="comment"># 此处命令的意思是 run -it + 一个OS + shell</span></span><br><span class="line"><span class="comment"># 此处的61a30a155427就是容器号，想要退出使用命令exit</span></span><br><span class="line">root@61a30a155427:/# <span class="built_in">exit</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p>想要退出当前容器，可以输入<code>exit</code>也可以直接按<code>ctrl + p + q</code>（注意：此按键并不会关闭容器）</p>
+<blockquote>
+<p>PS：补充run命令的执行顺序</p>
+</blockquote>
+<p>当利用<code>docker run</code>来创建并启动容器时，Docker在后台运行的标准操作包括：</p>
+<ol>
+<li>检查<strong>本地</strong>是否存在指定的镜像，不存在就从<strong>公有仓库</strong>下载；</li>
+<li>利用镜像<strong>创建</strong>一个容器，并<strong>启动</strong>该容器；</li>
+<li><strong>分配一个文件系统</strong>给容器，并<strong>在只读的镜像层外面挂载一层可读写层</strong>；</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中；</li>
+<li>从网桥的地址池配置一个IP地址给容器；</li>
+<li>执行用户指定的应用程序；</li>
+<li>执行完毕后容器被自动终止。</li>
+</ol>
+<h4 id="2、查看容器"><a href="#2、查看容器" class="headerlink" title="2、查看容器"></a>2、查看容器</h4><ol>
+<li>查看所有的容器</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker ps -l</span><br><span class="line"><span class="comment"># -a 可以显示所有的容器，包括没有在运行的容器</span></span><br><span class="line"><span class="comment"># -l 显示最近创建的容器</span></span><br><span class="line"><span class="comment"># -n 显示最近n个创建的容器</span></span><br><span class="line"><span class="comment"># -q 静默模式，只显示容器编号</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查看容器的日志</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs [<span class="built_in">id</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、进入容器"><a href="#3、进入容器" class="headerlink" title="3、进入容器"></a>3、进入容器</h4><p>进入<strong>存活</strong>的容器有两个命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入正在进行的容器</span></span><br><span class="line">docker attach [<span class="built_in">id</span>]</span><br><span class="line">docker <span class="built_in">exec</span> -it [<span class="built_in">id</span>] /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>两个有一些区别：</p>
+<ul>
+<li><code>attach</code>直接进入容器启动命令的终端，不会启动新的进程，用<code>exit</code>会<strong>直接退出</strong></li>
+<li><code>exec</code>是在容器中打开新的终端，用<code>exit</code>不会退出【<strong>推荐</strong>】</li>
+</ul>
+<h4 id="4、终止、重启与删除容器"><a href="#4、终止、重启与删除容器" class="headerlink" title="4、终止、重启与删除容器"></a>4、终止、重启与删除容器</h4><ol>
+<li>终止容器</li>
+</ol>
+<p>首先向容器发送SIGTERM信号，<strong>等待一段超时时间</strong>（默认为10秒）后，再发送SIGKILL信号来终止容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker stop <span class="built_in">id</span></span><br><span class="line"><span class="comment"># -t 可以指定终止的时间</span></span><br><span class="line"><span class="comment"># 对于已经终止的容器 可以使用start命令</span></span><br><span class="line">docker start <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>如果想要重启一个容器</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>强制终止一个容器</li>
+</ol>
+<p>会直接发送SIGKILL信号</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">kill</span> <span class="built_in">id</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>删除容器</li>
+</ol>
+<p>只能删除非运行态的容器，除非加参数<code>-f</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> <span class="built_in">id</span></span><br><span class="line"><span class="comment"># -f 强制删除</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="拷贝、导入与导出"><a href="#拷贝、导入与导出" class="headerlink" title="拷贝、导入与导出"></a>拷贝、导入与导出</h3><p>1、从容器拷贝文件到主机</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> 容器ID:容器内路径 目的主机路径</span><br><span class="line"><span class="comment"># 在宿主机上敲此命令</span></span><br><span class="line"><span class="comment"># hynis@hynisVM:~$ docker cp d0367f6fb6c4:/a.txt ./</span></span><br></pre></td></tr></table></figure>
+
+<p>2、如果想要所有的数据，那么可以使用<strong>导出命令</strong>：导出容器的内容作为一个tar归档</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">export</span> [<span class="built_in">id</span>] &gt; xxx.tar</span><br><span class="line"><span class="comment"># 将id为d0367f6fb6c4的容器的数据导出到当前目录下，并且打包为ubuntu1.tar</span></span><br><span class="line">docker <span class="built_in">export</span> d0367f6fb6c4 &gt; ubuntu1.tar</span><br></pre></td></tr></table></figure>
+
+<p>3、导入一个tar归档文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> 归档.tar | docker import - 镜像用户/镜像:版本号</span><br><span class="line"><span class="comment"># 注意命令里有一个-</span></span><br><span class="line"><span class="comment"># 镜像用户就是包名</span></span><br></pre></td></tr></table></figure>
+
+<p>比如下面这个例子：我们使用第二步导出的数据恢复一个容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hynis@hynisVM:~$ <span class="built_in">cat</span> ubuntu1.tar | docker import hynis/ubuntu:latest</span><br><span class="line">open hynis/ubuntu:latest: no such file or directory</span><br><span class="line">hynis@hynisVM:~$ <span class="built_in">cat</span> ubuntu1.tar | docker import - hynis/ubuntu:latest</span><br><span class="line">sha256:95fad8b97bceb4cdb159d62694fe7f4f906729e61bc8528f00a9495b2287061a</span><br><span class="line">hynis@hynisVM:~$ docker images</span><br><span class="line">REPOSITORY                   TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">hynis/ubuntu                 latest    95fad8b97bce   3 seconds ago   77.8MB</span><br></pre></td></tr></table></figure>
+
+<h2 id="镜像的深入理解"><a href="#镜像的深入理解" class="headerlink" title="镜像的深入理解"></a>镜像的深入理解</h2><p>镜像包括不同的层次，当<strong>不同的镜像包括相同的层时，本地仅存储层的一份内容</strong>，减小了需要的存储空间。其本质需要了解一下<strong>联合文件系统</strong></p>
+<h3 id="联合文件系统"><a href="#联合文件系统" class="headerlink" title="联合文件系统"></a>联合文件系统</h3><p>Unionfs 是2004年在stony brook大学开始的，它是一个可叠放的联合文件系统，它<strong>能够联合多个目录（因此可称为分支）同时独立地保持它们的物理内容</strong>。</p>
+<p>所谓<strong>联合</strong>的意思是：联合在不同磁盘上的不同的文件系统到一个目录，或者把几张cd合并成一个统一的归档镜像。</p>
+<p>允许任何ro（只读）和rw（可读可写）分支的 结合，同时允许在分支中修改和删除不使用的分支，（即具有复制可写功能的unionfs可以用来把ro和rw的文件系统合并起来），并且可以允许修改只读文件系统并把这些修改保存在可写文件系统。</p>
+<h3 id="Docker镜像的加载原理"><a href="#Docker镜像的加载原理" class="headerlink" title="Docker镜像的加载原理"></a>Docker镜像的加载原理</h3><p>比如Docker上安装Ubuntu和CentOS，这是两种发行版，（如果我们使用VMWare安装，我们就需要这两者的镜像）他们都是Linux的操作系统，其实Linux操作系统由两部分构成：</p>
+<ul>
+<li><strong>BootFS</strong>：Boot与Loader部分，Boot在主板的bios内，当电脑启动后，bios载入Boot程序，Boot载入Loader程序，loader程序将Linux内核载入到内存中，操作系统启动完毕。</li>
+<li><strong>RootFS</strong>：<code>rootfs</code>则包含了一般系统上的常见目录结构，类似于<code>/dev, /proc, /bin</code>等等以及一些基本的文件和命令。发行版的区别在于此，即Ubuntu和Centos的区别在于此；</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20230409133819626.png" alt="Linux的两部分"></p>
+<p>Docker的镜像加载原理就是基于UnionFS，复用同一套内核（即<strong>使用宿主机的bootfs</strong>），对不同的发行版再去下载不同的rootfs，这样不仅节省内存空间，还加快了速度。</p>
+<p>注意：<strong>镜像层都是只读的，只有容器层是可写的</strong></p>
+<p>Docker的容器启动时，一个新的<strong>可写层</strong>会被加载到镜像的顶部，如下图所示。</p>
+<p><img src="http://img.yesmylord.cn//image-20230409135550659.png" alt="容器运行在镜像上"></p>
+<h3 id="Commit命令"><a href="#Commit命令" class="headerlink" title="Commit命令"></a>Commit命令</h3><p><code>docker commit</code>可以提交容器副本使之成为一个新的镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m=<span class="string">&#x27;提交的描述信息&#x27;</span> -a=<span class="string">&#x27;作者&#x27;</span> 容器ID 新的镜像名:[标签名]</span><br></pre></td></tr></table></figure>
+
+<p>比如我们现在给基础的Ubuntu系统加一个Vim程序，然后使用Commit命令后，这个新的镜像一运行就可以直接使用vim命令</p>
+<p><img src="http://img.yesmylord.cn//image-20230409144116869.png" alt="commit镜像"></p>
+<h3 id="本地镜像推入私有库"><a href="#本地镜像推入私有库" class="headerlink" title="本地镜像推入私有库"></a>本地镜像推入私有库</h3><p><img src="http://img.yesmylord.cn//image-20230409220551123.png" alt="Docker云端"></p>
+<p>如果不想让敏感数据存入阿里云或是Dockerhub，公司可以搭建自己的私有库<strong>Docker Registry</strong></p>
+<p>1、Docker拉取Docker Registry</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry</span><br></pre></td></tr></table></figure>
+
+<p>2、启动：此处用到了容器数据卷</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000  -v /zzyyuse/myregistry/:/tmp/registry --privileged=<span class="literal">true</span> registry</span><br><span class="line"><span class="comment"># -d 后台运行</span></span><br><span class="line"><span class="comment"># -p 5000:5000 将本地的5000端口映射到5000端口</span></span><br><span class="line"><span class="comment"># -v 容器数据卷</span></span><br><span class="line"><span class="comment"># --privileged=true 特权模式开启：如果不开启特权模式可能会出现权限问题</span></span><br></pre></td></tr></table></figure>
+
+<p>Docker挂载主机目录访问如果出现<code>cannot open directory .: Permission denied</code>，记住加参数<code>--privileged=true</code></p>
+<p>3、可以查看以下本地的私有Docker库是否含有数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hynis@hynisVM:~$ curl -XGET http://192.168.235.151:5000/v2/_catalog</span><br><span class="line">&#123;<span class="string">&quot;repositories&quot;</span>:[]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、开启http传输</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改daemon.json文件</span></span><br><span class="line"><span class="built_in">sudo</span> vim /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入以下内容，Docker的镜像配置也在这里，此处没有配置</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;insecure-registries&quot;</span>: [<span class="string">&quot;192.168.235.151:5000&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：更改完成后，需要重启一下Docker，并重新跑一下Registry</p>
+<p>5、将我们想要的一个镜像传输到本地私有库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更改一下tag</span></span><br><span class="line">docker tag hynitu:1.0 192.168.235.151:5000/hynitu:1.0</span><br><span class="line"><span class="comment"># push</span></span><br><span class="line">docker push 192.168.235.151:5000/hynitu:1.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hynis@hynisVM:~$ docker push 192.168.235.151:5000/hynitu:1.0</span><br><span class="line">The push refers to repository [192.168.235.151:5000/hynitu]</span><br><span class="line">e3b19c432d29: Pushed </span><br><span class="line">b93c1bd012ab: Pushed </span><br><span class="line">1.0: digest: sha256:29f871c91b95fa69e13ebcc0013046ffbf32a7fc89ae2dee4e655f3ffa6281d9 size: 741</span><br><span class="line">hynis@hynisVM:~$ curl -XGET http://192.168.235.151:5000/v2/_catalog</span><br><span class="line">&#123;<span class="string">&quot;repositories&quot;</span>:[<span class="string">&quot;hynitu&quot;</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6、拉取到本地运行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull 192.168.235.151:5000/hynitu:1.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hynis@hynisVM:~$ docker pull 192.168.235.151:5000/hynitu:1.0</span><br><span class="line">1.0: Pulling from hynitu</span><br><span class="line">Digest: sha256:29f871c91b95fa69e13ebcc0013046ffbf32a7fc89ae2dee4e655f3ffa6281d9</span><br><span class="line">Status: Image is up to <span class="built_in">date</span> <span class="keyword">for</span> 192.168.235.151:5000/hynitu:1.0</span><br><span class="line">192.168.235.151:5000/hynitu:1.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h2><h3 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h3><p>在上一章我们使用Registry，将本地的镜像上传到了本地的私有仓库，使用到了如下命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000 -v /zzyyuse/myregistry/:/tmp/registry --privileged=<span class="literal">true</span> registry</span><br></pre></td></tr></table></figure>
+
+<p>此处<code>-v</code>参数就添加了容器数据卷，这条命令的意思是，将宿主机的目录的<code>/zzyyuse/myregistry/</code>映射到容器内的<code>/tmp/registry</code>，两个目录资源共享</p>
+<blockquote>
+<p><strong>数据卷</strong>：就是文件或目录，脱离于Docker容器的生命周期之外的，因此Docker不会在容器删除时删除其挂载的数据卷</p>
+</blockquote>
+<p>数据卷本来的作用就是做<strong>数据备份</strong>或是<strong>资源共享</strong>的</p>
+<ul>
+<li>数据备份：将容器数据备份到本地目录，防止Docker容器挂掉数据丢失</li>
+<li>资源共享：数据卷可以在<strong>容器之间共享或重用数据</strong></li>
+</ul>
+<p>注意：对于数据卷的修改不会包含在镜像的更新中</p>
+<h3 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h3><p>1、添加数据卷</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --privileged=<span class="literal">true</span> -v 宿主机目录:容器内目录[:权限] ubuntu</span><br><span class="line"><span class="comment"># 权限部分可以不写，默认即为rw即可读可写</span></span><br><span class="line"><span class="comment"># 权限部分有: rw 与 ro</span></span><br><span class="line"><span class="comment"># 如果为 ro 则容器不能对此目录进行修改，而宿主机可以</span></span><br></pre></td></tr></table></figure>
+
+<p>2、查看是否设置数据卷成功</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器ID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以查看到Mount下有</span></span><br><span class="line">        <span class="string">&quot;Mounts&quot;</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">&quot;Type&quot;</span>: <span class="string">&quot;bind&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Source&quot;</span>: <span class="string">&quot;/tmp/temphynisdata&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Destination&quot;</span>: <span class="string">&quot;/tmp/tempdockerdata&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Mode&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                <span class="string">&quot;RW&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="string">&quot;Propagation&quot;</span>: <span class="string">&quot;rprivate&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br></pre></td></tr></table></figure>
+
+<p>3、此时目录<code>/tmp/temphynisdata</code>与<code>/tmp/tempdockerdata</code>关联，双向绑定</p>
+<blockquote>
+<p>提问：如果此时将容器关掉，将数据卷位置的数据进行修改，再将容器重启动，那么容器内的数据卷会发生变化吗？</p>
+</blockquote>
+<p>答案是会的，所以可以理解到，宿主机和容器的数据卷并不是双向同步，而是共享同一片地址</p>
+<p>4、<strong>容器卷可以进行继承</strong>，假设现在我们需要另外一个容器，和之前的容器的规则相同，那么可以进行继承</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#额外的参数，这样新建的容器就会继承父容器的卷规则</span></span><br><span class="line">--volumes-from 父容器</span><br></pre></td></tr></table></figure>
+
+<h1 id="Docker实战"><a href="#Docker实战" class="headerlink" title="Docker实战"></a>Docker实战</h1><h2 id="Docker实现Mysql主从同步"><a href="#Docker实现Mysql主从同步" class="headerlink" title="Docker实现Mysql主从同步"></a>Docker实现Mysql主从同步</h2><p>1、Docker安装mysql5.7版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+
+<p>2、先建立<strong>主mysql</strong>，需要<code>run</code>一主一从</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 主</span></span><br><span class="line">docker run -p 3307:3306 --name mysql-master -v /mydata/mysql-master/log:/var/log/mysql -v /mydata/mysql-master/data:/var/lib/mysql -v /mydata/mysql-master/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7</span><br><span class="line"><span class="comment"># -p 主3307 从3308</span></span><br><span class="line"><span class="comment"># -d 后台运行</span></span><br><span class="line"><span class="comment"># --name 命名</span></span><br><span class="line"><span class="comment"># -v 配置数据卷</span></span><br></pre></td></tr></table></figure>
+
+<p>需要在<code>/mydata/mysql-master/conf</code>下创建一个配置文件<code>my.cnf</code>内容为以下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"><span class="comment">## 设置server_id，同一局域网中需要唯一</span></span><br><span class="line">server_id=101</span><br><span class="line"><span class="comment">## 指定不需要同步的数据库名称</span></span><br><span class="line">binlog-ignore-db=mysql</span><br><span class="line"><span class="comment">## 开启二进制日志功能</span></span><br><span class="line">log-bin=mall-mysql-bin</span><br><span class="line"><span class="comment">## 设置二进制日志使用内存大小（事务）</span></span><br><span class="line">binlog_cache_size=1M</span><br><span class="line"><span class="comment">## 设置使用的二进制日志格式（mixed,statement,row）</span></span><br><span class="line">binlog_format=mixed</span><br><span class="line"><span class="comment">## 二进制日志过期清理时间。默认值为0，表示不自动清理。</span></span><br><span class="line">expire_logs_days=7</span><br><span class="line"><span class="comment">## 跳过主从复制中遇到的所有错误或指定类型的错误，避免slave端复制中断。</span></span><br><span class="line"><span class="comment">## 如：1062错误是指一些主键重复，1032错误是因为主从数据库数据不一致</span></span><br><span class="line">slave_skip_errors=1062</span><br></pre></td></tr></table></figure>
+
+<p>配置完成后重启mysql服务，还需要配置数据同步用户</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启mysql-master</span></span><br><span class="line">docker restart mysql-master</span><br><span class="line"><span class="comment"># 进入master容器</span></span><br><span class="line">docker <span class="built_in">exec</span> -it mysql-master /bin/bash</span><br><span class="line"><span class="comment"># 在bash键入</span></span><br><span class="line">mysql -uroot -proot</span><br><span class="line"><span class="comment"># 创建数据同步用户</span></span><br><span class="line">CREATE USER <span class="string">&#x27;slave&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED BY <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line"><span class="comment"># 授予REPLICATION权限</span></span><br><span class="line">GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO <span class="string">&#x27;slave&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>3、建立从mysql</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从</span></span><br><span class="line">docker run -p 3308:3306 --name mysql-slave -v /mydata/mysql-slave/log:/var/log/mysql -v /mydata/mysql-slave/data:/var/lib/mysql -v /mydata/mysql-slave/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7</span><br></pre></td></tr></table></figure>
+
+<p>需要在<code>/mydata/mysql-slave/conf</code>下创建一个配置文件<code>my.cnf</code>内容为以下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"><span class="comment">## 设置server_id，同一局域网中需要唯一</span></span><br><span class="line">server_id=102</span><br><span class="line"><span class="comment">## 指定不需要同步的数据库名称</span></span><br><span class="line">binlog-ignore-db=mysql</span><br><span class="line"><span class="comment">## 开启二进制日志功能，以备Slave作为其它数据库实例的Master时使用</span></span><br><span class="line">log-bin=mall-mysql-slave1-bin</span><br><span class="line"><span class="comment">## 设置二进制日志使用内存大小（事务）</span></span><br><span class="line">binlog_cache_size=1M</span><br><span class="line"><span class="comment">## 设置使用的二进制日志格式（mixed,statement,row）</span></span><br><span class="line">binlog_format=mixed</span><br><span class="line"><span class="comment">## 二进制日志过期清理时间。默认值为0，表示不自动清理。</span></span><br><span class="line">expire_logs_days=7</span><br><span class="line"><span class="comment">## 跳过主从复制中遇到的所有错误或指定类型的错误，避免slave端复制中断。</span></span><br><span class="line"><span class="comment">## 如：1062错误是指一些主键重复，1032错误是因为主从数据库数据不一致</span></span><br><span class="line">slave_skip_errors=1062</span><br><span class="line"><span class="comment">## relay_log配置中继日志</span></span><br><span class="line">relay_log=mall-mysql-relay-bin</span><br><span class="line"><span class="comment">## log_slave_updates表示slave将复制事件写进自己的二进制日志</span></span><br><span class="line">log_slave_updates=1</span><br><span class="line"><span class="comment">## slave设置为只读（具有super权限的用户除外）</span></span><br><span class="line">read_only=1</span><br></pre></td></tr></table></figure>
+
+<p>配置完成后同样重启容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart mysql-slave</span><br></pre></td></tr></table></figure>
+
+<p>4、注意下面的操作需要区分主从了，不要键入错误</p>
+<p>主mysql先看一下状态<code>show master status;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">主mysql&gt; show master status;</span><br><span class="line"><span class="comment"># 主要看一下bin从哪里开始，这里是000004</span></span><br><span class="line">+-----------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| File                  | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line">+-----------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">| mall-mysql-bin.000004 |      617 |              | mysql            |                   |</span><br><span class="line">+-----------------------+----------+--------------+------------------+-------------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>在从mysql中配置主从复制</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 命令根据自己的配置进行更改</span></span><br><span class="line">change master to master_host=<span class="string">&#x27;宿主机ip&#x27;</span>, master_user=<span class="string">&#x27;slave&#x27;</span>, master_password=<span class="string">&#x27;123456&#x27;</span>, master_port=3307, master_log_file=<span class="string">&#x27;mall-mysql-bin.000001&#x27;</span>, master_log_pos=617, master_connect_retry=30;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从mysql&gt; change master to master_host=<span class="string">&#x27;192.168.235.151&#x27;</span>, master_user=<span class="string">&#x27;slave&#x27;</span>, master_password=<span class="string">&#x27;123456&#x27;</span>, master_port=3307, master_log_file=<span class="string">&#x27;mall-mysql-bin.000004&#x27;</span>, master_log_pos=617, master_connect_retry=30;</span><br><span class="line">Query OK, 0 rows affected, 2 warnings (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<p>顺便查看以下从机的主从复制配置<code>show slave status \G;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show slave status \G; <span class="comment"># \G 让结果以列展示</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">               Slave_IO_State: </span><br><span class="line">                  Master_Host: 192.168.235.151</span><br><span class="line">                  Master_User: slave</span><br><span class="line">                  Master_Port: 3307</span><br><span class="line">                Connect_Retry: 30</span><br><span class="line">              Master_Log_File: mall-mysql-bin.000004</span><br><span class="line">          Read_Master_Log_Pos: 617</span><br><span class="line">               Relay_Log_File: mall-mysql-relay-bin.000001</span><br><span class="line">                Relay_Log_Pos: 4</span><br><span class="line">        Relay_Master_Log_File: mall-mysql-bin.000004</span><br><span class="line">             Slave_IO_Running: No <span class="comment"># 主要看此处，主从复制还没开始</span></span><br><span class="line">            Slave_SQL_Running: No <span class="comment"># 主要看此处，主从复制还没开始</span></span><br></pre></td></tr></table></figure>
+
+<p>从mysql启动主从同步<code>start slave</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start slave;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show slave status \G;</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">               Slave_IO_State: Waiting <span class="keyword">for</span> master to send event</span><br><span class="line">                  Master_Host: 192.168.235.151</span><br><span class="line">                  Master_User: slave</span><br><span class="line">                  Master_Port: 3307</span><br><span class="line">                Connect_Retry: 30</span><br><span class="line">              Master_Log_File: mall-mysql-bin.000004</span><br><span class="line">          Read_Master_Log_Pos: 1235</span><br><span class="line">               Relay_Log_File: mall-mysql-relay-bin.000003</span><br><span class="line">                Relay_Log_Pos: 325</span><br><span class="line">        Relay_Master_Log_File: mall-mysql-bin.000004</span><br><span class="line">             Slave_IO_Running: Yes <span class="comment"># 此处已连接</span></span><br><span class="line">            Slave_SQL_Running: Yes <span class="comment"># 此处已连接</span></span><br></pre></td></tr></table></figure>
+
+<p>然后我们可以在主Mysql新建一个表，建一些数据测试一下，从数据库会得到同步</p>
+<hr>
+<p><strong>排错提示</strong>：我在第一次尝试的过程中，遇到的问题是<code>Slave_IO_Running: Connecting</code>，再确认其他配置正确的情况下，反复尝试，都是错误，关闭防火墙后重试，变为Yes</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看防火墙状态</span></span><br><span class="line"><span class="built_in">sudo</span> ufw status</span><br><span class="line"><span class="comment"># 关闭防火墙</span></span><br><span class="line"><span class="built_in">sudo</span> ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+
+<p>之后在从节点处输入命令，重启一下slave</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stop slave;</span><br><span class="line">start slave;</span><br></pre></td></tr></table></figure>
+
+<p>运行后查到双Yes</p>
+<hr>
+<h2 id="如何存储1-2亿的缓存数据？"><a href="#如何存储1-2亿的缓存数据？" class="headerlink" title="如何存储1~2亿的缓存数据？"></a>如何存储1~2亿的缓存数据？</h2><blockquote>
+<p>现在我们有1~2亿条数据需要缓存，请问如何设计？</p>
+</blockquote>
+<p>如此大量的数据我们单击Redis肯定完成不了，需要进行<strong>分布式存储</strong></p>
+<h3 id="哈希取余分区"><a href="#哈希取余分区" class="headerlink" title="哈希取余分区"></a>哈希取余分区</h3><p>最简单的实现，就是模以N，来对用户的读写操作实现负载均衡</p>
+<p><img src="http://img.yesmylord.cn//image-20230411092917092.png" alt="哈希取余算法"></p>
+<p><strong>优点</strong>：简单易实现，流量会均匀打到各个节点上</p>
+<p><strong>缺点</strong>：当集群某一台挂掉，会导致一定的混乱。</p>
+<p>比如说现在有三台机器，之前的读写操作都%3，分别打到0、1、2三台机器上，但是现在出现了一点问题，第三台机器挂了，那么此时读写操作%2，此时的流量会分别打到0、1上。</p>
+<p>即使是没有机器宕机，Redis集群的扩容缩容也会存在，每次更改都会导致映射关系进行重新计算</p>
+<h3 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h3><p>1997年，麻省理工提出的一致性哈希算法。</p>
+<blockquote>
+<p>一致性哈希算法：为了当服务器个数发生变化的时候，尽量减少影响客户端到服务器的映射关系。</p>
+</blockquote>
+<p>算法思想由三步骤组成：</p>
+<ol>
+<li>构造一个环，从<code>0~2^32-1</code>（哈希取余是根据服务器台数，此处是int的范围）</li>
+<li>对于不同的Redis服务器，对IP进行取余，分别落在这个环上的不同点</li>
+<li>当流量打入到环上后，会按顺时针的方向，落在第一个遇到的服务器上。</li>
+</ol>
+<p><img src="http://img.yesmylord.cn//image-20230411100725377.png" alt="一致性哈希算法"></p>
+<p>如图所示，环由<code>0~2^32-1</code>个点构成，有三台Redis服务器，按照hash(IP)后，分布在环上的各个节点上。此时用户流量打入：User1的操作会按顺时针分别流入Redis1、Redis3，User2的操作会打入Redis2，User3的操作会打入Redis3。</p>
+<blockquote>
+<p>【可容错】假如此时Redis2宕机会发生什么？</p>
+</blockquote>
+<p>User2的流量会打入Redis3，所以整个环路中，出现某个结点挂机，只会影响两个节点（宕机的节点和宕机节点的下一个节点）的流量分布。</p>
+<blockquote>
+<p>【可扩展】假如Redis2又恢复了，又会发生什么？</p>
+</blockquote>
+<p>只需要将Redis1到Redis2之间的数据转移到Redis2即可，其他部分不受影响。</p>
+<blockquote>
+<p>【可能出现<strong>数据倾斜</strong>】当节点较少的时候，或者数据hash高度一致的时候会有什么影响？</p>
+</blockquote>
+<p>假如我们的节点很少（可以假设Redis2宕机，我们此时只有两个节点）那么可以看到Redis1到Redis3的距离，与Redis3到Redis1的距离差距很多，这样会导致大部分的数据打入到Redis3，Redis3可能会高度负载，而Redis2却没有负载。</p>
+<p>所以总结一下：一致性哈希算法适合使用在Redis数量很多，流量也很多的情况下。</p>
+<h3 id="哈希槽分区"><a href="#哈希槽分区" class="headerlink" title="哈希槽分区"></a>哈希槽分区</h3><p>目前的绝对主流的使用方法。</p>
+<blockquote>
+<p>哈希槽：本质是一个大小为<code>2^14-1</code>(即16384个)的<strong>数组</strong></p>
+<p>在<strong>数据</strong>和<strong>服务器</strong>节点之间又加入了一层，把这层称为<strong>哈希槽（slot）</strong>，用于处理数据和节点之间的关系。</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20230411104332152.png" alt="哈希槽分区"></p>
+<p>如图所示，将哈希槽分为了4段，用不同的颜色表示。当流量打入时，会进行这样的运算：<code>slot = CRC16(key) % 16384</code>，先对数据求循环冗余码CRC，然后对循环冗余码模以16384，这样数据就会打入不同的Redis上。</p>
+<p>如果某个节点出现了宕机，那么宕机节点应该承受的流量会由其他正常节点共同承担。（一致性哈希算法就出现了数据倾斜，哈希槽避免了这个问题）</p>
+<blockquote>
+<p>为什么是16384个，也就是<code>2^14-1</code>个槽位？</p>
+</blockquote>
+<p>如果槽位是65535个，那么Redis的心跳信息的消息头将会有8k，较为庞大。而且Redis集群中的主节点数不可能超过1000个，因此16384个完全够用了。</p>
+<h2 id="Docker实现Redis三主三从"><a href="#Docker实现Redis三主三从" class="headerlink" title="Docker实现Redis三主三从"></a>Docker实现Redis三主三从</h2><h3 id="Reids集群搭建"><a href="#Reids集群搭建" class="headerlink" title="Reids集群搭建"></a>Reids集群搭建</h3><p>1、下载Redis镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:6.0.8</span><br></pre></td></tr></table></figure>
+
+<p>2、启动6个Redis容器，搭建一个三主三从的架构</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name redis-node-1 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-1:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6381</span><br><span class="line"></span><br><span class="line">docker run -d --name redis-node-2 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-2:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6382</span><br><span class="line"></span><br><span class="line">docker run -d --name redis-node-3 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-3:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6383</span><br><span class="line"></span><br><span class="line">docker run -d --name redis-node-4 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-4:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6384</span><br><span class="line"></span><br><span class="line">docker run -d --name redis-node-5 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-5:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6385</span><br><span class="line"></span><br><span class="line">docker run -d --name redis-node-6 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-6:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6386</span><br><span class="line"></span><br><span class="line"><span class="comment"># --net host 使用宿主的IP和端口</span></span><br><span class="line"><span class="comment"># --cluster-enabled yes 开启Redis集群</span></span><br><span class="line"><span class="comment"># --appendonly yes 开启持久化</span></span><br></pre></td></tr></table></figure>
+
+<p>3、配置主从结构</p>
+<p>任意进入一个Redis容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入节点1</span></span><br><span class="line">docker <span class="built_in">exec</span> -it redis-node-1 /bin/bash</span><br><span class="line"><span class="comment"># 配置一主一从</span></span><br><span class="line">redis-cli --cluster create 192.168.235.151:6381 192.168.235.151:6382 192.168.235.151:6383 192.168.235.151:6384 192.168.235.151:6385 192.168.235.151:6386 --cluster-replicas 1</span><br><span class="line"><span class="comment"># --cluster-replicas 1 表示为每个master创建一个slave节点</span></span><br></pre></td></tr></table></figure>
+
+<p>Redis会自动进行分配，比如我的运行结果就是：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Performing <span class="built_in">hash</span> slots allocation on 6 nodes... </span><br><span class="line"><span class="comment"># 正在为6个节点分配哈希槽，分配情况如下面三行</span></span><br><span class="line">Master[0] -&gt; Slots 0 - 5460</span><br><span class="line">Master[1] -&gt; Slots 5461 - 10922</span><br><span class="line">Master[2] -&gt; Slots 10923 - 16383</span><br><span class="line">Adding replica 192.168.235.151:6385 to 192.168.235.151:6381</span><br><span class="line">Adding replica 192.168.235.151:6386 to 192.168.235.151:6382</span><br><span class="line">Adding replica 192.168.235.151:6384 to 192.168.235.151:6383</span><br><span class="line">&gt;&gt;&gt; Trying to optimize slaves allocation <span class="keyword">for</span> anti-affinity</span><br><span class="line">[WARNING] Some slaves are <span class="keyword">in</span> the same host as their master</span><br><span class="line">M: 910039156a5be3bd6798de420c6cb3771cccedd9 192.168.235.151:6381</span><br><span class="line">   slots:[0-5460] (5461 slots) master</span><br><span class="line">M: 68ddc85b453fc7f28933740f62a1b5721d1c606e 192.168.235.151:6382</span><br><span class="line">   slots:[5461-10922] (5462 slots) master</span><br><span class="line">M: 337571ef1e1d861189bcd3c72fb6f33b8cba64e0 192.168.235.151:6383</span><br><span class="line">   slots:[10923-16383] (5461 slots) master</span><br><span class="line">S: 2fb166b3d74833b37bc792fcb0810feac86c244e 192.168.235.151:6384</span><br><span class="line">   replicates 337571ef1e1d861189bcd3c72fb6f33b8cba64e0</span><br><span class="line">S: d57408e2bc1f968dae58cc155edcf0a326970bde 192.168.235.151:6385</span><br><span class="line">   replicates 910039156a5be3bd6798de420c6cb3771cccedd9</span><br><span class="line">S: 7278e520806f2f3b3c6fa25685a1d9c1e60a0e70 192.168.235.151:6386</span><br><span class="line">   replicates 68ddc85b453fc7f28933740f62a1b5721d1c606e</span><br><span class="line">Can I <span class="built_in">set</span> the above configuration? (<span class="built_in">type</span> <span class="string">&#x27;yes&#x27;</span> to accept): <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，系统自己将6381、6382、6383三台机器作为Master，6385、6386、6384依次作为前者的Slave</p>
+<p>4、进入Redis内部，查看集群信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看集群信息</span></span><br><span class="line">root@hynisVM:/data# redis-cli -p 6381</span><br><span class="line">127.0.0.1:6381&gt; cluster info</span><br><span class="line">cluster_state:ok</span><br><span class="line">cluster_slots_assigned:16384</span><br><span class="line">cluster_slots_ok:16384</span><br><span class="line">cluster_slots_pfail:0</span><br><span class="line">cluster_slots_fail:0</span><br><span class="line">cluster_known_nodes:6</span><br><span class="line">cluster_size:3</span><br><span class="line">cluster_current_epoch:6</span><br><span class="line">cluster_my_epoch:1</span><br><span class="line">cluster_stats_messages_ping_sent:278</span><br><span class="line">cluster_stats_messages_pong_sent:305</span><br><span class="line">cluster_stats_messages_sent:583</span><br><span class="line">cluster_stats_messages_ping_received:300</span><br><span class="line">cluster_stats_messages_pong_received:278</span><br><span class="line">cluster_stats_messages_meet_received:5</span><br><span class="line">cluster_stats_messages_received:583</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看节点信息</span></span><br><span class="line">127.0.0.1:6381&gt; cluster nodes</span><br><span class="line">7278e520806f2f3b3c6fa25685a1d9c1e60a0e70 192.168.235.151:6386@16386 slave 68ddc85b453fc7f28933740f62a1b5721d1c606e 0 1681213675552 2 connected</span><br><span class="line">2fb166b3d74833b37bc792fcb0810feac86c244e 192.168.235.151:6384@16384 slave 337571ef1e1d861189bcd3c72fb6f33b8cba64e0 0 1681213675000 3 connected</span><br><span class="line">68ddc85b453fc7f28933740f62a1b5721d1c606e 192.168.235.151:6382@16382 master - 0 1681213676000 2 connected 5461-10922</span><br><span class="line">337571ef1e1d861189bcd3c72fb6f33b8cba64e0 192.168.235.151:6383@16383 master - 0 1681213677574 3 connected 10923-16383</span><br><span class="line">910039156a5be3bd6798de420c6cb3771cccedd9 192.168.235.151:6381@16381 myself,master - 0 1681213674000 1 connected 0-5460</span><br><span class="line">d57408e2bc1f968dae58cc155edcf0a326970bde 192.168.235.151:6385@16385 slave 910039156a5be3bd6798de420c6cb3771cccedd9 0 1681213677000 1 connected</span><br></pre></td></tr></table></figure>
+
+<p>根据以上信息，我们可以构建下图：</p>
+<p><img src="http://img.yesmylord.cn//image-20230411201140989.png" alt="三主三从Redis集群"></p>
+<h3 id="Redis集群的使用"><a href="#Redis集群的使用" class="headerlink" title="Redis集群的使用"></a>Redis集群的使用</h3><p>如果我们进入随便一个主Redis，比如进入6381</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@hynisVM:/data# redis-cli -p 6381</span><br><span class="line">127.0.0.1:6381&gt; <span class="built_in">set</span> k1 v1 <span class="comment"># 存一个k1:v1的数据</span></span><br><span class="line">(error) MOVED 12706 192.168.235.151:6383</span><br></pre></td></tr></table></figure>
+
+<p>报错了，这是因为key值<code>k1</code>经过运算后的hash值为12706，这不属于6381的范畴，所以报错，提示你应该在6383存入，可以使用参数<code>-c</code>来重定向</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@hynisVM:/data# redis-cli -p 6381 -c</span><br><span class="line">127.0.0.1:6381&gt; <span class="built_in">set</span> k1 v1</span><br><span class="line">-&gt; Redirected to slot [12706] located at 192.168.235.151:6383</span><br><span class="line">OK</span><br><span class="line">192.168.235.151:6383&gt; <span class="comment"># 可以看到我们被自动切换到了6383</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到此时将12706重定向到6383上</p>
+<p>此外，可以使用以下命令查看集群状态</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --cluster check 192.168.235.151:6381</span><br><span class="line"><span class="comment"># 出现以下信息</span></span><br><span class="line">root@hynisVM:/data# redis-cli --cluster check 192.168.235.151:6381</span><br><span class="line">192.168.235.151:6381 (91003915...) -&gt; 1 keys | 5461 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6382 (68ddc85b...) -&gt; 0 keys | 5462 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6383 (337571ef...) -&gt; 1 keys | 5461 slots | 1 slaves.</span><br><span class="line">[OK] 2 keys <span class="keyword">in</span> 3 masters.</span><br><span class="line">0.00 keys per slot on average.</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 192.168.235.151:6381)</span><br><span class="line">M: 910039156a5be3bd6798de420c6cb3771cccedd9 192.168.235.151:6381</span><br><span class="line">   slots:[0-5460] (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 7278e520806f2f3b3c6fa25685a1d9c1e60a0e70 192.168.235.151:6386</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 68ddc85b453fc7f28933740f62a1b5721d1c606e</span><br><span class="line">S: 2fb166b3d74833b37bc792fcb0810feac86c244e 192.168.235.151:6384</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 337571ef1e1d861189bcd3c72fb6f33b8cba64e0</span><br><span class="line">M: 68ddc85b453fc7f28933740f62a1b5721d1c606e 192.168.235.151:6382</span><br><span class="line">   slots:[5461-10922] (5462 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">M: 337571ef1e1d861189bcd3c72fb6f33b8cba64e0 192.168.235.151:6383</span><br><span class="line">   slots:[10923-16383] (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: d57408e2bc1f968dae58cc155edcf0a326970bde 192.168.235.151:6385</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 910039156a5be3bd6798de420c6cb3771cccedd9</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check <span class="keyword">for</span> open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redis容灾主从切换"><a href="#Redis容灾主从切换" class="headerlink" title="Redis容灾主从切换"></a>Redis容灾主从切换</h3><p>假如此时我们将6381号停掉，那么他的slave应该会自动切换为master</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭1号容器</span></span><br><span class="line">docker stop redis-node-1</span><br><span class="line"><span class="comment"># 进入6382</span></span><br><span class="line">docker <span class="built_in">exec</span> -it redis-node-2 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@hynisVM:/data# redis-cli --cluster check 192.168.235.151:6382</span><br><span class="line">Could not connect to Redis at 192.168.235.151:6381: Connection refused</span><br><span class="line">192.168.235.151:6382 (68ddc85b...) -&gt; 0 keys | 5462 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6383 (337571ef...) -&gt; 1 keys | 5461 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6385 (d57408e2...) -&gt; 1 keys | 5461 slots | 0 slaves.</span><br><span class="line">[OK] 2 keys <span class="keyword">in</span> 3 masters.</span><br><span class="line">0.00 keys per slot on average.</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 192.168.235.151:6382)</span><br><span class="line">M: 68ddc85b453fc7f28933740f62a1b5721d1c606e 192.168.235.151:6382</span><br><span class="line">   slots:[5461-10922] (5462 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 2fb166b3d74833b37bc792fcb0810feac86c244e 192.168.235.151:6384</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 337571ef1e1d861189bcd3c72fb6f33b8cba64e0</span><br><span class="line">S: 7278e520806f2f3b3c6fa25685a1d9c1e60a0e70 192.168.235.151:6386</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 68ddc85b453fc7f28933740f62a1b5721d1c606e</span><br><span class="line">M: 337571ef1e1d861189bcd3c72fb6f33b8cba64e0 192.168.235.151:6383</span><br><span class="line">   slots:[10923-16383] (5461 slots) master</span><br><span class="line">   1 additional replica(s</span><br><span class="line"><span class="comment"># 关键看这里，6385,变为了master</span></span><br><span class="line">M: d57408e2bc1f968dae58cc155edcf0a326970bde 192.168.235.151:6385</span><br><span class="line">   slots:[0-5460] (5461 slots) master </span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check <span class="keyword">for</span> open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
+
+<p>即使我们现在将容器1恢复，也不会发生主从切换。</p>
+<p>（为了之后叙述方便，我们将容器5再次stop、start，将Master换回容器1）</p>
+<h3 id="Redis主从扩容"><a href="#Redis主从扩容" class="headerlink" title="Redis主从扩容"></a>Redis主从扩容</h3><p>现在我们给系统中再加入一个Master-Slave，使之变成4主4从</p>
+<p>1、 首先创建新的两个容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name redis-node-7 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-7:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6387</span><br><span class="line">docker run -d --name redis-node-8 --net host --privileged=<span class="literal">true</span> -v /data/redis/share/redis-node-8:/data redis:6.0.8 --cluster-enabled <span class="built_in">yes</span> --appendonly <span class="built_in">yes</span> --port 6388</span><br></pre></td></tr></table></figure>
+
+<p>2、进入6387容器节点内部</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it redis-node-7 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>3、加入集群</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --cluster add-node 192.168.235.151:6387 192.168.235.151:6381</span><br><span class="line"><span class="comment"># 6387 就是将要作为master新增节点</span></span><br><span class="line"><span class="comment"># 6381 就是原来集群节点里面的领路人，相当于6387想进入组织需要一个介绍人</span></span><br></pre></td></tr></table></figure>
+
+<p>4、此时我们查看集群的情况：发现6387没有任何的插槽！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">oot@hynisVM:/data# redis-cli --cluster check 192.168.235.151:6382</span><br><span class="line">192.168.235.151:6382 (68ddc85b...) -&gt; 0 keys | 5462 slots | 1 slaves.</span><br><span class="line"><span class="comment"># 主要看这里！！发现6387没有任何的插槽！</span></span><br><span class="line">192.168.235.151:6387 (3e431906...) -&gt; 0 keys | 0 slots | 0 slaves.</span><br><span class="line">192.168.235.151:6383 (337571ef...) -&gt; 1 keys | 5461 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6381 (91003915...) -&gt; 1 keys | 5461 slots | 1 slaves.</span><br><span class="line">[OK] 2 keys <span class="keyword">in</span> 4 masters.</span><br><span class="line">0.00 keys per slot on average.</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 192.168.235.151:6382)</span><br><span class="line">M: 68ddc85b453fc7f28933740f62a1b5721d1c606e 192.168.235.151:6382</span><br><span class="line">   slots:[5461-10922] (5462 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 2fb166b3d74833b37bc792fcb0810feac86c244e 192.168.235.151:6384</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 337571ef1e1d861189bcd3c72fb6f33b8cba64e0</span><br><span class="line">M: 3e4319061f2943b3335406dbe369cc7e5cc1d9a5 192.168.235.151:6387</span><br><span class="line">   slots: (0 slots) master</span><br><span class="line">S: 7278e520806f2f3b3c6fa25685a1d9c1e60a0e70 192.168.235.151:6386</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 68ddc85b453fc7f28933740f62a1b5721d1c606e</span><br><span class="line">M: 337571ef1e1d861189bcd3c72fb6f33b8cba64e0 192.168.235.151:6383</span><br><span class="line">   slots:[10923-16383] (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: d57408e2bc1f968dae58cc155edcf0a326970bde 192.168.235.151:6385</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 910039156a5be3bd6798de420c6cb3771cccedd9</span><br><span class="line">M: 910039156a5be3bd6798de420c6cb3771cccedd9 192.168.235.151:6381</span><br><span class="line">   slots:[0-5460] (5461 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check <span class="keyword">for</span> open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
+
+<p>5、重新分配hash槽位</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --cluster reshard 192.168.235.151:6381</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.yesmylord.cn//image-20230411214240735.png" alt="重新分配槽位"></p>
+<p>因为现在新加入了一台Master，所以<code>16384/4=4096</code>，我们输入4096个。并将插槽分配给6387</p>
+<p>6、再次查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">root@hynisVM:/data# redis-cli --cluster check 192.168.235.151:6382</span><br><span class="line">192.168.235.151:6382 (68ddc85b...) -&gt; 0 keys | 4096 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6387 (3e431906...) -&gt; 1 keys | 4096 slots | 0 slaves.</span><br><span class="line">192.168.235.151:6383 (337571ef...) -&gt; 1 keys | 4096 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6381 (91003915...) -&gt; 0 keys | 4096 slots | 1 slaves.</span><br><span class="line">[OK] 2 keys <span class="keyword">in</span> 4 masters.</span><br><span class="line">0.00 keys per slot on average.</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 192.168.235.151:6382)</span><br><span class="line">M: 68ddc85b453fc7f28933740f62a1b5721d1c606e 192.168.235.151:6382</span><br><span class="line">   slots:[6827-10922] (4096 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 2fb166b3d74833b37bc792fcb0810feac86c244e 192.168.235.151:6384</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 337571ef1e1d861189bcd3c72fb6f33b8cba64e0</span><br><span class="line"><span class="comment"># 主要看这里！！！可以看到6387的槽位不是均匀的</span></span><br><span class="line">M: 3e4319061f2943b3335406dbe369cc7e5cc1d9a5 192.168.235.151:6387</span><br><span class="line">   slots:[0-1364],[5461-6826],[10923-12287] (4096 slots) master</span><br><span class="line">S: 7278e520806f2f3b3c6fa25685a1d9c1e60a0e70 192.168.235.151:6386</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 68ddc85b453fc7f28933740f62a1b5721d1c606e</span><br><span class="line">M: 337571ef1e1d861189bcd3c72fb6f33b8cba64e0 192.168.235.151:6383</span><br><span class="line">   slots:[12288-16383] (4096 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: d57408e2bc1f968dae58cc155edcf0a326970bde 192.168.235.151:6385</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 910039156a5be3bd6798de420c6cb3771cccedd9</span><br><span class="line">M: 910039156a5be3bd6798de420c6cb3771cccedd9 192.168.235.151:6381</span><br><span class="line">   slots:[1365-5460] (4096 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check <span class="keyword">for</span> open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
+
+<p>6387的槽位是<code>slots:[0-1364],[5461-6826],[10923-12287] </code>，说明rehash的规则是从每一个Master的插槽，分出一部分给6387，使之凑成4096个！</p>
+<p>7、为6387配置slave</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --cluster add-node 192.168.235.151:6388 192.168.235.151:6387 --cluster-slave --cluster-master-id 3e4319061f2943b3335406dbe369cc7e5cc1d9a5</span><br><span class="line"><span class="comment"># redis-cli --cluster add-node ip:新slave端口 ip:新master端口 --cluster-slave --cluster-master-id 新主机节点ID(此处即为6387的id)</span></span><br></pre></td></tr></table></figure>
+
+<p>此时我们就实现了4主4从的redis分布式集群，如下图所示：</p>
+<p><img src="http://img.yesmylord.cn//image-20230411220405617.png" alt="Redis主从扩容"></p>
+<p>可以与之前的图对比查看</p>
+<h3 id="Redis主从缩容"><a href="#Redis主从缩容" class="headerlink" title="Redis主从缩容"></a>Redis主从缩容</h3><p>主从缩容与扩容同理，只不过在重新分配槽位的时候，如果想要槽位原路返回，那么需要分配三次，此处为了省事直接将6387的所有槽位分配给6381。</p>
+<p>注意：缩容一定要先将slave删掉！</p>
+<p>1、将slave节点删除</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 命令</span></span><br><span class="line">redis-cli --cluster del-node 192.168.235.151:6388 2a7586688a28e8227d23f21c2c8c9575f00d5bfe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出结果如下</span></span><br><span class="line">root@hynisVM:/data# redis-cli --cluster del-node 192.168.235.151:6388 2a7586688a28e8227d23f21c2c8c9575f00d5bfe</span><br><span class="line">&gt;&gt;&gt; Removing node 2a7586688a28e8227d23f21c2c8c9575f00d5bfe from cluster 192.168.235.151:6388</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER FORGET messages to the cluster...</span><br><span class="line">&gt;&gt;&gt; Sending CLUSTER RESET SOFT to the deleted node.</span><br></pre></td></tr></table></figure>
+
+<p>2、将Master的所有槽位分配给其他Master</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --cluster reshard 192.168.235.151:6381</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.yesmylord.cn//image-20230411221335692.png" alt="主从缩容"></p>
+<p>将6387的所有槽位分配给6381</p>
+<p>3、删除节点6381</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --cluster del-node 192.168.235.151:6387 3e4319061f2943b3335406dbe369cc7e5cc1d9a5</span><br></pre></td></tr></table></figure>
+
+<p>4、查看集群状态</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">root@hynisVM:/data# redis-cli --cluster check 192.168.235.151:6382</span><br><span class="line">192.168.235.151:6382 (68ddc85b...) -&gt; 0 keys | 4096 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6383 (337571ef...) -&gt; 1 keys | 4096 slots | 1 slaves.</span><br><span class="line">192.168.235.151:6381 (91003915...) -&gt; 1 keys | 8192 slots | 1 slaves.</span><br><span class="line">[OK] 2 keys <span class="keyword">in</span> 3 masters.</span><br><span class="line">0.00 keys per slot on average.</span><br><span class="line">&gt;&gt;&gt; Performing Cluster Check (using node 192.168.235.151:6382)</span><br><span class="line">M: 68ddc85b453fc7f28933740f62a1b5721d1c606e 192.168.235.151:6382</span><br><span class="line">   slots:[6827-10922] (4096 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: 2fb166b3d74833b37bc792fcb0810feac86c244e 192.168.235.151:6384</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 337571ef1e1d861189bcd3c72fb6f33b8cba64e0</span><br><span class="line">S: 7278e520806f2f3b3c6fa25685a1d9c1e60a0e70 192.168.235.151:6386</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 68ddc85b453fc7f28933740f62a1b5721d1c606e</span><br><span class="line">M: 337571ef1e1d861189bcd3c72fb6f33b8cba64e0 192.168.235.151:6383</span><br><span class="line">   slots:[12288-16383] (4096 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">S: d57408e2bc1f968dae58cc155edcf0a326970bde 192.168.235.151:6385</span><br><span class="line">   slots: (0 slots) slave</span><br><span class="line">   replicates 910039156a5be3bd6798de420c6cb3771cccedd9</span><br><span class="line"><span class="comment"># 主要看这里！！6381的槽位</span></span><br><span class="line">M: 910039156a5be3bd6798de420c6cb3771cccedd9 192.168.235.151:6381</span><br><span class="line">   slots:[0-6826],[10923-12287] (8192 slots) master</span><br><span class="line">   1 additional replica(s)</span><br><span class="line">[OK] All nodes agree about slots configuration.</span><br><span class="line">&gt;&gt;&gt; Check <span class="keyword">for</span> open slots...</span><br><span class="line">&gt;&gt;&gt; Check slots coverage...</span><br><span class="line">[OK] All 16384 slots covered.</span><br></pre></td></tr></table></figure>
+
+<p>6381的槽位发生了变化，可以看到将原本6387的槽位全部合并到了6381</p>
+<p><img src="http://img.yesmylord.cn//image-20230411222051250.png" alt="主从缩容"></p>
+<h1 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h1><h2 id="DockerFile-1"><a href="#DockerFile-1" class="headerlink" title="DockerFile"></a>DockerFile</h2><blockquote>
+<p>DockerFile就是Docker的脚本文件：DockerFile的执行流程就相当于我们对镜像进行修改后，commit，然后不断重复这个过程。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/">对于其中的关键字可以查看官网</a></p>
+<p>常见关键字：</p>
+<ul>
+<li><code>FROM</code>：从哪一个源镜像构建而来，Dockerfile文件第一行就需要时FROM</li>
+<li><code>MAINTAINER</code>：镜像维护者的姓名和邮箱地址</li>
+<li><code>RUN</code>：在docker build时执行命令，有两种格式<ul>
+<li>shell格式：<code>RUN &lt;命令&gt;</code></li>
+<li>exec格式：<code>exec [命令, 参数, 参数]</code></li>
+</ul>
+</li>
+<li><code>EXPOSE</code>：对外暴露出端口</li>
+<li><code>WORKDIR</code>：创建容器后，终端默认登录进来的工作目录</li>
+<li><code>USER</code>：以什么样的用户去执行命令，默认为<code>root</code></li>
+<li><code>ENV</code>：在构建镜像过程中设置环境变量<ul>
+<li>ENV指定的环境变量，在RUN指令中可以使用</li>
+</ul>
+</li>
+<li><code>ADD</code>：将宿主机目录下的文件拷贝进镜像而且会自动处理URL和解压tar压缩包。</li>
+<li><code>COPY</code>：与ADD相似，拷贝文件到目录。ADD=COPY+解压</li>
+<li><code>VOLUME</code>：数据卷</li>
+<li><code>CMD</code>：指定容器启动后要执行的命令，格式与RUN一样<ul>
+<li><strong>注意</strong>：Dockerfile可以有多个CMD指令，但是只有最后一个会生效，CMD会被<code>docker run</code>指令之后的参数替换</li>
+<li>与RUN的区别在于：<strong>RUN在docker build时执行；CMD在docker run时执行</strong></li>
+</ul>
+</li>
+<li><code>ENTRYPOINT</code>：用来指定一个容器启动时要执行的命令<ul>
+<li><strong>注意</strong>：Dockerfile可以有多个ENTRYPOINT指令，但是只有最后一个会生效</li>
+<li>搭配CMD命令使用的话，CMD命令可以给ENTRYPOINT传递参数</li>
+</ul>
+</li>
+</ul>
+<p>这里举一个小例子：</p>
+<p>假设已通过Dockerfile构建了<code>nginx:test</code></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;nginx&quot;</span>, <span class="string">&quot;-c&quot;</span>]</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;/etc/nginx/nginx.conf&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>如果要运行上述的<code>dockerfile</code>文件的话，输入</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run nginx:<span class="built_in">test</span></span><br><span class="line"><span class="comment"># 实际上执行的命令是</span></span><br><span class="line">nginx -c /etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果在执行中自己指定了参数</span></span><br><span class="line">docker run nginx:<span class="built_in">test</span> -c /etc/nginx/temp.conf</span><br><span class="line"><span class="comment"># 那么实际上会替换原有的参数</span></span><br><span class="line">nginx -c /etc/nginx/temp.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="一个Dockerfile的实例"><a href="#一个Dockerfile的实例" class="headerlink" title="一个Dockerfile的实例"></a>一个Dockerfile的实例</h2><p>现在使用Dockerfile构建一个可以使用<code>vim + ifconfig + JDK8</code>的ubuntu镜像</p>
+<p>1、创建一个Dockerfile文件</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">MAINTAINER</span> hynis</span><br><span class="line"> </span><br><span class="line"><span class="keyword">ENV</span> MYPATH /usr/local</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$MYPATH</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">#更新索引</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update</span></span><br><span class="line"><span class="comment">#安装vim编辑器</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get install -y vim</span></span><br><span class="line"><span class="comment">#安装ifconfig命令查看网络IP</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get install -y net-tools</span></span><br><span class="line"><span class="comment">#安装java8及lib库</span></span><br><span class="line"><span class="comment">#RUN apt-get install -y  glibc.i686</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> /usr/local/java</span></span><br><span class="line"><span class="comment">#ADD 是相对路径jar,把jdk-8u171-linux-x64.tar.gz添加到容器中,安装包必</span></span><br><span class="line">须要和Dockerfile文件在同一位置</span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> jdk-8u171-linux-x64.tar.gz /usr/local/java/</span></span><br><span class="line"><span class="comment">#配置java环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> JAVA_HOME /usr/local/java/jdk1.<span class="number">8.0</span>_171</span><br><span class="line"><span class="keyword">ENV</span> JRE_HOME $JAVA_HOME/jre</span><br><span class="line"><span class="keyword">ENV</span> CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line"><span class="keyword">ENV</span> PATH $JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> <span class="built_in">echo</span> <span class="variable">$MYPATH</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;success--------------ok&quot;</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> /bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>2、build镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t hynix:1.0 .</span><br></pre></td></tr></table></figure>
+
+<p>3、进入镜像查看软件是否安装成功</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it hynix:1.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="虚悬镜像"><a href="#虚悬镜像" class="headerlink" title="虚悬镜像"></a>虚悬镜像</h2><blockquote>
+<p>什么是<strong>虚悬镜像</strong>？</p>
+</blockquote>
+<p>虚悬镜像指：仓库名、标签都是<code>&lt;none&gt;</code>的镜像，英文名为<code>dangling image</code></p>
+<p>Docker在拉取镜像的时候可能会出错，虚悬镜像没有任何用处，可以删除</p>
+<h1 id="Docker网络"><a href="#Docker网络" class="headerlink" title="Docker网络"></a>Docker网络</h1><blockquote>
+<p>在Docker启动后，Linux系统中会多一个docker0的地址，这个docker0就是Docker自己配置的一个网络</p>
+</blockquote>
+<h2 id="VMware的网络配置"><a href="#VMware的网络配置" class="headerlink" title="VMware的网络配置"></a>VMware的网络配置</h2><p>在介绍Docker的网络配置前，有必要先介绍一下VMware中的模式：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32948325">可以参考此篇知乎</a></p>
+<ul>
+<li><strong>桥接模式</strong>：虚拟机的虚拟网卡与主机的物理网卡直接交接；直白一点的说法是，网络中出现了一台可以完全独立的计算机，他可以与网络中的其他终端进行交互。</li>
+<li><strong>NAT模式</strong>：网络地址转换（Network Address Translation），主机会给所有的虚拟机建一个网络，虚拟机内部可以直接交互，虚拟机向外部的通信需要通过主机转发</li>
+<li><strong>仅主机模式</strong>：一种比NAT模式更加封闭的的网络连接模式，它将创建完全包含在主机中的专用网络。仅主机模式的虚拟网络适配器仅对主机可见，并在虚拟机和主机系统之间提供网络连接</li>
+</ul>
+<h2 id="Docker的网络模式"><a href="#Docker的网络模式" class="headerlink" title="Docker的网络模式"></a>Docker的网络模式</h2><p>此处略微介绍，下面会详细阐述</p>
+<ul>
+<li><code>bridge</code>：为一个容器分配、设置IP，并将容器连接到一个<code>docker0</code></li>
+<li><code>host</code>：容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口</li>
+<li><code>none</code>：【了解】容器有独立的Network namespace，但并没有对其进行任何的网络设置</li>
+<li><code>container</code>：【了解】新创建的容器不会创建自己的网卡和配置自己的IP，而是和一个指定的容器共享IP、端口范围。</li>
+</ul>
+<p>启动容器时，使用参数<code>--net</code>就可以指定模式，例如启动一个host容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --net host hynix:1.0 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过<code>docker inspect 容器ID</code>来查看这个容器的网络状况：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Networks&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;bridge&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;IPAMConfig&quot;</span>: null,</span><br><span class="line">        <span class="string">&quot;Links&quot;</span>: null,</span><br><span class="line">        <span class="string">&quot;Aliases&quot;</span>: null,</span><br><span class="line">        <span class="string">&quot;NetworkID&quot;</span>: <span class="string">&quot;e9a47bb319e6523eb731752a4be2a495e757aa8d22e8ed46e7c0e3039fc373a0&quot;</span>,</span><br><span class="line">        <span class="string">&quot;EndpointID&quot;</span>: <span class="string">&quot;e9b47c4014b839ac36b2197ebbda365314451acf7742c58363efd1fe3df954ec&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Gateway&quot;</span>: <span class="string">&quot;172.17.0.1&quot;</span>,</span><br><span class="line">        <span class="string">&quot;IPAddress&quot;</span>: <span class="string">&quot;172.17.0.2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;IPPrefixLen&quot;</span>: 16,</span><br><span class="line">        <span class="string">&quot;IPv6Gateway&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;GlobalIPv6Address&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">        <span class="string">&quot;GlobalIPv6PrefixLen&quot;</span>: 0,</span><br><span class="line">        <span class="string">&quot;MacAddress&quot;</span>: <span class="string">&quot;02:42:ac:11:00:02&quot;</span>,</span><br><span class="line">        <span class="string">&quot;DriverOpts&quot;</span>: null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到我们的网络模式是bridge的，并且我们的IP地址和网关都有分配</p>
+<p>注意：<strong>容器的IP可能是会变化的</strong></p>
+<h2 id="bridge模式"><a href="#bridge模式" class="headerlink" title="bridge模式"></a>bridge模式</h2><p>为一个容器分配、设置IP，并将容器连接到一个<code>docker0</code></p>
+<p>Docker服务默认会创建一个 docker0网桥（其上有一个 <strong>docker0 内部接口</strong>），该桥接网络的名称为docker0，它在<strong>内核层连通了其他的物理或虚拟网卡</strong>，这就将所有容器和本地主机都放到同一个物理网络。</p>
+<p>Docker 默认指定了 docker0 接口 的 IP 地址和子网掩码，让主机和容器之间可以通过网桥相互通信。</p>
+<p>如图所示：</p>
+<p><img src="http://img.yesmylord.cn//image-20230412192012012.png" alt="Docker宿主机与容器的网络关系"></p>
+<ul>
+<li>宿主机网卡eth0（即网卡ens33）</li>
+<li>Docker运行后，默认构建一个桥接的网络docker0，其上有很多接口<code>veth</code>（虚拟eth）</li>
+<li>Docker会给每一个容器分配一个docker0网段内的IP地址（称为container_ip），而且每个容器都有网卡<code>eth0</code>与<code>veth</code>相互配对（这样的一对称为<code>veth pair</code>）</li>
+<li>docker0就相当于一个交换机，所有容器通过docker0进行通信</li>
+<li>宿主机与容器的交互也需要通过docker0</li>
+</ul>
+<p>使用<code>ip addr</code>就可以看到docker0的信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default </span><br><span class="line"><span class="comment"># BROADCAST 网卡可以发广播包</span></span><br><span class="line"><span class="comment"># MULTICAST 网卡可以发多播包</span></span><br><span class="line"><span class="comment"># UP 表示网卡处于启动状态</span></span><br><span class="line"><span class="comment"># LOWER_UP L1处于启动状态（L1指第一层，即物理层，即插着网线）</span></span><br><span class="line">    <span class="built_in">link</span>/ether 02:42:71:5f:92:b8 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">	<span class="comment"># link/ether MAC地址</span></span><br><span class="line">	<span class="comment"># IPv4地址</span></span><br><span class="line">    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    <span class="comment"># IPv6地址</span></span><br><span class="line">    inet6 fe80::42:71ff:fe5f:92b8/64 scope <span class="built_in">link</span> </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以启动一个容器，来验证：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 容器 ip addr查询</span></span><br><span class="line"><span class="comment"># 注意看下面 if36</span></span><br><span class="line">35: eth0@if36: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default </span><br><span class="line">    <span class="built_in">link</span>/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 宿主机 ip addr查询</span></span><br><span class="line">36: vethf7d2553@if35: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master docker0 state UP group default </span><br><span class="line">    <span class="built_in">link</span>/ether 5e:f8:66:59:05:e4 brd ff:ff:ff:ff:ff:ff link-netnsid 0</span><br><span class="line">    inet6 fe80::5cf8:66ff:fe59:5e4/64 scope <span class="built_in">link</span> </span><br></pre></td></tr></table></figure>
+
+<p>可以看到宿主机提供了<code>veth@if35</code> 与容器内的<code>veth@if36</code>配对，达成内部通信</p>
+<h2 id="host模式"><a href="#host模式" class="headerlink" title="host模式"></a>host模式</h2><p>容器使用宿主机的IP与端口</p>
+<p><img src="http://img.yesmylord.cn//image-20230412194418493.png" alt="host模式"></p>
+<p>如果启动一个容器以<code>--net host</code>的方式启动，那么它的IP与端口就与宿主机的是同一份</p>
+<h2 id="none模式"><a href="#none模式" class="headerlink" title="none模式"></a>none模式</h2><p>【不常用】此种模式将只有<code>lo</code>回环地址，需要自己进行配置</p>
+<h2 id="container模式"><a href="#container模式" class="headerlink" title="container模式"></a>container模式</h2><p>此种模式的容器将会与一个指定的容器的IP与端口一致，如图所示：</p>
+<p><img src="http://img.yesmylord.cn//image-20230412195411130.png" alt="container模式"></p>
+<p>可以看到有一个容器没有创建自己的网卡，而是直接使用另一个容器的网卡。</p>
+<h2 id="自定义网络模式"><a href="#自定义网络模式" class="headerlink" title="自定义网络模式"></a>自定义网络模式</h2><p>前面我们说到：<strong>容器的IP可能是会变化的</strong></p>
+<p>这意味着，容器上面的服务如果我们使用IP去连接的话，有时候会出现错误，此时我们可以进行自定义网络，保证服务调用正常</p>
+<p>1、创建docker网络</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network create hynisNet</span><br><span class="line"><span class="comment"># 此时的网络默认驱动还是bridge模式</span></span><br></pre></td></tr></table></figure>
+
+<p>2、将容器使用该网络进行创建</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8081:8080 --network hynisNet --name service1 hynix</span><br><span class="line">docker run -d -p 8082:8080 --network hynisNet --name service2 hynix</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>--network</code>就可以在指定网络中创建容器了</p>
+<p>3、测试使用域名访问服务，是可以相互ping通的</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ping service1</span><br><span class="line">ping service2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为什么默认的桥接模式IP和主机名关系有时候会改变，但是自定义模式却能维护呢？</p>
+</blockquote>
+<p>因为自定义网络自身维护好了IP与主机名的对应关系</p>
+<h2 id="Docker整体的网络架构"><a href="#Docker整体的网络架构" class="headerlink" title="Docker整体的网络架构"></a>Docker整体的网络架构</h2><p>如图所示：</p>
+<p><img src="http://img.yesmylord.cn//image-20230412203858417.png" alt="Docker网络架构"></p>
+<p>Docker 是一个 <strong>C/S 模式</strong>的架构，运行的基本流程为：</p>
+<ol>
+<li> 用户使用<code>Docker Client</code>与<code>Docker Daemon</code>建立通信</li>
+<li><code>Docker Daemon</code> 作为 Docker 架构中的<strong>主体部分</strong>，首先提供 <code>Docker Server</code> 的功能使其可以接受 Docker Client 的请求。</li>
+<li><code>Docker Engine</code> 执行 Docker 内部的一系列工作Job</li>
+<li>Job 的运行过程中，当需要容器镜像时，则从<code>Docker Registry</code>中下载镜像，并通过<strong>镜像管理驱动Graph driver</strong>将下载镜像以<code>Graph</code>的形式存储。</li>
+<li>当需要为 Docker 创建网络环境时，通过<strong>网络管理驱动 Network driver</strong> 创建并配置 Docker 容器网络环境。</li>
+<li>当需要限制 Docker 容器运行资源或执行用户指令等操作时，则通过 <code>Execdriver</code>来完成。</li>
+<li><code>Libcontainer</code>是一项独立的容器管理包，<code>Network driver</code>以及<code>Execdriver</code>都是通过<code>Libcontaine</code>r来实现具体对容器进行的操作。</li>
+</ol>
+<h1 id="Docker-compose"><a href="#Docker-compose" class="headerlink" title="Docker-compose"></a>Docker-compose</h1><h2 id="Docker-compose-1"><a href="#Docker-compose-1" class="headerlink" title="Docker-compose"></a>Docker-compose</h2><p>类似于最近很流行的k8s，是docker官方提供的容器编排工具，适用于对大量的容器进行管理。</p>
+<p>Compose允许用户通过一个单独的<code>docker-compose.yml</code>模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）</p>
+<p>一个简单的<code>docker-compose.yml</code>文件如下：这个文件，我们构建了搭建微服务的基本结构，首先我们启动了redis、mysql、以及测试的项目，并将三个容器放在了hynisNet网络中，只需要使用<code>docker-compose up</code>就可以一键启动整个微服务项目</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">microService:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">dockerTest:1.6</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">ms01</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6001:6001&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/app/microService:/data</span></span><br><span class="line">    <span class="attr">networks:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">atguigu_net</span> </span><br><span class="line">    <span class="attr">depends_on:</span> <span class="comment"># 此处依赖了redis与mysql</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mysql</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:6.0.8</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6379:6379&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/app/redis/redis.conf:/etc/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/app/redis/data:/data</span></span><br><span class="line">    <span class="attr">networks:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">hynisNet</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">/etc/redis/redis.conf</span></span><br><span class="line">  <span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:5.7</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">&#x27;123456&#x27;</span></span><br><span class="line">      <span class="attr">MYSQL_ALLOW_EMPTY_PASSWORD:</span> <span class="string">&#x27;no&#x27;</span></span><br><span class="line">      <span class="attr">MYSQL_DATABASE:</span> <span class="string">&#x27;db2021&#x27;</span></span><br><span class="line">      <span class="attr">MYSQL_USER:</span> <span class="string">&#x27;zzyy&#x27;</span></span><br><span class="line">      <span class="attr">MYSQL_PASSWORD:</span> <span class="string">&#x27;zzyy123&#x27;</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">&quot;3306:3306&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">/app/mysql/db:/var/lib/mysql</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">/app/mysql/conf/my.cnf:/etc/my.cnf</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">/app/mysql/init:/docker-entrypoint-initdb.d</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">hynisNet</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">--default-authentication-plugin=mysql_native_password</span> <span class="comment">#解决外部无法访问</span></span><br><span class="line"><span class="attr">networks:</span> </span><br><span class="line">   <span class="attr">hynisNet:</span> </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/cache%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98/" rel="prev" title="cache高速缓存">
+                  <i class="fa fa-chevron-left"></i> cache高速缓存
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/19/Spring/SpringBoot%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/" rel="next" title="注解">
+                  注解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

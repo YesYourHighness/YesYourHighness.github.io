@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：TCP&#x2F;UDP协议（未完成）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP&#x2F;UDP协议">
+<meta property="og:url" content="http://yoursite.com/2021/08/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：TCP&#x2F;UDP协议（未完成）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210816092621294.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210903213620655.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230926160150008.png">
+<meta property="og:image" content="http://img.yesmylord.cn//v2-fa46380ebb0ee25a23ffea04126f2aad_1440w.webp">
+<meta property="og:image" content="http://img.yesmylord.cn//v2-fbd6fc64ffd848fc2009999063a7c77e_1440w.webp">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230926160754526.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230926161240861.png">
+<meta property="article:published_time" content="2021-08-20T08:33:39.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.154Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="运输层">
+<meta property="article:tag" content="TCP">
+<meta property="article:tag" content="UDP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20210816092621294.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/08/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/08/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE/","path":"2021/08/20/网络协议/运输层协议/","title":"TCP/UDP协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>TCP/UDP协议 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-UDP%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">TCP&#x2F;UDP知识点总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%88%E6%9C%AA%E5%AE%8C%E6%88%90%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">运输层（未完成）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%88%86%E8%A7%A3%E4%B8%8E%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">多路分解与多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97Socket"><span class="nav-number">2.2.</span> <span class="nav-text">套接字Socket</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP"><span class="nav-number">3.</span> <span class="nav-text">UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">报文段结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E5%92%8C"><span class="nav-number">3.2.</span> <span class="nav-text">检验和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88UDP%E8%BF%98%E8%A6%81%E6%9C%89%E5%B7%AE%E9%94%99%E6%A3%80%E9%AA%8C%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="nav-number">3.2.1.</span> <span class="nav-text">为什么UDP还要有差错检验功能？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E9%AA%8C%E5%92%8C%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">3.2.2.</span> <span class="nav-text">检验和的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BA%E9%94%99%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">3.2.3.</span> <span class="nav-text">出错的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.2.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP"><span class="nav-number">4.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%93%E5%8C%85%E2%80%94%E2%80%94%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">4.1.</span> <span class="nav-text">抓包——三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">4.2.</span> <span class="nav-text">服务端的三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E2%80%9C%E7%B2%98%E5%8C%85%E2%80%9D%E9%97%AE%E9%A2%98"><span class="nav-number">4.3.</span> <span class="nav-text">TCP“粘包”问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">4.4.</span> <span class="nav-text">拥塞控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLOSING%E7%8A%B6%E6%80%81"><span class="nav-number">4.5.</span> <span class="nav-text">CLOSING状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ECLOSE-WAIT%E4%B8%8ETIME-WAIT%E7%8A%B6%E6%80%81"><span class="nav-number">4.6.</span> <span class="nav-text">关于CLOSE_WAIT与TIME_WAIT状态</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="TCP/UDP协议 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TCP/UDP协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-20 16:33:39" itemprop="dateCreated datePublished" datetime="2021-08-20T16:33:39+08:00">2021-08-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%BF%90%E8%BE%93%E5%B1%82/" itemprop="url" rel="index"><span itemprop="name">运输层</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：TCP/UDP协议（未完成）
+</center>
+<span id="more"></span>
+
+<h1 id="TCP-UDP知识点总结"><a href="#TCP-UDP知识点总结" class="headerlink" title="TCP/UDP知识点总结"></a>TCP/UDP知识点总结</h1><p>此处仅供复习，省去废话，只有干货！（注意，没有标单位的数，单位将均为字节）</p>
+<ol>
+<li>运输层的主要任务：<strong>多路复用、多路分解</strong></li>
+<li>多路复用：从不同的数据块接收数据，加首部传递到网络层；多路分解：将报文段数据交付到正确的套接字工作。</li>
+<li>UDP协议的特点：<strong>无连接</strong>、尽最大努力交付（不保证发送成功）、<strong>面向报文</strong>（加首部直接传递给下一层）、<strong>支持一对一、一对多、多对一、多对多</strong>、<strong>首部开销小</strong>（8字节）</li>
+<li>UDP首部格式：<strong>源端口（2）、目的端口（2）、长度（2，包括头部）、检验和（2）</strong></li>
+<li><strong>伪首部</strong>：TCP/UDP检验时都会用到，源IP地址（4）、目的IP地址（4）、0（1）、17（1，UDP为17，TCP为6）、UDP长度（2，这里的长度与首部中一样，都不会包含伪首部的长度）</li>
+<li>检验过程：使用伪首部、首部、数据部分、（不为偶数还要填充0）进行求和取反码放入检验和字段，接收端接收时同样对所有数据进行求和取反码，全为1则无错，否则有错，丢弃数据包。</li>
+<li>检验了什么？不仅检查了源端口、目的端口、数据部分、还检查了源IP地址、目的IP地址</li>
+<li>TCP协议的特点：<strong>面向连接</strong>、<strong>只支持一对一</strong>、<strong>提供可靠交付</strong>（无差错、无重复、无丢失、按序到达）、<strong>全双工通信</strong>、<strong>面向字节流</strong>（数据报转化为无结构的字节流进行分组发送）</li>
+<li>有关可以保证传输可靠的所有要点：停止等待协议、连续ARQ协议、滑动窗口协议</li>
+<li><strong>停止等待协议</strong>：发送一个分组后停止，等待对方确认后再发送下一个分组。</li>
+<li>停止等待协议要点：超时重传、设置等待时间（略大于往返时间RTT）、设置编号（可以明确哪一个丢失）、要保存一个发送的副本（保证可以重发）、自动重传请求ARQ</li>
+<li><strong>自动重传请求ARQ</strong>：指<strong>重传</strong>的请求是<strong>自动进行</strong>的，接收端无需请求发送端重传某个出错的分组（通过超时重传、确认迟到、确认丢失机制实现）</li>
+<li><strong>确认丢失</strong>：指确认信息在返回时丢失了，此时发送方会超时重传，接收端会丢弃重复的包，并再一次返回确认信息</li>
+<li><strong>确认迟到</strong>：指确认信息在返回时迟到了，此时发送方会超时重传，接收端会丢弃重复的包，并再一次返回确认信息</li>
+<li><strong>信道利用率</strong>：公式为<code>Td / (Td + RTT + Ta)</code>，其中Td为发送分组的时间，RTT是一次往返的事件、Ta是接收分组的时间</li>
+<li>停止等待协议缺点：信道利用率低，效率低，信道绝大部分时间空闲</li>
+<li>TCP报文段格式：源端口（2）、目的端口（2）、序号（4）、确认号（4）、数据偏移（4 bit）、保留（6 bit）、URG（1bit，其后五个也均为1 bit）、ACK、PSH、RST、SYN、FIN、窗口（2）、检验和（2）、紧急指针（2）、选项（可变）、填充（补齐为4的倍数）</li>
+<li>TCP首部长度：固定长度20，可变长度最长为40，即整个首部最短为20，最长为60</li>
+<li><strong>序号</strong>（4）：本报文段要发送的第一个字节的序号（<strong>TCP按字节编号</strong>，此字段标志本次发送的第一个字节的编号）</li>
+<li><strong>确认号</strong>（4）：期望收到的下一个字节的编号（确认号为N：代表N-1个数据已经全部收到）</li>
+<li><strong>数据偏移</strong>（4 bit）：记录数据起始处 - 首部起始处（其实就是首部长度，单位为 4字节，代表TCP首部最长为 <code>(2^4 -1) * 4 = 60</code>字节，即选项部分最长为40字节）</li>
+<li>保留（6 bit）：今后使用，全为0</li>
+<li>URG：紧急，当此字段为1，TCP会将此报文段优先传送（例如 <code>Control + c</code> 命令），与紧急指针协同使用</li>
+<li>紧急指针（2）：标明紧急的数据在本报文段的末尾位置（如果URG为1，就会把紧急的数据放在报文段最前面；注意：紧急数据后面的数据，属于普通数据，还需要排队）</li>
+<li>ACK：确认收到，连接建立后的所有报文段都必须把ACK置为1</li>
+<li>PSH：推送，置为1后，发送方立即创建报文段发送，接收方收到后立即交付进程（不必等到缓存存满再交付）</li>
+<li>RST：复位，表明要断开连接，重新建立</li>
+<li><strong>SYN</strong>：同步，建立连接时使用，<code>SYN=1 ACK=0</code>表明这是一个连接请求，<code>SYN=1 ACK=1</code>表明同意连接请求</li>
+<li><strong>FIN</strong>：终止，表明发送方数据发送完毕，要求终止连接</li>
+<li>窗口（2）：接收窗口的大小（作为接收方让发送方调节发送窗口的依据）</li>
+<li>检验和（2）：同UDP，要加上伪首部计算</li>
+<li>选项（可变长度）：可以设置MSS、窗口扩大选项、时间戳选项、选择确认选项</li>
+<li><strong>MSS最大报文段长度</strong>：仅包括数据部分，<strong>默认为536字节</strong>（所以默认能接受的报文段长度是536 + 20 = 556字节）</li>
+<li><strong>窗口扩大选项</strong>（3）：可以设置更大的接受窗口（首部的窗口只有2字节）</li>
+<li><strong>时间戳</strong>（10）：两个作用：用此<strong>计算RTT时间</strong>；用此区分序号是否重复使用（<strong>防止序号绕回</strong>）</li>
+<li><strong>防止序号绕回PAWS</strong>：序号字段只有4字节，当传输量大时，容易让旧的数据序号与新的数据序号重复，分不清新旧数据，可以在选项中加时间戳选项进行区分</li>
+<li>改用流水线发送分组后，保证可靠性的协议：连续ARQ协议、滑动窗口协议（两个协议是一同使用的）</li>
+<li><strong>发送窗口</strong>：位于窗口内的包均可以发送，无需等待确认接收</li>
+<li><strong>连续ARQ协议</strong>：规定发送方每收到一个确认请求，就将窗口向前推进一个位置；接收方进行<strong>累积确认</strong></li>
+<li><strong>累积确认</strong>与<strong>回退N</strong>：累积确认：对按序到达的最后一个分组发送确认；意味着如果中间丢失了一个分组，需要重新发送其后的所有包，这就是回退N（Go-Back-N）</li>
+<li><strong>滑动窗口协议</strong>：TCP通信双方均维护一个发送缓存与接收缓存（实现全双工）</li>
+<li><strong>发送缓存</strong>：发送窗口是发送缓存的一部分，存放两部分数据：1 准备发送的数据；2 已经发出但是尚未接收到确认的数据</li>
+<li><strong>接收缓存</strong>：接收窗口是接收缓存的一部分，存放两部分数据：1 按序到达，但尚未读取的数据；2 未按序到达的数据</li>
+<li><strong>选择确认SACK</strong>：（替代累积确认的方案）当收到不连续的数据时，收下数据，并通知发送方，发送方就无需传递重复的数据</li>
+<li>TCP<strong>流量控制</strong>：TCP通过滑动窗口来进行流量控制，通过不断的变更窗口的大小，来使信道利用率变高。（目的是为了让接收端来得及接收）</li>
+<li>TCP<strong>拥塞控制</strong>：通过慢开始、拥塞避免、快重传、快恢复四种算法实现（目的是为了防止网络发生阻塞）</li>
+<li><strong>流量控制与拥塞控制的区别</strong>：1 流量控制是为了让接收端来得及接收；拥塞控制是为了防止网络发生阻塞；2 流量控制是一个端到端的控制（发送接收双方的控制）；拥塞控制是一个全局的控制；</li>
+<li>如何判断网络出现了拥塞：只要出现了超时，就发生了拥塞</li>
+<li><strong>拥塞窗口cwnd</strong>：发送方维持，只要无拥塞就持续增大，反之亦然。</li>
+<li><strong>慢开始</strong>：初始设cwnd为1（但其实是设为几倍的SMSS的大小），每经过一个RTT就翻倍的增加cwnd</li>
+<li><strong>拥塞避免</strong>：每经过一个RTT就给cwnd线性增长（比如加1）；注意：拥塞避免只是难以出现拥塞，并不是避免了拥塞</li>
+<li><strong>慢开始门限ssthresh</strong>：当cwnd &lt; ssthresh，就用慢开始；当cwnd&gt;ssthresh就用拥塞避免；当cwnd=ssthresh ，二者选其一；如果网络出现了阻塞，会将cwnd置为初始值，重新进行慢开始。</li>
+<li><strong>快重传</strong>：发送方只要介绍到三个重复确认，就启动快重传算法。要求接收方不要等到自己发送数据时才捎带进行确认，而是要立即发送确认请求。</li>
+<li><strong>快恢复</strong>：快重传启动时执行。调整ssthresh为当前拥塞窗口的一半<code>ssthresh = cwnd / 2</code></li>
+<li><strong>AIMD算法</strong>：拥塞避免时，窗口线性增大（AI，加法增大）；快恢复时，设置慢开始门限为当前拥塞窗口值的一半（MD，乘法减小）；合称AIMD算法</li>
+<li><code>发送窗口上限值 = Min(rwnd, cwnd)</code>（即接收窗口与拥塞窗口中小的那一个）</li>
+<li><strong>拥塞控制流程总结</strong>：设置拥塞窗口初始值；首先慢开始；达到ssthresh，进入拥塞避免；出现拥塞，再次慢开始；如果连续收到3个重复的确认收到请求，开启快重传与快恢复</li>
+<li>TCP三次握手：（A代指客户、B代指服务器）<ol>
+<li>初始阶段：均处于<strong>CLOSED关闭状态</strong></li>
+<li>B的TCP进程创建<strong>传输控制块TCB</strong>准备接收请求，处于<strong>LISTEN收听状态</strong></li>
+<li>A的TCP进行也创建TCB，并发送<code>SYN=1, seq=x</code>（当<code>SYN=1,ACK=0</code>表示此请求是为建立连接，seq代表序号，初始时序号随机选择）；发送完成后，A进入<strong>SYN-SENT同步发送状态</strong></li>
+<li>B接收到请求后，如果同意连接，发送<code>SYN=1, ACK=1, seq=y, ack=x+1</code>（当<code>SYN=1,ACK=1</code>表示同意连接请求，服务器端也随机选一个初始值，并返回确认收到ack，注意ack是<code>x+1</code>），B进入<strong>SYN-RCVD同步收到状态</strong></li>
+<li>A收到B的确认后，还要给出确认，发送<code>ACK=1, seq=x+1, ack=y+1</code>，A进入<strong>ESTAB-LISHED已建立状态</strong></li>
+<li>B接收到A的确认后，也进入<strong>ESTAB-LISHED已建立状态</strong></li>
+</ol>
+</li>
+<li><strong>SYN报文段（SYN为1的报文段）不能携带数据</strong>，但会消耗掉一个序号</li>
+<li>第三次握手阶段，可以携带数据（第三次握手不是SYN报文段）</li>
+<li>第三次握手的作用：防止已失效的连接请求突然又传到了服务器端<ol>
+<li>情景：假如当前为两次握手即建立连接，第一次连接请求在网络中延迟，导致客户端又重传了一次连接请求，第二次连接请求成功连接，然后客户端服务器进行通信且完成后断开，断开后，第一次连接请求又发送到了服务器端，但其实客户端已经没有要发送的数据了，导致服务器端资源白白浪费</li>
+</ol>
+</li>
+<li><strong>SYN泛洪攻击</strong>：攻击端利用了三次握手协议，伪造IP地址发送连接请求给服务器，服务器确认请求永远发送不到目的地（因为IP是伪造的），以此耗尽服务器资源。（预防措施：设SYN cookie，实现了接收到一个SYN时完全不需要分配空间）</li>
+<li>TCP四次挥手：<ol>
+<li>初始阶段：均处于<strong>ESTAB-LISHED已建立状态</strong></li>
+<li>A主动关闭连接，发送<code>FIN=1, seq=u</code>的请求，进入<strong>FIN-WAIT-1终止等待1阶段</strong></li>
+<li>B收到请求，发送<code>ACK=1, seq=v, ack=u+1</code>，进入<strong>CLOSE-WAIT关闭等待状态</strong>（此时处于半关闭状态，即A已经没有发送的数据了，但B可能还有）；</li>
+<li>A收到确认请求后，进入<strong>FIN-WAIT-2终止等待2阶段</strong></li>
+<li>B传输完数据后，也想关闭连接，发送<code>FIN=1, ACK=1, seq=w, ack=u+1</code>，进入<strong>LAST-ACK最后确认状态</strong></li>
+<li>A收到请求后，发送<code>ACK=1, seq=u+1, ack=w+1</code>，进入<strong>TIME-WAIT时间等待状态</strong></li>
+<li>B收到请求后，进入<strong>CLOSED关闭状态</strong></li>
+<li>A在等待<strong>2MSL</strong>（MSL最长报文段寿命）后，也进入<strong>CLOSED关闭状态</strong></li>
+</ol>
+</li>
+<li>为什么要设置<code>TIME-WAIT</code>状态？两个原因<ol>
+<li>保证客户端发送的最后一个ACK能到达B</li>
+<li>也是为了防止迟到的连接请求出现</li>
+</ol>
+</li>
+<li>如果双方之一出现故障，无法进行四次挥手怎么办？TCP设有<strong>保活计时器</strong>，每收到一次客户端请求，就重置，在2小时内没收到客户端的数据后，会给客户端每75秒发送一条探测报文，如果连续10个探测报文都未收到响应，就会关闭连接。</li>
+</ol>
+<h1 id="运输层（未完成）"><a href="#运输层（未完成）" class="headerlink" title="运输层（未完成）"></a>运输层（未完成）</h1><p>​        运输层处于应用层与网络层之间，运输层最起码要完成的任务，就是要提供一种复用/分解的服务</p>
+<p>​        在这一层的数据我们使用<strong>报文段</strong>来进行说明（在RFC中报文段、数据报混合使用，我们这里只使用报文段来阐述）</p>
+<h2 id="多路分解与多路复用"><a href="#多路分解与多路复用" class="headerlink" title="多路分解与多路复用"></a>多路分解与多路复用</h2><blockquote>
+<ul>
+<li><p>多路分解：</p>
+<p>将运输层报文段中的数据交付到正确的套接字工作作为多路分解</p>
+</li>
+<li><p>多路复用：</p>
+<p>从不同的套接字中收集数据块，并为每一个数据块封装上首部信息，从而生成报文段，然后将报文段传递到网络层</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20210816092621294.png" alt="多路复用与多路分解"></p>
+<h2 id="套接字Socket"><a href="#套接字Socket" class="headerlink" title="套接字Socket"></a>套接字Socket</h2><p>socket可以简单理解为 <code>IP + 端口号</code>（这与JavaAPI内的Socket有些区别）</p>
+<p>一台计算机上有很多进程，OS收到数据后，依据端口号来区分哪些信息是传给哪些进程的</p>
+<blockquote>
+<p>端口号：占用2字节，16bit ，大小在0~65535之间</p>
+<p>其中0-1023是<strong>周知端口号</strong>，自己的APP应避免周知端口号</p>
+</blockquote>
+<ul>
+<li>UDP套接字：一个二元组标识，分别是<strong>目的IP地址</strong>与<strong>目的端口号</strong></li>
+<li>TCP套接字：一个四元组标识，除了<strong>目的的IP与端口号</strong>，还包括<strong>源端口号与源IP地址</strong></li>
+</ul>
+<h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><blockquote>
+<p>UDP：一种简单的无连接的协议，IP层传来的数据，只进行了简单的封装（只有8个字节）</p>
+</blockquote>
+<p>特点：</p>
+<ul>
+<li><strong>无连接</strong>：发送端与接收端不必事先连接</li>
+<li>头部简单：只有8个字节</li>
+<li>传输快</li>
+<li>不确保可以发送到</li>
+</ul>
+<h2 id="报文段结构"><a href="#报文段结构" class="headerlink" title="报文段结构"></a>报文段结构</h2><p>UDP封装的头只有四个字段，每个字段占2个字节，一共占8个字节：</p>
+<ul>
+<li>源端口号</li>
+<li>目的端口号</li>
+<li>长度</li>
+<li>检验和</li>
+</ul>
+<h2 id="检验和"><a href="#检验和" class="headerlink" title="检验和"></a>检验和</h2><h3 id="为什么UDP还要有差错检验功能？"><a href="#为什么UDP还要有差错检验功能？" class="headerlink" title="为什么UDP还要有差错检验功能？"></a>为什么UDP还要有差错检验功能？</h3><p>原因是<strong>不能保证从源到目的所有链路都有差错检验功能</strong>，也就是说，这些链路中可能有一条链路没有使用差错检测的协议</p>
+<p>除此外，报文存储在路由器内存中，也可能有比特差错</p>
+<hr>
+<h3 id="检验和的流程"><a href="#检验和的流程" class="headerlink" title="检验和的流程"></a>检验和的流程</h3><p>检验和的流程简单来说就是：将所有的字段求二进制和，然后取其反码作为检验和这个字段，接收端接收后，将包括检验和的所有字段进行求和，如果每一位都是0，则代表传输过程中没有出现错误</p>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 发送端：</span><br><span class="line"># 有三个字段：分别表示源端口号、目的端口号、长度</span><br><span class="line">0110 0110 0110 0000</span><br><span class="line">0101 0101 0101 0101</span><br><span class="line">1000 1111 0000 1100</span><br><span class="line">--------------------求和，高位溢出不管</span><br><span class="line">0100 1010 1100 0010</span><br><span class="line">--------------------取反码</span><br><span class="line">1011 0101 0011 1101 # 此值作为检验和字段</span><br><span class="line">--------------------</span><br><span class="line">--------------------</span><br><span class="line"># 接收端</span><br><span class="line"># 将四个字段进行求和</span><br><span class="line">0110 0110 0110 0000</span><br><span class="line">0101 0101 0101 0101</span><br><span class="line">1000 1111 0000 1100</span><br><span class="line">1011 0101 0011 1101 # 检验和</span><br><span class="line">------------------- # 求和</span><br><span class="line">0000 0000 0000 0000</span><br></pre></td></tr></table></figure>
+
+<p>最后的结果全为0，代表没有出错</p>
+<p>如果其中有一个不为0，说明出现了错误</p>
+<h3 id="出错的处理"><a href="#出错的处理" class="headerlink" title="出错的处理"></a>出错的处理</h3><p>UDP虽然可以检测出数据是否有异常，但是处理异常的过程，非常简单：</p>
+<ul>
+<li>将数据丢弃</li>
+<li>给出警告</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
+<p>UDP只能进行不可靠传输吗？</p>
+</blockquote>
+<p>基于UDP是可以实现可靠传输的，可以在应用程序端自身建立可靠性机制</p>
+<blockquote>
+<p>对于<strong>不同</strong>源端口号或是源IP地址（不同源），但是具有<strong>相同</strong>目的端口与IP的报文段的处理</p>
+</blockquote>
+<p>UDP会将这些报文段通过<strong>同一个socket</strong>传输给对应的进程</p>
+<p>（而TCP会为每一个单独建一个socket）</p>
+<h1 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h1><blockquote>
+<p>TCP：运输层的另一个协议，面向连接的传输协议</p>
+</blockquote>
+<p>特点：</p>
+<ul>
+<li>面向连接</li>
+<li>可靠</li>
+<li>全双工：连接双方可以互相“说话”</li>
+<li>点对点：一对一</li>
+</ul>
+<h2 id="抓包——三次握手"><a href="#抓包——三次握手" class="headerlink" title="抓包——三次握手"></a>抓包——三次握手</h2><p>在浏览器输入一个IP地址，就会先进行TCP三次握手</p>
+<ul>
+<li>B表示浏览器（端口为52085）、S表示服务器（端口为80）</li>
+<li>B中输入<code>127.0.0.1</code>进行访问</li>
+<li>先建立三次握手：<ul>
+<li>B给S发建立连接的请求<code>[SYN]</code></li>
+<li>S给B回应，允许建立连接<code>[SYN, ACK]</code></li>
+<li>B给S回应，收到<code>[ACK]</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20210903213620655.png" alt="浏览器访问一个IP地址"></p>
+<ul>
+<li>然后B开始发送GET请求，S收到后回应<code>[ACK]</code></li>
+<li>然后S开始发送响应，B收到后回应<code>[ACK]</code></li>
+</ul>
+<h2 id="服务端的三次握手"><a href="#服务端的三次握手" class="headerlink" title="服务端的三次握手"></a>服务端的三次握手</h2><p>一个TCP服务器，需要创建ServerSocket：</p>
+<ul>
+<li><p>先给<code>bind</code>一个端口</p>
+</li>
+<li><p>然后对这个端口进行监听</p>
+</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20230926160150008.png" alt="图源来自CSDN"></p>
+<p>如图所示：</p>
+<ul>
+<li>服务器在收到SYN请求后，将客户端的文件描述符FD存放到<strong>半连接队列</strong></li>
+<li>服务器再收到ACK请求后，将半连接队列中的文件描述符FD放到<strong>全连接队列</strong></li>
+</ul>
+<p>之后服务器<code>accept</code>进入阻塞，然后等待客户端的数据。</p>
+<h2 id="TCP“粘包”问题"><a href="#TCP“粘包”问题" class="headerlink" title="TCP“粘包”问题"></a>TCP“粘包”问题</h2><p>很多人觉得这并不是一个问题，而是一个TCP的特性，关键在于你怎么看待</p>
+<blockquote>
+<p>什么是粘包问题？</p>
+</blockquote>
+<ol>
+<li>以接收端来看：因为TCP是面向流的协议，所以不会保持输入数据的边界，导致接收测很可能一下子收到多个应用层报文，需要应用开发者自己分开，有些人觉得这样不合理，就起名为粘包</li>
+<li>以发送端来看：用户数据被TCP发送时，会根据Nagle算法，将小的数据封装在一个报文段发送出去，导致不同的报文段黏在了一起</li>
+</ol>
+<blockquote>
+<p>如何解决？</p>
+</blockquote>
+<ol>
+<li>发送方可以关闭Nagle算法（设置<code>TCP_NODELAY</code>就能关闭Nagle算法，但我不太认同这种做法）</li>
+<li>接收方对粘包无法处理，只能交给应用层</li>
+<li>应用层：<ul>
+<li><strong>格式化数据</strong>：每条数据有固定的格式（开始符，结束符），这种方法简单易行（但要确保内容没有开始符与结束符）</li>
+<li><strong>发送长度</strong>：发送数据规定一个长度，以便于应用层判断</li>
+</ul>
+</li>
+</ol>
+<h2 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h2><p>首先要知道几个结构：</p>
+<ul>
+<li><strong>发送窗口</strong>：发送窗口的大小是<strong>拥塞窗口</strong>和<strong>接收窗口</strong>的较小值<code>swnd=min(cwnd, rwnd)</code></li>
+<li><strong>拥塞窗口</strong>：拥塞控制的核心组件<code>cwnd</code></li>
+<li><strong>拥塞窗口门限</strong>：在越过这个门限后<code>ssthresh</code>会有不同的操作</li>
+</ul>
+<p>其次我们要知道几个控制算法：</p>
+<ul>
+<li><strong>慢开始</strong>：指<code>cwnd</code>从1开始增长，并且每次翻倍（慢开始指的是起点低，而不是增长速度慢）</li>
+<li><strong>拥塞避免</strong>：在超过<code>ssthresh</code>后，进入拥塞避免算法，会让<code>cwnd</code>线性增长</li>
+</ul>
+<p>如果出现了拥塞，那么就将<code>ssthresh</code>的值调整为当前<code>cwnd</code>的一半：<code>ssthresh = cwnd / 2</code>，然后重新进入慢开始阶段。</p>
+<p>如果发送端接收到了三个重复的ACK请求（证明当前的网络也不太好，但是也没拥塞那么严重），那么会进入快重传+快恢复阶段</p>
+<p><img src="http://img.yesmylord.cn//v2-fa46380ebb0ee25a23ffea04126f2aad_1440w.webp" alt="图源来自知乎"></p>
+<ul>
+<li><p><strong>快重传</strong>：要求接收方立即发送确，</p>
+<ul>
+<li>即使收到了失序的报文段，也要立即发出对已收到的报文段的重复确认</li>
+<li>发送确认也不要等缓存区满再发了，加急直接发</li>
+</ul>
+</li>
+<li><p><strong>快恢复</strong>：cwnd的初始值不是1了，而是<code>ssthresh</code></p>
+</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//v2-fbd6fc64ffd848fc2009999063a7c77e_1440w.webp" alt="图源来自知乎"></p>
+<p>注意：</p>
+<p><strong>问题1</strong>：什么时候会出现<code>ssthresh = cwnd / 2</code>呢？</p>
+<ul>
+<li>出现拥塞（即超时）</li>
+<li>收到3个连续的ACK请求</li>
+</ul>
+<p><strong>问题2</strong>：如何判断出现了拥塞？</p>
+<ul>
+<li>丢包</li>
+<li>滑动窗口变小</li>
+<li>ACK延迟或是重复出现</li>
+</ul>
+<h2 id="CLOSING状态"><a href="#CLOSING状态" class="headerlink" title="CLOSING状态"></a>CLOSING状态</h2><p>TCP还有一个<strong>CLOSING</strong>状态：</p>
+<p>在「同时关闭」的情况下出现。</p>
+<p>这里的同时关闭中的「同时」其实并不是时间意义上的同时，而是指的是在发送 FIN 包还未收到确认之前，收到了对端的 FIN 的情况。</p>
+<p><img src="http://img.yesmylord.cn//image-20230926160754526.png" alt="图源来自知乎"></p>
+<p>所以TCP总共含有11种状态，CLOSING状态之后会进入TIME_WAIT状态</p>
+<p><img src="http://img.yesmylord.cn//image-20230926161240861.png" alt="TCP的11种状态"></p>
+<h2 id="关于CLOSE-WAIT与TIME-WAIT状态"><a href="#关于CLOSE-WAIT与TIME-WAIT状态" class="headerlink" title="关于CLOSE_WAIT与TIME_WAIT状态"></a>关于CLOSE_WAIT与TIME_WAIT状态</h2><blockquote>
+<p>问题1：CLOSE_WAIT与TIME_WAIT是谁的状态？</p>
+</blockquote>
+<p>TCP是全双工协议，TIME_WAIT是主动关闭者的状态，CLOSE_WAIT是被关闭者的状态，不能简单的认为前者是客户端的，后者是服务器的。</p>
+<blockquote>
+<p>问题2：TIME_WAIT状态的作用？</p>
+</blockquote>
+<p>进入TIME_WAIT状态后，会等待2MSL自动关闭</p>
+<p>1、保证确认关闭的ACK请求发送给了对方</p>
+<p>2、避免历史数据被下一个相同的四元组连接接收到</p>
+<blockquote>
+<p>问题3：如果服务器出现了大量的TIME_WAIT状态，有什么危害？可能是什么原因？</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/591724475?utm_id=0">摘自知乎专栏</a></p>
+<p>如果服务器出现了大量的TIME_WAIT状态，会占用服务器的内存、文件描述符、端口号。</p>
+<p>可能的原因有几点：</p>
+<ol>
+<li>HTTP没有使用长连接：<ul>
+<li>比如使用的版本是1.0</li>
+<li>请求头<code>Connection:close</code>：这种情况下，无论是谁先主动断开的连接，都会算作服务端主动关闭连接</li>
+</ul>
+</li>
+<li>HTTP长连接超时：长连接的超时时间是60s，到时间就会关闭连接</li>
+<li>HTTP长连接的请求数量达到了上限：超过最大限制时，就会主动关闭连接</li>
+</ol>
+<p>如何排查呢？</p>
+<ol>
+<li>看看是不是都开启了<code>keep-alive</code>，有一个没开启都算服务器主动关闭</li>
+<li>网络是否有问题？</li>
+<li>长连接的请求上限设置的是否合理</li>
+</ol>
+<blockquote>
+<p>问题4：如果服务器出现了大量的CLOSE_WAIT状态，可能的原因是什么？</p>
+</blockquote>
+<p>当服务端出现大量 CLOSE_WAIT 状态的连接的时候，说明服务端的程序没有调用 close 函数关闭连接</p>
+<p>（一般都是代码的问题：比如这个<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU3Njk0MTc3Ng==&mid=2247486020&idx=1&sn=f7cf41aec28e2e10a46228a64b1c0a5c&scene=21#wechat_redirect">link</a>）</p>
+<p>需要对着步骤进行分析：</p>
+<ol>
+<li>服务端创建socket，bind、listen</li>
+<li>将socket注册到epoll，epoll_ctl设置关心的操作，并切入内核，将红黑树和双向链表copy过去</li>
+<li>epoll_wait等待事件</li>
+<li>事件发生，调用accept接收连接：<ul>
+<li>连接到来时，netty 「忘了」调用 accept 把连接从内核的全连接队列里取走。</li>
+<li>这里的「忘」可能是因为逻辑 bug 或者 netty 忙于其他事情没有时间取走</li>
+</ul>
+</li>
+<li>注册新的连接EPOLLIN、EPOLLERR、EPOLLHUP的事件到epoll：<ul>
+<li>netty取走了连接，三次握手真正完成，但是没有注册新连接的后续事件，导致后面收到了 fin 包以后无动于衷</li>
+</ul>
+</li>
+<li>继续epoll_wait</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
+              <a href="/tags/%E8%BF%90%E8%BE%93%E5%B1%82/" rel="tag"><i class="fa fa-tag"></i> 运输层</a>
+              <a href="/tags/TCP/" rel="tag"><i class="fa fa-tag"></i> TCP</a>
+              <a href="/tags/UDP/" rel="tag"><i class="fa fa-tag"></i> UDP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/14/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/ConcurrentHashMap%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/" rel="prev" title="ConcurrentHashMap深入理解">
+                  <i class="fa fa-chevron-left"></i> ConcurrentHashMap深入理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/21/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/DNS/" rel="next" title="DNS解析过程">
+                  DNS解析过程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

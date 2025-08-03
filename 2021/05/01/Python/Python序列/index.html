@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：  Python中的序列：列表、元组、字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python序列">
+<meta property="og:url" content="http://yoursite.com/2021/05/01/Python/Python%E5%BA%8F%E5%88%97/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：  Python中的序列：列表、元组、字符串">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-01T14:47:21.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.760Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/05/01/Python/Python%E5%BA%8F%E5%88%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/05/01/Python/Python%E5%BA%8F%E5%88%97/","path":"2021/05/01/Python/Python序列/","title":"Python序列"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python序列 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python%E5%BA%8F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">Python序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python%E5%BA%8F%E5%88%97"><span class="nav-number">1.1.</span> <span class="nav-text">python序列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E4%B8%AA%E5%86%85%E7%BD%AE%E5%BA%8F%E5%88%97"><span class="nav-number">1.1.1.</span> <span class="nav-text">六个内置序列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%A1%A8"><span class="nav-number">1.2.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E5%AD%98%E5%82%A8%E7%9A%84%E5%86%85%E5%AE%B9%E4%B8%8D%E9%9C%80%E8%A6%81%E5%85%B7%E6%9C%89%E7%9B%B8%E5%90%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">列表存储的内容不需要具有相同的数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%94%AF%E6%8C%81%E5%88%87%E7%89%87%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.2.</span> <span class="nav-text">列表支持切片操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB%E5%88%97%E8%A1%A8%E7%9A%84%E6%B7%BB%E5%8A%A0%E6%96%B9%E6%B3%95append%E3%80%81extend%E3%80%81insert"><span class="nav-number">1.2.3.</span> <span class="nav-text">区别列表的添加方法append、extend、insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E7%9A%84%E5%88%A0%E9%99%A4%EF%BC%8C%E6%B3%A8%E6%84%8F%E5%8C%BA%E5%88%ABremove%E5%92%8Cpop%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.2.4.</span> <span class="nav-text">列表的删除，注意区别remove和pop的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E7%9A%84%E8%84%9A%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.5.</span> <span class="nav-text">列表的脚本操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text">元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%BB%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.3.1.</span> <span class="nav-text">元组创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%BB%84%E8%AE%BF%E9%97%AE"><span class="nav-number">1.3.2.</span> <span class="nav-text">元组访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%BB%84%E6%8B%BC%E6%8E%A5"><span class="nav-number">1.3.3.</span> <span class="nav-text">元组拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%BB%84%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.4.</span> <span class="nav-text">元组删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%BB%84%E8%84%9A%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.5.</span> <span class="nav-text">元组脚本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E5%85%B3%E9%97%AD%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">1.3.6.</span> <span class="nav-text">无关闭分隔符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.4.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%86%85%E5%AE%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">基础内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.2.</span> <span class="nav-text">内置函数</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/01/Python/Python%E5%BA%8F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python序列 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python序列
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-01 22:47:21" itemprop="dateCreated datePublished" datetime="2021-05-01T22:47:21+08:00">2021-05-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+
+<p>Python中的序列：列表、元组、字符串</p>
+</center>
+
+<span id="more"></span>
+
+<h1 id="Python序列"><a href="#Python序列" class="headerlink" title="Python序列"></a>Python序列</h1><h2 id="python序列"><a href="#python序列" class="headerlink" title="python序列"></a>python序列</h2><p>序列：分为两种</p>
+<ul>
+<li>有序序列：列表、元组、字符串、（range、zip、map、enumerate等）</li>
+<li>无序序列：集合、字典</li>
+</ul>
+<p>也可以这么分：</p>
+<ul>
+<li>可变序列：列表、集合、字典</li>
+<li>不可变序列：元组、字符串、（range、zip、map、enumerate等）</li>
+</ul>
+<p>通常称序列就是有序序列，这里我们只讨论有序序列</p>
+<blockquote>
+<p>序列：Python中最基本的数据结构</p>
+<p>序列中的每个元素都分配一个数字 ——它的位置，或索引，第一个索引是0，第二个索引是1，依此类推</p>
+</blockquote>
+<h3 id="六个内置序列"><a href="#六个内置序列" class="headerlink" title="六个内置序列"></a>六个内置序列</h3><p>python有六个内置序列</p>
+<ol>
+<li>列表</li>
+<li>元组</li>
+<li>字符串</li>
+<li>Unicode字符串（简单归在字符串中讨论）</li>
+<li>buffer对象（不讨论）</li>
+<li>xrange对象（不讨论）</li>
+</ol>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。</p>
+<p>要点：</p>
+<ol>
+<li>列表存储的内容不需要具有相同的数据类型</li>
+<li>列表支持切片操作（切片有基本的操作和较高阶的操作）</li>
+<li>区别列表的添加方法<code>append</code>、<code>extend</code>、<code>insert</code></li>
+<li>列表的删除，注意区别<code>remove</code>和<code>pop</code>的区别</li>
+<li>列表的脚本操作</li>
+</ol>
+<h3 id="列表存储的内容不需要具有相同的数据类型"><a href="#列表存储的内容不需要具有相同的数据类型" class="headerlink" title="列表存储的内容不需要具有相同的数据类型"></a>列表存储的内容不需要具有相同的数据类型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 列表的存储的数据不需要相同的数据类型</span></span><br><span class="line">arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="string">&quot;字符串&quot;</span>, [<span class="string">&quot;另一个列表&quot;</span>]]</span><br></pre></td></tr></table></figure>
+
+<h3 id="列表支持切片操作"><a href="#列表支持切片操作" class="headerlink" title="列表支持切片操作"></a>列表支持切片操作</h3><p>序列此处的切片方法类似，其他的序列将不再详细叙述切片操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 通过切片方式访问列表</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27; 切片操作</span></span><br><span class="line"><span class="string">list[a:b:c]可以传入一个、两个、或三个参数</span></span><br><span class="line"><span class="string">一个参数：直接显示对应index的元素。</span></span><br><span class="line"><span class="string">        注意：正数从0开始，从左向右；负数从-1开始，从右向左</span></span><br><span class="line"><span class="string">两个参数：按两个参数对应的index截取出一个list。</span></span><br><span class="line"><span class="string">        注意：切片为左闭右开区间，即[a,b)，index为b的元素是不在其中的</span></span><br><span class="line"><span class="string">三个参数：第三个参数代表步进，默认为1，如果为负数，代表从右向左</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="string">&quot;字符串&quot;</span>, [<span class="string">&quot;另一个列表&quot;</span>]]</span><br><span class="line"><span class="comment"># 2.1 切片基本操作</span></span><br><span class="line"><span class="built_in">print</span>(arr[:])  <span class="comment"># 都不传表示整个列表</span></span><br><span class="line"><span class="built_in">print</span>(arr[::-<span class="number">1</span>])  <span class="comment"># 逆向打印整个列表</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">3</span>])  <span class="comment"># 显示第四个元素，即4</span></span><br><span class="line"><span class="built_in">print</span>(arr[-<span class="number">3</span>])  <span class="comment"># 显示倒数第三个元素，即4</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">1</span>:<span class="number">4</span>])  <span class="comment"># 打印出[1,4)的内容，即[2, 3, 4]</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">1</span>:<span class="number">4</span>:<span class="number">2</span>])  <span class="comment"># 隔一个打印一个，打印出[2, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.2 高阶操作</span></span><br><span class="line"><span class="built_in">print</span>(arr[:<span class="number">4</span>])  <span class="comment"># 第一个参数省略，默认为0</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">1</span>:])  <span class="comment"># 第二个参数省略，默认为列表的长度</span></span><br><span class="line"><span class="built_in">print</span>(arr[::<span class="number">2</span>])  <span class="comment"># 获取下标1,3,5...</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">1</span>::<span class="number">2</span>])  <span class="comment"># 获取下标2,4,6...</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">1</span>:<span class="number">3</span>:-<span class="number">2</span>])  <span class="comment"># 打印出[]</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">3</span>:<span class="number">1</span>:-<span class="number">2</span>])  <span class="comment"># 打印出[4]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">以上两个为什么是这样呢？</span></span><br><span class="line"><span class="string">我们可以这样理解：</span></span><br><span class="line"><span class="string">1. arr[1:3:-2] </span></span><br><span class="line"><span class="string">    其中1,3代表获得[1,3)的数据，是从左向右的，但是-2又是从右向左，方向不一致，因此打印的结果为空列表</span></span><br><span class="line"><span class="string">2. arr[3:1:-2]</span></span><br><span class="line"><span class="string">    其中3:1 从右向左获得[3,1)的数据，-2也是从右向左，方向一致，所以不为空</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">3</span>:<span class="number">1</span>])  <span class="comment"># 打印出[]，因为第三个参数默认为1</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">1</span>:<span class="number">100</span>])  <span class="comment"># 第二个参数可以超过列表的长度</span></span><br><span class="line"><span class="built_in">print</span>(arr[<span class="number">100</span>:<span class="number">4</span>:-<span class="number">1</span>])  <span class="comment"># 打印出[[&#x27;另一个列表&#x27;]]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="区别列表的添加方法append、extend、insert"><a href="#区别列表的添加方法append、extend、insert" class="headerlink" title="区别列表的添加方法append、extend、insert"></a>区别列表的添加方法<code>append</code>、<code>extend</code>、<code>insert</code></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3. 列表的添加，区别 append、extend、insert</span></span><br><span class="line"><span class="comment"># 3.1 append函数</span></span><br><span class="line">arr.append(<span class="string">&quot;添加&quot;</span>)  <span class="comment"># append添加一个元素</span></span><br><span class="line"><span class="built_in">print</span>(arr)  <span class="comment"># 打印出[1, 2, 3, 4, &#x27;字符串&#x27;, [&#x27;另一个列表&#x27;], &#x27;添加&#x27;]</span></span><br><span class="line"></span><br><span class="line">res = arr.append(<span class="string">&quot;会有返回值吗？&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(res)  <span class="comment"># 打印出None，append方法没有返回值，只会修改原有的列表</span></span><br><span class="line"></span><br><span class="line">newArr = [<span class="number">985</span>, <span class="number">211</span>]</span><br><span class="line">arr.append(newArr)  <span class="comment"># 可以添加新的列表，注意：是把这个列表当做一个元素，添加到原有的列表中</span></span><br><span class="line"><span class="built_in">print</span>(arr)</span><br><span class="line"><span class="comment"># 打印如下：[1, 2, 3, 4, &#x27;字符串&#x27;, [&#x27;另一个列表&#x27;], &#x27;添加&#x27;, &#x27;会有返回值吗？&#x27;, [985, 211]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.2 extend</span></span><br><span class="line">newArr = [<span class="number">985</span>, <span class="number">211</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(arr))  <span class="comment"># 9</span></span><br><span class="line">res = arr.extend(newArr)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(arr))  <span class="comment"># 11，注意extend是将两个列表合并</span></span><br><span class="line"><span class="built_in">print</span>(res)  <span class="comment"># 也是None 没有返回值</span></span><br><span class="line"><span class="comment"># 也可以用+来替代extend</span></span><br><span class="line">arr = arr + newArr</span><br><span class="line"><span class="comment"># 注意：其实，+是返回的一个新的列表，不是原地操作。+=才与extend相同，均为原地操作，高效</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(arr))  <span class="comment"># 13</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.3 insert</span></span><br><span class="line">newArr = [<span class="number">985</span>, <span class="number">211</span>]</span><br><span class="line">res = newArr.insert(<span class="number">0</span>, <span class="string">&quot;双一流&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(newArr)  <span class="comment"># 插入到第0个位置之前 [&#x27;双一流&#x27;, 985, 211]</span></span><br><span class="line"><span class="comment"># 注意我这里的说法，插入到第0个元素之前，之前！！</span></span><br><span class="line"><span class="built_in">print</span>(res)  <span class="comment"># 也没有返回值</span></span><br><span class="line"></span><br><span class="line">newArr.insert(-<span class="number">1</span>, <span class="string">&quot;C9&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(newArr)  <span class="comment"># [&#x27;双一流&#x27;, 985, &#x27;C9&#x27;, 211]</span></span><br><span class="line"><span class="comment"># 如果你记住了我说的插入到第x个元素之前，这里就好理解了</span></span><br></pre></td></tr></table></figure>
+
+<p>总结一下三种添加操作的区别：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>append</th>
+<th>extend</th>
+<th>insert</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>参数</td>
+<td>一个：要加入的元素</td>
+<td>一个：参数必须<strong>可迭代</strong>（例如列表、元组、字符串）</td>
+<td>两个：一个index，一个元素的值</td>
+</tr>
+<tr>
+<td>添加数组</td>
+<td>作为一个元素添加</td>
+<td>合并两个数组</td>
+<td>不能</td>
+</tr>
+<tr>
+<td>是否有返回值</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h3 id="列表的删除，注意区别remove和pop的区别"><a href="#列表的删除，注意区别remove和pop的区别" class="headerlink" title="列表的删除，注意区别remove和pop的区别"></a>列表的删除，注意区别<code>remove</code>和<code>pop</code>的区别</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4. 列表的删除，注意区别remove和pop的区别</span></span><br><span class="line">newArr = [<span class="number">985</span>, <span class="number">211</span>, <span class="string">&quot;C9&quot;</span>, <span class="string">&quot;Top2&quot;</span>, <span class="string">&quot;双非&quot;</span>]</span><br><span class="line"><span class="comment"># 4.1 pop函数</span></span><br><span class="line">res = newArr.pop()  <span class="comment"># 默认删除最后一个元素</span></span><br><span class="line"><span class="built_in">print</span>(newArr)  <span class="comment"># 打印出[985, 211, &#x27;C9&#x27;, &#x27;Top2&#x27;]</span></span><br><span class="line"><span class="built_in">print</span>(res)  <span class="comment"># 有返回值，返回被删除的元素 双非</span></span><br><span class="line"></span><br><span class="line">newArr.pop(<span class="number">1</span>)  <span class="comment"># 有一个参数，这个参数是index</span></span><br><span class="line"><span class="built_in">print</span>(newArr)  <span class="comment"># [985, &#x27;C9&#x27;, &#x27;Top2&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># newArr.pop(100) 报错，参数index不能超过列表范围</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.2 remove函数</span></span><br><span class="line">res = newArr.remove(<span class="string">&quot;C9&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(res)  <span class="comment"># None remove函数没有返回值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># newArr.remove(&quot;不存在的元素&quot;) 不存在这个元素，会报错</span></span><br><span class="line"><span class="comment"># 结合 in 使用：</span></span><br><span class="line"><span class="comment"># if x in newArr:</span></span><br><span class="line"><span class="comment">#     newArr.remove(x)</span></span><br></pre></td></tr></table></figure>
+
+<p>区别一下两个删除操作：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>pop</th>
+<th>remove</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>参数</td>
+<td>一个：index，默认为最后一个下标</td>
+<td>一个：要删除的值，如果列表没有这个值，报错</td>
+</tr>
+<tr>
+<td>返回值</td>
+<td>有，被删除的元素</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h3 id="列表的脚本操作"><a href="#列表的脚本操作" class="headerlink" title="列表的脚本操作"></a>列表的脚本操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5 列表的脚本操作符</span></span><br><span class="line"><span class="comment"># 5.1 求长度</span></span><br><span class="line"><span class="built_in">len</span>(arr)</span><br><span class="line"><span class="comment"># 5.2 组合：以下这两种方法一样的功能</span></span><br><span class="line">arr = arr + newArr</span><br><span class="line">arr.extend(newArr)</span><br><span class="line"><span class="comment"># 5.3 重复</span></span><br><span class="line">newArr = [<span class="number">1</span>]</span><br><span class="line">newArr *= <span class="number">5</span>  <span class="comment"># 重复五次</span></span><br><span class="line"><span class="built_in">print</span>(newArr)  <span class="comment"># [1, 1, 1, 1, 1]</span></span><br><span class="line"><span class="comment"># 5.4 in判断是否存在</span></span><br><span class="line">res = <span class="number">1</span> <span class="keyword">in</span> newArr</span><br><span class="line"><span class="built_in">print</span>(res)  <span class="comment"># True</span></span><br><span class="line"><span class="comment"># 5.5 迭代操作，列表可以作为迭代的范围</span></span><br><span class="line">newArr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> newArr:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"><span class="comment"># 注意不能这样使用</span></span><br><span class="line"><span class="comment"># for i in newArr:</span></span><br><span class="line"><span class="comment">#     print(newArr[i]) 这里的i是列表内的每一个元素</span></span><br><span class="line"><span class="comment"># 也可以这么用</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(newArr)):</span><br><span class="line">    <span class="built_in">print</span>(newArr[i])</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><blockquote>
+<p>Python的元组与列表类似，不同之处在于元组的元素不能修改。</p>
+<p>元组使用小括号，列表使用方括号。</p>
+<p>元组创建很简单，只需要在括号中添加元素，并使用逗号隔开即可。</p>
+</blockquote>
+<p>要点：</p>
+<ol>
+<li>元组的创建，尤其注意<strong>只有一个元素的情况</strong>，末尾要加逗号</li>
+<li>元组的访问</li>
+<li>元组<strong>不允许修改值</strong>，但是元组允许拼接</li>
+<li>元组<strong>不允许删除元素</strong>，只允许删除整个元组</li>
+<li>元组的脚本运算</li>
+<li>任意无符号的对象，以逗号隔开，默认为元组</li>
+</ol>
+<h3 id="元组创建"><a href="#元组创建" class="headerlink" title="元组创建"></a>元组创建</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 元组的声明</span></span><br><span class="line">tup = ()  <span class="comment"># 空元组</span></span><br><span class="line">tup = (<span class="number">1</span>)  <span class="comment"># 这样是 tup 是1，不是元组，下面才对</span></span><br><span class="line">tup = (<span class="number">1</span>,)  <span class="comment"># 元组中只包含一个元素时，需要在元素后面添加逗号</span></span><br><span class="line">tup = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">&quot;你好&quot;</span>, [<span class="number">1</span>, <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+<h3 id="元组访问"><a href="#元组访问" class="headerlink" title="元组访问"></a>元组访问</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 元组的访问，同列表，这里不再多次叙述</span></span><br><span class="line">tup[<span class="number">0</span>]</span><br><span class="line">tup[::-<span class="number">1</span>]  <span class="comment"># 逆序</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="元组拼接"><a href="#元组拼接" class="headerlink" title="元组拼接"></a>元组拼接</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3. 元组的拼接</span></span><br><span class="line">tup1 = (<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">tup2 = (<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(tup2 + tup1)  <span class="comment"># 打印出：(2, 4, 1, 3)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="元组删除"><a href="#元组删除" class="headerlink" title="元组删除"></a>元组删除</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4. 元组的删除</span></span><br><span class="line"><span class="comment"># 注意：元组中的元素值是不允许删除的，但我们可以使用del语句来删除整个元组</span></span><br><span class="line"><span class="keyword">del</span> tup</span><br></pre></td></tr></table></figure>
+
+<h3 id="元组脚本操作"><a href="#元组脚本操作" class="headerlink" title="元组脚本操作"></a>元组脚本操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5. 元组的脚本运算</span></span><br><span class="line">tup = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">&quot;你好&quot;</span>, [<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"><span class="comment"># 5.1 长度</span></span><br><span class="line"><span class="built_in">len</span>(tup)</span><br><span class="line"><span class="comment"># 5.2 合并操作</span></span><br><span class="line">tup = tup + tup1</span><br><span class="line"><span class="comment"># 5.3 判断元素是否存在</span></span><br><span class="line">res = <span class="number">3</span> <span class="keyword">in</span> tup</span><br><span class="line"><span class="built_in">print</span>(res)  <span class="comment"># True</span></span><br><span class="line"><span class="comment"># 5.4 重复</span></span><br><span class="line">(<span class="number">1</span>,)*<span class="number">5</span> <span class="comment"># 重复五次</span></span><br><span class="line"><span class="comment"># 5.5 迭代操作</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> tup:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+
+<h3 id="无关闭分隔符"><a href="#无关闭分隔符" class="headerlink" title="无关闭分隔符"></a>无关闭分隔符</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 6. 无关闭分隔符</span></span><br><span class="line"><span class="comment"># 任意无符号的对象，以逗号隔开，默认为元组</span></span><br><span class="line"><span class="comment"># print &#x27;abc&#x27;, -4.24e93, 18+6.6j, &#x27;xyz&#x27; Python2中print支持不带括号，Python3必须带括号</span></span><br><span class="line">x, y = <span class="number">1</span>, <span class="number">2</span>  <span class="comment"># 经常使用的交换元素的值默认就是元组的操作</span></span><br><span class="line"><span class="comment"># 通过元组按照index进行赋值的方式进行重新赋值给两个变量</span></span><br><span class="line"><span class="built_in">print</span>(x, y, sep=<span class="string">&quot; &quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串是 Python 中最常用的数据类型。我们可以使用引号(<code>&#39;</code>或<code>&quot;</code>)来创建字符串。</p>
+<p>本节过于基础，不再进行多余叙述</p>
+<h3 id="基础内容"><a href="#基础内容" class="headerlink" title="基础内容"></a>基础内容</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 字符串的创建</span></span><br><span class="line"><span class="built_in">str</span> = <span class="string">&#x27;a&#x27;</span>  <span class="comment"># python中不存在单字符类型，这也是一个字符串</span></span><br><span class="line"><span class="built_in">str</span> = <span class="string">&quot;你好&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 字符串访问，支持切片，不再叙述</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>[::-<span class="number">1</span>])  <span class="comment"># 逆序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 字符串连接</span></span><br><span class="line">str1 = <span class="string">&quot;你&quot;</span></span><br><span class="line">str2 = <span class="string">&quot;好&quot;</span></span><br><span class="line"><span class="built_in">print</span>(str1 + str2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 字符串in判断</span></span><br><span class="line"><span class="built_in">str</span> = <span class="string">&quot;abcDefg&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;b&quot;</span> <span class="keyword">in</span> <span class="built_in">str</span>)  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;d&quot;</span> <span class="keyword">in</span> <span class="built_in">str</span>)  <span class="comment"># False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 字符串三引号</span></span><br><span class="line"><span class="comment"># Python 中三引号可以将复杂的字符串进行赋值。</span></span><br><span class="line">errHTML = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;</span></span><br><span class="line"><span class="string">Friends CGI Demo&lt;/TITLE&gt;&lt;/HEAD&gt;</span></span><br><span class="line"><span class="string">&lt;BODY&gt;&lt;H3&gt;ERROR&lt;/H3&gt;</span></span><br><span class="line"><span class="string">&lt;B&gt;%s&lt;/B&gt;&lt;P&gt;</span></span><br><span class="line"><span class="string">&lt;FORM&gt;&lt;INPUT TYPE=button VALUE=Back</span></span><br><span class="line"><span class="string">ONCLICK=&quot;window.history.back()&quot;&gt;&lt;/FORM&gt;</span></span><br><span class="line"><span class="string">&lt;/BODY&gt;&lt;/HTML&gt;</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># 6. Unicode 字符串</span></span><br><span class="line">uStr = <span class="string">u&quot;Unicode String&quot;</span></span><br><span class="line"><span class="built_in">print</span>(uStr)</span><br><span class="line">uStr = <span class="string">u&#x27;Hello\u0020World !&#x27;</span>  <span class="comment"># \u0020 是空格的Unicode编码，十六进制</span></span><br><span class="line"><span class="built_in">print</span>(uStr)  <span class="comment"># 打印出Hello World !</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">ord</span>(<span class="string">&quot; &quot;</span>))  <span class="comment"># ord函数返回对应的 ASCII 数值，这里返回空格的值为32</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">chr</span>(<span class="number">97</span>))  <span class="comment"># chr函数是ord函数的配对函数，输入ASCII数值，返回字符，这里返回a</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 7. 字符串内置函数</span></span><br><span class="line"><span class="comment"># 字符串最重要的内容，就是掌握使用字符串函数</span></span><br><span class="line"><span class="comment"># 以下只展示比较重要的内置函数</span></span><br><span class="line"><span class="built_in">str</span> = <span class="string">&quot;abcDa Bye&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>.capitalize())  <span class="comment"># Abcda bye 如果第一个字符是小写字母，将它变为大写，其他字符变为小写</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>.count(<span class="string">&quot;b&quot;</span>))  <span class="comment"># 查询出现的次数，这里返回1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第一个数&#123;&#125;第二个数&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="number">3</span>, <span class="number">4</span>))  <span class="comment"># 第一个数3第二个数4</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第二个数&#123;1&#125;第一个数&#123;0&#125;&quot;</span>.<span class="built_in">format</span>(<span class="number">1</span>, <span class="number">2</span>))  <span class="comment"># 第二个数2第一个数1，format函数可以设置位置</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>.index(<span class="string">&quot;a&quot;</span>))  <span class="comment"># 返回该字符第一次出现时的下标</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(<span class="built_in">str</span>))  <span class="comment"># a,b,c,D,a, ,B,y,e 按前面的样子分隔后面的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>.lower())  <span class="comment"># abcda bye</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>.upper())  <span class="comment"># ABCDA BYE</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>.swapcase())  <span class="comment"># 翻转大小写 ABCdA bYE</span></span><br><span class="line"><span class="comment"># max、min加字符串，返回对应ascii码大的或小的元素</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(<span class="built_in">str</span>))  <span class="comment"># 返回 y</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">min</span>(<span class="built_in">str</span>))  <span class="comment"># 返回一个空格</span></span><br><span class="line"><span class="comment"># 替换</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>.replace(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;A&quot;</span>))  <span class="comment"># AbcDA Bye 替换，第一个参数为老字符串，第二个参数为新字符串</span></span><br><span class="line"><span class="comment"># 删除空格</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;  str  &quot;</span>.strip())  <span class="comment"># 删除字符串两边的空格</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/27/Python/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="prev" title="Python面向对象">
+                  <i class="fa fa-chevron-left"></i> Python面向对象
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/02/Python/Python%E5%87%BD%E6%95%B0/" rel="next" title="Python函数">
+                  Python函数 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

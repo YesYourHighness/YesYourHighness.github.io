@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：深入学习ConcurrentHashMap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ConcurrentHashMap深入理解">
+<meta property="og:url" content="http://yoursite.com/2021/08/14/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/ConcurrentHashMap%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：深入学习ConcurrentHashMap">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-14T01:06:41.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.663Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Java源码">
+<meta property="article:tag" content="ConcurrentHashMap">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/08/14/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/ConcurrentHashMap%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/08/14/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/ConcurrentHashMap%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/","path":"2021/08/14/Java核心类/ConcurrentHashMap深入理解/","title":"ConcurrentHashMap深入理解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ConcurrentHashMap深入理解 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">1.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%8B%E7%9A%84Hash%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">并发下的Hash存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E7%9A%84HashMap%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、多线程下的HashMap存在什么问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E6%80%8E%E6%A0%B7%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、多线程下怎样使用哈希表？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%BD%BF%E7%94%A8HashTable"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、为什么不使用HashTable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%BD%BF%E7%94%A8Collections-synchronizedMap"><span class="nav-number">1.1.4.</span> <span class="nav-text">4、为什么不使用Collections.synchronizedMap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap%E8%A6%81%E7%82%B9%E6%B1%87%E6%80%BB"><span class="nav-number">1.2.</span> <span class="nav-text">ConcurrentHashMap要点汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap%E5%9F%BA%E6%9C%AC%E4%BA%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">ConcurrentHashMap基本了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK1-7%E4%B8%AD%E7%9A%84ConcurrentHashMap"><span class="nav-number">1.4.</span> <span class="nav-text">JDK1.7中的ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%BA%A6%E9%AB%98%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.4.1.</span> <span class="nav-text">并发度高的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#put%E4%B8%8Eget%E6%96%B9%E6%B3%95%E9%AB%98%E5%B9%B6%E5%8F%91%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.4.2.</span> <span class="nav-text">put与get方法高并发的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDk1-8%E4%B8%AD%E7%9A%84ConcurrentHashMap"><span class="nav-number">1.5.</span> <span class="nav-text">JDk1.8中的ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9D%A5%E6%BA%90%E4%BE%9D%E6%8D%AE"><span class="nav-number">1.5.1.</span> <span class="nav-text">各数据的来源依据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96-amp-sizeCtl%E5%8F%98%E9%87%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">初始化&amp;sizeCtl变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#put-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.3.</span> <span class="nav-text">put()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addCount-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.4.</span> <span class="nav-text">addCount()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transfer-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.5.</span> <span class="nav-text">transfer()方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">1.6.</span> <span class="nav-text">相关链接</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/14/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/ConcurrentHashMap%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ConcurrentHashMap深入理解 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ConcurrentHashMap深入理解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-14 09:06:41" itemprop="dateCreated datePublished" datetime="2021-08-14T09:06:41+08:00">2021-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java%E6%BA%90%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">Java源码</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java%E6%BA%90%E7%A0%81/ConcurrentHashMap/" itemprop="url" rel="index"><span itemprop="name">ConcurrentHashMap</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+    引言：深入学习ConcurrentHashMap
+</center>
+
+<span id="more"></span>
+
+<h1 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h1><p>有很多东西与HashMap相同，如果不了解HashMap，建议先去研究<a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2021/06/13/JavaSourceCode/HashMap%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6/">HashMap</a></p>
+<h2 id="并发下的Hash存在的问题"><a href="#并发下的Hash存在的问题" class="headerlink" title="并发下的Hash存在的问题"></a>并发下的Hash存在的问题</h2><p>本节介绍为什么要引入ConcurrentHashMap</p>
+<h3 id="1、多线程下的HashMap存在什么问题？"><a href="#1、多线程下的HashMap存在什么问题？" class="headerlink" title="1、多线程下的HashMap存在什么问题？"></a>1、多线程下的HashMap存在什么问题？</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAwNDA2OTM1Ng==&mid=2453141934&idx=1&sn=49c4f2cef4d93f45c82886b254517bfb&scene=21#wechat_redirect">总结自敖丙</a></p>
+<p>HashMap不能再多线程下使用，在JDK1.7版本，HashMap使用<strong>头插法</strong>，可是在<strong>并发扩容</strong>下容易形成<strong>链表环</strong>，如果此时进行遍历，那么将会导致死锁</p>
+<p>在JDK1.8，使用<strong>尾插法</strong>，虽然不会形成链表环，但是并发操作下，由于不是原子操作，如果修改的一瞬间，切换了线程，新的线程完成了正常的修改逻辑，切换回旧线程后，又会把值修改回来。</p>
+<h3 id="2、多线程下怎样使用哈希表？"><a href="#2、多线程下怎样使用哈希表？" class="headerlink" title="2、多线程下怎样使用哈希表？"></a>2、多线程下怎样使用哈希表？</h3><p>有三种方法：</p>
+<ul>
+<li>使用<code>Collections.synchronizedMap(Map)</code>创建线程安全的map集合；</li>
+<li><code>Hashtable</code></li>
+<li><code>ConcurrentHashMap</code></li>
+</ul>
+<h3 id="3、为什么不使用HashTable"><a href="#3、为什么不使用HashTable" class="headerlink" title="3、为什么不使用HashTable"></a>3、为什么不使用HashTable</h3><p>​    虽然HashTable也是线程安全的，但是它的内部实现是用<code>synchronized</code>，效率太低了</p>
+<h3 id="4、为什么不使用Collections-synchronizedMap"><a href="#4、为什么不使用Collections-synchronizedMap" class="headerlink" title="4、为什么不使用Collections.synchronizedMap"></a>4、为什么不使用<code>Collections.synchronizedMap</code></h3><p>​    其内部是一个普通的Map＋排斥锁，排斥锁可以自己给，内部也有自己的Obejct作为排斥锁</p>
+<p>​    它实现线程安全就是使用<code>synchronized( mutex)</code></p>
+<h2 id="ConcurrentHashMap要点汇总"><a href="#ConcurrentHashMap要点汇总" class="headerlink" title="ConcurrentHashMap要点汇总"></a>ConcurrentHashMap要点汇总</h2><p>本文将要点总结在此：</p>
+<ul>
+<li><p>为什么设置容量为2的幂次：</p>
+<ol>
+<li>方便计算找下标</li>
+<li>加快扩容时转移数据的速度</li>
+</ol>
+</li>
+<li><p>ConcurrentHashMap可以保证高并发的原理</p>
+<ul>
+<li><p>JDK1.7 分段锁：segments+HashEntry</p>
+<ul>
+<li>segment是一个ReentrantLock，每个segment对应第一个HashEntry</li>
+<li>HashEntry就是普通的数组+链表的map（1.7也没有红黑树）</li>
+</ul>
+</li>
+<li><p>JDK1.8 ：CAS+syn</p>
+<ul>
+<li>CAS：如果数据放在了数组上（即，数据还没拉链出来），就可以直接CAS判断放置</li>
+<li><code>Synchronized</code>：如果数据要添加在链表或是树上，就需要syn同步</li>
+<li>检索操作不用加锁，get方法是非阻塞的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ConcurrentHashMap的key和value都不允许为null</li>
+<li>ConcurrentHashMap如何进行快速扩容？<ul>
+<li>并发扩容，最少每一个线程需要搬运16个桶</li>
+<li>搬运时巧妙的计算下标index，只需要看1bit<ul>
+<li>比如从16位扩展到32bit，原本的下标计算方式是<code>hash&amp;(n-1)</code>，即原本的hash与15计算，即低4bit，而32-1就是31，就是最低5bit，所以我们只需要看多出来的那一个bit</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="ConcurrentHashMap基本了解"><a href="#ConcurrentHashMap基本了解" class="headerlink" title="ConcurrentHashMap基本了解"></a>ConcurrentHashMap基本了解</h2><p>ConcurrentHashMap也是<strong>数组加链表</strong>，在JDK1.7与1.8的实现稍有不同：</p>
+<h2 id="JDK1-7中的ConcurrentHashMap"><a href="#JDK1-7中的ConcurrentHashMap" class="headerlink" title="JDK1.7中的ConcurrentHashMap"></a>JDK1.7中的ConcurrentHashMap</h2><p>实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Segment</span>&lt;K,V&gt; <span class="keyword">extends</span> <span class="title class_">ReentrantLock</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;<span class="comment">// 继承了ReentrantLock</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">2249069246763182397L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 和 HashMap 中的 HashEntry 作用一样，真正存放数据的桶</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="keyword">volatile</span> HashEntry&lt;K,V&gt;[] table;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">transient</span> <span class="type">int</span> count;</span><br><span class="line">    <span class="comment">// 记得快速失败（fail—fast）么？</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="type">int</span> modCount;</span><br><span class="line">    <span class="comment">// 大小</span></span><br><span class="line">    <span class="keyword">transient</span> <span class="type">int</span> threshold;</span><br><span class="line">    <span class="comment">// 负载因子</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">float</span> loadFactor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>里面提到了我们熟悉的概念负载因子、table数组等等；还有我们不熟悉的modCount</p>
+<blockquote>
+<p><strong>快速失败 fail fast 机制</strong>：</p>
+<p>​        是Java集合中的一种机制， 在用迭代器遍历一个集合对象时，如果遍历过程中对集合对象的内容进行了修改（增加、删除、修改），则会抛出<code>Concurrent Modification Exception</code>。</p>
+</blockquote>
+<p>原理就是使用一个 <code>modCount</code>，在每次修改的时候改变<code>modCount</code>值，集合遍历期间，发现<code>modCount</code>值发生改变，就将抛出异常（原理与解决ABA问题的原理相同）</p>
+<p>与快速失败机制相关的还有一个 fail safe：</p>
+<blockquote>
+<p><strong>安全失败机制（fail-safe）</strong>，这种机制会使你此次读到的数据不一定是最新的数据。</p>
+</blockquote>
+<hr>
+<p>扯远了，再回到主角上来</p>
+<p><code>ConcurrentHashMap</code>实现并发的机制就是 <strong>table数组<code>HashEntry</code>使用了<code>volatile</code>关键字</strong></p>
+<h3 id="并发度高的原因"><a href="#并发度高的原因" class="headerlink" title="并发度高的原因"></a>并发度高的原因</h3><p>使用<code>Segment</code>，每个线程分别占用一个<code>Segment</code>，互不影响，默认的并发度为16，也即默认初始有16个<code>Segment</code></p>
+<p>算是一种空间换时间的策略</p>
+<h3 id="put与get方法高并发的原因"><a href="#put与get方法高并发的原因" class="headerlink" title="put与get方法高并发的原因"></a><code>put</code>与<code>get</code>方法高并发的原因</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    Segment&lt;K,V&gt; s;</span><br><span class="line">    <span class="keyword">if</span> (value == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    	<span class="comment">//这就是为啥他不可以put null值的原因</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">hash</span> <span class="operator">=</span> hash(key);</span><br><span class="line">    <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> (hash &gt;&gt;&gt; segmentShift) &amp; segmentMask;</span><br><span class="line">    <span class="comment">// 定位到对应的segment再进行put操作</span></span><br><span class="line">    <span class="keyword">if</span> ((s = (Segment&lt;K,V&gt;)UNSAFE.getObject          </span><br><span class="line">         (segments, (j &lt;&lt; SSHIFT) + SBASE)) == <span class="literal">null</span>) </span><br><span class="line">        s = ensureSegment(j);</span><br><span class="line">    <span class="keyword">return</span> s.put(key, hash, value, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">put</span><span class="params">(K key, <span class="type">int</span> hash, V value, <span class="type">boolean</span> onlyIfAbsent)</span> &#123;</span><br><span class="line">    <span class="comment">// 将当前 Segment 中的 table 通过 key 的 hashcode 定位到 HashEntry</span></span><br><span class="line">    HashEntry&lt;K,V&gt; node = tryLock() ? <span class="literal">null</span> :</span><br><span class="line">    scanAndLockForPut(key, hash, value);</span><br><span class="line">    V oldValue;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        HashEntry&lt;K,V&gt;[] tab = table;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> (tab.length - <span class="number">1</span>) &amp; hash;</span><br><span class="line">        HashEntry&lt;K,V&gt; first = entryAt(tab, index);</span><br><span class="line">        <span class="keyword">for</span> (HashEntry&lt;K,V&gt; e = first;;) &#123;</span><br><span class="line">            <span class="keyword">if</span> (e != <span class="literal">null</span>) &#123;</span><br><span class="line">                K k;</span><br><span class="line">                <span class="comment">// 遍历该 HashEntry，如果不为空则判断传入的 key 和当前遍历的 key 是否相等，相等则覆盖旧的 value。</span></span><br><span class="line">                <span class="keyword">if</span> ((k = e.key) == key ||</span><br><span class="line">                    (e.hash == hash &amp;&amp; key.equals(k))) &#123;</span><br><span class="line">                    oldValue = e.value;</span><br><span class="line">                    <span class="keyword">if</span> (!onlyIfAbsent) &#123;</span><br><span class="line">                        e.value = value;</span><br><span class="line">                        ++modCount;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                e = e.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 不为空则需要新建一个 HashEntry 并加入到 Segment 中，同时会先判断是否需要扩容。</span></span><br><span class="line">                <span class="keyword">if</span> (node != <span class="literal">null</span>)</span><br><span class="line">                    node.setNext(first);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    node = <span class="keyword">new</span> <span class="title class_">HashEntry</span>&lt;K,V&gt;(hash, key, value, first);</span><br><span class="line">                <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> count + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (c &gt; threshold &amp;&amp; tab.length &lt; MAXIMUM_CAPACITY)</span><br><span class="line">                    rehash(node);</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    setEntryAt(tab, index, node);</span><br><span class="line">                ++modCount;</span><br><span class="line">                count = c;</span><br><span class="line">                oldValue = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">//释放锁</span></span><br><span class="line">        unlock();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>put高并发总结：</p>
+<ol>
+<li>首先定位到对应的<code>segment</code>再进行hash操作（<strong>分段锁</strong>）</li>
+<li>判断当前put是否被占用<ul>
+<li>如果被占用：<strong>自旋锁</strong>，直到获取或达到<code>MAX_SCAN_RETRIES</code>，改为使用<strong>阻塞锁</strong></li>
+</ul>
+</li>
+</ol>
+<p><code>get</code>方法更加简单，直接定位到<code>segment</code>再一步定位元素即可（因为有<code>volatile</code>保证可见性）</p>
+<h2 id="JDk1-8中的ConcurrentHashMap"><a href="#JDk1-8中的ConcurrentHashMap" class="headerlink" title="JDk1.8中的ConcurrentHashMap"></a>JDk1.8中的ConcurrentHashMap</h2><p>以上的讨论，都是在JDK1.7时，这个版本HashMap有的问题它也都有</p>
+<p>（比如说链表环导致死锁）</p>
+<p>一句话：<strong>JDK1.8抛弃了原有的 Segment 分段锁，而采用了 <code>CAS + synchronized</code> 来保证并发安全性。</strong>（数据结构方面也加入了红黑树）</p>
+<ul>
+<li>CAS：如果数据放在了数组上（即，数据还没拉链出来），就可以直接CAS判断放置</li>
+<li><code>Synchronized</code>：如果数据要添加在链表或是树上，就需要syn同步</li>
+</ul>
+<h3 id="各数据的来源依据"><a href="#各数据的来源依据" class="headerlink" title="各数据的来源依据"></a>各数据的来源依据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_CAPACITY</span> <span class="operator">=</span> <span class="number">16</span>;</span><br><span class="line"><span class="comment">// 初始容量，在HashMap一节也说过，这个容量设置必须是2的幂次</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_ARRAY_SIZE</span> <span class="operator">=</span> Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line"><span class="comment">// 最大数组大小，为什么要减去8？是因为Array在JVM中还有一些元数据信息要进行存储</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_CONCURRENCY_LEVEL</span> <span class="operator">=</span> <span class="number">16</span>;</span><br><span class="line"><span class="comment">// 默认的并发级别 是16</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>;</span><br><span class="line"><span class="comment">// 负载因子 0.75</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">8</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">UNTREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line"><span class="comment">// 树化和退化的临界阈值</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_TREEIFY_CAPACITY</span> <span class="operator">=</span> <span class="number">64</span>;</span><br><span class="line"><span class="comment">// 树化的另一个条件，数组的容量得达到64以上</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么容量必须是2的幂次？</strong></p>
+<p>​        Hash运算大致为 k % m ，显然m如果是一个素数会让整个Hash散列的更加均匀。但是java中选择了幂数，是因为<code>%</code>的效率远远低于位运算的效率</p>
+<p>假设一个数<code>1234</code>，这个数的二进制是<code>0100 1101 0010</code></p>
+<p>假设当前容量为<code>16</code>，<code>1234%16=2</code></p>
+<p>如果我们直接使用这个二进制数的后四位<code>0010</code>与16-1的二进制<code>1111</code>进行位与运算，结果<code>0010 &amp; 1111 = 0010</code>，这个结果也是2</p>
+<p>完全避免了使用<code>%</code>，在Java中也是如此实现的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k &amp; (n-<span class="number">1</span>) <span class="comment">// n为长度</span></span><br></pre></td></tr></table></figure>
+
+<p>如果容量为2的幂次，那么容量-1，这个数的二进制为全1，这样就可以<strong>加快寻找<code>index</code>的速度</strong></p>
+<p>除此之外，<strong>设置为2的幂次还可以加快扩容时转移数据的速度</strong>，下文将进行介绍</p>
+<p><strong>为什么是初始值为16？</strong></p>
+<p>​        统计分析的结果，使用过程中16作为初始容量最为合适，不会太大也不会太小。</p>
+<p><strong>我使用构造方法<code>new ConcurrentHashMap&lt;&gt;(4)</code>，它的容量大小会是多少？</strong></p>
+<p>在JDK源码中：会发现我们给了4他也会进行一些计算</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ConcurrentHashMap</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">    <span class="type">int</span> <span class="variable">cap</span> <span class="operator">=</span> ((initialCapacity &gt;= (MAXIMUM_CAPACITY &gt;&gt;&gt; <span class="number">1</span>)) ?</span><br><span class="line">               MAXIMUM_CAPACITY :</span><br><span class="line">               tableSizeFor(initialCapacity + (initialCapacity &gt;&gt;&gt; <span class="number">1</span>) + <span class="number">1</span>));</span><br><span class="line">    <span class="built_in">this</span>.sizeCtl = cap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>tableSizeFor</code>方法会返回一个大于输入值的最小的2的幂次数</p>
+<p>如果是4的话，传入<code>tableSizeFor</code>方法的参数就是7，那么<code>sizeCtl</code>的值会是 8</p>
+<p>所以要知道，<strong>我们给的容量并不是实际的容量</strong></p>
+<h3 id="初始化-amp-sizeCtl变量"><a href="#初始化-amp-sizeCtl变量" class="headerlink" title="初始化&amp;sizeCtl变量"></a>初始化&amp;sizeCtl变量</h3><p>和HashMap一样，ConcurrentHashMap的初始化方法并不在构造方法内，而是放在了第一次<code>put</code>方法中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (tab == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">    tab = initTable();</span><br></pre></td></tr></table></figure>
+
+<p>我们主要来研究<code>initTable</code>这个方法，再看源码之前，我们必须得有些前置了解：</p>
+<p>1、首先注意sizeCtl这个值代表的意思：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="type">int</span> sizeCtl;</span><br><span class="line"><span class="comment">//表初始化和调整控制。</span></span><br><span class="line"><span class="comment">// 值为-1 表示进行初始化</span></span><br><span class="line"><span class="comment">// 值为-n 表示正在扩容</span></span><br><span class="line"><span class="comment">// 值为整数 表示当前数组要扩容时的阈值（比如容量为16，此值就为16*0.75=12）</span></span><br></pre></td></tr></table></figure>
+
+<p>2、在内部还会有<code>SIZECTL</code>这个变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Unsafe mechanics</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> sun.misc.Unsafe U;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> SIZECTL;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            U = sun.misc.Unsafe.getUnsafe();</span><br><span class="line">            Class&lt;?&gt; k = ConcurrentHashMap.class;</span><br><span class="line">            SIZECTL = U.objectFieldOffset</span><br><span class="line">                (k.getDeclaredField(<span class="string">&quot;sizeCtl&quot;</span>));</span><br><span class="line">            <span class="comment">// 直接从内存中获取输入参数的（即获取内存中sizeCtl）地址偏移量</span></span><br><span class="line">        &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再次强调，**<code>SIZECTL</code>是<code>sizeCtl</code>在内存中的地址偏移量**</p>
+<p>3、CAS操作：</p>
+<p>3、<strong>CAS（Compare And Swap/Set）：比较并变换</strong>，是一个<strong>原子</strong>操作，<strong>相同则更新</strong></p>
+<blockquote>
+<p>CAS(V,E,N)</p>
+<p>V 表示要更新的变量（内存值）</p>
+<p>E 表示预期值（旧的）</p>
+<p>N 表示新值</p>
+</blockquote>
+<ol>
+<li>如果 <code>V==E</code> 值时，会将 <code>V=N</code>（内存值 == 预期值，<strong>说明没有线程对当前变量进行写操作</strong>）</li>
+<li>如果 <code>V!=E</code>，则当前线程什么都不做（内存值！= 预期值，说明已经有其他线程做了更新，那么现在就不能更改这个值）</li>
+<li>最后，CAS 操作返回当前 V 的真实值</li>
+</ol>
+<p><code>initTable</code>源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Node&lt;K,V&gt;[] initTable() &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; <span class="type">int</span> sc;</span><br><span class="line">    <span class="keyword">while</span> ((tab = table) == <span class="literal">null</span> || tab.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((sc = sizeCtl) &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="comment">// 小于0 代表有线程正在进行初始化或是扩容</span></span><br><span class="line">          	<span class="comment">// 如果此时其他并发线程进入，会直接yield</span></span><br><span class="line">            Thread.<span class="keyword">yield</span>(); <span class="comment">// lost initialization race; just spin</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (U.compareAndSwapInt(<span class="built_in">this</span>, SIZECTL, sc, -<span class="number">1</span>)) &#123;</span><br><span class="line">            <span class="comment">// CAS操作！！this与SIZECTL可以确定内存地址，如果此地址的值与sc相同，说明当前没有线程进行写操作，会将-1赋值给SIZECTL</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || tab.length == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> (sc &gt; <span class="number">0</span>) ? sc : DEFAULT_CAPACITY;</span><br><span class="line">                    <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">                    Node&lt;K,V&gt;[] nt = (Node&lt;K,V&gt;[])<span class="keyword">new</span> <span class="title class_">Node</span>&lt;?,?&gt;[n];<span class="comment">// 此处终于创建了数组</span></span><br><span class="line">                    table = tab = nt;</span><br><span class="line">                    sc = n - (n &gt;&gt;&gt; <span class="number">2</span>);</span><br><span class="line">                    <span class="comment">// 此处相当于 n - (n / 4) = 0.75 * n</span></span><br><span class="line">                    <span class="comment">// 相当于乘了负载因子</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                sizeCtl = sc;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="put-方法"><a href="#put-方法" class="headerlink" title="put()方法"></a><code>put()</code>方法</h3><p>put方法很长，我们将分解的进行对<code>put()</code>方法的探究：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(key, value, <span class="literal">false</span>);</span><br><span class="line">    <span class="comment">// put调用了另一个方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1、<code>spread</code>方法：</p>
+<p>​        因为<code>&gt;&gt;&gt;</code>无符号右移就是<strong>把低位去掉保留高位</strong>。然后高位和低位进行<code>^</code>位运算。这样不管是高位发生变化，还是低位发生变化都会造成其结果的<strong>中低位</strong>发生变化。</p>
+<p>为什么我们关注其结果的<strong>中低位</strong>呢，那是因为后面算<code>index</code>的时候，用了<code>h &amp; (length-1)</code>，它的意思就是把高位去掉。<br>如果没有进行扰动计算，当<code>key</code>仅仅发生高位变动的时候就会发生hash冲突，这对Hashmap来说往往是致命的</p>
+<p>​        简而言之，就是<strong>为了增大随机性，减少哈希碰撞的次数</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">spread</span><span class="params">(<span class="type">int</span> h)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (h ^ (h &gt;&gt;&gt; <span class="number">16</span>)) &amp; HASH_BITS;</span><br><span class="line">    <span class="comment">// HASH_BITS 是各位全为1的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、<code>tabAt</code>方法</p>
+<p>​        <code>tabAt(tab, i = (n - 1) &amp; hash)</code>在源码中如此使用，意思很明确</p>
+<p><code>(n - 1) &amp; hash</code>代表下标，此函数的意思就是返回<code>table[index]</code>的值</p>
+<p>下面来正式看代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(K key, V value, <span class="type">boolean</span> onlyIfAbsent)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="literal">null</span> || value == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="type">int</span> <span class="variable">hash</span> <span class="operator">=</span> spread(key.hashCode());</span><br><span class="line">    <span class="comment">// spread 扰动函数</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">binCount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (Node&lt;K,V&gt;[] tab = table;;) &#123;</span><br><span class="line">        <span class="comment">// 一个死循环</span></span><br><span class="line">        Node&lt;K,V&gt; f; <span class="type">int</span> n, i, fh;</span><br><span class="line">        <span class="keyword">if</span> (tab == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">            tab = initTable();<span class="comment">// 上文介绍了initTable方法</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((f = tabAt(tab, i = (n - <span class="number">1</span>) &amp; hash)) == <span class="literal">null</span>) &#123;<span class="comment">// 如果此位置为null，说明此处是一个空桶，即没有哈希碰撞过</span></span><br><span class="line">            <span class="keyword">if</span> (casTabAt(tab, i, <span class="literal">null</span>,</span><br><span class="line">                         <span class="keyword">new</span> <span class="title class_">Node</span>&lt;K,V&gt;(hash, key, value, <span class="literal">null</span>)))</span><br><span class="line">                <span class="comment">//使用cas给此位置赋值</span></span><br><span class="line">                <span class="keyword">break</span>;                   <span class="comment">// no lock when adding to empty bin源码的注释也很明确，空桶不用加锁（使用CAS思想）</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((fh = f.hash) == MOVED)</span><br><span class="line">            ...</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    addCount(<span class="number">1L</span>, binCount);<span class="comment">// 扩容方法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="addCount-方法"><a href="#addCount-方法" class="headerlink" title="addCount()方法"></a><code>addCount()</code>方法</h3><p><code>addCount</code>中其实并没有进行扩容，而是主要进行了扩容的判断（与扩容阈值<code>sizeCtl</code>进行判断）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">addCount</span><span class="params">(<span class="type">long</span> x, <span class="type">int</span> check)</span> &#123;</span><br><span class="line">    CounterCell[] as; <span class="type">long</span> b, s;</span><br><span class="line">    <span class="keyword">if</span> ((as = counterCells) != <span class="literal">null</span> ||</span><br><span class="line">        !U.compareAndSwapLong(<span class="built_in">this</span>, BASECOUNT, b = baseCount, s = b + x)) &#123;</span><br><span class="line">      	<span class="comment">// 上面这一堆我们只需关注 s 即可 ，每次都会给s进行增加 s表示当前的size，在下面会对其进行判断</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (check &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        Node&lt;K,V&gt;[] tab, nt; <span class="type">int</span> n, sc;</span><br><span class="line">        <span class="comment">// 注意下面这个判断条件，用s和sizeCtl比较大小，这是扩容的时机</span></span><br><span class="line">        <span class="keyword">while</span> (s &gt;= (<span class="type">long</span>)(sc = sizeCtl) &amp;&amp; (tab = table) != <span class="literal">null</span> &amp;&amp;</span><br><span class="line">               (n = tab.length) &lt; MAXIMUM_CAPACITY) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">rs</span> <span class="operator">=</span> resizeStamp(n);<span class="comment">// 标识当前数组</span></span><br><span class="line">            <span class="keyword">if</span> (sc &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                ...</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (U.compareAndSwapInt(<span class="built_in">this</span>, SIZECTL, sc,</span><br><span class="line">                                         (rs &lt;&lt; RESIZE_STAMP_SHIFT) + <span class="number">2</span>))</span><br><span class="line">                transfer(tab, <span class="literal">null</span>);</span><br><span class="line">            <span class="comment">// transfer方法：正式的开始扩容！</span></span><br><span class="line">            s = sumCount();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="transfer-方法"><a href="#transfer-方法" class="headerlink" title="transfer()方法"></a><code>transfer()</code>方法</h3><p>我们知道，在Java中没有动态数组，所谓的动态数组，都是在达到一定程度，进行了几步操作，才实现的</p>
+<p>那么扩容需要几步？</p>
+<ol>
+<li>开辟一块新空间</li>
+<li>将旧数组的数据转移到新数组</li>
+</ol>
+<p>而其中第二步，转移操作，需要<strong>寻找下标</strong>，原本计算下标的方式是<code>k&amp;(n-1)</code>，这里是否还需要这样做呢？</p>
+<p>这里Java的操作十分巧妙</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">假设有数据为：1110 0011 </span><br><span class="line">// 原数据与 16-1 进行与运算，即得到末尾4位</span><br><span class="line">现在扩容到了32位，就是要与末尾5位进行比较</span><br><span class="line">但是我们不需要再这样操作了，只需要看倒数第五位即可！</span><br><span class="line">如果倒数第五位为0：说明与原数组下标相同</span><br><span class="line">如果为1：只需要将0001 0000加上原数组位置即可</span><br></pre></td></tr></table></figure>
+
+<p>其次，为了加快迁移速度，还可以使用多线程，使用多线程不能让数据混乱，因此：</p>
+<p>​        在ConcurrentHashMap中，会将原数组进行<strong>分段</strong>，<strong>最少每一个线程完成16个桶的迁移工作</strong>，如果不足16个桶，那么就由一个线程来进行迁移</p>
+<p><code>transfer</code>就完成了这两步操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">transfer</span><span class="params">(Node&lt;K,V&gt;[] tab, Node&lt;K,V&gt;[] nextTab)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> tab.length, stride;</span><br><span class="line">    <span class="comment">// 下面的判断是为了使用多线程进行数据迁移；NCPU默认为8，与电脑有关</span></span><br><span class="line">    <span class="keyword">if</span> ((stride = (NCPU &gt; <span class="number">1</span>) ? (n &gt;&gt;&gt; <span class="number">3</span>) / NCPU : n) &lt; MIN_TRANSFER_STRIDE)</span><br><span class="line">        stride = MIN_TRANSFER_STRIDE; <span class="comment">// subdivide range 切分数组进行数据迁移 </span></span><br><span class="line">    <span class="keyword">if</span> (nextTab == <span class="literal">null</span>) &#123;            <span class="comment">// initiating</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">            Node&lt;K,V&gt;[] nt = (Node&lt;K,V&gt;[])<span class="keyword">new</span> <span class="title class_">Node</span>&lt;?,?&gt;[n &lt;&lt; <span class="number">1</span>];<span class="comment">// 这里，直接扩容了两倍 &lt;&lt;1 代表乘以2</span></span><br><span class="line">            nextTab = nt;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (f) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tabAt(tab, i) == f) &#123;</span><br><span class="line">                <span class="comment">// 此处是正式的转移操作：分为链表的与红黑树两部分</span></span><br><span class="line">                Node&lt;K,V&gt; ln, hn;</span><br><span class="line">                <span class="keyword">if</span> (fh &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    ...</span><br><span class="line">                    <span class="comment">// 这里的转移方法特别巧妙，就是上面我说明的方法</span></span><br><span class="line">					<span class="comment">// 上面省略的部分会将为0的与为1的分为两个链表然后分别进行操作</span></span><br><span class="line">                    setTabAt(nextTab, i, ln);<span class="comment">//ln代表0对应的链表</span></span><br><span class="line">                    setTabAt(nextTab, i + n, hn);<span class="comment">//hn代表1对应的链表</span></span><br><span class="line">                    setTabAt(tab, i, fwd);</span><br><span class="line">                    advance = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ...</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...             </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2021/06/13/JavaSourceCode/HashMap%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6/">HashMap源码探究</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E6%BA%90%E7%A0%81/" rel="tag"><i class="fa fa-tag"></i> Java源码</a>
+              <a href="/tags/ConcurrentHashMap/" rel="tag"><i class="fa fa-tag"></i> ConcurrentHashMap</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/12/MySQL/mysql%E8%BF%9B%E9%98%B6/" rel="prev" title="MySQL进阶">
+                  <i class="fa fa-chevron-left"></i> MySQL进阶
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE/" rel="next" title="TCP/UDP协议">
+                  TCP/UDP协议 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QUIC协议">
+<meta property="og:url" content="http://yoursite.com/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/QUIC/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230721132042394.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230721132215082.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230721133024653.png">
+<meta property="article:published_time" content="2023-07-20T12:59:39.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.143Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="QUIC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20230721132042394.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/QUIC/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/QUIC/","path":"2023/07/20/网络协议/QUIC/","title":"QUIC协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>QUIC协议 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#QUIC"><span class="nav-number">1.</span> <span class="nav-text">QUIC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E5%87%BA%E7%8E%B0%E7%9A%84%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">QUIC出现的背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS1-2%E4%B8%8E1-3"><span class="nav-number">1.2.</span> <span class="nav-text">TLS1.2与1.3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS1-2%E6%8F%A1%E6%89%8B%E7%BB%86%E5%88%99"><span class="nav-number">1.2.1.</span> <span class="nav-text">TLS1.2握手细则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS1-3%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">TLS1.3优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-RTT"><span class="nav-number">1.2.3.</span> <span class="nav-text">0-RTT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">QUIC网络模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">QUIC总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/QUIC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="QUIC协议 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          QUIC协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-20 20:59:39" itemprop="dateCreated datePublished" datetime="2023-07-20T20:59:39+08:00">2023-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：Quick UDP Internet Connections，依赖于UDP，但却是TCP2.0
+</center>
+<span id="more"></span>
+
+<h1 id="QUIC"><a href="#QUIC" class="headerlink" title="QUIC"></a>QUIC</h1><blockquote>
+<p>Quick UDP Internet Connections 快速UDP网络连接</p>
+</blockquote>
+<h2 id="QUIC出现的背景"><a href="#QUIC出现的背景" class="headerlink" title="QUIC出现的背景"></a>QUIC出现的背景</h2><p>QUIC的提出源自于HTTP存在的问题：<a target="_blank" rel="noopener" href="https://www.yesmylord.cn/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/">关于HTTP存在的问题查看此篇</a></p>
+<ul>
+<li>HTTP1.0存在的问题：无状态、明文传输、无认证、无完整性校验、非持续连接、串行发送、队头阻塞</li>
+<li>HTTP1.1（1997）遗留的问题：队头阻塞、串行发送、数据包头无压缩且重复发送、服务器只能被动响应客户端的请求<ul>
+<li>无状态：使用Cookie来解决（严格意义来讲，无状态不是一个缺点，是HTTP的特性）</li>
+<li>明文传输、无认证、无完整性校验：结合TLS解决（即HTTPS）</li>
+<li>非持续连接：使用<code>Connection:Keep-Alive</code>解决</li>
+<li>队头阻塞：使用管道网络传输解决，可以无需等待响应就可以发送第二个请求，<strong>但是</strong>接收的响应必须是按顺序的，这意味着，如果返回的其中一个响应出现意外，之后的响应仍然不能接受。（管道网络解决了，但是没有解决）</li>
+</ul>
+</li>
+<li>HTTP2.0（2015）仍存在的问题：<strong>队头阻塞</strong>（只解决了应用层面的队头阻塞，TCP的队头阻塞依然存在，如果出现丢包，就需要等待TCP重传）<ul>
+<li>头部压缩：<strong>HPACK算法</strong>解决，在客户端与服务端维护关于数据包头的表，每次发送的包头将不再发送重复部分</li>
+<li>二进制化：HTTP2.0下的消息头和消息体都是二进制格式，加快了识别的速度，称为<strong>帧</strong>：头信息帧和数据帧</li>
+<li>并行发送：2.0使用<strong>多路复用</strong>解决，可以在一个连接中并行发送多个请求</li>
+<li>队头阻塞：2.0对于响应无需再按顺序，报文拆分为首部帧和数据帧，数据帧有<strong>流标识符</strong>标记顺序，以此实现无序接收的问题</li>
+<li>服务器推送：服务器可以主动推送静态资源给客户端（对于客户端：如果用户只是点错了，那么他的浏览器也会承担巨多的资源响应，增大负担；对于服务端：可能会带来DDoS攻击）</li>
+</ul>
+</li>
+<li>HTTP3.0（2019）：仅仅四年就推出了3.0，说明克服TCP的性能障碍刻不容缓<ul>
+<li>基于QUIC：QUIC整合了TCP与TLS，总的来说有</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>问题1：QUIC的提出是为了解决TCP存在的问题的，为什么不修改TCP协议呢？</p>
+</blockquote>
+<p>市面上所有的OS内核，均设计了TCP的实现，修改TCP原有的实现不太现实，而恰好传输层还有一个UDP，就可以依赖于UDP实现TCP的功能了</p>
+<h2 id="TLS1-2与1-3"><a href="#TLS1-2与1-3" class="headerlink" title="TLS1.2与1.3"></a>TLS1.2与1.3</h2><p>这里插一点额外的知识，介绍一下TLS1.2与1.3的区别</p>
+<h3 id="TLS1-2握手细则"><a href="#TLS1-2握手细则" class="headerlink" title="TLS1.2握手细则"></a>TLS1.2握手细则</h3><p>在TCP连接建立后，在TLS协议中，DH用于密钥交换，RSA用于数字签名和证书验证：</p>
+<blockquote>
+<p>RSA与DH算法的区别：</p>
+<p>RSA也可以进行秘钥交换，只不过不满足<strong>前向安全</strong>特性，这意味着一旦私钥暴露，这意味着之前的所有消息都暴露；而DH算法却不会。</p>
+<p>“Diffie-Hellman Key Exchange”（迪菲-赫尔曼密钥交换协议）：通过每次设置不同的随机数来保证即使密钥暴露，也不会暴露之前的消息内容</p>
+</blockquote>
+<p>下面是TLS1.2的握手细则：</p>
+<ol>
+<li><strong>客户端发起握手</strong>：客户端向服务器发送一个<strong>ClientHello</strong>消息<ul>
+<li>消息包含：TLS版本（客户端支持的版本）、<strong>加密套件</strong>、<strong>Client Random第1随机数</strong>（32字节的随机数）</li>
+</ul>
+</li>
+<li><strong>服务器回应</strong>：收到ClientHello后，向客户端发送一个<strong>ServerHello</strong>消息<ul>
+<li>消息包含：TLS版本（服务端选择具体使用什么版本）、<strong>加密套件</strong>、<strong>Server Random第2随机数</strong>（32字节随机数）</li>
+</ul>
+</li>
+<li><strong>服务器发送数字证书给客户端（可选）</strong>：服务端发送<strong>Certificate</strong>消息，证书包含<strong>公钥</strong>与证书信息（注意：这一步与上一步是两条响应消息）<ul>
+<li>浏览器收到Certificate消息，对照信任证书列表，确认证书是否可信</li>
+</ul>
+</li>
+<li><strong>服务器端发送ServerKeyExchange消息（可选）</strong>：<ul>
+<li>对于RSA算法，它的公钥在数字证书内，因此不需要发送ServerKeyExchange</li>
+<li>对于DH算法或是ECDH算法，服务器将在ServerKeyExchange消息中发送DH协商参数，包括DH公共参数和DH签名等信息</li>
+</ul>
+</li>
+<li>服务器端发送<strong>ServerHelloDone</strong>消息：告诉自己发完了</li>
+<li><strong>客户端认证证书与密钥交换</strong>：Client Key Exchange、Change Ciper Spec、Encrypted Handshake Message消息<ul>
+<li>验证数字证书是否合法：如果认证通过，客户端生成一个48字节的随机数作为<strong>预主秘钥</strong>（Pre-Master Secret，<strong>第3随机数</strong>）且使用公钥加密，然后发送给服务器，服务器使用自己的私钥解密，得到预主秘钥</li>
+</ul>
+</li>
+<li><strong>计算获得会话秘钥</strong>：<strong>服务器和客户端都使用第1、2随机数</strong>生成一个<strong>对称加密密钥</strong>，该密钥将用于后续通信的加密和解密。</li>
+</ol>
+<blockquote>
+<p>解释一下第1随机数、第2随机数、预主密钥、主密钥之间的关系：</p>
+</blockquote>
+<p>预主密钥的生成依赖于客户端和服务器的随机数，而主秘钥的生成依赖于预主密钥；</p>
+<p>预主密钥是一个临时的对称秘钥，为了临时密钥交换和生成后续加密所需密钥；</p>
+<p>主秘钥是一个对称秘钥，加密会话。</p>
+<p>换句话说：预主密钥就是临时使用一下，之后可以升级为主秘钥</p>
+<blockquote>
+<p>解释一下这里的安全套件：</p>
+</blockquote>
+<p>安全套件是在客户端与服务器进行握手时，协商的一些加密的具体细则，TLS1.2中有37种不同的组合，这里给出其中一种：<code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code></p>
+<ul>
+<li>TLS：表示协议</li>
+<li>ECDHE：表示秘钥交换协议，ECDHE是椭圆曲线的DH算法</li>
+<li>RSA：证书验证、数字签名使用RSA</li>
+<li>AES_256：对称加密算法</li>
+<li>GCM：GCM是一种加密模式，它结合了加密和认证，并提供高效的加密性能</li>
+<li>SHA384：哈希算法（散列算法）</li>
+</ul>
+<h3 id="TLS1-3优化"><a href="#TLS1-3优化" class="headerlink" title="TLS1.3优化"></a>TLS1.3优化</h3><p>TLS1.3在方方面面对1.2进行了优化</p>
+<ul>
+<li><strong>前向安全问题</strong>：<ul>
+<li>1.2：静态的（即每次不设置随机数来生成秘钥）RSA算法和DH算法均存在前向不安全问题</li>
+<li>1.3：移除了静态的RSA密钥交换算法和静态的DH密钥交换算法（即现在只能使用动态的DH做密钥交换）</li>
+</ul>
+</li>
+<li><strong>握手建立</strong>：<ul>
+<li>1.2：一开始的握手消息，即<code>ClientHello</code>与<code>ServerHello</code>是明文的，因此如果黑客截获<code>ClientHello</code>，通知服务器使用低版本的TLS协议，安全性就会变差</li>
+<li>1.3：优化了握手步骤</li>
+</ul>
+</li>
+<li><strong>加密套件</strong>：<ul>
+<li>1.2：给出了37种不同组合的加密套件，格式为协议、秘钥交换、对称加密、哈希算法<code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code></li>
+<li>1.3：建议支持五种，格式为协议、对称加密、哈希<code>TLS_AES_256_GCM_SHA384</code>（去掉了密钥交换算法的部分）</li>
+</ul>
+</li>
+<li>秘钥交换算法：<ul>
+<li>1.3：只支持三种密钥交换算法，分别是(EC)DHE、PSK-only（类似一种对称加密的方式）、PSK with (EC)DHE，而且去掉了很多不安全的加密算法</li>
+</ul>
+</li>
+<li>0-RTT恢复（一个RTT代表一次往返时间）<ul>
+<li>1.2：2RTT</li>
+<li>1.3：1RTT</li>
+</ul>
+</li>
+</ul>
+<p><strong>TLS1.3握手细则</strong>：</p>
+<ol>
+<li> 客户端ClientHello消息：第一随机数、密码套件、<strong>直接生成DH随机参数</strong></li>
+</ol>
+<ul>
+<li>由于减少了加密套件的可选策略，因此1.3的握手可以在第一次就决定DH参数</li>
+</ul>
+<ol start="2">
+<li>服务器发送ServerHello：第二随机数、DH参数</li>
+<li>服务器发送证书给客户端</li>
+<li>客户端收到证书，验证证书合法性，生成预主秘钥，发送给服务器</li>
+<li>客户端和服务器通过预主秘钥得到主秘钥，即会话秘钥（对称秘钥）</li>
+</ol>
+<p>总结：TLS1.3主要优化掉了协商DH参数的部分来加快连接的建立</p>
+<h3 id="0-RTT"><a href="#0-RTT" class="headerlink" title="0-RTT"></a>0-RTT</h3><p>TLS 1.3中引入了0-RTT（零往返时间）的优化机制。</p>
+<p>如果客户端和服务器之前已经建立过TLS 1.3连接并拥有有效的会话票据（session ticket），在后续的重连时，可以使用0-RTT模式来加快连接的建立</p>
+<p>注意：<strong>0-RTT是存在安全性问题的</strong></p>
+<h2 id="QUIC网络模型"><a href="#QUIC网络模型" class="headerlink" title="QUIC网络模型"></a>QUIC网络模型</h2><p>QUIC的特点：</p>
+<ul>
+<li>整合了HTTP2.0的多路复用、流量控制</li>
+<li>整合了TLS1.3的安全加密方式</li>
+<li>整合了TCP的握手、拥塞控制、流量控制</li>
+<li>依托于UDP</li>
+</ul>
+<p>QUIC虽然是应用层协议HTTP3依赖的协议，但QUIC本质还是一个应用层协议，其依托于运输层的UDP，设计的核心思想都是来源于TCP和TLS</p>
+<p>QUIC的数据包裹在UDP的用户报内发送：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Mg411s7mP/?spm_id_from=333.788&vd_source=c8709f8826bf296abab8aeee72b0e338">如图所示</a></p>
+<p><img src="http://img.yesmylord.cn//image-20230721132042394.png" alt="图源见link"></p>
+<p><img src="http://img.yesmylord.cn//image-20230721132215082.png" alt="图源见link"></p>
+<p>每一个QUIC包都有独立的编号，丢失某一个只需重传那一个，依次解决了TCP存在的队头阻塞问题</p>
+<p><img src="http://img.yesmylord.cn//image-20230721133024653.png" alt="QUIC建立连接对比"></p>
+<p><strong>QUIC和TLS1.3一样，首次需要1RTT，重新建立连接只需要0RTT</strong></p>
+<p>并且，QUIC规定了<strong>连接ID</strong>：</p>
+<ul>
+<li>在TCP连接中，一个TCP连接的建立依赖于源IP、源端口、目的IP、目的端口，只要一个发生变化，就需要重新建立TCP连接</li>
+<li>在QUIC定义连接ID，只要连接ID不变，就不会重新建立连接</li>
+</ul>
+<h2 id="QUIC总结"><a href="#QUIC总结" class="headerlink" title="QUIC总结"></a>QUIC总结</h2><p>QUIC的优点：</p>
+<ul>
+<li><strong>QUIC连接建立快</strong>：QUIC与TLS1.3一样，有1RTT和0RTT的设计，QUIC还有连接ID，这些都是为了减少连接交互，减少连接次数而设计的</li>
+<li><strong>QUIC扛丢包能力强</strong></li>
+<li><strong>自带加密，多路复用</strong>：因为融合了TLS和HTTP2</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>兼容性与部署问题：一种新型协议，对中间设备、运营商、浏览器都需要支持</li>
+<li>比较耗CPU性能</li>
+<li>报文头部比较大</li>
+<li>0RTT将没有前向安全性</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
+              <a href="/tags/QUIC/" rel="tag"><i class="fa fa-tag"></i> QUIC</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/VPN/" rel="prev" title="VPN">
+                  <i class="fa fa-chevron-left"></i> VPN
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/07/23/Maven/Maven%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" rel="next" title="Maven依赖冲突">
+                  Maven依赖冲突 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

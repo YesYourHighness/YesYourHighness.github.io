@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言： 2024年的第一篇：一个将压缩与编解码速度做的很好的序列化工具Protobuf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Protobuf及其不同方式的测试">
+<meta property="og:url" content="http://yoursite.com/2024/01/03/%E5%BA%8F%E5%88%97%E5%8C%96/Protobuf/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言： 2024年的第一篇：一个将压缩与编解码速度做的很好的序列化工具Protobuf">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//fig4-4.png">
+<meta property="og:image" content="http://img.yesmylord.cn//84_5.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102235736953.png">
+<meta property="og:image" content="http://img.yesmylord.cn//84_8.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102225928127.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102230158637.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102230622776.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102230650838.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102230831608.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102230844901.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102231053891.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102231131292.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102231251269.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102233531680.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102233754670.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102233852321.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102234220788.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102234517390.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102234607727.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240102234635525.png">
+<meta property="article:published_time" content="2024-01-02T16:09:39.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.973Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Protobuf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//fig4-4.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2024/01/03/%E5%BA%8F%E5%88%97%E5%8C%96/Protobuf/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2024/01/03/%E5%BA%8F%E5%88%97%E5%8C%96/Protobuf/","path":"2024/01/03/序列化/Protobuf/","title":"Protobuf及其不同方式的测试"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Protobuf及其不同方式的测试 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Protobuf%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">Protobuf序列化原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Protobuf%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">Protobuf结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Protobuf%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-wire-type"><span class="nav-number">1.2.</span> <span class="nav-text">Protobuf的数据结构(wire_type)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Field-Tag"><span class="nav-number">1.3.</span> <span class="nav-text">Field Tag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">可变数字类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E6%95%B4%E6%95%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">正整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9F%E6%95%B4%E6%95%B0"><span class="nav-number">1.4.2.</span> <span class="nav-text">负整数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EPacked-true%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">关于Packed&#x3D;true的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snappy%E5%8E%8B%E7%BC%A9%E5%8E%9F%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">Snappy压缩原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%A7%E5%B0%8F%E5%AF%B9%E6%AF%94%E2%80%94%E2%80%94%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">序列化大小对比——随机数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">测试方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#float%E6%95%B0%E7%BB%84%E5%AF%B9%E6%AF%94"><span class="nav-number">3.2.</span> <span class="nav-text">float数组对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%951%EF%BC%9A%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A61-20%EF%BC%88%E6%9C%89%E5%8D%A0%E4%BD%8D%E7%AC%A6%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">测试1：数组长度1~20（有占位符）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%952%EF%BC%9A%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A61-100%EF%BC%88%E6%9C%89snappy%E5%8E%8B%E7%BC%A9%EF%BC%8C%E6%97%A0%E5%8D%A0%E4%BD%8D%E7%AC%A6%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">测试2：数组长度1~100（有snappy压缩，无占位符）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#double%E6%95%B0%E7%BB%84%E5%AF%B9%E6%AF%94"><span class="nav-number">3.3.</span> <span class="nav-text">double数组对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%951%EF%BC%9A%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A61-20%EF%BC%88%E6%9C%89%E5%8D%A0%E4%BD%8D%E7%AC%A6%EF%BC%89-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">测试1：数组长度1~20（有占位符）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%952%EF%BC%9A%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A61-100%EF%BC%88%E6%9C%89snappy%E5%8E%8B%E7%BC%A9%EF%BC%8C%E6%97%A0%E5%8D%A0%E4%BD%8D%E7%AC%A6%EF%BC%89-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">测试2：数组长度1~100（有snappy压缩，无占位符）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#int%E6%95%B0%E7%BB%84%E5%AF%B9%E6%AF%94"><span class="nav-number">3.4.</span> <span class="nav-text">int数组对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%951%EF%BC%9Aint%E6%95%B0%E7%BB%84%E5%AF%B9%E6%AF%94%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.4.1.</span> <span class="nav-text">测试1：int数组对比其他格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%952%EF%BC%9A%E5%9C%A8%E8%A6%81%E6%B1%82%E7%B2%BE%E5%BA%A6%E7%9A%84%E5%89%8D%E6%8F%90%E4%B8%8B%EF%BC%8C%E5%AF%B9%E6%AF%94float2int%E4%B8%8Efloat"><span class="nav-number">3.4.2.</span> <span class="nav-text">测试2：在要求精度的前提下，对比float2int与float</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PB%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="nav-number">3.5.</span> <span class="nav-text">PB对比总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%A7%E5%B0%8F%E5%AF%B9%E6%AF%94%E2%80%94%E2%80%94%E7%9C%9F%E5%AE%9E%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">序列化大小对比——真实数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AEcase1"><span class="nav-number">4.1.</span> <span class="nav-text">测试数据case1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AEcase2"><span class="nav-number">4.2.</span> <span class="nav-text">测试数据case2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AEcase3"><span class="nav-number">4.3.</span> <span class="nav-text">测试数据case3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AEcase4"><span class="nav-number">4.4.</span> <span class="nav-text">测试数据case4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AEcase5"><span class="nav-number">4.5.</span> <span class="nav-text">测试数据case5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AEcase6"><span class="nav-number">4.6.</span> <span class="nav-text">测试数据case6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PB%E5%8C%96%E7%BB%93%E8%AE%BA"><span class="nav-number">4.7.</span> <span class="nav-text">PB化结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/01/03/%E5%BA%8F%E5%88%97%E5%8C%96/Protobuf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Protobuf及其不同方式的测试 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Protobuf及其不同方式的测试
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-03 00:09:39" itemprop="dateCreated datePublished" datetime="2024-01-03T00:09:39+08:00">2024-01-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">序列化</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言： 2024年的第一篇：一个将压缩与编解码速度做的很好的序列化工具Protobuf
+</center>
+
+<span id="more"></span>
+
+<h1 id="Protobuf序列化原理"><a href="#Protobuf序列化原理" class="headerlink" title="Protobuf序列化原理"></a>Protobuf序列化原理</h1><p>protocol buffers 诞生之初是为了解决服务器端新旧协议(高低版本)兼容性问题，名字也很贴切，“协议缓冲区”。只不过后期慢慢发展成用于传输数据。</p>
+<h2 id="Protobuf结构"><a href="#Protobuf结构" class="headerlink" title="Protobuf结构"></a>Protobuf结构</h2><p>假设有json串：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;userName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Martin&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;favoriteNumber&quot;</span><span class="punctuation">:</span> <span class="number">1337</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;interests&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;daydreaming&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;hacking&quot;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>定义IDL：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message </span><span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">required</span> <span class="type">string</span> user_name       = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">optional</span> <span class="type">int64</span>  favorite_number = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">string</span> interests       = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PB会序列化为33个字节的TLV格式的bytes数组：</p>
+<p><img src="http://img.yesmylord.cn//fig4-4.png" alt="PB结构图"></p>
+<p>如图可见：PB的序列化原理是将原有格式序列化为TLV的字节流</p>
+<ul>
+<li>每一个字段都是TLV格式<ul>
+<li>T：不序列化字段名，tag与type打包为一个字节：tag使用5H，type使用后3L</li>
+<li>L：如果是字符串就是长度；可变数字没有L标识</li>
+<li>V：相应的值</li>
+</ul>
+</li>
+<li>数字：可变长度数字<ul>
+<li>比如1337，在IDL中定义为一个int64，正常来说会占用8字节，但是实际上只占用了2字节</li>
+<li>每一个字节的最高位表示是否还有后续的值，以此取代L的占用，比如 13的最高位为0, 37的最高位为1（小端存储，调转位置）</li>
+</ul>
+</li>
+<li>数组：与Thrift不同，Pb没有type为list的形式，而是标记为重复repeated</li>
+</ul>
+<h2 id="Protobuf的数据结构-wire-type"><a href="#Protobuf的数据结构-wire-type" class="headerlink" title="Protobuf的数据结构(wire_type)"></a>Protobuf的数据结构(wire_type)</h2><p><img src="http://img.yesmylord.cn//84_5.png" alt="PB wire_type"></p>
+<ul>
+<li>对于float、double（即32bit和64bit）：protobuf没有压缩优化</li>
+<li>对于int（即Varint）：protobuf已有优化</li>
+<li>对于String字段或是标记为Repeated的字段，都会有TLV的结构，TL就会占用2个字节</li>
+</ul>
+<h2 id="Field-Tag"><a href="#Field-Tag" class="headerlink" title="Field Tag"></a>Field Tag</h2><p>Field tag代替了字段名，标识字段的类型。</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message  </span><span class="title class_">FeatureCtx</span>&#123;</span><br><span class="line">  <span class="type">int32</span> intvalue = <span class="number">2</span>;</span><br><span class="line">  <span class="type">sint32</span> sintvalue = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line">需要注意的是：</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>范围 1~15 中的字段编号，占用1个字节进行编码（包括字段编号和字段类型）</li>
+<li>16~2047占用2个字节</li>
+<li>19000~19999是PB自己使用的tag</li>
+</ul>
+<p>比如这个<code>string user_name = 1;</code>，field tag占了前5位，type占用了后3位</p>
+<p><img src="http://img.yesmylord.cn//image-20240102235736953.png" alt="field tag"></p>
+<blockquote>
+<p>问题1：为什么field tag占了5bit，命名可以表示最大到31，为什么只有1~15是1字节呢?</p>
+</blockquote>
+<p>因为field tag本质也是一个Varint，因此他的最高位已经被占用了。</p>
+<p>因此<strong>请尽量把1~15分配给常用的类型</strong></p>
+<h2 id="可变数字类型"><a href="#可变数字类型" class="headerlink" title="可变数字类型"></a>可变数字类型</h2><p>PB对Varint的优化很好，Varint 是一种紧凑的表示数字的方法。它用一个或多个字节来表示一个数字，值越小的数字使用越少的字节数。</p>
+<p>Varint 中的每个字节（最后一个字节除外）都设置了最高有效位（msb），这一位表示还会有更多字节出现。</p>
+<p>每个字节的低 7 位用于以 7 位组的形式存储数字的二进制补码表示，最低有效组首位。</p>
+<h3 id="正整数"><a href="#正整数" class="headerlink" title="正整数"></a>正整数</h3><p>对于int32：</p>
+<ul>
+<li><code>[0, 128)</code> 使用1个字节</li>
+<li><code>[128, 16384) </code>使用2个字节</li>
+<li><code>[16384, 2^21)</code> 3个字节</li>
+<li><code>[2^21, 2^28) </code>4个字节</li>
+<li><code>[2^28, 2^32)</code> 5个字节（这意味着，对于较大的数，会比int32多1字节）</li>
+</ul>
+<blockquote>
+<p>Varint对于值越小的数越省空间，从统计的角度来说，一般不会消息中所有的数字都是大数。</p>
+</blockquote>
+<p>计算逻辑是：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* <span class="title function_">EncodeVarint32</span><span class="params">(<span class="type">char</span>* dst, <span class="type">uint32_t</span> v)</span> &#123;</span><br><span class="line">    <span class="comment">// Operate on characters as unsigneds</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span>* ptr = reinterpret_cast&lt;<span class="type">unsigned</span> <span class="type">char</span>*&gt;(dst);</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> B = <span class="number">128</span>;</span><br><span class="line">    <span class="keyword">if</span> (v &lt; (<span class="number">1</span>&lt;&lt;<span class="number">7</span>)) &#123;</span><br><span class="line">        *(ptr++) = v;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (v &lt; (<span class="number">1</span>&lt;&lt;<span class="number">14</span>)) &#123;</span><br><span class="line">        *(ptr++) = v | B; <span class="comment">// 每个字节的最高位置为1</span></span><br><span class="line">        *(ptr++) = v&gt;&gt;<span class="number">7</span>; <span class="comment">// 右移7位</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (v &lt; (<span class="number">1</span>&lt;&lt;<span class="number">21</span>)) &#123;</span><br><span class="line">        *(ptr++) = v | B;</span><br><span class="line">        *(ptr++) = (v&gt;&gt;<span class="number">7</span>) | B;</span><br><span class="line">        *(ptr++) = v&gt;&gt;<span class="number">14</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (v &lt; (<span class="number">1</span>&lt;&lt;<span class="number">28</span>)) &#123;</span><br><span class="line">        *(ptr++) = v | B;</span><br><span class="line">        *(ptr++) = (v&gt;&gt;<span class="number">7</span>) | B;</span><br><span class="line">        *(ptr++) = (v&gt;&gt;<span class="number">14</span>) | B;</span><br><span class="line">        *(ptr++) = v&gt;&gt;<span class="number">21</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;*(ptr++) = v | B;</span><br><span class="line">            *(ptr++) = (v&gt;&gt;<span class="number">7</span>) | B;</span><br><span class="line">            *(ptr++) = (v&gt;&gt;<span class="number">14</span>) | B;</span><br><span class="line">            *(ptr++) = (v&gt;&gt;<span class="number">21</span>) | B;</span><br><span class="line">            *(ptr++) = v&gt;&gt;<span class="number">28</span>;</span><br><span class="line">           &#125;</span><br><span class="line">    <span class="keyword">return</span> reinterpret_cast&lt;<span class="type">char</span>*&gt;(ptr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比如300：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">300</span> = <span class="number">256</span> + <span class="number">32</span> + <span class="number">8</span> + <span class="number">4</span> = <span class="number">1</span> <span class="number">0010</span> <span class="number">1100</span></span><br><span class="line">v = <span class="number">1</span> <span class="number">0010</span> <span class="number">1100</span></span><br><span class="line">v | B = <span class="number">1</span> <span class="number">0010</span> <span class="number">1100</span> | <span class="number">1000</span> <span class="number">0000</span> =<span class="number">1</span> <span class="number">1010</span> <span class="number">1100</span> <span class="comment">// *(ptr++) = v | B;</span></span><br><span class="line">v &gt;&gt; <span class="number">7</span> = <span class="number">1</span> <span class="number">0010</span> <span class="number">1100</span> &gt;&gt; <span class="number">7</span> = <span class="number">000</span> <span class="number">0010</span> <span class="comment">// *(ptr++) = v&gt;&gt;7;</span></span><br><span class="line">最后结果是：</span><br><span class="line"><span class="number">1010</span> <span class="number">1100</span> <span class="comment">// Low</span></span><br><span class="line"><span class="number">0000</span> <span class="number">0010</span> <span class="comment">// High</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="负整数"><a href="#负整数" class="headerlink" title="负整数"></a>负整数</h3><p>对于负数，最好存储为sint类型，sint在被解析的时候采用zigzag编码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Zigzag(n) = (n &lt;&lt; <span class="number">1</span>) ^ (n &gt;&gt; <span class="number">31</span>) <span class="comment">// n 为 sint32 时</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.yesmylord.cn//84_8.png" alt="映射关系"></p>
+<p>将2^32分为两半，奇数表示负数，偶数表示正数。</p>
+<ul>
+<li>意味着sint存储的范围在[-2^31, 2^31 - 1]</li>
+</ul>
+<blockquote>
+<p>问题1：pb的int32可以存储负数类型吗？占用几个字节？</p>
+</blockquote>
+<p>int32可以存储负数类型。</p>
+<p>如果使用int32类型存储负数，那么不管是int32还是int64位都会使用10个字节来存储（源码会强制转为）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">value3 := []int32&#123;&#125;</span><br><span class="line">value3 = append(value3, <span class="number">-1</span>)</span><br><span class="line">test_data3 := FeatureCtx&#123;Int32Array: value3&#125;</span><br><span class="line"></span><br><span class="line">value2 := []int32&#123;&#125;</span><br><span class="line">value2 = append(value2, <span class="number">-1</span>)</span><br><span class="line">test_data2 := FeatureCtx&#123;Sint32Array: value2&#125;</span><br><span class="line"></span><br><span class="line">mashal_res3, _ := proto.Marshal(&amp;test_data3)</span><br><span class="line">mashal_res2, _ := proto.Marshal(&amp;test_data2)</span><br><span class="line">println(len(mashal_res3)) <span class="comment">// 11 字节</span></span><br><span class="line">println(len(mashal_res2)) <span class="comment">// 2 字节</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关于Packed-true的作用"><a href="#关于Packed-true的作用" class="headerlink" title="关于Packed=true的作用"></a>关于Packed=true的作用</h2><blockquote>
+<p>PB3中默认，对基础数据类型（如整数、枚举等）的 repeated 字段都默认开启packed=true。</p>
+</blockquote>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">repeated</span> <span class="type">int32</span> array1 = <span class="number">1</span> [packed=<span class="literal">true</span>];</span><br><span class="line"><span class="keyword">repeated</span> <span class="type">int32</span> array2 = <span class="number">2</span> [packed=<span class="literal">false</span>];</span><br></pre></td></tr></table></figure>
+
+<p>对于array1和arry2的区别是什么呢？</p>
+<p>假设我们分别给他们存入4个1，即数组的内容是<code>&#123;1, 1, 1,1&#125;</code></p>
+<p>他们的区别是：</p>
+<ul>
+<li>array1：<code> T, L V, V, V, V = 2(TV) + 4(4个V) = 6bytes</code></li>
+<li>array2：<code> TV, TV, TV, TV =  2 * 4 = 8 bytes</code></li>
+</ul>
+<p>“Packed”格式特别适用于 repeated 字段中包含大量相邻的小整数值的情况。</p>
+<h2 id="Snappy压缩原理"><a href="#Snappy压缩原理" class="headerlink" title="Snappy压缩原理"></a>Snappy压缩原理</h2><p>Snappy 使用了一个哈希表来存储已经见过的短语（通常是 4 到 11 字节的小片段）。在压缩数据时，它会扫描输入数据，并通过哈希表来查找匹配的短语。</p>
+<p>当 Snappy 找到重复的短语时，它会用一个复制标记来表示“复制前面出现过的内容”。如果找不到匹配的短语，它就会使用字面量的方式来存储数据。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>目前，特征仓库的特征传递目前使用字符串逗号拼接的形式：<code>param1,param2,param3</code>。</p>
+<p>预计将序列化方式进行protobuf改造，为了寻求一种更好的序列化存储方式，本文测试了使用Protobuf协议，在使用oneof、float、double等几种类型的不同序列化方式的对比。</p>
+<h1 id="序列化大小对比——随机数据"><a href="#序列化大小对比——随机数据" class="headerlink" title="序列化大小对比——随机数据"></a>序列化大小对比——随机数据</h1><h2 id="测试方式"><a href="#测试方式" class="headerlink" title="测试方式"></a>测试方式</h2><p>四种序列化方式：</p>
+<ol>
+<li><p>普通数组（或称为原生数组）：即idl直接定义的数组repeated float float_array = 10;</p>
+</li>
+<li><p>oneof数组：即oneof类型的数组（oneof类型不能直接repeat）</p>
+</li>
+</ol>
+  <figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message </span><span class="title class_">DataValue</span> &#123;</span><br><span class="line">    <span class="keyword">oneof</span> Data &#123;</span><br><span class="line">        <span class="type">string</span> strVal = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int32</span> i32Val = <span class="number">2</span>;</span><br><span class="line">        <span class="type">float</span> floatVal = <span class="number">3</span>;</span><br><span class="line">        <span class="type">double</span> doubleVal = <span class="number">4</span>;</span><br><span class="line">        <span class="type">int64</span> int64Val = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">message  </span><span class="title class_">FeatureCtx</span>&#123;</span><br><span class="line">	<span class="keyword">repeated</span> DataValue data = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>占位符：并不使用数组，而是使用一个字段表示数组中的一位</li>
+</ol>
+  <figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message </span><span class="title class_">DataStruct</span> &#123;</span><br><span class="line">    <span class="type">string</span> sval0 = <span class="number">1</span>;</span><br><span class="line">    <span class="type">string</span> sval1 = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sval2 = <span class="number">3</span>;</span><br><span class="line">    <span class="type">string</span> sval3 = <span class="number">4</span>;</span><br><span class="line">    <span class="comment">// 省略...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>字符串拼接</p>
+<ol>
+<li>纯小数：不同精度，使用逗号拼接：比如精度为2时，一个case是”0.11,0.23,0.12”，精度为3就是”0.222,0.333,0.122”</li>
+<li>非纯小数：只要字符数与纯小数相同，性能就相同<ul>
+<li>精度2 = 每个值的字符数是5：比如”0.12,” == “1.23,” == “12.3,”</li>
+<li>精度3 = 每个值的字符数是6：比如”0.123,” == “1.234,” == “12.34,” == “123.4,”</li>
+<li>精度4 = 每个值的字符数是7</li>
+<li>精度5 = 每个值的字符数是8</li>
+<li>精度6 = 每个值的字符数是9</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>数据生成方式：</strong><br>int数据的生成方式：生成指定范围的数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">genRandomInt</span><span class="params">(min, max <span class="type">int32</span>)</span></span> <span class="type">int32</span> &#123;</span><br><span class="line">    rand.Seed(time.Now().UnixNano())</span><br><span class="line">    randomNumber := rand.Int31n(max-min+<span class="number">1</span>) + min</span><br><span class="line">    <span class="keyword">return</span> randomNumber</span><br><span class="line">&#125;</span><br><span class="line">小数的生成方式：指定生成范围以及精度</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">generateRandomFloat</span><span class="params">(min, max <span class="type">float64</span>, precision <span class="type">int</span>)</span></span> <span class="type">float32</span> &#123;</span><br><span class="line">    rand.Seed(time.Now().UnixNano())</span><br><span class="line">    <span class="comment">// 生成在指定范围内的随机浮点数</span></span><br><span class="line">    randomValue := min + rand.Float64()*(max-min)</span><br><span class="line">    <span class="comment">// 将浮点数舍入到指定精度</span></span><br><span class="line">    <span class="keyword">return</span> round(randomValue, precision)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="float数组对比"><a href="#float数组对比" class="headerlink" title="float数组对比"></a>float数组对比</h2><h3 id="测试1：数组长度1-20（有占位符）"><a href="#测试1：数组长度1-20（有占位符）" class="headerlink" title="测试1：数组长度1~20（有占位符）"></a>测试1：数组长度1~20（有占位符）</h3><p>构造了1~20不同长度float、double数组，数组的每一个元素使用random构造，每一个小数都是<strong>纯小数</strong>（即整数部分为0）；<br>对于字符串类型，额外需要精度，比如精度为2即保留小数点后两位：”0.12,0.23,”</p>
+<p><img src="http://img.yesmylord.cn//image-20240102225928127.png" alt="Float类型比较">对于float类型：<br><strong>原生数组</strong> &lt; string拼接(精度2) &lt; string拼接(精度3) = 占位符 &lt; string拼接(精度4)</p>
+<blockquote>
+<p>也能看出：占位符的性能大致为string精度为3时的性能</p>
+</blockquote>
+<h3 id="测试2：数组长度1-100（有snappy压缩，无占位符）"><a href="#测试2：数组长度1-100（有snappy压缩，无占位符）" class="headerlink" title="测试2：数组长度1~100（有snappy压缩，无占位符）"></a>测试2：数组长度1~100（有snappy压缩，无占位符）</h3><p><img src="http://img.yesmylord.cn//image-20240102230158637.png" alt="Float类型比较"><br>1、在数据随机生成的情况下（即<strong>数据重复率很低</strong>时）有以下结论：</p>
+<ul>
+<li>Snappy在数组长度50之后，压缩效果比较好。</li>
+<li>Snappy对原生float数组压缩几乎没有效果。</li>
+<li>在数组长度大于50之后，string.2拼接略好于原生数组</li>
+</ul>
+<p>2、在数据随机生成的情况下（即<strong>数据重复率很低</strong>）时，总体排序为：</p>
+<p>string.2压缩 &lt; 原生数组 &lt; string.3压缩 &lt; string.2 &lt; string.4压缩 &lt; string.3 = oneof 压缩 &lt; string.5压缩 &lt; string.4 = oneof &lt; string.6压缩 &lt; string.5 &lt; string.6</p>
+<p>3、在数据随机生成的情况下（即<strong>数据重复率很低</strong>）时，Snappy压缩率：<br>当数组长度为50→100</p>
+<ul>
+<li>原生数组压缩率：不压缩</li>
+<li>oneof压缩率：87%</li>
+<li>string.2压缩率：72%</li>
+<li>string.3压缩率：80%</li>
+<li>string.4压缩率：84%</li>
+<li>string.5压缩率：86%</li>
+<li>string.6压缩率：87%</li>
+</ul>
+<p>4、假设string拼接方式为1，那么使用不同的序列化方式的字节占用是：（取数组长度为35时的结果）</p>
+<table>
+<thead>
+<tr>
+<th>不同精度</th>
+<th>float数组</th>
+<th>oneof数组</th>
+<th>oneof数组+snappy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>string.2</strong></td>
+<td>0.80</td>
+<td>1.38</td>
+<td>1.26</td>
+</tr>
+<tr>
+<td><strong>string.3</strong></td>
+<td>0.67</td>
+<td>1.15</td>
+<td>1.05</td>
+</tr>
+<tr>
+<td><strong>string.4</strong></td>
+<td>0.58</td>
+<td>0.99</td>
+<td>0.90</td>
+</tr>
+<tr>
+<td><strong>string.5</strong></td>
+<td>0.51</td>
+<td>0.87</td>
+<td>0.79</td>
+</tr>
+<tr>
+<td><strong>string.6</strong></td>
+<td>0.45</td>
+<td>0.77</td>
+<td>0.70</td>
+</tr>
+</tbody></table>
+<p>精度为6，使用float的优势比string拼接好一半多。</p>
+<h2 id="double数组对比"><a href="#double数组对比" class="headerlink" title="double数组对比"></a>double数组对比</h2><h3 id="测试1：数组长度1-20（有占位符）-1"><a href="#测试1：数组长度1-20（有占位符）-1" class="headerlink" title="测试1：数组长度1~20（有占位符）"></a>测试1：数组长度1~20（有占位符）</h3><p><img src="http://img.yesmylord.cn//image-20240102230622776.png" alt="Double数组对比"><br>对于double类型：</p>
+<p>string拼接(精度2) &lt; string拼接(精度3)&lt;string拼接(精度4)&lt;string拼接(精度5) = 原生double数组 &lt; 占位符数组 &lt; oneof数组</p>
+<h3 id="测试2：数组长度1-100（有snappy压缩，无占位符）-1"><a href="#测试2：数组长度1-100（有snappy压缩，无占位符）-1" class="headerlink" title="测试2：数组长度1~100（有snappy压缩，无占位符）"></a>测试2：数组长度1~100（有snappy压缩，无占位符）</h3><p><img src="http://img.yesmylord.cn//image-20240102230650838.png" alt="Double数组"><br>1、整体来看：</p>
+<ul>
+<li>Snappy对原生double数组压缩没有效果。</li>
+<li>string拼接要好于原生数组（普通数组），因为pb对double没有优化，直接会直接给8字节</li>
+</ul>
+<p>2、总体排序：</p>
+<p>string.2压缩 &lt; string.3压缩 &lt; string.2 &lt; string.4压缩 &lt; string.3 &lt; string.5压缩 &lt; string.4 &lt; string.6压缩 &lt; string.5 = 原生数组 &lt; string.6 &lt; oneof数组压缩 &lt; oneof数组</p>
+<p>3、假设当前的string拼接方式为1，那么使用原生数组、压缩字符串、压缩oneof数组的占用是（取数组长度为35时的结果）</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>double数组</th>
+<th>oneof数组</th>
+<th>oneof数组+snappy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>string.2</strong></td>
+<td>1.59</td>
+<td>2.16</td>
+<td>1.96</td>
+</tr>
+<tr>
+<td><strong>string.3</strong></td>
+<td>1.33</td>
+<td>1.81</td>
+<td>1.64</td>
+</tr>
+<tr>
+<td><strong>string.4</strong></td>
+<td>1.14</td>
+<td>1.55</td>
+<td>1.41</td>
+</tr>
+<tr>
+<td><strong>string.5</strong></td>
+<td>1.00</td>
+<td>1.36</td>
+<td>1.24</td>
+</tr>
+<tr>
+<td><strong>string.6</strong></td>
+<td>0.89</td>
+<td>1.21</td>
+<td>1.10</td>
+</tr>
+</tbody></table>
+<p>当string精度为5，double数组与string拼接基本相同。</p>
+<p>当string精度为6，double数组好于string拼接。</p>
+<h2 id="int数组对比"><a href="#int数组对比" class="headerlink" title="int数组对比"></a>int数组对比</h2><h3 id="测试1：int数组对比其他格式"><a href="#测试1：int数组对比其他格式" class="headerlink" title="测试1：int数组对比其他格式"></a>测试1：int数组对比其他格式</h3><p>由于数据的长度对String拼接的方式影响比较大，因此我们分别测试了数量级在0-100、100-1w</p>
+<p><img src="http://img.yesmylord.cn//image-20240102230831608.png" alt="0~100数量级"></p>
+<p><img src="http://img.yesmylord.cn//image-20240102230844901.png" alt="100~1w数量级"></p>
+<p>对比可见，<strong>pb对int数组的优化是十分明显的</strong>，不论数量级在什么级别，原生的int数组有压倒性的优势。</p>
+<p>排序为：原生数组 &lt;&lt; 占位符数组 = 0<del>100数量级string拼接 &lt; oneof数组 = 100</del>1w数量级string拼接</p>
+<h3 id="测试2：在要求精度的前提下，对比float2int与float"><a href="#测试2：在要求精度的前提下，对比float2int与float" class="headerlink" title="测试2：在要求精度的前提下，对比float2int与float"></a>测试2：在要求精度的前提下，对比float2int与float</h3><p>要求精度accuracy的前提下，将float*accuracy存在int数组内，与直接使用float数组进行对比。</p>
+<p><img src="http://img.yesmylord.cn//image-20240102231053891.png" alt="0~1数量级对比"></p>
+<p>当数据是纯小数时，约束精度是非常有效的。</p>
+<p><img src="http://img.yesmylord.cn//image-20240102231131292.png" alt="1~100数量级对比"></p>
+<p><img src="http://img.yesmylord.cn//image-20240102231251269.png" alt="100~1w数量级对比"></p>
+<p>随着数量级的提高，使用此方法的优势下降，此方式适合于整数部分比较少，小数部分较多的情况。<br>我们假设使用float为1，那么各种精度的int类型收益如表所示：</p>
+<table>
+<thead>
+<tr>
+<th>数量级</th>
+<th>精度2</th>
+<th>精度3</th>
+<th>精度4</th>
+<th>精度5</th>
+<th>精度6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>0~1(纯小数)</strong></td>
+<td>0.25</td>
+<td>0.47</td>
+<td>0.49</td>
+<td>0.71</td>
+<td>0.73</td>
+</tr>
+<tr>
+<td><strong>1~100</strong></td>
+<td>0.50</td>
+<td>0.71</td>
+<td>0.75</td>
+<td>0.94</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td><strong>100~1w</strong></td>
+<td>0.75</td>
+<td>0.94</td>
+<td>1.00</td>
+<td>1.17</td>
+<td>2.19</td>
+</tr>
+</tbody></table>
+<h2 id="PB对比总结"><a href="#PB对比总结" class="headerlink" title="PB对比总结"></a>PB对比总结</h2><p>1、字节占用天梯图（字节占用从小到大排序）</p>
+<p>取数组长度在30~50之间时（一个特征组的特征基本在这个区间内）</p>
+<ol>
+<li><strong>int数组</strong></li>
+<li>占位符(int)、数据量级在0~100string拼接</li>
+<li>oneof(int)、数据量级在0~1w string拼接</li>
+<li><strong>float数组</strong>、snappy(string.2)</li>
+<li>string.2、snappy(string.3) </li>
+<li>string.3、snappy(string.4) 、<strong>占位符(float)</strong></li>
+<li>string.4、snappy(string.5) 、<strong>oneof数组(float)<strong>、</strong>压缩oneof(float)</strong></li>
+<li>string.5、snappy(string.6) 、<strong>double数组</strong></li>
+<li>string.6、snappy(string.7) </li>
+<li>string.7、<strong>oneof数组(double)<strong>、</strong>压缩oneof(double)</strong></li>
+<li>string.N</li>
+</ol>
+<p>2、使用int替代float，会在小数部分多，整数部分少的情况下有明显收益。</p>
+<p>与现行方案string拼接对比，使用int收益如下（string不同精度 / int不同进度）</p>
+<table>
+<thead>
+<tr>
+<th>数量级</th>
+<th>精度2</th>
+<th>精度3</th>
+<th>精度4</th>
+<th>精度5</th>
+<th>精度6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>0~1(纯小数)</strong></td>
+<td>0.20</td>
+<td>0.32</td>
+<td>0.28</td>
+<td>0.35</td>
+<td>0.33</td>
+</tr>
+<tr>
+<td><strong>1~100</strong></td>
+<td>0.34</td>
+<td>0.41</td>
+<td>0.38</td>
+<td>0.42</td>
+<td>0.40</td>
+</tr>
+<tr>
+<td><strong>100~1w</strong></td>
+<td>0.38</td>
+<td>0.42</td>
+<td>0.40</td>
+<td>0.43</td>
+<td>0.73</td>
+</tr>
+</tbody></table>
+<h1 id="序列化大小对比——真实数据"><a href="#序列化大小对比——真实数据" class="headerlink" title="序列化大小对比——真实数据"></a>序列化大小对比——真实数据</h1><p>与随机生成的数据相比，真实的数据通常有几个特点：</p>
+<ol>
+<li><strong>重复率</strong>会高一点：因此Snappy压缩情况会好一点。</li>
+<li><strong>空值率</strong>会高一点：空值需要额外的存储。</li>
+</ol>
+<p>真实的数据，可能存在为空的情况，也不好使用0这种有意义的数值表示null，因此需要存放空值的下标，关于下标的存储方式有这么两种：</p>
+<ol>
+<li>可以使用int[]数组存放下标</li>
+<li>使用int[]数组，但是每一个元素使用bitmap，每一位对标一个下标，那么总共需要length / 31个int数作为bitmap。</li>
+</ol>
+<blockquote>
+<p>PS：这里使用31，而不是32，是为了避免出现负数，Protobuf的int32类型对于负数的存储不论大小，都会占用10字节。（pb对于负数的优化是sint类型）</p>
+</blockquote>
+<h2 id="测试数据case1"><a href="#测试数据case1" class="headerlink" title="测试数据case1"></a>测试数据case1</h2><p>此处使用真实数据测试，但数据源不能公示，此处仅展示结论<br>idl：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message  </span><span class="title class_">FeatureCtx</span>&#123;</span><br><span class="line">  <span class="keyword">repeated</span> <span class="type">string</span> strArray = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">repeated</span> <span class="type">int32</span> intArray = <span class="number">2</span>; <span class="comment">// 存放值</span></span><br><span class="line">  <span class="keyword">repeated</span> <span class="type">int32</span> emptyArray = <span class="number">3</span>; <span class="comment">// bitmap</span></span><br><span class="line">  <span class="keyword">repeated</span> <span class="type">float</span> floatArray = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>int+int表示使用int数组存数据，且使用int数组存null值下标</li>
+<li>int+bitmap表示使用int数组存数据，且使用bitmap存null值下标</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20240102233531680.png" alt="case1"></p>
+<p>表中可见：</p>
+<ul>
+<li>数据压缩后：int+bitmap &lt; float + bitmap &lt; string &lt;oneof &lt; int + int &lt; float + int</li>
+<li>int+int的方式表现不如string，是因为表的字段大部分为空，string拼接使用”N”来表示空，大量重复的N在压缩后效果十分明显（case1数据<code>Null字段/全部字段=48/53</code>）</li>
+<li>snappy的压缩，对string、oneof效果最好，对基本数组的压缩很小。（之前的测试对int、float、double等类型完全没有压缩，是因为生成的数都是随机的，重复率比较小）</li>
+<li>该case数据的小数精确到4位，拿精度为4的int+bitmap对比string，比值为0.56 : 1</li>
+<li>数据null值字段 / 全部字段 = 48/53，空值很多，如果数据比较充实，那么int+bitmap的效果会比string更好。</li>
+</ul>
+<h2 id="测试数据case2"><a href="#测试数据case2" class="headerlink" title="测试数据case2"></a>测试数据case2</h2><p>case2也是一个较为稀疏的表。<br><img src="http://img.yesmylord.cn//image-20240102233754670.png" alt="case2稀疏"><br>我们将null的数据除去，使用剩下的字段构造一个稠密表进行测试：<br><img src="http://img.yesmylord.cn//image-20240102233852321.png" alt="case2稠密数据"><br><code>float_compress:string = 0.50</code>以及<code>float_compress:string_compress=0.76</code></p>
+<h2 id="测试数据case3"><a href="#测试数据case3" class="headerlink" title="测试数据case3"></a>测试数据case3</h2><p>由于此表的数据含有int、string、bigint、float四种数据，<strong>因此不同的序列化方式的区别仅在于对于float类型，是使用int存储还是float数组存储</strong>。（对于null值的处理，除string拼接外均使用bitmap)<br>测试方式：<br>Idl：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message  </span><span class="title class_">FeatureCtx</span>&#123;</span><br><span class="line">    <span class="keyword">repeated</span> DataValue data = <span class="number">1</span>; <span class="comment">// oneof</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">string</span> strArray = <span class="number">2</span>; <span class="comment">// 存放string</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">int32</span> intArray = <span class="number">3</span>; <span class="comment">// 存放int数值</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">int32</span> emptyArray = <span class="number">4</span>; <span class="comment">// 存放空元素下标，Array</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">float</span> floatArray = <span class="number">5</span>; <span class="comment">// 存放float值</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">int32</span> intFloatArray = <span class="number">6</span>; <span class="comment">// 存放float值，使用 float * accuracy = int</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">int64</span> longArray = <span class="number">7</span>; <span class="comment">// 存放float值，使用不同精度</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// tag最好在1~15，因为1~15使用1个byte</span></span><br><span class="line">    <span class="comment">//  optional string dataVersion = 14; //数据的版本；例如离线表Hive的分区；</span></span><br><span class="line">    <span class="comment">//  string metaVersion = 15;//特征组的元数据版本。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试udf：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">evaluate</span><span class="params">(String name, String version, Map&lt;String, String&gt; keyItems, Map&lt;String, String&gt; valueItems, <span class="type">int</span> accuracy, <span class="type">int</span> compress)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="comment">// 初始化部分</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">paramSize</span> <span class="operator">=</span> valueItems.size();</span><br><span class="line">    <span class="comment">// 最多使用31位，使用32会出现负数，pb的int32存储负数需要10字节</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">bitmapSize</span> <span class="operator">=</span> <span class="number">31</span>;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; intArray = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    List&lt;Integer&gt; emptyArray = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> <span class="variable">bitmapNum</span> <span class="operator">=</span> paramSize / bitmapSize;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt;= bitmapNum; j++) &#123;</span><br><span class="line">        emptyArray.add(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Long&gt; longArray = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    List&lt;String&gt; stringArray = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    List&lt;Integer&gt; floatArray = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">// 遍历参数，判断类型，放入不同的list</span></span><br><span class="line">    <span class="type">int</span> i=-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(String key : valueItems.keySet())&#123;</span><br><span class="line">        i++;</span><br><span class="line">        <span class="type">String</span> <span class="variable">ele</span> <span class="operator">=</span> valueItems.get(key);</span><br><span class="line">        <span class="keyword">if</span> (Strings.isEmpty(ele)) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">bitmap</span> <span class="operator">=</span> emptyArray.get(i / bitmapSize) | (<span class="number">1</span> &lt;&lt; (i % bitmapSize));</span><br><span class="line">            emptyArray.set(i / bitmapSize, bitmap);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">type</span> <span class="operator">=</span> keyItems.get(key);</span><br><span class="line">        <span class="keyword">if</span>(type == <span class="literal">null</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;int&quot;</span>:</span><br><span class="line">                <span class="comment">// 放入数组队列</span></span><br><span class="line">                intArray.add(Integer.parseInt(ele));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;long&quot;</span>:</span><br><span class="line">                <span class="comment">// 放入long队列</span></span><br><span class="line">                <span class="comment">// 先转为double再换为long，防止某些NaN转为0.0导致parse出错</span></span><br><span class="line">                longArray.add((<span class="type">long</span>) Double.parseDouble(ele));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;float&quot;</span>:</span><br><span class="line">                <span class="comment">// 【方式1】放入float队列——int*精度</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> (<span class="type">int</span>) (Float.parseFloat(ele) * accuracy);</span><br><span class="line">                floatArray.add(val);</span><br><span class="line">                <span class="comment">// 【方式二】直接放入float队列</span></span><br><span class="line">                <span class="comment">// floatArray.add(Float.parseFloat(ele));</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;string&quot;</span>:</span><br><span class="line">                <span class="comment">// 放入string队列</span></span><br><span class="line">                stringArray.add(ele);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    FeatureCtx.<span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span> FeatureCtx.newBuilder();</span><br><span class="line">    builder.addAllIntArray(intArray);</span><br><span class="line">    builder.addAllEmptyArray(emptyArray);</span><br><span class="line">    builder.addAllIntFloatArray(floatArray);</span><br><span class="line">    builder.addAllLongArray(longArray);</span><br><span class="line">    builder.addAllStrArray(stringArray);</span><br><span class="line"></span><br><span class="line">    <span class="type">byte</span>[] bytes = builder.build().toByteArray();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(compress == <span class="number">1</span>)&#123;</span><br><span class="line">        bytes = Snappy.compress(bytes);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bytes.length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>结果如下：</p>
+<p><img src="http://img.yesmylord.cn//image-20240102234220788.png" alt="不同序列化方式测试"><br>对比float+bitmap与string拼接比值为138 / 203 = 0.66</p>
+<blockquote>
+<p>问题一：为什么前面六种方式的数据大小基本一致？</p>
+</blockquote>
+<p>因为数据本身float占比很小，特征参数的统计如下： </p>
+<ul>
+<li>Int 27个</li>
+<li>String 17个</li>
+<li>Bigint 1</li>
+<li>Float 2</li>
+</ul>
+<p>大部分都是string和int，除string外的方式，前面六种方式只对float类型有所区分而已，因此基本一致。</p>
+<blockquote>
+<p>问题二：为什么数据压缩率不高？甚至压缩完会比原来更高</p>
+</blockquote>
+<p>对于每一组特征，重复率不高，因此压缩率不高。<br>比如：使用基本的int数组或是float数组进行存储时，原本的100bytes，压缩后变为103bytes，多的3bytes存储了Snappy的数据结构，数据条数比较多（20231210分区数据：3,604,946,782条，1T数据大小），而数据本身重复率不高，空值率不高，因此压缩率不高，甚至返增。</p>
+<h2 id="测试数据case4"><a href="#测试数据case4" class="headerlink" title="测试数据case4"></a>测试数据case4</h2><p><img src="http://img.yesmylord.cn//image-20240102234517390.png" alt="case4稀疏"></p>
+<p><code>float+snappy : string </code>比值为：<code>20.09 : 69.46 = 0.28</code><br>float+snappy与int6+snappy压缩完大小基本一致。</p>
+<h2 id="测试数据case5"><a href="#测试数据case5" class="headerlink" title="测试数据case5"></a>测试数据case5</h2><p><img src="http://img.yesmylord.cn//image-20240102234607727.png" alt="case5"><br><code>float+snappy : string</code> 比值为：<code>7.5 : 31.86 = 0.23</code></p>
+<p>float+snappy与int6+snappy压缩完大小基本一致。</p>
+<h2 id="测试数据case6"><a href="#测试数据case6" class="headerlink" title="测试数据case6"></a>测试数据case6</h2><p><img src="http://img.yesmylord.cn//image-20240102234635525.png" alt="case6"><br><code>float+snappy : string</code> 比值为：<code>83.48 : 302.47 = 0.27</code></p>
+<p>float+snappy与int6+snappy压缩完大小基本一致。</p>
+<h2 id="PB化结论"><a href="#PB化结论" class="headerlink" title="PB化结论"></a>PB化结论</h2><ol>
+<li><p>对于不同的数据，最好使用不同的pb数据结构：</p>
+<ul>
+<li>对于字符串：使用字符串</li>
+<li>对于int、long：使用int32、int64</li>
+<li>对于浮点数：优先使用float数组，使用int*accuracy比float数组少一点，但是差异不大，反而引入精度问题。</li>
+<li>对于null值：使用<code>int[]</code>，其中每一个元素都是一个bitmap</li>
+</ul>
+</li>
+<li><p>关于snappy</p>
+<ul>
+<li><p>可以在序列化后直接加Snappy，稀疏情况下使用效果比较好（对于比较稠密的、而且重复比较少的数据，可能会增大size）</p>
+<ul>
+<li>Snappy的原理是根据数据构造了一个重复语句的哈希表，重复越多压缩率越高。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
+<li>很棒的博文：<a target="_blank" rel="noopener" href="https://halfrost.com/protobuf_encode/#toc-19">https://halfrost.com/protobuf_encode/#toc-19</a></li>
+<li>一本书：《数据密集型应用系统设计》</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Protobuf/" rel="tag"><i class="fa fa-tag"></i> Protobuf</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/25/Go/golang/" rel="prev" title="速转Golang">
+                  <i class="fa fa-chevron-left"></i> 速转Golang
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/01/03/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/Caffeine%E4%B8%8E%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/" rel="next" title="Caffeine与缓存算法">
+                  Caffeine与缓存算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

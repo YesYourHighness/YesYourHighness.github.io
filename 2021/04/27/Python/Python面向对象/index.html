@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：  Python面向对象方面的内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python面向对象">
+<meta property="og:url" content="http://yoursite.com/2021/04/27/Python/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：  Python面向对象方面的内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-27T13:13:33.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.763Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/04/27/Python/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/04/27/Python/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/","path":"2021/04/27/Python/Python面向对象/","title":"Python面向对象"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python面向对象 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">Python面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.</span> <span class="nav-text">python面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">类的定义与使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%87%BD%E6%95%B0%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E3%80%81%E7%B1%BB%E7%9A%84%E5%86%85%E7%BD%AE%E5%B1%9E%E6%80%A7%E3%80%81%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.2.</span> <span class="nav-text">类的函数与普通函数、类的内置属性、对象属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python%E5%AF%B9%E8%B1%A1%E9%94%80%E6%AF%81%EF%BC%88%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%EF%BC%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">python对象销毁（垃圾回收）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="nav-number">1.1.4.</span> <span class="nav-text">类的继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.5.</span> <span class="nav-text">类属性与方法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/27/Python/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python面向对象 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python面向对象
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-27 21:13:33" itemprop="dateCreated datePublished" datetime="2021-04-27T21:13:33+08:00">2021-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+
+<p>Python面向对象方面的内容</p>
+</center>
+
+<span id="more"></span>
+
+
+<h1 id="Python面向对象"><a href="#Python面向对象" class="headerlink" title="Python面向对象"></a>Python面向对象</h1><h2 id="python面向对象"><a href="#python面向对象" class="headerlink" title="python面向对象"></a>python面向对象</h2><p>本节主要讲述python中的面向对象，先直接阐述要点，再给出代码示例</p>
+<p>（可能之后本篇会进行更新）</p>
+<h3 id="类的定义与使用"><a href="#类的定义与使用" class="headerlink" title="类的定义与使用"></a>类的定义与使用</h3><p>要点：</p>
+<ol>
+<li>类的组成<ul>
+<li>类的帮助信息（可以使用<code>ClassName.__doc__</code>查看）</li>
+<li>类体：<ul>
+<li>类成员</li>
+<li>方法</li>
+<li>数据属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>位置参数<code>self</code><ul>
+<li>仅仅表示一个位置，换成其他名字也可以，只要在第一个位置即可</li>
+<li>表示<strong>类的实例本身</strong>，注意是类的实例，即对象</li>
+<li>区分类的函数与普通函数的标志</li>
+<li>传参时不必传入self的值，通过对象调用公共方法时，会自动将对象隐式绑定到self参数</li>
+</ul>
+</li>
+<li>注意实例化与赋值的区别，实例化才会调用<code>__init__</code>方法</li>
+<li>在类中定义的为类的变量，使用类名调用</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Fish</span>:</span><br><span class="line">    <span class="string">&quot;鱼的基类&quot;</span>  <span class="comment"># 类的帮助信息，可以使用 ClassName.__doc__ 这里就可以使用 Fish.__doc__查看</span></span><br><span class="line">    totalNum = <span class="number">0</span>  <span class="comment"># 类变量，在类的所有实例之间共享</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, size</span>):</span><br><span class="line">        <span class="comment"># __init__是特殊的方法，当创建了这个类的实例时，就会被调用</span></span><br><span class="line">        <span class="comment"># self 代表类的实例！！注意是类的实例，所以我们不能使用self.totalNum，应该是用类名进行调用</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;构造ing...&quot;</span>)</span><br><span class="line">        Fish.totalNum += <span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.size = size</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    a = Fish  <span class="comment"># 这样代表赋值！！意思是a就如同Fish一样，不会进行实例化，不会调用__init__函数</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(a))</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(Fish))</span><br><span class="line">    <span class="comment">#   上两行：a的id与Fish的id是一样的，也不会调用__init__函数</span></span><br><span class="line">    <span class="built_in">print</span>(a)</span><br><span class="line">    <span class="built_in">print</span>(Fish)</span><br><span class="line">    <span class="comment">#   上两行：打印出&lt;class &#x27;__main__.Fish&#x27;&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;--------------------------------分割线---------------------------------------&quot;</span>)</span><br><span class="line">    a = Fish(<span class="string">&quot;小黄鱼&quot;</span>, <span class="number">12</span>)  <span class="comment"># 加了括号，这才是实例化，会调用__init__构造方法</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(a))</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">id</span>(Fish))</span><br><span class="line">    <span class="comment">#   上两行：a的id与Fish的id不同</span></span><br><span class="line">    <span class="built_in">print</span>(a)  <span class="comment"># 打印出实例的地址 &lt;__main__.Fish object at 0x000001CC5F3F9190&gt;（没有重写str方法）</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;--------------------------------分割线---------------------------------------&quot;</span>)</span><br><span class="line">    <span class="comment">#   为了证明不加括号的确是赋值，我们可以这样尝试一下</span></span><br><span class="line">    fish = Fish</span><br><span class="line">    b = fish(<span class="string">&quot;小蓝鱼&quot;</span>, <span class="number">22</span>)</span><br><span class="line">    <span class="built_in">print</span>(b)  <span class="comment"># 打印出&lt;__main__.Fish object at 0x000001CC5F3F9250&gt;</span></span><br><span class="line">    <span class="comment">#   确实生成了新的实例，fish等同于Fish</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;--------------------------------分割线---------------------------------------&quot;</span>)</span><br><span class="line">    <span class="comment">#   查看类的帮助信息</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.__doc__)  <span class="comment"># 打印出“鱼的基类”</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;--------------------------------分割线---------------------------------------&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(a.totalNum)  <span class="comment"># 打印2，因为我们实例化了两条鱼，小黄鱼和小蓝鱼</span></span><br><span class="line">    <span class="built_in">print</span>(b.totalNum)  <span class="comment"># 打印2</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.totalNum)  <span class="comment"># 也可以使用类来打印</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="类的函数与普通函数、类的内置属性、对象属性"><a href="#类的函数与普通函数、类的内置属性、对象属性" class="headerlink" title="类的函数与普通函数、类的内置属性、对象属性"></a>类的函数与普通函数、类的内置属性、对象属性</h3><p>要点：</p>
+<ol>
+<li>类的函数与普通函数的最大的区别：类的函数有位置参数</li>
+<li>类的内置属性直接使用类名调用即可</li>
+<li>对象属性使用全局方法使用</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    类的函数与普通函数</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Fish</span>:</span><br><span class="line">    <span class="string">&quot;鱼的基类&quot;</span></span><br><span class="line">    totalNum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, size</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;构造ing...&quot;</span>)</span><br><span class="line">        Fish.totalNum += <span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.size = size</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    def eat():</span></span><br><span class="line"><span class="string">        print(&quot;我想吃东西...&quot;)</span></span><br><span class="line"><span class="string">    #   不加self会报错！！eat() takes 0 positional arguments but 1 was given</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">hungry</span>(<span class="params">abbccd</span>):  <span class="comment"># self只是一个位置参数，没有强求写成self，这里也是正确的</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;我想吃东西...&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">normalFunction</span>():  <span class="comment"># 普通函数不需要位置参数</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;这是普通的方法&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    normalFunction()  <span class="comment"># 普通方法直接调用即可</span></span><br><span class="line">    c = Fish(<span class="string">&quot;小紫鱼&quot;</span>, <span class="number">5</span>)</span><br><span class="line">    c.hungry()  <span class="comment"># 使用对象调用</span></span><br><span class="line">    d = Fish(<span class="string">&quot;小红鱼&quot;</span>, <span class="number">9</span>)</span><br><span class="line">    Fish.hungry(d)  <span class="comment"># 也可以这样调用对象的方法，我们可以进一步理解位置参数的作用</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;--------------------------------分割线---------------------------------------&quot;</span>)</span><br><span class="line">    <span class="comment"># 类的内置属性</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.__dict__)  <span class="comment"># 类的属性（一个字典），可以看到，我们定义的类的变量totalNum也在这里</span></span><br><span class="line">    <span class="comment"># 打印出&#123;</span></span><br><span class="line">    <span class="comment">#       &#x27;__module__&#x27;: &#x27;__main__&#x27;, </span></span><br><span class="line">    <span class="comment">#       &#x27;__doc__&#x27;: &#x27;鱼的基类&#x27;,</span></span><br><span class="line">    <span class="comment">#       &#x27;totalNum&#x27;: 2,</span></span><br><span class="line">    <span class="comment">#       &#x27;__init__&#x27;: &lt;function Fish.__init__ at 0x000001CB3117D430&gt;,</span></span><br><span class="line">    <span class="comment">#       &#x27;hungry&#x27;: &lt;function Fish.hungry at 0x000001CB313905E0&gt;,</span></span><br><span class="line">    <span class="comment">#       &#x27;__dict__&#x27;: &lt;attribute &#x27;__dict__&#x27; of &#x27;Fish&#x27; objects&gt;,</span></span><br><span class="line">    <span class="comment">#       &#x27;__weakref__&#x27;: &lt;attribute &#x27;__weakref__&#x27; of &#x27;Fish&#x27; objects&gt;</span></span><br><span class="line">    <span class="comment">#       &#125;</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.__name__)  <span class="comment"># 类名</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.__doc__)  <span class="comment"># 类的帮助信息</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.__module__)  <span class="comment"># 类定义所在的模块</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.__bases__)  <span class="comment"># 类的所有父类构成元素（包含了一个由所有父类组成的元组）</span></span><br><span class="line">    <span class="built_in">print</span>(Fish.__base__)  <span class="comment"># 直接的父类</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;--------------------------------分割线---------------------------------------&quot;</span>)</span><br><span class="line">    <span class="comment"># 对象的属性访问</span></span><br><span class="line">    e = Fish(<span class="string">&quot;小绿鱼&quot;</span>, <span class="number">18</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">hasattr</span>(e, <span class="string">&#x27;name&#x27;</span>))  <span class="comment"># 判断是否 True</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">getattr</span>(e, <span class="string">&#x27;size&#x27;</span>))  <span class="comment"># 18</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">setattr</span>(e, <span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;小白鱼&#x27;</span>))    <span class="comment"># 给值设值，本身没有返回值返回none</span></span><br><span class="line">    <span class="built_in">print</span>(e.name)       <span class="comment"># 打印出：小白鱼</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">delattr</span>(e, <span class="string">&#x27;name&#x27;</span>))   <span class="comment"># 返回none</span></span><br><span class="line">    <span class="comment"># print(e.name)   报错找不到该属性：&#x27;Fish&#x27; object has no attribute &#x27;name&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="python对象销毁（垃圾回收）"><a href="#python对象销毁（垃圾回收）" class="headerlink" title="python对象销毁（垃圾回收）"></a>python对象销毁（垃圾回收）</h3><p>要点：</p>
+<ol>
+<li><p>Python 使用了<strong>引用计数</strong>这一简单技术来跟踪和回收垃圾。</p>
+</li>
+<li><p>在 Python 内部记录着所有使用中的对象<strong>各有多少引用</strong>。</p>
+</li>
+<li><p>这个对象的引用计数变为0 时， 它将被垃圾回收。但是回收不是”立即”的， 由解释器在适当的时机，将垃圾对象占用的内存空间回收。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    python对象销毁（垃圾回收）</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Fish</span>:</span><br><span class="line">    <span class="string">&quot;鱼的基类&quot;</span></span><br><span class="line">    totalNum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, size</span>):</span><br><span class="line">        Fish.totalNum += <span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.size = size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__del__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="variable language_">self</span>.__class__.__name__ + <span class="string">&quot;被销毁了&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    a = Fish(<span class="string">&quot;小黑鱼&quot;</span>, <span class="number">1</span>)</span><br><span class="line">    b = a  <span class="comment"># 创建Fish的引用</span></span><br><span class="line">    c = a  <span class="comment"># 创建Fish的引用</span></span><br><span class="line">    <span class="keyword">del</span> (a)</span><br><span class="line">    <span class="built_in">print</span>(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">del</span> (b)</span><br><span class="line">    <span class="built_in">print</span>(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">del</span> (c)</span><br><span class="line">    <span class="built_in">print</span>(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>打印的结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">Fish被销毁了</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们创建了三个小黑鱼对象的引用，当全部的引用删除完成后，小黑鱼这个对象本身执行<code>__del__</code>函数，然后被析构</p>
+<h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><p>要点：</p>
+<ol>
+<li>要继承哪个类，写入括号内，有多个父类用逗号隔开</li>
+<li>通过<code>super()</code>调用父类的方法，<strong>注意：<code>super()</code>是带有括号的</strong>（某些教材使用<code>super(Class, self).xxx</code>调用，这是python2.x的写法）</li>
+<li>子类可以调用父类的方法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    类的继承</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Fish</span>(<span class="title class_ inherited__">object</span>):  <span class="comment"># 不写括号，默认继承object类</span></span><br><span class="line">    <span class="string">&quot;鱼的基类&quot;</span></span><br><span class="line">    totalNum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, size</span>):</span><br><span class="line">        Fish.totalNum += <span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.size = size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>(<span class="string">&quot;FISHINFO&gt;&gt;&gt;&quot;</span> + <span class="variable language_">self</span>.name + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(<span class="variable language_">self</span>.size))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">hungry</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;我饿了！！&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Shark</span>(<span class="title class_ inherited__">Fish</span>):  <span class="comment"># 使用括号进行继承，如果有多个父类，就用“,”隔开</span></span><br><span class="line">    <span class="string">&quot;鲨鱼类&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, size, age</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(name, size)  <span class="comment"># 调用父类的构造</span></span><br><span class="line">        <span class="variable language_">self</span>.age = age  <span class="comment"># 鲨鱼类独有的变量，它有一个年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>().__str__() + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(<span class="variable language_">self</span>.age)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self, fish</span>):  <span class="comment"># 鲨鱼类自己拥有的方法</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(fish, Fish):  <span class="comment"># 如果输入的是Fish类或其子类，那么返回true</span></span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;你不能喂鲨鱼鱼以外的其他东西！&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;大口吃鱼！！&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> fish.size &lt; <span class="variable language_">self</span>.size:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;我变大了！&quot;</span>)</span><br><span class="line">            <span class="variable language_">self</span>.size += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;不行，我吃不掉它，它有&quot;</span> + <span class="built_in">str</span>(fish.size) + <span class="string">&quot;，我才&quot;</span> + <span class="built_in">str</span>(<span class="variable language_">self</span>.size))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    s = Shark(<span class="string">&quot;鲨鱼辣椒&quot;</span>, <span class="number">121</span>, <span class="number">3</span>)  <span class="comment"># 名字取自《铁甲小宝》</span></span><br><span class="line">    a = Fish(<span class="string">&quot;小绿鱼&quot;</span>, <span class="number">18</span>)</span><br><span class="line">    b = Fish(<span class="string">&quot;大白鱼&quot;</span>, <span class="number">200</span>)</span><br><span class="line">    <span class="built_in">print</span>(s)</span><br><span class="line">    s.hungry()  <span class="comment"># 子类调用父类的方法</span></span><br><span class="line">    s.eat(a)  <span class="comment"># 子类调用自己独有的方法</span></span><br><span class="line">    <span class="built_in">print</span>(s)</span><br><span class="line">    s.hungry()</span><br><span class="line">    s.eat(b)</span><br><span class="line">    <span class="comment"># s.eat(&quot;我是一个字符串&quot;)  报错，因为输入的是一个字符串</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(Shark.__bases__)  <span class="comment"># 打印一下鲨鱼类父类的元组</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="类属性与方法"><a href="#类属性与方法" class="headerlink" title="类属性与方法"></a>类属性与方法</h3><p>要点：</p>
+<ol>
+<li><p>注意：<strong>在python中没有严格意义的访问限制</strong></p>
+</li>
+<li><p>python中的三种限制级别：</p>
+<ol>
+<li><code>name</code> 公共成员。</li>
+<li><code>_name</code> 私有成员。本类和子类访问。（<strong>非强制性</strong>，python建议。也就是说你<strong>依然可以在外部访问它</strong>）</li>
+<li><code>__name</code> 强制性私有成员。只在本类访问。（但你依然可以通过<code>_Classname__name</code>的方式来<strong>蛮横访问</strong>）</li>
+</ol>
+</li>
+<li><p>保护类型的变量不能用于<code> from module import *</code></p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    类的私有属性与方法</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Fish</span>:</span><br><span class="line">    <span class="string">&quot;鱼的基类&quot;</span></span><br><span class="line">    totalNum = <span class="number">0</span></span><br><span class="line">    __group = <span class="number">1</span>  <span class="comment"># 使用两个下划线表示类的私有变量，外部不可以访问（但其实可以访问）</span></span><br><span class="line">    _age = <span class="number">1</span>  <span class="comment"># 一个下划线表示受保护的，外部不建议访问（注意是 “不建议”），但是可以访问</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, size</span>):</span><br><span class="line">        Fish.totalNum += <span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line">        <span class="variable language_">self</span>.size = size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 内部可以调用私有变量和可继承变量</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>(<span class="string">&quot;FISHINFO&gt;&gt;&gt;&quot;</span> + <span class="variable language_">self</span>.name + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(<span class="variable language_">self</span>.size) + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(<span class="variable language_">self</span>.__group) + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(<span class="variable language_">self</span>._age))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__hungry</span>(<span class="params">self</span>):  <span class="comment"># 私有方法</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;我想吃东西...&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_eat</span>(<span class="params">self</span>):  <span class="comment"># 保护的方法</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;吃东西&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    a = Fish(<span class="string">&quot;小白鱼&quot;</span>, <span class="number">12</span>)</span><br><span class="line">    <span class="built_in">print</span>(a)</span><br><span class="line">    <span class="built_in">print</span>(a.totalNum)  <span class="comment"># 外部可以访问共有的变量</span></span><br><span class="line">    <span class="comment"># print(a.__group)     报错，外部不能访问私有变量</span></span><br><span class="line">    <span class="built_in">print</span>(a._age)  <span class="comment"># 外部可以访问类的保护成员</span></span><br><span class="line">    <span class="built_in">print</span>(a._Fish__group)  <span class="comment"># 外部其实也可以调用类的私有变量，只要使用 objectname._Classname__name 来访问即可</span></span><br><span class="line"></span><br><span class="line">    a._eat()</span><br><span class="line">    <span class="comment"># a.__hungry() 报错</span></span><br><span class="line">    a._Fish__hungry()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/21/hadoop/Hadoop%E5%AE%89%E8%A3%85/" rel="prev" title="Hadoop安装与集群配置">
+                  <i class="fa fa-chevron-left"></i> Hadoop安装与集群配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/01/Python/Python%E5%BA%8F%E5%88%97/" rel="next" title="Python序列">
+                  Python序列 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

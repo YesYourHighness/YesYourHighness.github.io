@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：限流，对流量加以控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="限流算法">
+<meta property="og:url" content="http://yoursite.com/2024/04/11/JUC/%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：限流，对流量加以控制">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//5479645">
+<meta property="og:image" content="http://img.yesmylord.cn//5479699">
+<meta property="og:image" content="http://img.yesmylord.cn//5479702">
+<meta property="og:image" content="http://img.yesmylord.cn//5479709">
+<meta property="article:published_time" content="2024-04-11T12:45:20.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.574Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="限流算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//5479645">
+
+
+<link rel="canonical" href="http://yoursite.com/2024/04/11/JUC/%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2024/04/11/JUC/%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/","path":"2024/04/11/JUC/限流算法/","title":"限流算法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>限流算法 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">限流算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E7%AA%97%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">固定窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%A1%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">漏桶算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">令牌桶算法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/04/11/JUC/%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="限流算法 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          限流算法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-11 20:45:20" itemprop="dateCreated datePublished" datetime="2024-04-11T20:45:20+08:00">2024-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">限流算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+  引言：限流，对流量加以控制
+</center>
+
+<span id="more"></span>
+
+<h1 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h1><p>服务总有一个承载上限，如果不加以控制，很有可能导致服务过大，打爆服务。</p>
+<p>本节介绍四种经典的限流算法（<a target="_blank" rel="noopener" href="https://heapdump.cn/article/5480577">图片来自于博客</a>）</p>
+<h2 id="固定窗口"><a href="#固定窗口" class="headerlink" title="固定窗口"></a>固定窗口</h2><blockquote>
+<p>固定窗口限流：固定时间处理阈值以内的流量，如果超过该时间的请求就丢弃</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//5479645" alt="固定窗口限流"></p>
+<p>优缺点：</p>
+<ul>
+<li>优点：实现简单</li>
+<li>缺点：存在明显的临界问题，假设当前每秒限流10qps，第8s的最后100ms有8qps，第9s的前100ms有5qps，那么在这不到200ms的时间，流量有8+5=13qps，我们的限流失败了。</li>
+</ul>
+<p>具体实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FixedWindows</span> <span class="keyword">implements</span> <span class="title class_">RateLimiter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">AtomicInteger</span> <span class="variable">counter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>(<span class="number">0</span>);  <span class="comment">//统计请求数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="variable">lastAcquireTime</span> <span class="operator">=</span>  System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">Long</span> <span class="variable">windowUnit</span> <span class="operator">=</span> <span class="number">1000L</span> ; <span class="comment">// 假设固定时间窗口是1000ms</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">Integer</span> <span class="variable">threshold</span> <span class="operator">=</span> <span class="number">10</span>; <span class="comment">// 窗口阀值是10</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">boolean</span> <span class="title function_">allowReq</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">currentTime</span> <span class="operator">=</span> System.currentTimeMillis();  <span class="comment">//获取系统当前时间</span></span><br><span class="line">        <span class="keyword">if</span> (currentTime - lastAcquireTime &gt; windowUnit) &#123;</span><br><span class="line">            <span class="comment">// 如果进入了新窗口期，清空计数器，并且开启新窗口</span></span><br><span class="line">            counter.set(<span class="number">0</span>);</span><br><span class="line">            lastAcquireTime = currentTime;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (counter.get() &lt; threshold) &#123;</span><br><span class="line">            <span class="comment">// 如果计数还在阈值，计数器+1</span></span><br><span class="line">            counter.incrementAndGet();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>为了解决固定窗口的临界问题，引入了滑动窗口：</p>
+<p><img src="http://img.yesmylord.cn//5479699" alt="滑动窗口限流"></p>
+<p>优缺点：</p>
+<ul>
+<li>优点：简单，解决了临界问题</li>
+<li>缺点：突发流量无法处理（意思是：达到阈值，后续请求都会被拒绝，而不是排队等待处理）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SlideWindows</span> <span class="keyword">implements</span> <span class="title class_">RateLimiter</span> &#123;</span><br><span class="line">    <span class="comment">// 单位时间划分的小周期（单位时间是1分钟，10s一个小格子窗口，一共6个格子）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">SUB_CYCLE</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每分钟限流请求数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">threshold</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计数器, key为当前窗口的开始时间值秒，value为当前窗口的计数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Long, Integer&gt; counters = <span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">boolean</span> <span class="title function_">allowReq</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//获取当前时间在哪个小周期窗口</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">epochSecond</span> <span class="operator">=</span> LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);</span><br><span class="line">        <span class="type">long</span> <span class="variable">currentWindowTime</span> <span class="operator">=</span> epochSecond / SUB_CYCLE * SUB_CYCLE;</span><br><span class="line">        <span class="comment">// 这里先除再乘的意思：比如 100、102、109都是属于100这个段的，/10去掉个位数</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//当前窗口总请求数</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">currentWindowNum</span> <span class="operator">=</span> countCurrentWindow(currentWindowTime);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//超过阀值限流</span></span><br><span class="line">        <span class="keyword">if</span> (currentWindowNum &gt;= threshold) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        counters.put(currentWindowTime, counters.getOrDefault(currentWindowTime, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 统计当前窗口的请求数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">countCurrentWindow</span><span class="params">(<span class="type">long</span> currentWindowTime)</span> &#123;</span><br><span class="line">        <span class="comment">// 计算窗口开始位置</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> currentWindowTime - SUB_CYCLE * (<span class="number">60</span> / SUB_CYCLE);</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历存储的计数器</span></span><br><span class="line">        Iterator&lt;Map.Entry&lt;Long, Integer&gt;&gt; iterator = counters.entrySet().iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            Map.Entry&lt;Long, Integer&gt; entry = iterator.next();</span><br><span class="line">            <span class="comment">// 删除无效过期的子窗口计数器</span></span><br><span class="line">            <span class="keyword">if</span> (entry.getKey() &lt; startTime) &#123;</span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//累加当前窗口的所有计数器之和</span></span><br><span class="line">                count += entry.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意此处的计算窗口的开始位置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算窗口开始位置</span></span><br><span class="line"><span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> currentWindowTime - SUB_CYCLE * (<span class="number">60</span> / SUB_CYCLE);</span><br></pre></td></tr></table></figure>
+
+<p><code>(60 / SUB_CYCLE)</code> 计算了一个分钟内有多少个小周期，我们设置的是10，因此一分钟有6个小周期</p>
+<p>假设当前时间为 <code>15:23:35</code>，我们要计算的是在当前时间之前的窗口的起始时间戳。那么 <code>currentWindowTime</code> 就是当前时间的整十秒：<code>currentWindowTime = 15:23:30</code></p>
+<p><code>startTime</code> 计算为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">startTime = currentWindowTime - SUB_CYCLE * (60 / SUB_CYCLE)</span><br><span class="line">         = 15:23:30 - 10 * (60 / 10)</span><br><span class="line">         = 15:23:30 - 10 * 6</span><br><span class="line">         = 15:23:30 - 60</span><br><span class="line">         = 15:22:30</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏桶算法"><a href="#漏桶算法" class="headerlink" title="漏桶算法"></a>漏桶算法</h2><p>所谓漏桶算法如图所示，有一定的处理量，而且有一定的储存量，但是如果超出储存，请求还是会被拒绝：</p>
+<p><img src="http://img.yesmylord.cn//5479702" alt="img"></p>
+<p>优点：可以应对突增流量（输入可以是随机速率（就像是现实中的流量），输出是恒定速率（方便服务匀速处理请求））</p>
+<p>缺点：</p>
+<ul>
+<li>桶存储请求，增大服务器消耗</li>
+<li>桶的参数调整不能随时变化</li>
+<li>不能遇强则强：无论当前流量如何，都会按固定速率处理</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LeakyBucket</span> <span class="keyword">implements</span> <span class="title class_">RateLimiter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">capacity</span> <span class="operator">=</span> <span class="number">10</span>; <span class="comment">// 桶的容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">interval</span> <span class="operator">=</span> <span class="number">1000</span>; <span class="comment">// 漏水速率时间间隔（毫秒）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> water; <span class="comment">// 桶中的水量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> lastLeakTime; <span class="comment">// 上次漏水时间</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">boolean</span> <span class="title function_">allowReq</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">currentTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        <span class="comment">// 计算当前时间和上次漏水时间之间的时间差，即桶中应该漏出的水量</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">leakAmount</span> <span class="operator">=</span> (<span class="type">int</span>) ((currentTime - lastLeakTime) / interval);</span><br><span class="line">        lastLeakTime = currentTime;</span><br><span class="line">        <span class="comment">// 桶中的水量减去漏出的水量</span></span><br><span class="line">        water = Math.max(<span class="number">0</span>, water - leakAmount);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 如果桶中的水量加上新请求的水量不超过容量，则允许请求通过</span></span><br><span class="line">        <span class="keyword">if</span> (water &lt; capacity) &#123;</span><br><span class="line">            water++;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 否则拒绝请求</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="令牌桶算法"><a href="#令牌桶算法" class="headerlink" title="令牌桶算法"></a>令牌桶算法</h2><p>该算法的模型是：</p>
+<p>现在有一个存放了很多令牌的桶（所谓令牌就是，拿到令牌的请求可以执行），每秒会向桶中存放令牌，一个请求消耗一个令牌。</p>
+<p><img src="http://img.yesmylord.cn//5479709" alt="img"></p>
+<p>相较于漏桶算法，令牌桶算法主要的区别是：<strong>允许流量短时间内突增</strong></p>
+<p>但是这个特点也带来的一个问题：短时间内可能用完令牌，导致一段时间内的其他请求都无法响应。</p>
+<blockquote>
+<p>因此如果我们的应用场景就是要求削峰填谷，那么使用漏桶反而是更好的选择。</p>
+<p>如果是为了应对短时间内的流量突增，那么可以考虑使用令牌桶。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TokenBucket</span> <span class="keyword">implements</span> <span class="title class_">RateLimiter</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">capacity</span> <span class="operator">=</span> <span class="number">10</span>; <span class="comment">// 桶的容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">interval</span> <span class="operator">=</span> <span class="number">100</span>; <span class="comment">// 令牌生成速率时间间隔（毫秒）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue&lt;Object&gt; tokenBucket = <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(capacity); <span class="comment">// 令牌桶队列</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TokenBucket</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 启动定时任务，定时向令牌桶中添加令牌</span></span><br><span class="line">        <span class="type">ScheduledExecutorService</span> <span class="variable">scheduler</span> <span class="operator">=</span> Executors.newScheduledThreadPool(<span class="number">1</span>);</span><br><span class="line">        scheduler.scheduleAtFixedRate(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (tokenBucket.size() &lt; capacity) &#123;</span><br><span class="line">                tokenBucket.offer(<span class="keyword">new</span> <span class="title class_">Object</span>());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">0</span>, interval, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">allowReq</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 从令牌桶中尝试获取令牌</span></span><br><span class="line">        <span class="keyword">return</span> tokenBucket.poll() != <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 限流算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/10/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%A8%A1%E6%9D%BF/" rel="prev" title="二分查找">
+                  <i class="fa fa-chevron-left"></i> 二分查找
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" rel="next" title="IO多路复用">
+                  IO多路复用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：数据库的Join原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库Join原理">
+<meta property="og:url" content="http://yoursite.com/2024/04/08/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%BA%93Join%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：数据库的Join原理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240408171458300.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240408171615747.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20240408171419640.png">
+<meta property="article:published_time" content="2024-04-08T10:08:24.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.944Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20240408171458300.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2024/04/08/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%BA%93Join%E5%8E%9F%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2024/04/08/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%BA%93Join%E5%8E%9F%E7%90%86/","path":"2024/04/08/博客重构/数据库Join原理/","title":"数据库Join原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库Join原理 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84Join%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">基本的Join算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nested-Loop-Join"><span class="nav-number">1.1.</span> <span class="nav-text">Nested Loop Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash-Join"><span class="nav-number">1.2.</span> <span class="nav-text">Hash Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sort-Merge-Join"><span class="nav-number">1.3.</span> <span class="nav-text">Sort Merge Join</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mysql%E4%B8%AD%E7%9A%84Join"><span class="nav-number">2.</span> <span class="nav-text">Mysql中的Join</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E8%A1%A8%E4%B8%8E%E8%A2%AB%E9%A9%B1%E5%8A%A8%E8%A1%A8"><span class="nav-number">2.1.</span> <span class="nav-text">驱动表与被驱动表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index-Nested-Loop-Join"><span class="nav-number">2.2.</span> <span class="nav-text">Index Nested Loop Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Nested-Loop-Join"><span class="nav-number">2.3.</span> <span class="nav-text">Block Nested Loop Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash-Join-1"><span class="nav-number">2.4.</span> <span class="nav-text">Hash Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E4%B8%ADJoin%E7%9A%84%E9%80%89%E6%8B%A9%E7%AD%96%E7%95%A5"><span class="nav-number">2.5.</span> <span class="nav-text">Mysql中Join的选择策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive%E4%B8%AD%E7%9A%84Join"><span class="nav-number">3.</span> <span class="nav-text">Hive中的Join</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark%E4%B8%AD%E7%9A%84Join"><span class="nav-number">4.</span> <span class="nav-text">Spark中的Join</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Broadcast-hash-join"><span class="nav-number">4.1.</span> <span class="nav-text">Broadcast hash join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shuffle-hash-join"><span class="nav-number">4.2.</span> <span class="nav-text">shuffle hash join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sort-Merge-Join-1"><span class="nav-number">4.3.</span> <span class="nav-text">Sort Merge Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cartesian-Join"><span class="nav-number">4.4.</span> <span class="nav-text">Cartesian Join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Broadcast-Nested-Loop-Join"><span class="nav-number">4.5.</span> <span class="nav-text">Broadcast Nested Loop Join</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/04/08/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E6%95%B0%E6%8D%AE%E5%BA%93Join%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据库Join原理 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库Join原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-08 18:08:24" itemprop="dateCreated datePublished" datetime="2024-04-08T18:08:24+08:00">2024-04-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：数据库的Join原理
+</center>
+
+<span id="more"></span>
+
+
+
+<h1 id="基本的Join算法"><a href="#基本的Join算法" class="headerlink" title="基本的Join算法"></a>基本的Join算法</h1><p>主要有三种基本的Join算法，各种数据库的Join只是对这三种Join的优化和补充：</p>
+<ul>
+<li>Nested Loop Join (嵌套循环Join)</li>
+<li>Hash Join</li>
+<li>Sort Merge Join</li>
+</ul>
+<h2 id="Nested-Loop-Join"><a href="#Nested-Loop-Join" class="headerlink" title="Nested Loop Join"></a>Nested Loop Join</h2><blockquote>
+<p>最简单的关联方式，嵌套循环</p>
+</blockquote>
+<p>假设有表R、表S，那么 R Left join S的本质就是双层for循环，如下伪代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (r : R) &#123;</span><br><span class="line">    <span class="keyword">for</span> (s : S) &#123;</span><br><span class="line">        <span class="keyword">if</span> (r satisfy condition s) &#123;</span><br><span class="line">            output &lt;r, s&gt;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以此种方式，我们需要：<strong>读取R表 + R的行数*S表</strong></p>
+<h2 id="Hash-Join"><a href="#Hash-Join" class="headerlink" title="Hash Join"></a>Hash Join</h2><blockquote>
+<p>在Nested Loop Join的基础上，可以将较小的一个表存入hash，加快遍历速度</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hashTable = buildHashTable(S);</span><br><span class="line"><span class="keyword">for</span> (r : R) &#123;</span><br><span class="line">    <span class="keyword">if</span> (hashTable.containsKey(r.joinKey)) &#123; <span class="comment">// 根据Join key建立hash表</span></span><br><span class="line">        output &lt;r, s&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以此种方式，我们需要：<strong>读取R表 + S表</strong></p>
+<h2 id="Sort-Merge-Join"><a href="#Sort-Merge-Join" class="headerlink" title="Sort Merge Join"></a>Sort Merge Join</h2><blockquote>
+<p>将两张表排序，然后各有一个指针分别开始从头遍历，遇到相同join key就输出，适用于具有相同排序键的两个表</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从小到大排序</span></span><br><span class="line">sortedR = sort(R);</span><br><span class="line">sortedS = sort(S);</span><br><span class="line">i, j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; ortedR.length &amp;  j &lt; sortedS.length) &#123;</span><br><span class="line">    r = ortedR[i];</span><br><span class="line">    s = ortedS[j];</span><br><span class="line">    <span class="keyword">if</span> (r.joinKey == s.joinKey) &#123;</span><br><span class="line">        output &lt;r, s&gt;</span><br><span class="line">    &#125; <span class="keyword">else</span> (r.joinKey &lt; s.joinKey) &#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125; <span class="keyword">else</span> (r.joinKey &gt; s.joinKey) &#123;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以此种方式，我们需要：<strong>读取R表 + 排序R表 + 读取S表 + 排序S表</strong></p>
+<h1 id="Mysql中的Join"><a href="#Mysql中的Join" class="headerlink" title="Mysql中的Join"></a>Mysql中的Join</h1><h2 id="驱动表与被驱动表"><a href="#驱动表与被驱动表" class="headerlink" title="驱动表与被驱动表"></a>驱动表与被驱动表</h2><p>在介绍Mysql的Join之前，需要先了解<strong>驱动表</strong>和<strong>被驱动表</strong>两个概念</p>
+<ul>
+<li>驱动表（Driving Table）： 驱动表是在连接操作中先被访问的表。它是整个查询执行的起点，驱动表的每一行都会尝试与被驱动表的相应行进行匹配。在嵌套循环连接（Nested Loop Join）中，驱动表的每一行都会作为外层循环的一部分，执行内层循环以与被驱动表进行匹配。</li>
+<li>被驱动表（Driven Table）： 被驱动表是在连接操作中后被访问的表。在嵌套循环连接中，被驱动表的每一行都会被用于与驱动表进行匹配。</li>
+</ul>
+<p>可以说驱动表是真正执行时意义上的“外表”，被驱动表是真正意义上的“内表”</p>
+<blockquote>
+<p>到底哪一个表是驱动表呢？参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010134642/article/details/134045154">https://blog.csdn.net/u010134642/article/details/134045154</a></p>
+</blockquote>
+<p><strong>在没有where条件时，驱动表的选择逻辑如下</strong>：</p>
+<ul>
+<li>Inner Join：优化器会先将小表作为驱动表，大表作为被驱动表</li>
+<li>Left join：左表是驱动表</li>
+<li>Right join：右表是驱动表</li>
+</ul>
+<p><strong>在有where条件时，驱动表的选择逻辑如下</strong>：</p>
+<ul>
+<li>Inner Join：与之前相同，优化器会先将小表作为驱动表，大表作为被驱动表</li>
+<li>Left join：<ul>
+<li>没有where条件，左表是驱动表；</li>
+<li>有where条件：<ul>
+<li>where字段有索引：使用where字段所在的表</li>
+<li>where字段没有索引：左表</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Right join：同理left join</li>
+</ul>
+<p>对于Nested Loop Join来说，驱动表的每一行都要去遍历一遍被驱动表，因此<strong>驱动表尽量要小</strong>，会减少计算量<br>而且<strong>要给被驱动表建立索引</strong>，驱动表的索引是不会使用的</p>
+<h2 id="Index-Nested-Loop-Join"><a href="#Index-Nested-Loop-Join" class="headerlink" title="Index Nested Loop Join"></a>Index Nested Loop Join</h2><p>如果关联键是被驱动表的索引键，内层遍历会优化为通过索引查询<br>将驱动表的每一行与被驱动表进行匹配。</p>
+<blockquote>
+<p>这样做的好处是什么呢？</p>
+</blockquote>
+<p>当内层表是索引查询时，由于B+树最多有3~4层，因此查询的I/O消耗其实是比较稳定的<br>所以一般会选择小表作为驱动表（载入内存占用小），然后大表作为被驱动表（查询消耗稳定）</p>
+<h2 id="Block-Nested-Loop-Join"><a href="#Block-Nested-Loop-Join" class="headerlink" title="Block Nested Loop Join"></a>Block Nested Loop Join</h2><p>当关联键不是被驱动表的索引，且版本在V8.0.20之前的非等值查询时，会使用这种方式：<br>与基本的Nested Loop Join的区别是，引入了一个<strong>Join buffer</strong>，与Index Nested Loop Join的区别是，提出了一个Block的概念：<br>所谓Block就是将驱动表划分为各个“块”，然后每次匹配一个Block，这样可以减少IO次数（<strong>划分块后确实非常适合于非等值查询</strong>）</p>
+<h2 id="Hash-Join-1"><a href="#Hash-Join-1" class="headerlink" title="Hash Join"></a>Hash Join</h2><p>关于hash join参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1684046">https://cloud.tencent.com/developer/article/1684046</a><br>v8.0.20开始全面使用HashJoin取代Block Nested Loop Join<br>Mysql中的HashJoin的具体实现由两部分组成：</p>
+<ul>
+<li>建表 build：遍历表，使用hash函数计算连接键构建哈希链表</li>
+<li>探测 probe：遍历另一个，根据连接键计算hash值找到对应的桶</li>
+</ul>
+<p>注意：hash join 一般会选择比较小的表作hash表，不一定会选择驱动表</p>
+<ul>
+<li>Inner Join：选择小表建立哈希表</li>
+<li>Left join：选择右表建立哈希表</li>
+<li>Right join：选择左表建立哈希表</li>
+</ul>
+<p>因此hash join中LEFT JOIN时，尽量使用<strong>大表join小表</strong></p>
+<h2 id="Mysql中Join的选择策略"><a href="#Mysql中Join的选择策略" class="headerlink" title="Mysql中Join的选择策略"></a>Mysql中Join的选择策略</h2><ul>
+<li>当关联键是索引：<ul>
+<li>Index Nested Loop Join</li>
+</ul>
+</li>
+<li>当关联键不是索引：<ul>
+<li>V8.0.20之前：<ul>
+<li>等值查询：Hash Join</li>
+<li>非等值查询：Block Nested Loop Join</li>
+</ul>
+</li>
+<li>V8.0.20之后：Hash Join</li>
+</ul>
+</li>
+</ul>
+<h1 id="Hive中的Join"><a href="#Hive中的Join" class="headerlink" title="Hive中的Join"></a>Hive中的Join</h1><p>见文档</p>
+<blockquote>
+<p>关于关系型数据库和非关系型数据库的Join原理有所区别：</p>
+<ul>
+<li>关系型数据库一般是为了获得某一个数据，比如今日最受欢迎的网站是哪一个（依赖于索引）</li>
+<li>非关系型数据一般是为了数据分析，需要获得某一组数据的结果，比如今日最受欢迎的网站分别属于哪些年龄段的人（全表扫描）</li>
+</ul>
+</blockquote>
+<h1 id="Spark中的Join"><a href="#Spark中的Join" class="headerlink" title="Spark中的Join"></a>Spark中的Join</h1><p>数据库有三种join：</p>
+<ul>
+<li>Nested Loop join：最基本的JOIN策略（它会循环遍历第一个表的每一行，然后对于每一行，再循环遍历第二个表的所有行，以查找匹配的行），嵌套循环join（匹配n*n次）</li>
+<li>Sort merge join：排序后匹配join，开销为O(nlogn)+O(n)，跟排序算法有关<ul>
+<li>在Mysql中，SMJ的排序算法是归并排序（因为Mysql一般都是单机运行，且数据库系统一般关注稳定性，因此归并算法这种稳定算法比较适合，稳定指相同值的元素在排序前后顺序一致）</li>
+<li>在Spark中，SMJ的排序算法是快速排序（Spark是分布式计算引擎，因此快排这种原地排序算法更好，而且快排的速度很快）</li>
+</ul>
+</li>
+<li>Hash join：按hash分区后，每个分区内双层循环匹配，拆分分区后每个分区内匹配次数较少（30<em>30 vs 10</em>10 + 10<em>10 + 10</em>10）<ul>
+<li>在哈希连接中，系统会为连接条件中的每个表构建哈希表，然后将两个表的哈希表进行匹配，以找到匹配的行</li>
+</ul>
+</li>
+</ul>
+<p>大数据机器间的数据交互形式：</p>
+<ul>
+<li>broadcast：即广播，driver端发送小表到每个executor上，此过程主要开销是网络io，以及executor的内存占用</li>
+<li>shuffle：洗牌，会经历按Hash（hash值mod分区数，得到一个值并发往相应分区）或Range（采样后按照采样分布重分区，尽可能让数据均匀）拆分数据得到分片，对应分片发往对应下游机器再进行处理的过程，此过程中重点是让数据分布均匀，否则会产生数据倾斜（单个节点数据量过大，处理时间过长，出现长尾效应）</li>
+</ul>
+<blockquote>
+<p>PS：shuffle是个比较重的动作：涉及到重分区以及大量的网络io开销，若数据量过大不够在内存中完全处理，还会落盘，涉及到磁盘io开销</p>
+</blockquote>
+<p>结合起来就是spark的五种join：</p>
+<ul>
+<li>适用等值join：broadcast hash join、shuffle hash join 、shuffle sortmerge join</li>
+<li>适用于非等值join：cartesian product join、broadcast nested loop join</li>
+<li>只是先机器之间怎么交互数据，再本地怎么匹配的问题</li>
+</ul>
+<h2 id="Broadcast-hash-join"><a href="#Broadcast-hash-join" class="headerlink" title="Broadcast hash join"></a>Broadcast hash join</h2><p>也叫Map Join</p>
+<blockquote>
+<p>对于场景：大表Join小表，且是等值join的情况<br>我们可以将小表广播，这样可以避免shuffle</p>
+</blockquote>
+<p>原理：<strong>driver 先把广播表（小的那一个表） collect， 然后分发到各 exectuor。exctuor 里面进行 hash join，这样规避了 shuffle</strong></p>
+<p>（其实就是每一个executor除了大表的数据，还要存储小表的数据）</p>
+<p><img src="http://img.yesmylord.cn//image-20240408171458300.png" alt="BHJ"><br>使用这种方法的要求是：</p>
+<ol>
+<li>对driver、executor需要有足够的内存，广播的表要尽量小（表不能超过8G）</li>
+<li>只支持等值连接</li>
+<li>不支持 full outer join</li>
+</ol>
+<p>如何开启广播？<br> 方法一：使用hint（提示）【推荐】</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">SELECT</span> <span class="comment">/*+ BROADCAST(r) */</span> <span class="operator">*</span> <span class="keyword">FROM</span> records r <span class="keyword">JOIN</span> src s <span class="keyword">ON</span> r.key <span class="operator">=</span> s.key</span><br><span class="line"><span class="comment">-- BROADCASTJOIN也可以是MAPJOIN，如果广播hint对两表都写了，spark自动选择小表生效</span></span><br></pre></td></tr></table></figure>
+<p>方法二：设置参数，当某表小于此阈值，就会自动更改执行计划，spark会进行统计信息（但在统计信息出来前，不会进行广播，因此还是方法一比较好）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spark.sql.autoBroadcastJoinThreshold <span class="operator">=</span> <span class="number">10485760</span> <span class="comment">--(默认10M，-1代表关闭)</span></span><br><span class="line"><span class="comment">-- AQE开启时：</span></span><br><span class="line">spark.sql.adaptive.autoBroadcastJoinThreshold <span class="comment">--（3.2.0版本新加参数，默认等于spark.sql.autoBroadcastJoinThreshold）</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="shuffle-hash-join"><a href="#shuffle-hash-join" class="headerlink" title="shuffle hash join"></a>shuffle hash join</h2><p>原理：<strong>没有避免两表的shuffle read，但是选择对小表构建hashmap，join时从hashmap读取数据</strong><br>比如我们按照<code>a.sex=b.sex</code>进行检索，他会进行如下的过程：</p>
+<ol>
+<li>在两端按照sex这个字段进行重分区，没有避免shuffle，原因是需要把相同sex的数据传输到同一个分区</li>
+<li>然后对较小的表建立一个hashmap，然后使用大表的分区数据去映射这个hashmap获取数据<br><img src="http://img.yesmylord.cn//image-20240408171615747.png" alt="SHJ"></li>
+</ol>
+<p>使用这种方法的要求是：</p>
+<ol>
+<li>构建 hashmap 也需要消耗内存，因此如果较小的表也很大，有可能会发生oom</li>
+<li>构建 hashmap 的耗时与 sort 耗时比较</li>
+<li>仅支持等值连接</li>
+<li>不支持 full outer join</li>
+</ol>
+<p>如何开启：<br>   方法一：提示</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="comment">/*+ SHUFFLE_HASH(s) */</span> <span class="operator">*</span> <span class="keyword">FROM</span> records r <span class="keyword">JOIN</span> src s <span class="keyword">ON</span> r.key <span class="operator">=</span> s.key</span><br></pre></td></tr></table></figure>
+
+<p>方法二：将默认使用Sort Merge Join关闭</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark.sql.join.prefersortmergeJoin <span class="operator">=</span> <span class="literal">false</span> <span class="comment">-- 默认为true</span></span><br></pre></td></tr></table></figure>
+<p>方法三：AQE，当每个分区大小小于下面的阈值时，AQE 自动更改执行计划为 SHJ，此时不管 spark.sql.join.prefersortmergeJoin 的值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- spark 3.2.0 后：</span></span><br><span class="line">spark.sql.adaptive.maxShuffledHashJoinLocalMapThreshold <span class="operator">=</span> <span class="number">0</span> <span class="comment">--（默认0）</span></span><br><span class="line"><span class="comment">-- 并且阈值设定要大等于 ：</span></span><br><span class="line">spark.sql.adaptive.advisoryPartitionSizeInBytes <span class="operator">=</span> <span class="number">64</span>m <span class="comment">--（自适应优化期间shffule分区的建议大小）</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Sort-Merge-Join-1"><a href="#Sort-Merge-Join-1" class="headerlink" title="Sort Merge Join"></a>Sort Merge Join</h2><p>Spark默认的join方式：一般在两张大表进行JOIN时，使用该方式。<br>Sort Merge Join可以减少集群中的数据传输，该方式不会先加载所有数据的到内存，然后进行hashjoin，但是在JOIN之前需要对join key进行排序。<br><img src="http://img.yesmylord.cn//image-20240408171419640.png" alt="SMJ"><br>Sort Merge Join主要包括三个阶段：</p>
+<ul>
+<li>Shuffle Phase：两张大表根据Join key进行Shuffle重分区</li>
+<li>Sort Phase：每个分区内的数据进行排序</li>
+<li>Merge Phase：对来自不同表的排序好的分区数据进行JOIN，通过遍历元素，连接具有相同Join key值的行来合并数据集</li>
+</ul>
+<p>要求：</p>
+<ol>
+<li>只支持等值链接</li>
+<li>支持所有的join</li>
+<li>Join的key需要排序</li>
+<li>默认的join方式</li>
+</ol>
+<h2 id="Cartesian-Join"><a href="#Cartesian-Join" class="headerlink" title="Cartesian Join"></a>Cartesian Join</h2><p>如果 Spark 中两张参与 Join 的表没指定join key（ON 条件）那么会产生 Cartesian product join，这个 Join 得到的结果其实就是两张行数的乘积。</p>
+<h2 id="Broadcast-Nested-Loop-Join"><a href="#Broadcast-Nested-Loop-Join" class="headerlink" title="Broadcast Nested Loop Join"></a>Broadcast Nested Loop Join</h2><p>该方式是在没有合适的JOIN机制可供选择时，最终会选择该种join策略。<br>优先级为：<code>Broadcast Hash Join &gt; Sort Merge Join &gt; Shuffle Hash Join &gt; cartesian Join &gt; Broadcast Nested Loop Join</code><br>在Cartesian 与Broadcast Nested Loop Join之间，如果是内连接，或者非等值连接，则优先选择Broadcast Nested Loop策略，当是非等值连接并且一张表可以被广播时，会选择Cartesian Join。</p>
+<ul>
+<li>支持等值和非等值连接</li>
+<li>支持所有的JOIN类型，主要优化点如下：<ul>
+<li>当右外连接时要广播左表</li>
+<li>当左外连接时要广播右表</li>
+<li>当内连接时，要广播左右两张表</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/02/24/Redis/Redis%E5%AE%B9%E9%87%8F%E4%BC%B0%E8%AE%A1/" rel="prev" title="Redis容量估计">
+                  <i class="fa fa-chevron-left"></i> Redis容量估计
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/10/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%A8%A1%E6%9D%BF/" rel="next" title="二分查找">
+                  二分查找 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言： HTTP协议（已更新：加了总结部分，方便复习，直接看正题，减少废话）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP协议">
+<meta property="og:url" content="http://yoursite.com/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言： HTTP协议（已更新：加了总结部分，方便复习，直接看正题，减少废话）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//block.jpg">
+<meta property="og:image" content="http://img.yesmylord.cn//http1.0.jpg">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210817105426097.png">
+<meta property="og:image" content="http://img.yesmylord.cn//http1vshttp2.gif">
+<meta property="og:image" content="http://img.yesmylord.cn//http1.1.jpg">
+<meta property="og:image" content="http://img.yesmylord.cn//http2.jpg">
+<meta property="article:published_time" content="2020-03-17T15:41:39.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.147Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="应用层">
+<meta property="article:tag" content="HTTP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//block.jpg">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/","path":"2020/03/17/网络协议/http协议/","title":"HTTP协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>HTTP协议 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">HTTP知识点总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">3.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">计算机网络体系结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E5%88%86%E7%B1%BB"><span class="nav-number">3.2.</span> <span class="nav-text">通信分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">3.3.</span> <span class="nav-text">TCP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP"><span class="nav-number">4.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0HTTP"><span class="nav-number">4.1.</span> <span class="nav-text">为什么要学习HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">4.2.</span> <span class="nav-text">HTTP是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E6%8A%A5%E6%96%87"><span class="nav-number">4.3.</span> <span class="nav-text">HTTP报文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="nav-number">4.3.1.</span> <span class="nav-text">HTTP请求报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="nav-number">4.3.2.</span> <span class="nav-text">响应报文</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-1-0-%E7%89%B9%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">HTTP(1.0)特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E6%8C%81%E7%BB%AD%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.1.</span> <span class="nav-text">非持续连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%A8%E6%8B%99%E7%9A%84%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="nav-number">5.2.</span> <span class="nav-text">笨拙的发送请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E"><span class="nav-number">5.3.</span> <span class="nav-text">队头阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%8A%B6%E6%80%81"><span class="nav-number">5.4.</span> <span class="nav-text">无状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">5.5.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">5.6.</span> <span class="nav-text">缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%8E%E6%96%87%E4%BC%A0%E8%BE%93"><span class="nav-number">5.6.1.</span> <span class="nav-text">明文传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E4%B8%8D%E4%BC%9A%E9%AA%8C%E8%AF%81%E8%BA%AB%E4%BB%BD"><span class="nav-number">5.6.2.</span> <span class="nav-text">HTTP不会验证身份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E7%9F%A5%E9%81%93%E6%98%AF%E5%90%A6%E5%AE%8C%E6%95%B4"><span class="nav-number">5.6.3.</span> <span class="nav-text">不知道是否完整</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-1-1-%E6%8F%90%E5%8D%87"><span class="nav-number">6.</span> <span class="nav-text">HTTP(1.1)提升</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E7%BB%AD%E8%BF%9E%E6%8E%A5"><span class="nav-number">6.1.</span> <span class="nav-text">持续连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93"><span class="nav-number">6.2.</span> <span class="nav-text">管道网络传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">6.3.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP1-1%E5%B7%B2%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">6.4.</span> <span class="nav-text">HTTP1.1已解决的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP1-1%E4%BB%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">6.5.</span> <span class="nav-text">HTTP1.1仍存在的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84HTTP%E8%BF%87%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">一次完整的HTTP过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5-http-www-baidu-com-index-html"><span class="nav-number">7.1.</span> <span class="nav-text">我们在浏览器输入 http:&#x2F;&#x2F;www.baidu.com&#x2F;index.html</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">8.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%8A%A0%E5%AF%86"><span class="nav-number">8.1.</span> <span class="nav-text">混合加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95"><span class="nav-number">8.2.</span> <span class="nav-text">摘要算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-number">8.3.</span> <span class="nav-text">数字证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL-TLS%E5%8D%8F%E8%AE%AE%E5%BB%BA%E7%AB%8B%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">8.4.</span> <span class="nav-text">SSL&#x2F;TLS协议建立的过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP2"><span class="nav-number">9.</span> <span class="nav-text">HTTP2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP2%E4%BC%98%E5%8C%96"><span class="nav-number">9.1.</span> <span class="nav-text">HTTP2优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP2%E7%BC%BA%E7%82%B9"><span class="nav-number">9.2.</span> <span class="nav-text">HTTP2缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP3"><span class="nav-number">10.</span> <span class="nav-text">HTTP3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">11.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">12.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/http%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="HTTP协议 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTTP协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-17 23:41:39" itemprop="dateCreated datePublished" datetime="2020-03-17T23:41:39+08:00">2020-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82/" itemprop="url" rel="index"><span itemprop="name">应用层</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82/HTTP/" itemprop="url" rel="index"><span itemprop="name">HTTP</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+HTTP协议（已更新：加了总结部分，方便复习，直接看正题，减少废话）
+</center>
+
+<span id="more"></span>
+
+<h1 id="HTTP知识点总结"><a href="#HTTP知识点总结" class="headerlink" title="HTTP知识点总结"></a>HTTP知识点总结</h1><p>这里总结所有HTTP知识点</p>
+<ol>
+<li>HTTP是一个<strong>半双工协议（</strong>通信双方只能有一人说话）</li>
+<li>HTTP<strong>不需要连接</strong>（虽然底层TCP需要连接）</li>
+<li>HTTP<strong>无状态</strong></li>
+<li>HTTP端口80；HTTPS端口443</li>
+<li>HTTP请求报文由<strong>请求行、请求头、请求空行、请求体</strong>组成</li>
+<li>请求行组成：请求方法 URL HTTP版本（例如<code>GET www.baidu.com HTTP/1.1</code>）</li>
+<li>重要的请求头字段：<code>Referer</code>防盗链、<code>Cookie</code>、<code>Connection</code>请求完成后是否断开</li>
+<li>GET与POST区别：是否可见、是否有请求体、是否有长度限制、<strong>是否幂等、是否安全</strong>（幂等：无论调用几次结果都一样；安全：请求不会破坏服务器资源）GET幂等安全、POST不幂等不安全</li>
+<li>HTTP响应报文由响应行、响应头、响应空行、响应体组成（如<code>HTTP/1.1 200 ok</code>）</li>
+<li>重要的状态码：1xx中间状态需后续操作、<strong>200一切正常</strong>、<strong>301资源永久重定向</strong>、<strong>302资源临时重定向（会将POST转化为GET）</strong>、<strong>307与302相同（但不会转变为GET）</strong>、<strong>403禁止访问</strong>、<strong>404资源找不到</strong>、5xx服务器端错误</li>
+<li>重要的响应头字段：<code>Set-Cookie</code>提醒浏览器设置Cookie、<code>Connecion</code>、<code>Location</code>要跳转到哪个网页</li>
+<li>HTTP1.0缺点：<strong>非持续连接</strong>（每次都会断开）、<strong>每次只能发送一个请求，等待响应后才能发第二个</strong>；<strong>队头阻塞</strong>（一个Http阻塞会阻塞之后的所有请求）、<strong>明文传输</strong>、<strong>不会检查身份</strong>、<strong>无法检验信息是否完整</strong>、<strong>请求/响应头没有压缩</strong></li>
+<li>HTTP1.1改进：<strong>持续连接</strong>、<strong>管道网络传输</strong>（可以发完一个再发一个，是按序接收请求的，即没有优先级）、加入Cookie（解决无状态）；仍存在的问题：明文传输、请求/响应头没有压缩、队头阻塞、没有优先级控制</li>
+<li>HTTPS：加了SSL/TSL（<strong>传输层安全协议</strong>）</li>
+<li>HTTPS：通过三个手段解决HTTP明文传输问题：<strong>混合加密（解决不安全）、摘要算法（解决信息不完整）、数字证书</strong></li>
+<li>对称加密：使用相同秘钥进行加密；不对称加密：各自持有私钥加密</li>
+<li>HTTPS采用的加密方式：<strong>通信建立前用不对称加密（安全）、通信中用对称加密（速度快）</strong></li>
+<li><strong>摘要算法</strong>：用摘要算法算明文的指纹（指纹：即明文的一部分信息）来<strong>校验完整性</strong></li>
+<li>数字证书CA：第三方机构，存放公钥</li>
+<li>HTTPS建立过程：首先客户端访问服务器；服务器<strong>返回数字证书</strong>；客户端<strong>检查数字证书合法性</strong>并<strong>提取出公钥</strong>；使用公钥加密后发送给服务器；服务器使用私钥解密，提取指纹；之后一直使用指纹加密；</li>
+<li>HTTP2.0优化：<strong>头部压缩</strong>（HPACK算法）、<strong>传输二进制格式</strong>、<strong>不按顺序发送</strong>（客户端发出的编号为奇数、服务器端发出的编号为偶数）、解决了队头阻塞（<strong>并发的进行响应</strong>）、<strong>服务器开始可以向客户端发送消息</strong></li>
+<li><strong>HPACK算法</strong>：在客户端和服务器同时维护一张<strong>头信息表</strong>，所有字段都会存入这个表，生成一个索引号，以后就不发送同样字段了，只发送索引号，以提高速度</li>
+<li><strong>服务器推送</strong>：在浏览器刚请求 HTML 的时候，就<strong>提前</strong>把可能会用到的 JS、CSS 文件等静态资源<strong>主动</strong>发给客户端，减少延时的等待</li>
+<li>HTTP2.0缺点：HTTP2.0多请求复用一个TCP连接，如果丢包会阻塞所有的HTTP请求（使用TCP的短板）</li>
+<li>HTTP3.0：使用UDP协议作为底层，用QUIC协议保证可靠</li>
+<li><strong>QUIC协议</strong>：解决了UDP不可靠的缺点</li>
+</ol>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在复习<strong>Servlet</strong>的过程中，突然感觉自己的HTTP协议忘光光了，于是就写了这篇，参考了很多大牛的博客以及《计算机网络 自顶向下方法》这本书</p>
+<p>如遇错误，纯属正常，望请指正</p>
+<hr>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><p>再开始学习HTTP之前，我们需要几个前置的知识，来保证之后我们之后的学习不会出了问题</p>
+<h2 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h2><p>众所周知，ISO提出了<strong>7层</strong>模型，但是这只是理论上的，实际上，我们平常所使用的是<strong>5层</strong>结构：（从底层到最上层）</p>
+<ol>
+<li>物理层</li>
+<li>数据链路层</li>
+<li>网络层</li>
+<li>传输层</li>
+<li>应用层</li>
+</ol>
+<p>例如我们这篇博客要学习的HTTP就是应用层的一层协议，同是应用层的还有DNS（一个解析域名的协议，并不是我们今天的重点，不过后面会提到，先混个脸熟）</p>
+<p>而TCP协议就是传输层的</p>
+<p>网络层有IP协议</p>
+<h2 id="通信分类"><a href="#通信分类" class="headerlink" title="通信分类"></a>通信分类</h2><ul>
+<li>单工协议：单向传输：例如电视机、广播</li>
+<li>双工协议：双向传播<ul>
+<li>半双工：同一时刻只能有单向通信，如对讲机</li>
+<li>全双工：允许双方通信，如手机通话</li>
+</ul>
+</li>
+</ul>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p>运输层的一个协议，当你使用浏览器访问百度时，他们之间会首先的建立起一个TCP连接，TCP连接是通过<strong>三次握手</strong>和<strong>四次挥手</strong>来建立连接和失去连接的，TCP是一个<strong>全双工</strong>的协议，TCP很重要，但不是今天的主角</p>
+<hr>
+<p>其他的就先不聊了，我们正式开始学习HTTP</p>
+<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="为什么要学习HTTP"><a href="#为什么要学习HTTP" class="headerlink" title="为什么要学习HTTP"></a>为什么要学习HTTP</h2><p>当你使用一个浏览器，去访问百度时，百度的服务器就会给你响应，他们之间是通过HTTP协议来交流的</p>
+<p>我们要写一个项目，进行前后端的交接，当你的电脑访问它的电脑时，也是通过HTTP协议来交流的</p>
+<h2 id="HTTP是什么"><a href="#HTTP是什么" class="headerlink" title="HTTP是什么"></a>HTTP是什么</h2><p><code>HTTP (HyperText Transfer Protocol)</code>超文本 传输 协议，我们从三个名词来了解HTTP</p>
+<ol>
+<li><p>什么是协议？</p>
+<p>一种规范，人与人之间的约定就叫协议，同样计算机之间的约定就叫协议。</p>
+<p>HTTP是一个<strong>半双工</strong>，意味着同时只能有一方说话。</p>
+<p>HTTP是<strong>应用层</strong>的一层协议，应用层是计算机网络体系结构的最高层，意味着，这一层可以不去管底层是怎么控制的，底层可以进行更换，这一点我们之后会更加深入的去谈。</p>
+</li>
+<li><p>什么是传输？</p>
+<p>传输字面意思从A点到B点运输，在HTTP中我们要求的A点和B点，分别是客户端和服务器</p>
+</li>
+<li><p>什么是超文本？</p>
+<p>不仅仅局限于文字，图片、视频、音乐、压缩包等等都是超文本</p>
+</li>
+</ol>
+<p>HTTP定义很简单，首先我们要有两个端（客户端+服务器），其次就是他们之间通过HTTP报文进行会话，满足这<strong>两个要求</strong>就是HTTP，浏览器就是实现了HTTP的客户端，假设我们要连接一个服务器，现在我们就只差HTTP报文来交流了</p>
+<h2 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h2><h3 id="HTTP请求报文"><a href="#HTTP请求报文" class="headerlink" title="HTTP请求报文"></a>HTTP请求报文</h3><p>由这么四个部分组成：</p>
+<ul>
+<li>请求行：<code>方法 URL 版本</code> </li>
+<li>请求头（首部行）：<code>字段 值</code></li>
+<li>请求空行：一个空行</li>
+<li>请求体（实体体）</li>
+</ul>
+<hr>
+<p>方法有哪几种？</p>
+<ul>
+<li><code>GET</code>： 用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器</li>
+<li><code>POST</code>：用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。</li>
+<li><code>PUT</code>： 传输文件，报文主体中包含文件内容，保存到对应URI位置。</li>
+<li><code>HEAD</code>： 获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有效。</li>
+<li><code>DELETE</code>：删除文件，与PUT方法相反，删除对应URI位置的文件。</li>
+<li><code>OPTIONS</code>：查询相应URI支持的HTTP方法。</li>
+</ul>
+<p>在这里我们要注意几个地方：</p>
+<ol>
+<li>首先GET方法虽然是一个获取资源的方法，尽管他没有请求体（或者说它的实体体为空），但他依然可以传输数据，经常网络冲浪的你可能会见到<code>www.abc.com/getstudent?stu=1</code>，机智的GET方法依靠这样的方式机智的传了数据，但是这样的方法有两个缺点：<ol>
+<li>请求行的内容大小有限，通常限制在几k（不同的浏览器和服务器的限制会不同）</li>
+<li>请求的参数裸奔。。。</li>
+</ol>
+</li>
+<li>最主要的方法有GET和PUT，由于<strong>REST ful</strong>，PUT和DELETE也开始用了起来。</li>
+<li>有些刁钻的面试官会问，GET和POST哪个是<strong>幂等</strong>的？哪个是<strong>安全</strong>的？我们丝毫不慌，和他说，GET是幂等和安全的，POST不幂等也不安全（幂等：无论调用几次，结果都一样；安全：请求不会破坏服务器资源）</li>
+</ol>
+<p>请求头的字段和值有哪些？</p>
+<ul>
+<li><strong>Accept</strong>: <code>text/html,image/*</code>   【浏览器告诉服务器，它支持的数据类型】</li>
+<li><strong>Accept-Charset</strong>: ISO-8859-1    【浏览器告诉服务器，它支持哪种字符集】</li>
+<li>Accept-Encoding: gzip,compress     【浏览器告诉服务器，它支持的压缩格式】</li>
+<li>Accept-Language: en-us,zh-cn 【浏览器告诉服务器，它的语言环境】</li>
+<li><strong>Host</strong>: <a target="_blank" rel="noopener" href="http://www.yesyourhighness.github.io/">www.yesyourhighness.github.io</a> 【浏览器告诉服务器，它的想访问哪台主机】</li>
+<li>If-Modified-Since: Tue, 11 Jul 2000 18:23:51 GMT【浏览器告诉服务器，缓存数据的时间】</li>
+<li><strong>Referer</strong>: <a target="_blank" rel="noopener" href="http://www.yesyourhighness.github.io/">http://www.yesyourhighness.github.io</a> 【浏览器告诉服务器，客户机是从那个页面来的—反盗链】</li>
+<li><strong>User-Agent</strong>: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)【浏览器告诉服务器，浏览器的内核是什么】</li>
+<li><strong>Cookie</strong>【浏览器告诉服务器，带来的Cookie是什么】</li>
+<li><strong>Connection</strong>: close/Keep-Alive 【浏览器告诉服务器，请求完后是断开链接还是保持链接】</li>
+<li>Date: Tue, 11 Jul 2000 18:23:51 GMT【浏览器告诉服务器，请求的时间】</li>
+</ul>
+<p>这么多，好慌啊，怎么办呢？</p>
+<p>我把几个重要的标记了一下，其他的先混个脸熟，以后真见到了再看看也不迟</p>
+<hr>
+<h3 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h3><p>由这么几个部分组成</p>
+<ul>
+<li>响应行：<code>版本 状态码 描述</code> </li>
+<li>响应头（首部行）：<code>字段 值</code></li>
+<li>空行：一个空行</li>
+<li>响应体（实体体）</li>
+</ul>
+<p>状态码的值有哪些？</p>
+<ul>
+<li>1xx  提示信息，表示目前是中间状态还需要后续的操作    </li>
+<li>2xx  成功信息<ul>
+<li>200 OK 一切正常，而且非HEAD请求会有body数据</li>
+<li>204 No Content 成功，响应头没有body参数，即服务器没有新数据返回，页面不刷新</li>
+<li>206 Partial Content 分块下载或断电续传，表示返回的body只是一部分</li>
+</ul>
+</li>
+<li>3xx 重定向，资源位置变动，需要客户端重新请求<ul>
+<li>301 Moved Permanently 请求的资源已分配了新的URI中，URL地址改变了。【永久重定向】</li>
+<li>302 Found 请求的资源临时分配了新的URI中，URL地址没变【转发】会把POST请求变成GET</li>
+<li>303 See other 与302相同的功能，但明确客户端应该采用GET方式来获取资源    </li>
+<li>304 Not Modified 发送了附带请求，但不符合条件【返回未过期的缓存数据】    </li>
+<li>307 Temporary Redirect 与302相同，但不会把POST请求变成GET</li>
+</ul>
+</li>
+<li>4xx  客户端错误，请求有误<ul>
+<li>400 Bad Request 客户端请求的报文有错误 ，是一个笼统的状态码</li>
+<li>401 Unauthorized  需要认证身份</li>
+<li>403 Forbidden  没有访问权限，服务器禁止访问资源</li>
+<li>404 Not Found  请求的资源在服务器上不存在或未找到</li>
+</ul>
+</li>
+<li>5xx  服务器错误，服务器处理出现错误<ul>
+<li>500 Internal Server Error 服务器发生错误，笼统状态码</li>
+<li>501 Not Implemented 客户端请求的功能目前还不支持，类似即将开业的意思</li>
+<li>502 Bad Gateway 服务器作为网关或代理返回的错误码</li>
+<li>503 Service Unavailable 服务器当前正忙，暂时无法响应</li>
+<li>505 HTTP Veision Not Surported 服务器不支持请求报文所使用的HTTP协议版本</li>
+</ul>
+</li>
+</ul>
+<p>响应头的字段和值有哪些？</p>
+<ul>
+<li>Location: <a target="_blank" rel="noopener" href="http://www.yesyourhighness.github.io/">http://www.yesyourhighness.github.io</a> 【服务器告诉浏览器要跳转到哪个页面】</li>
+<li>Server:apache tomcat【服务器告诉浏览器，服务器的型号是什么】</li>
+<li>Content-Encoding: gzip 【服务器告诉浏览器数据压缩的格式】</li>
+<li><strong>Content-Length</strong>: 80 【服务器告诉浏览器回送数据的长度】</li>
+<li>Content-Language: zh-cn 【服务器告诉浏览器，服务器的语言环境】</li>
+<li><strong>Content-Type</strong>: text/html; charset=GB2312 【服务器告诉浏览器，回送数据的类型】</li>
+<li><strong>Refresh</strong>: 1;url=<a target="_blank" rel="noopener" href="http://www.it315.org【服务器告诉浏览器要定时刷新】/">http://www.it315.org【服务器告诉浏览器要定时刷新】</a></li>
+<li>Content-Disposition: attachment; filename=aaa.zip【服务器告诉浏览器以下载方式打开数据】</li>
+<li>Transfer-Encoding: chunked  【服务器告诉浏览器数据以分块方式回送】</li>
+<li><strong>Set-Cookie</strong>:SS=Q0=5Lb_nQ; path=/search【服务器告诉浏览器要保存Cookie】</li>
+<li><strong>Cache-Control</strong>: no-cache      【服务器告诉浏览器不要设置缓存】</li>
+<li>Pragma: no-cache       【服务器告诉浏览器不要设置缓存】</li>
+<li><strong>Connection</strong>: close/Keep-Alive   【服务器告诉浏览器连接方式】</li>
+<li>Date: Tue, 11 Jul 2000 18:23:51 GMT【服务器告诉浏览器回送数据的时间】</li>
+<li><strong>Last-Modified</strong>: Tue, 11 Jul 2000 18:23:51 GMT【服务器告诉浏览器该资源上次更新时间】</li>
+</ul>
+<p>除了几个重要的我标记了之外，其他的我们都可以见了再查</p>
+<hr>
+<p>现在，知道了请求头和响应体，我们就可以开始调戏百度了，哈哈哈</p>
+<p>（这里我使用的是我的小破服务器，没有服务器可以用Linux的虚拟机）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">我输入：telnet www.baidu.com 80</span><br><span class="line">返回给我：Trying 220.181.38.150...</span><br><span class="line">		Connected to www.baidu.com.</span><br><span class="line">		Escape character is &#x27;^]&#x27;.</span><br><span class="line">我再输入：GET /index.html HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p>大方的百度给我返回了一大堆，不要急，我们看最前面的东西</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 14615</span><br><span class="line">Content-Type: text/html</span><br><span class="line">。。。。省略一大堆</span><br><span class="line"></span><br><span class="line">&lt;百度的html页面&gt;</span><br><span class="line">。。。。</span><br><span class="line">&lt;/百度的html页面&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>百度响应给我们信息，状态码是喜闻乐见的200，开心</p>
+<p>好了这样我们无情的就调戏了一波百度，走人，程序员的生活就是这么平凡且枯燥</p>
+<h1 id="HTTP-1-0-特性"><a href="#HTTP-1-0-特性" class="headerlink" title="HTTP(1.0)特性"></a>HTTP(1.0)特性</h1><h2 id="非持续连接"><a href="#非持续连接" class="headerlink" title="非持续连接"></a>非持续连接</h2><p>如果你是一个程序研制者，你需要使用TCP来完成HTTP报文的传输，那么你会有两种选择</p>
+<ol>
+<li>每个请求/响应对使用一个单独的TCP连接发送，这样的程序称为<strong>非持续连接</strong></li>
+<li>所有的请求/响应对使用同一个TCP连接发送，这样的程序称为<strong>持续连接</strong></li>
+</ol>
+<p>HTTP(1.0)是非持续连接的，这意味着服务器每次响应发送的响应体中只能包含一个对象的信息</p>
+<p>假设服务器上有一个HTML资源和十张图片，现在我们要获取这样的资源，我们需要连接几次TCP呢？</p>
+<p>11次（一个html和十张图片），每次我们都要经历TCP的建立和断开</p>
+<h2 id="笨拙的发送请求"><a href="#笨拙的发送请求" class="headerlink" title="笨拙的发送请求"></a>笨拙的发送请求</h2><p>我们每次只能发送一个请求，<strong>只有等待第一个请求响应之后，我们才可以发送第二个请求</strong></p>
+<h2 id="队头阻塞"><a href="#队头阻塞" class="headerlink" title="队头阻塞"></a>队头阻塞</h2><p>不仅笨，而且假如有一个HTTP请求阻塞，那么他之后的请求都会阻塞</p>
+<p><img src="http://img.yesmylord.cn//block.jpg" alt="队头阻塞"></p>
+<h2 id="无状态"><a href="#无状态" class="headerlink" title="无状态"></a>无状态</h2><blockquote>
+<p>兵无常势，水无常形  ——孙武《孙子兵法》</p>
+</blockquote>
+<p>HTTP是一个无状态的协议（stateless protocol），什么是无状态呢？即HTTP没有记忆，或者说服务器不会存储任何关于该用户的信息。</p>
+<p>比如说刚刚我们调戏了百度，但是它根本不会记得我们。。。（是不是该难受）</p>
+<p>这里把它也算做了一个缺点，无状态当然也不是没有好处，由于无状态，服务器的负担就没有那么严重，可以说无状态是把双刃剑吧</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>简单方便</li>
+<li>灵活：由于是应用层协议，它的下层可以任意变化</li>
+<li>应用广泛</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><h3 id="明文传输"><a href="#明文传输" class="headerlink" title="明文传输"></a>明文传输</h3><p>没错，明文传输。肉眼可见，信息裸奔，容易被窃听</p>
+<h3 id="HTTP不会验证身份"><a href="#HTTP不会验证身份" class="headerlink" title="HTTP不会验证身份"></a>HTTP不会验证身份</h3><p>HTTP建立在双方相信的基础上，他不会去检查你的信息</p>
+<h3 id="不知道是否完整"><a href="#不知道是否完整" class="headerlink" title="不知道是否完整"></a>不知道是否完整</h3><p>我们无法验证信息的完整性，别人监听了我们的信息，他可以篡改</p>
+<h1 id="HTTP-1-1-提升"><a href="#HTTP-1-1-提升" class="headerlink" title="HTTP(1.1)提升"></a>HTTP(1.1)提升</h1><p>时代在发展，社会在进步，HTTP也不是一成不变的，HTTP迎来了1.1时代</p>
+<h2 id="持续连接"><a href="#持续连接" class="headerlink" title="持续连接"></a>持续连接</h2><p>我们上面说到，HTTP是一个非持续连接，这样在请求数据时，我们会经历很多次不必要的TCP建立和断开，于是1.1版本我们变成了持续连接，这样的好处就是，大大提高了传输效率</p>
+<p>请求头内我们有一个字段<code>Connection:Keep-Alive</code>，就是告诉服务器，和我建立连接之后，不要着急断开</p>
+<h2 id="管道网络传输"><a href="#管道网络传输" class="headerlink" title="管道网络传输"></a>管道网络传输</h2><p>现在我们发送请求，无需等待响应就可以发出第二个</p>
+<p>注意：我们尽管能够发送多个请求而无需等待响应，但是我们的请求是<strong>按着顺序</strong>来的，服务器会依次响应我们的请求，这意味着，如果其中一个响应出现丢包或是延迟，之后的响应依然会阻塞</p>
+<p>HTTP1.1希望使用此技术解决队头阻塞，但是并没有解决的很完全</p>
+<p>此外，因为接受响应需要按顺序，所以很少浏览器实际使用了这个技术，反而是使用其他一些操作来提高速度：</p>
+<ul>
+<li><strong>精灵图</strong>：把多个小图标组合起来，作为一个图片发送</li>
+<li><strong>DataURLs</strong>：将图片等资源嵌入到文档中作为文字发送，就无需额外请求图片了，比如base64</li>
+<li><strong>域名分片</strong>：1.1的串行发送限制是针对域来说的，如果域不同就可以达到并行下载，比如我们有五张图片，给每一个图片设置一个域名，比如<code>image1.img.com</code>、<code>image2.img.com</code>等等，就可以实现并行下载资源（一个比较极端的例子，实际中没有这么夸张）</li>
+</ul>
+<hr>
+<blockquote>
+<p>DataURLs是一种用于在URL中包含数据的特殊方案。它允许将小型数据嵌入到文档中，而无需单独请求服务器获取数据。</p>
+</blockquote>
+<p>DataURLs的数据格式：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span>:[&lt;mediatype&gt;][;base64],&lt;<span class="keyword">data</span>&gt;</span><br><span class="line"><span class="comment">// &lt;mediatype&gt;表示数据的媒体类型，例如image/png、text/plain等</span></span><br><span class="line"><span class="comment">// ;base64 表示数据使用Base64编码</span></span><br><span class="line"><span class="comment">// &lt;data&gt; 表示实际的数据内容</span></span><br></pre></td></tr></table></figure>
+
+<p>优点：减少对服务器的请求，提高页面加载速度，并且适用于一些临时或小规模的数据嵌入需求</p>
+<p>缺点：数据直接嵌入在URL中，会导致URL过长和重复传输相同的数据，增加了页面的大小</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>上面我们说我们虽然调戏了百度，但是百度忘记了我们，但其实他是记得我们的。</p>
+<p>Cookie是什么？</p>
+<p>Cookie是曲奇饼的意思。</p>
+<p>哦不，Cookie是为了解决HTTP无状态的技术</p>
+<p>当我们第一次访问服务器时，服务器看见我们没有带<strong>曲奇饼</strong>，他就会给我们一个曲奇饼，告诉我们的浏览器，“诶呀，下次来的时候记住带上曲奇饼”，响应完我们的数据之后，他会把对象和曲奇饼一起给我们</p>
+<p>之后，当我们再一次访问服务器时，我们通过曲奇饼，服务器就可以认识我们，“啊，原来是你小子”</p>
+<hr>
+<p>Cookie技术总共包含四个组件：</p>
+<ol>
+<li>响应报文有一个cookie</li>
+<li>请求报文中有一个cookie</li>
+<li>浏览器保存了一个cookie</li>
+<li>后端数据库中也有一个cookie</li>
+</ol>
+<h2 id="HTTP1-1已解决的问题"><a href="#HTTP1-1已解决的问题" class="headerlink" title="HTTP1.1已解决的问题"></a>HTTP1.1已解决的问题</h2><ol>
+<li>持续连接的问题</li>
+<li>支持管道网络传输</li>
+</ol>
+<h2 id="HTTP1-1仍存在的问题"><a href="#HTTP1-1仍存在的问题" class="headerlink" title="HTTP1.1仍存在的问题"></a>HTTP1.1仍存在的问题</h2><ol>
+<li>请求 / 响应头部（Header）未经压缩就发送，头部信息越多延迟越大。只能压缩 Body 的部分；</li>
+<li>发送冗长的头部。每次互相发送相同的首部造成的浪费较多；</li>
+<li>服务器是按请求的顺序响应的，如果服务器响应慢，会招致客户端一直请求不到数据，也就是<strong>队头阻塞</strong>；</li>
+<li>没有请求优先级控制；</li>
+<li>请求只能从客户端开始，服务器只能被动响应</li>
+<li>依然是明文传输，易篡改、窃听、冒充</li>
+</ol>
+<hr>
+<p>HTTP的缺点还有这么多，但是科技总是会进步的！</p>
+<h1 id="一次完整的HTTP过程"><a href="#一次完整的HTTP过程" class="headerlink" title="一次完整的HTTP过程"></a>一次完整的HTTP过程</h1><h2 id="我们在浏览器输入-http-www-baidu-com-index-html"><a href="#我们在浏览器输入-http-www-baidu-com-index-html" class="headerlink" title="我们在浏览器输入 http://www.baidu.com/index.html"></a>我们在浏览器输入 <a target="_blank" rel="noopener" href="http://www.baidu.com/index.html">http://www.baidu.com/index.html</a></h2><p>DNS服务将域名转换为主机名</p>
+<p>HTTP客户进程发起一个到服务器<code>www.baidu.com</code>的<strong>TCP</strong>连接请求（包含四个字段：源IP，源端口，目的IP，目的端口），TCP连接就要经过<strong>三次握手</strong></p>
+<p>建立连接后，客户端将HTTP报文发送给服务器端，服务器端OS接收后，将按不同的端口号划分数据给进程（这里就是80端口）。</p>
+<p>服务器端接收到后，分析url，这里即<code>/index.html</code>，在自己的内存中寻找<code>index.html</code>，在寻找到后，将HTML文件封装到响应体中，立马向客户端发送响应报文</p>
+<p>浏览器接收到响应报文之后，根据响应回的<code>Connection</code>字段信息，决定是否关闭TCP连接。如果字段值为<code>close</code>的话，那么开始四次挥手；如果字段值为<code>Keep-Alive</code>的话，那么在发送完<code>html</code>之后依然保持连接状态。</p>
+<p>浏览器根据响应体来进行显示</p>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>时代在发展，科技在进步，HTTPS给HTTP的安全性带来了保障</p>
+<p>HTTPS（Hyper Text Transfer Protocol over <strong>SecureSocket Layer</strong>），明显的字眼SSL</p>
+<p><strong>HTTPS就是在TCP的上层加了SSL（或者是TLS）</strong>，HTTP的默认端口是80，HTTPS默认端口是443</p>
+<blockquote>
+<p>SSL（Secure Sockets Layer）安全套接层和TLS（Transport Layer Security）传输层安全协议其实是<strong>一套东西</strong>。</p>
+<p>网景公司在1994年提出HTTPS协议时，使用的是SSL进行加密。后来IETF（Internet Engineering Task Force）互联网工程任务组将SSL进一步标准化，于1999年公布第一版TLS协议文件TLS 1.0。目前最新版的TLS协议是TLS 1.3，于2018年公布。</p>
+</blockquote>
+<p>HTTPS加入了SSL来解决HTTP不安全的问题，主要通过三个手段：</p>
+<ul>
+<li>混合加密</li>
+<li>摘要算法</li>
+<li>数字证书</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//http1.0.jpg" alt="http1.0"></p>
+<h2 id="混合加密"><a href="#混合加密" class="headerlink" title="混合加密"></a>混合加密</h2><p>首先我们先了解一下<strong>对称加密</strong>，和<strong>非对称加密</strong></p>
+<blockquote>
+<ul>
+<li><p>对称加密：采用单钥密码系统的加密方法，同一个秘钥可以同时用作信息的加密和解密，这种加密方法称为对称加密，也称为单秘钥加密。对称秘钥使用一个秘钥，速度快，但是秘钥必须共享给对方，在这个过程中容易受到攻击</p>
+</li>
+<li><p>非对称加密：即浏览器和客户端各自持有私钥，不必交换秘钥，安全，但是速度较慢</p>
+</li>
+</ul>
+</blockquote>
+<p>HTTPS采用两种办法混合使用的方式：</p>
+<ul>
+<li>通信建立前：采用<strong>非对称秘钥加密</strong>的方式交换<strong>会话秘钥</strong>，后续就不再使用非对称加密</li>
+<li>通信过程中：全部使用<strong>对称加密</strong>来加密明文数据</li>
+</ul>
+<h2 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h2><p>客户端在发送明文之前，通过摘要算法算出明文的<strong>指纹</strong></p>
+<blockquote>
+<p>指纹：一般地，把对一个信息的摘要称为该消息的指纹或数字签名</p>
+</blockquote>
+<p>发送的时候将明文加指纹一同加密为密文后，一同发送给服务器</p>
+<p>服务器解密后，用相同的摘要算法算出发送过来的明文，通过对比自己得出的指纹和发送过来的指纹做对比，如果比较相同，说明数据是完整的</p>
+<h2 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h2><p>借助第三方权威机构<strong>CA（数字证书认证机构）</strong>，将服务器公钥放在数字证书（由数字证书认证机构发布），只要证书是可信的，公钥就是可信的。（可信是可信，但是要小钱钱。。。）</p>
+<hr>
+<h2 id="SSL-TLS协议建立的过程"><a href="#SSL-TLS协议建立的过程" class="headerlink" title="SSL/TLS协议建立的过程"></a>SSL/TLS协议建立的过程</h2><p><img src="http://img.yesmylord.cn//image-20210817105426097.png" alt="HTTPS流程"></p>
+<p>下面是一个旧版的流程，我发现写的有点乱且复杂，所以只看上图即可</p>
+<hr>
+<ol>
+<li>首先，由客户端向服务器发起加密通信请求，也就是 <code>ClientHello</code> 请求。<br>主要发送的信息<pre><code>       （1）客户端支持的 `SSL/TLS` 协议版本，如 TLS 1.2 版本。
+       （2）客户端生产的**随机数**（Client Random），后面用于生产「会话秘钥」。
+       （3）客户端支持的密码套件列表，如 RSA 加密算法。
+</code></pre>
+</li>
+<li>服务器收到客户端请求后，向客户端发出响应，也就是 <code>SeverHello</code>。<br>回应<pre><code>       （1）确认 `SSL/ TLS` 协议版本，如果浏览器不支持，则关闭加密通信。
+       （2）服务器生产的**随机数**（Server Random），后面用于生产「会话秘钥」。
+       （3）确认的密码套件列表，如 RSA 加密算法。
+       （4）**服务器的数字证书**。
+</code></pre>
+</li>
+<li>客户端收到服务器的回应之后，首先通过浏览器或者操作系统中的 CA 公钥，<strong>确认服务器的数字证书的真实性</strong>。<br>如果证书没有问题，客户端会从数字证书中取出服务器的<strong>公钥</strong>，然后使用它加密报文<pre><code>       发送：
+           （1）一个**随机数**（pre-master key）。该随机数会被服务器**公钥加密**
+           （2）加密通信算法改变通知，表示随后的信息都将用「会话秘钥」加密通信
+           （3）客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时把之前所有内容的发生的数据做个摘要，用来供服务端校验
+</code></pre>
+</li>
+<li>服务器收到客户端的第三个随机数（pre-master key）之后，通过协商的加密算法，计算出本次通信的「会话秘钥」<br>（1）加密通信算法改变通知，表示随后的信息都将用「会话秘钥」加密通信。<br>（2）服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时把之前所有内容的发生的数据做个摘要，用来供客户端校验。</li>
+</ol>
+<hr>
+<p>HTTP终于解决了不安全的问题，但是他的问题还有很多：</p>
+<ol>
+<li>请求 / 响应头部（Header）未经压缩就发送，头部信息越多延迟越大。只能压缩 Body 的部分；</li>
+<li>发送冗长的头部。每次互相发送相同的首部造成的浪费较多；</li>
+<li>服务器是按请求的顺序响应的，如果服务器响应慢，会招致客户端一直请求不到数据，也就是<strong>队头阻塞</strong>；</li>
+<li>没有请求优先级控制；</li>
+<li>请求只能从客户端开始，服务器只能被动响应</li>
+</ol>
+<h1 id="HTTP2"><a href="#HTTP2" class="headerlink" title="HTTP2"></a>HTTP2</h1><h2 id="HTTP2优化"><a href="#HTTP2优化" class="headerlink" title="HTTP2优化"></a>HTTP2优化</h2><p><img src="http://img.yesmylord.cn//http1vshttp2.gif" alt="速度比较"></p>
+<ol>
+<li><p>头部压缩，如果同时发出的多个请求请求头相同，则会消除重复的部分<br>这就是所谓的 <strong>HPACK 算法</strong>：在客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。</p>
+</li>
+<li><p>HTTP/2 不再像 HTTP/1.1 里的纯文本形式的报文，而是全面采用了<strong>二进制</strong>格式。头信息和数据体都是二进制，并且统称为帧（frame）：头信息帧和数据帧。</p>
+</li>
+<li><p>HTTP/2 的数据包不是按顺序发送的，同一个连接里面连续的数据包，可能属于不同的回应。因此，必须要对数据包做标记，指出它属于哪个回应。</p>
+<ul>
+<li><p>每个请求或回应的所有数据包，称为一个数据流（Stream）。</p>
+</li>
+<li><p>每个数据流都标记着一个独一无二的编号，其中规定客户端发出的数据流编号为奇数， 服务器发出的数据流编号为偶数        </p>
+</li>
+<li><p>客户端还可以指定数据流的优先级。优先级高的请求，服务器就先响应该请求。</p>
+</li>
+</ul>
+</li>
+<li><p>HTTP/2 是可以在一个连接中<strong>并发多个请求或回应</strong>，而<strong>不用按照顺序一一对应</strong>。<strong>不会</strong>再出现「队头阻塞」问题，降低了延迟，大幅度提高了连接的利用率。</p>
+<ul>
+<li>报文含有<strong>流标识符</strong>，这样解决无序响应的问题</li>
+</ul>
+</li>
+<li><p>服务不再是被动地响应，也可以<strong>主动</strong>向客户端发送消息。<br>在浏览器刚请求 HTML 的时候，就提前把可能会用到的 JS、CSS 文件等静态资源主动发给客户端，减少延时的等待，也就是<strong>服务器推送</strong>（Server Push，也叫 Cache Push）。</p>
+</li>
+</ol>
+<p>结构如下：</p>
+<p><img src="http://img.yesmylord.cn//http1.1.jpg" alt="http1.1"></p>
+<h2 id="HTTP2缺点"><a href="#HTTP2缺点" class="headerlink" title="HTTP2缺点"></a>HTTP2缺点</h2><p>​    多个 HTTP 请求在复用一个 TCP 连接，下层的 TCP 协议是不知道有多少个 HTTP 请求的。所以一旦发生了丢包现象，就会触发 TCP 的重传机制，这样在一个 TCP 连接中的所有的 HTTP 请求都必须等待这个丢了的包被重传回来。</p>
+<p>我们发现一个问题（盲生，你发现了华点）：        </p>
+<ul>
+<li>HTTP/1.1 中的管道（ pipeline）传输中如果有一个请求阻塞了，那么队列后请求也统统被阻塞住了</li>
+<li>HTTP/2 多请求复用一个TCP连接，一旦发生丢包，就会阻塞住所有的 HTTP 请求。        </li>
+</ul>
+<p>归结原因，这是使用TCP协议的弊端</p>
+<p>所以HTTP3直接干掉了TCP，这就是为什么我们说HTTP协议是一个应用层的高层协议，因为它可以灵活的选择底层的结构</p>
+<h1 id="HTTP3"><a href="#HTTP3" class="headerlink" title="HTTP3"></a>HTTP3</h1><p>HTTP/3 把 HTTP 下层的 TCP 协议改成了 UDP</p>
+<p><img src="http://img.yesmylord.cn//http2.jpg" alt="http3"></p>
+<ul>
+<li>UDP 发生是不管顺序，也不管丢包的，所以不会出现 HTTP/1.1 的队头阻塞 和 HTTP/2 的一个丢包全部重传问题。</li>
+<li>大家都知道 UDP 是不可靠传输的，但<strong>基于 UDP 的 QUIC 协议</strong> 可以实现类似 TCP 的可靠性传输。    <ul>
+<li>QUIC 有自己的一套机制可以保证传输的可靠性的。当某个流发生丢包时，只会阻塞这个流，其他流不会受到影响。</li>
+<li>TL3 升级成了最新的 1.3 版本，头部压缩算法也升级成了 QPack。</li>
+<li>HTTPS 要建立一个连接，要花费 6 次交互，先是建立三次握手，然后是 TLS/1.3 的三次握手。QUIC 直接把以往的 TCP 和 TLS/1.3 的 6 次交互合并成了 3 次，减少了交互次数。</li>
+</ul>
+</li>
+</ul>
+<p><strong>QUIC 是一个在 UDP 之上的伪 TCP + TLS + HTTP/2 的多路复用的协议。</strong></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>本文从基础的网络知识谈起，从HTTP1.0，谈到了HTTP3.0，</p>
+<p>谈到了他们各自的优点缺点，每一步的发展，每一次出现的错误</p>
+<p>感慨良多，HTTP的发展就像是人类不断探索的过程，发现问题到解决问题，解决问题到又发现问题，值得思考很多很多很多</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>《计算机网络 自顶向下方法》</li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bUy220-ect00N4gnO0697A">公众号 小林coding</a></li>
+<li> <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bobcUDUg9nXlJatLiVaaoQ">公众号 Java3y</a></li>
+<li> <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAwNDA2OTM1Ng==&mid=2453141883&idx=2&sn=3b93d3bed05ec0094a0cae77bf1cc82c&scene=21#wechat_redirect">敖丙</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
+              <a href="/tags/%E5%BA%94%E7%94%A8%E5%B1%82/" rel="tag"><i class="fa fa-tag"></i> 应用层</a>
+              <a href="/tags/HTTP/" rel="tag"><i class="fa fa-tag"></i> HTTP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/03/13/Spring/Spring-JDBCTemplate/" rel="prev" title="Spring_JDBCTemplate">
+                  <i class="fa fa-chevron-left"></i> Spring_JDBCTemplate
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/01/%E7%BC%96%E8%AF%91/openjdk%E7%BC%96%E8%AF%91/" rel="next" title="openjdk编译">
+                  openjdk编译 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

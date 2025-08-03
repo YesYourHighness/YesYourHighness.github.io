@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：定时任务的实现方式总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="定时任务的实现方式总结">
+<meta property="og:url" content="http://yoursite.com/2022/02/14/%E5%AE%9E%E6%88%98/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：定时任务的实现方式总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-14T07:13:20.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.952Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="实战">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/02/14/%E5%AE%9E%E6%88%98/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/02/14/%E5%AE%9E%E6%88%98/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/","path":"2022/02/14/实战/定时任务/","title":"定时任务的实现方式总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>定时任务的实现方式总结 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%A4%9A%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">定时任务的多种实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%EF%BC%88%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">定时任务（延时任务）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%B3%95%E4%B8%80%E3%80%91%E6%AD%BB%E5%BE%AA%E7%8E%AF%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">【法一】死循环的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%B3%95%E4%BA%8C%E3%80%91%E4%BD%BF%E7%94%A8ScheduledExecutorService"><span class="nav-number">1.2.2.</span> <span class="nav-text">【法二】使用ScheduledExecutorService</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%B3%95%E4%B8%89%E3%80%91%E4%BD%BF%E7%94%A8DelayQueue"><span class="nav-number">1.2.3.</span> <span class="nav-text">【法三】使用DelayQueue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%B3%95%E5%9B%9B%E3%80%91Spring%E7%9A%84%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.2.4.</span> <span class="nav-text">【法四】Spring的定时任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%B3%95%E4%BA%94%E3%80%91%E4%BD%BF%E7%94%A8Redis"><span class="nav-number">1.2.5.</span> <span class="nav-text">【法五】使用Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%B3%95%E5%85%AD%E3%80%91%E4%BD%BF%E7%94%A8%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E6%A1%86%E6%9E%B6Quartz"><span class="nav-number">1.2.6.</span> <span class="nav-text">【法六】使用定时任务框架Quartz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E6%B3%95%E4%B8%83%E3%80%91%E5%A4%96%E9%83%A8%E8%B0%83%E7%94%A8"><span class="nav-number">1.2.7.</span> <span class="nav-text">【法七】外部调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%AE%9E%E7%8E%B0%E8%A6%81%E6%B3%A8%E6%84%8F"><span class="nav-number">1.3.</span> <span class="nav-text">定时任务的实现要注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.4.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/14/%E5%AE%9E%E6%88%98/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="定时任务的实现方式总结 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          定时任务的实现方式总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-14 15:13:20" itemprop="dateCreated datePublished" datetime="2022-02-14T15:13:20+08:00">2022-02-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AE%9E%E6%88%98/" itemprop="url" rel="index"><span itemprop="name">实战</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：定时任务的实现方式总结
+</center>
+
+
+
+<span id="more"></span>
+
+<h1 id="定时任务的多种实现方式"><a href="#定时任务的多种实现方式" class="headerlink" title="定时任务的多种实现方式"></a>定时任务的多种实现方式</h1><h2 id="定时任务（延时任务）"><a href="#定时任务（延时任务）" class="headerlink" title="定时任务（延时任务）"></a>定时任务（延时任务）</h2><blockquote>
+<p>即定时完成的任务，或者说可以延迟一段时间完成的任务</p>
+</blockquote>
+<p>使用场景有很多：</p>
+<ol>
+<li>下订单，未支付，30min后自动取消订单</li>
+<li>24小时候红包自动退回账户</li>
+<li>每天凌晨自动备份</li>
+<li>每个月跑一次脚本等等</li>
+</ol>
+<p>最近我在实习的过程中也需要定时任务，因此就搜集资料整合了一下</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>经过总结多方资料，有以下几种实现定时任务的方式：</p>
+<ol>
+<li>死循环的普通方式</li>
+<li>使用<code>ScheduledExecutorService</code></li>
+<li>使用<code>DelayQueue</code></li>
+<li>使用Spring的定时任务注解</li>
+<li>使用Redis</li>
+<li>使用定时任务框架</li>
+<li>外部调用</li>
+</ol>
+<h3 id="【法一】死循环的方式"><a href="#【法一】死循环的方式" class="headerlink" title="【法一】死循环的方式"></a>【法一】死循环的方式</h3><p>死循环的方式：</p>
+<p>使用一个Map来保存任务信息，死循环反复遍历这个Map（比如使用迭代器遍历）</p>
+<p>每次循环记录当前的毫秒值，如果当前毫秒值大于等于我设定的值，那么就去执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wayToImplementScheduled</span><span class="params">()</span> &#123;</span><br><span class="line">    Map&lt;String, Long&gt; taskMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    taskMap.put(<span class="string">&quot;任务1&quot;</span>, Instant.now().plusSeconds(<span class="number">10</span>).toEpochMilli());</span><br><span class="line">    <span class="comment">// 执行定时任务</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        Set&lt;String&gt; taskKey = taskMap.keySet();</span><br><span class="line">        Iterator&lt;String&gt; it = taskKey.iterator();</span><br><span class="line">        <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> it.next();</span><br><span class="line">            <span class="comment">// 如果设定的时间大于当前的时间，那么去执行任务</span></span><br><span class="line">            <span class="keyword">if</span> (taskMap.get(key) &lt;= Instant.now().toEpochMilli()) &#123;</span><br><span class="line">                it.remove();</span><br><span class="line">                System.out.println(<span class="string">&quot;执行&quot;</span> + key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>Instant</code>是Java8提供的新的类，常见的用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取当前的Instant</span></span><br><span class="line"><span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> Instant.now();</span><br><span class="line"><span class="comment">//将java.util.Date转换为Instant </span></span><br><span class="line"><span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> Instant.ofEpochMilli(<span class="keyword">new</span> <span class="title class_">Date</span>().getTime()); </span><br><span class="line"><span class="comment">//从字符串类型中创建Instant类型的时间 </span></span><br><span class="line"><span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> Instant.parse(<span class="string">&quot;1995-10-23T10:12:35Z&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="【法二】使用ScheduledExecutorService"><a href="#【法二】使用ScheduledExecutorService" class="headerlink" title="【法二】使用ScheduledExecutorService"></a>【法二】使用<code>ScheduledExecutorService</code></h3><p>使用一个<code>ScheduledExecutorService</code>实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wayToImplementScheduled</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">ScheduledExecutorService</span> <span class="variable">ses</span> <span class="operator">=</span> Executors.newScheduledThreadPool(<span class="number">3</span>);</span><br><span class="line">    ses.scheduleWithFixedDelay(</span><br><span class="line">        ()-&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;执行任务&quot;</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">1</span>, <span class="comment">// 初始延迟</span></span><br><span class="line">        <span class="number">10</span>, <span class="comment">// 间隔</span></span><br><span class="line">        TimeUnit.SECONDS</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="【法三】使用DelayQueue"><a href="#【法三】使用DelayQueue" class="headerlink" title="【法三】使用DelayQueue"></a>【法三】使用<code>DelayQueue</code></h3><p>注意<code>DelayQueue</code>的使用：</p>
+<ol>
+<li>泛型需要实现<code>Delayed</code>接口：这会导致需要重写两个方法<ul>
+<li><code>getDelay()</code>：返回剩余的延迟时间</li>
+<li><code>compareTo()</code>：表明此队列的排序方式</li>
+</ul>
+</li>
+<li>此处的示例构造函数还传入了<code>Runnable</code>接口</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DelayTask</span> <span class="keyword">implements</span> <span class="title class_">Delayed</span> &#123;</span><br><span class="line">    <span class="type">long</span> delay;</span><br><span class="line">    Runnable task;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DelayTask</span><span class="params">(<span class="type">long</span> delay, Runnable task)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.delay = Instant.now().toEpochMilli() + delay;</span><br><span class="line">        <span class="built_in">this</span>.task = task;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回剩余延迟</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getDelay</span><span class="params">(TimeUnit unit)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> unit.convert(delay - Instant.now().toEpochMilli(), TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 排序依据</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Delayed o)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.getDelay(TimeUnit.MILLISECONDS) - o.getDelay(TimeUnit.MILLISECONDS) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.getDelay(TimeUnit.MILLISECONDS) - o.getDelay(TimeUnit.MILLISECONDS) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wayToImplementScheduled</span><span class="params">()</span> &#123;</span><br><span class="line">    DelayQueue&lt;DelayTask&gt; delayQueue = <span class="keyword">new</span> <span class="title class_">DelayQueue</span>&lt;&gt;();</span><br><span class="line">    delayQueue.add(<span class="keyword">new</span> <span class="title class_">DelayTask</span>(<span class="number">5000</span>,()-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行任务1&quot;</span>);</span><br><span class="line">    &#125;));</span><br><span class="line">    delayQueue.add(<span class="keyword">new</span> <span class="title class_">DelayTask</span>(<span class="number">3000</span>,()-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行任务2&quot;</span>);</span><br><span class="line">    &#125;));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!delayQueue.isEmpty())&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            delayQueue.take().task.run();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="【法四】Spring的定时任务"><a href="#【法四】Spring的定时任务" class="headerlink" title="【法四】Spring的定时任务"></a>【法四】Spring的定时任务</h3><p>使用Spring的自带注解：</p>
+<p>首先给Spring的启动类加上注解<code>@EnableScheduling</code></p>
+<p>比如这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HynisApplication</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(HynisApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后使用<code>@Scheduled</code>这个注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.ANNOTATION_TYPE&#125;)</span> <span class="comment">// 只能用在方法或是注解上</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span> <span class="comment">// 运行时依然存在</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Repeatable(Schedules.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Scheduled &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">CRON_DISABLED</span> <span class="operator">=</span> <span class="string">&quot;-&quot;</span>;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">cron</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>; <span class="comment">// 可以写cron表达式</span></span><br><span class="line"></span><br><span class="line">    String <span class="title function_">zone</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">long</span> <span class="title function_">fixedDelay</span><span class="params">()</span> <span class="keyword">default</span> -<span class="number">1L</span>; <span class="comment">// 延迟时间，一个毫秒值</span></span><br><span class="line"></span><br><span class="line">    String <span class="title function_">fixedDelayString</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">long</span> <span class="title function_">fixedRate</span><span class="params">()</span> <span class="keyword">default</span> -<span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">fixedRateString</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">long</span> <span class="title function_">initialDelay</span><span class="params">()</span> <span class="keyword">default</span> -<span class="number">1L</span>; <span class="comment">// 第一次执行的延迟时间</span></span><br><span class="line"></span><br><span class="line">    String <span class="title function_">initialDelayString</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    TimeUnit <span class="title function_">timeUnit</span><span class="params">()</span> <span class="keyword">default</span> TimeUnit.MILLISECONDS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看<code>@Scheduled</code>注解源码可以了解到：</p>
+<ol>
+<li>可以标记注解与方法</li>
+<li>可以使用cron表达式</li>
+</ol>
+<p>demo如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Scheduled(cron = &quot;*/10 * * * * *&quot;)</span> </span><br><span class="line"><span class="comment">// cron表达式语法，每10s执行一次(秒分时天月周)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wayToImplementScheduled</span><span class="params">()</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;定时任务执行：&quot;</span> + LocalDateTime.now());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="【法五】使用Redis"><a href="#【法五】使用Redis" class="headerlink" title="【法五】使用Redis"></a>【法五】使用Redis</h3><p>上面的任务调度方法都是单机的方式，遇到分布式场景会歇菜（除非借助第三方工具，或是加锁）</p>
+<p>待补充….</p>
+<h3 id="【法六】使用定时任务框架Quartz"><a href="#【法六】使用定时任务框架Quartz" class="headerlink" title="【法六】使用定时任务框架Quartz"></a>【法六】使用定时任务框架Quartz</h3><p>待补充….</p>
+<h3 id="【法七】外部调用"><a href="#【法七】外部调用" class="headerlink" title="【法七】外部调用"></a>【法七】外部调用</h3><p>可以使用比方说外部的一个curl，调用本机的一个接口的方式来实现定时调用</p>
+<p>curl可以是一个我们自己实现的脚本去控制实现定时任务</p>
+<h2 id="定时任务的实现要注意"><a href="#定时任务的实现要注意" class="headerlink" title="定时任务的实现要注意"></a>定时任务的实现要注意</h2><blockquote>
+<p>1、如何设置一个定时任务的执行周期</p>
+</blockquote>
+<p>注意定时任务的性能问题，避免在一个周期内，数据无法执行完，一般取50%，或者20%的时间比较合适</p>
+<blockquote>
+<p>2、注意改方法是否适合分布式场景</p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU1NTkwODE4Mw==&idx=1&mid=2247485051&scene=21&sn=c35f765d8538d17b94d3cfbb8360ba43#wechat_redirect">博客</a>：十种延迟任务的实现方式（大牛的博客，我对此博客进行了一定的扩展）</p>
+</li>
+<li><p>使用外部<code>crontab</code>调用本机服务的方式实现定时任务</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E6%88%98/" rel="tag"><i class="fa fa-tag"></i> 实战</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/19/Spring/SpringBoot%E5%B8%B8%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3/" rel="prev" title="注解">
+                  <i class="fa fa-chevron-left"></i> 注解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/02/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8Fplus/" rel="next" title="设计模式">
+                  设计模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

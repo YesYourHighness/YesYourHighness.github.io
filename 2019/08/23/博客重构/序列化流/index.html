@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：Java默认的序列化流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java默认的序列化流">
+<meta property="og:url" content="http://yoursite.com/2019/08/23/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E5%BA%8F%E5%88%97%E5%8C%96%E6%B5%81/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：Java默认的序列化流">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-08-23T13:50:54.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.942Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="序列化">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/08/23/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E5%BA%8F%E5%88%97%E5%8C%96%E6%B5%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2019/08/23/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E5%BA%8F%E5%88%97%E5%8C%96%E6%B5%81/","path":"2019/08/23/博客重构/序列化流/","title":"Java默认的序列化流"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java默认的序列化流 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E6%B5%81"><span class="nav-number">1.</span> <span class="nav-text">序列化流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">序列化是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ObejctOutputStream"><span class="nav-number">1.2.</span> <span class="nav-text">ObejctOutputStream</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83API"><span class="nav-number">1.2.2.</span> <span class="nav-text">核心API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ObejctInputStream"><span class="nav-number">1.3.</span> <span class="nav-text">ObejctInputStream</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83API-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">核心API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8Fdemo"><span class="nav-number">1.3.2.</span> <span class="nav-text">小demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transient%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.</span> <span class="nav-text">transient关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InvalidClassException%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.</span> <span class="nav-text">InvalidClassException异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.6.</span> <span class="nav-text">序列化多个对象</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/%E5%BA%8F%E5%88%97%E5%8C%96%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java默认的序列化流 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java默认的序列化流
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-23 21:50:54" itemprop="dateCreated datePublished" datetime="2019-08-23T21:50:54+08:00">2019-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BA%8F%E5%88%97%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">序列化</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：Java默认的序列化流
+</center>
+
+<span id="more"></span>
+
+<hr>
+<h1 id="序列化流"><a href="#序列化流" class="headerlink" title="序列化流"></a>序列化流</h1><h2 id="序列化是什么？"><a href="#序列化是什么？" class="headerlink" title="序列化是什么？"></a>序列化是什么？</h2><blockquote>
+<p>序列化：把对象<strong>以流的方式写入到文件中保存</strong>，叫做写对象，也叫作对象的序列化</p>
+</blockquote>
+<p>对象中包含的不仅仅是字符，还有字节，所以要用字节流</p>
+<blockquote>
+<p>反序列化：<strong>把文件中保存的对象，以流的方式读取出来</strong>，叫做读对象，也叫作对象的反序列化</p>
+</blockquote>
+<p>读取的文件保存的都是字节，使用字节流</p>
+<hr>
+<p>实现序列化和反序列化的核心就是要使用：<code>ObejctOutputStream</code>与<code>ObjectInputStream</code></p>
+<h2 id="ObejctOutputStream"><a href="#ObejctOutputStream" class="headerlink" title="ObejctOutputStream"></a>ObejctOutputStream</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ObjectOutputStream(OutputStream out);</span><br><span class="line"><span class="comment">//创建写入指定 OutputStream 的 ObjectOutputStream。</span></span><br></pre></td></tr></table></figure>
+<h3 id="核心API"><a href="#核心API" class="headerlink" title="核心API"></a>核心API</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">writeObject</span><span class="params">(Object obj)</span><span class="keyword">throws</span> IOException</span><br><span class="line"><span class="comment">//将指定的对象写入 ObjectOutputStream。</span></span><br></pre></td></tr></table></figure>
+
+<p>步骤</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D:\\a.txt&quot;</span>));</span><br><span class="line"><span class="comment">// 1. 创建ObjectOutputStream对象，构造方法中传递输出流</span></span><br><span class="line">oos.writeObject(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;李白&quot;</span>,<span class="number">18</span>));</span><br><span class="line"><span class="comment">// 2. 使用ObjectOutputStream对象中的方法writeObejct把对象写入到文件中</span></span><br><span class="line">oos.close();</span><br><span class="line"><span class="comment">// 3. 释放资源</span></span><br></pre></td></tr></table></figure>
+<p>运行报错<code>NotSerializableException</code>，这个错是未序列化报错，序列化和反序列化会抛出这个错误<br><strong>我们必须实现一个标记性接口</strong>来启动这个序列化</p>
+<blockquote>
+<p>标记性接口：实现这个接口不需要实现其任何方法</p>
+</blockquote>
+<p><strong>要进行序列化和反序列化的接口必须实现<code>Serializable</code>接口，就会给类添加一个标记</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就可以运行了，输出的文件如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aced 0005 7372 001d 636e 2e69 7463 6173</span><br><span class="line">742e 6461 7930 342e 6465 6d6f 3031 2e50</span><br><span class="line">6572 736f 6ef6 1bb3 45ad 3a82 6202 0002</span><br><span class="line">4900 0361 6765 4c00 046e 616d 6574 0012</span><br><span class="line">4c6a 6176 612f 6c61 6e67 2f53 7472 696e</span><br><span class="line">673b 7870 0000 0012 7400 06e6 9d8e e799</span><br><span class="line">bd</span><br></pre></td></tr></table></figure>
+
+<h2 id="ObejctInputStream"><a href="#ObejctInputStream" class="headerlink" title="ObejctInputStream"></a>ObejctInputStream</h2><h3 id="核心API-1"><a href="#核心API-1" class="headerlink" title="核心API"></a>核心API</h3><p>构造方法：<code>ObjectInputStream(InputStream in) </code>传入一个字节输入流</p>
+<p>反序列化：<code>readObject()</code>，从输入流的位置读入文件，返回一个对象</p>
+<h3 id="小demo"><a href="#小demo" class="headerlink" title="小demo"></a>小demo</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:\\a.txt&quot;</span>));</span><br><span class="line"><span class="comment">// 1. 创建ObjectInputStream对象，构造方法传递字节输出流</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> ois.readObject();</span><br><span class="line"><span class="comment">// 2. 使用ObjectInputStream对象中的方法readObejct读取保存对象的文件</span></span><br><span class="line">ois.close();</span><br><span class="line"><span class="comment">// 3. 释放资源</span></span><br><span class="line">System.out.println(o);</span><br></pre></td></tr></table></figure>
+
+<p>注意：<br>可能会报出<code>ClassNotFoundException</code>这个错误，是因为不存在对象的<code>class</code>文件时抛出异常</p>
+<p>所以反序列化必须实现两个东西</p>
+<ol>
+<li>类必须实现<code>Serializable</code></li>
+<li>必须存在对应的<code>Class</code>文件</li>
+</ol>
+<h2 id="transient关键字"><a href="#transient关键字" class="headerlink" title="transient关键字"></a>transient关键字</h2><ul>
+<li><p><code>static</code>关键字：</p>
+<p>  <strong>被<code>static</code>修饰的成员变量不能被序列化的</strong></p>
+</li>
+<li><p><code>transient</code>关键字：</p>
+<p>  <strong>被<code>transient</code>修饰的成员变量，不能被序列化</strong></p>
+</li>
+</ul>
+<p>以后不想要成员变量被序列化，我们可以使用<code>transient</code>关键字修饰</p>
+<h2 id="InvalidClassException异常"><a href="#InvalidClassException异常" class="headerlink" title="InvalidClassException异常"></a>InvalidClassException异常</h2><blockquote>
+<p>当JVM反序列化对象时，能找到<code>class</code>对象，但是还会抛出一个<code>InvalidClassException</code>的异常，为什么？</p>
+</blockquote>
+<p>有可能是因为</p>
+<ol>
+<li>更改了<code>class</code>的内容，使得该类的序列版本号与读取到的类描述的版本号不匹配</li>
+<li>该类包含未知数据类型</li>
+<li>该类没有可访问的无参数构造</li>
+</ol>
+<p>原理：实现了<code>Serializable</code>接口，就会根据类的定义，给该类一个接口的<strong>序列号</strong>，反序列化时会<strong>比照两者的序列号</strong>，如果曾更改了类，会使得他们没有匹配序列号，导致报错</p>
+<p>解决方法：</p>
+<ol>
+<li><strong>无论是否对类的定义进行修改都不重新生成新的序列号</strong></li>
+<li>可以手动给类增加一个序列号</li>
+</ol>
+<ul>
+<li><p><code>Serializable</code>接口规定：</p>
+<p>可序列化类可以通过声明名为 <code>serialVersionUID</code> 的字段<br>（该字段必须是<code>static final long serialVersionUID</code> 型字段)</p>
+</li>
+</ul>
+<p>在类中定义一个如下的成员变量即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列化多个对象"><a href="#序列化多个对象" class="headerlink" title="序列化多个对象"></a>序列化多个对象</h2><p>​        当我们想在文件中<strong>保存多个对象</strong>的时候，我们可以把多个对象存储到一个集合中，然后对集合进行序列化和反序列化</p>
+<p>分析：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1 定义一个存储Person对象的ArrayList集合</span></span><br><span class="line">ArrayList&lt;Person&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">//2 往ArrayList集合中存储Person对象</span></span><br><span class="line">list.add(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;李白&quot;</span>,<span class="number">18</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;李黑&quot;</span>,<span class="number">20</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;李太白&quot;</span>,<span class="number">56</span>));</span><br><span class="line"><span class="comment">//3 创建一个序列化ObejctOutputStream对象</span></span><br><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;D:\\a.txt&quot;</span>));</span><br><span class="line"><span class="comment">//4 使用ObjectOutputStream对象中的方法writeObejct，对集合进行序列化</span></span><br><span class="line">oos.writeObject(list);</span><br><span class="line"><span class="comment">//5 创建一个反序列化ObejctInputStream</span></span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;D:\\a.txt&quot;</span>));</span><br><span class="line"><span class="comment">//6 使用ObjectInputStream的readObejct读取文件中保存的集合</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> ois.readObject();</span><br><span class="line"><span class="comment">//7 把Obejct类型的集合转换为ArrayList集合</span></span><br><span class="line">ArrayList&lt;Person&gt; list1 = (ArrayList&lt;Person&gt;)o;</span><br><span class="line"><span class="comment">//8 遍历集合</span></span><br><span class="line"><span class="keyword">for</span> (Person person : list1) &#123;</span><br><span class="line">    System.out.println(person);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//9 释放资源</span></span><br><span class="line">ois.close();</span><br><span class="line">oos.close();</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 序列化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/23/Java/Java-IO-%E8%BD%AC%E6%8D%A2%E6%B5%81/" rel="prev" title="Java-IO-转换流">
+                  <i class="fa fa-chevron-left"></i> Java-IO-转换流
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/24/Java/Java-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80-1/" rel="next" title="Java-网络基础-1">
+                  Java-网络基础-1 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：  git的远程仓库如何建立？ git下半部分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git远程库">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/Git/Git%E8%BF%9C%E7%A8%8B%E5%BA%93/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：  git的远程仓库如何建立？ git下半部分">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://static.liaoxuefeng.com/files/attachments/919022325462368/0">
+<meta property="og:image" content="https://static.liaoxuefeng.com/files/attachments/919022363210080/0">
+<meta property="og:image" content="https://static.liaoxuefeng.com/files/attachments/919022387118368/0">
+<meta property="og:image" content="https://static.liaoxuefeng.com/files/attachments/919022412005504/0">
+<meta property="og:image" content="https://static.liaoxuefeng.com/files/attachments/919022479428512/0">
+<meta property="og:image" content="https://static.liaoxuefeng.com/files/attachments/919023000423040/0">
+<meta property="og:image" content="https://static.liaoxuefeng.com/files/attachments/919023031831104/0">
+<meta property="article:published_time" content="2019-07-29T07:54:37.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.519Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://static.liaoxuefeng.com/files/attachments/919022325462368/0">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/07/29/Git/Git%E8%BF%9C%E7%A8%8B%E5%BA%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2019/07/29/Git/Git%E8%BF%9C%E7%A8%8B%E5%BA%93/","path":"2019/07/29/Git/Git远程库/","title":"Git远程库"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git远程库 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%EF%BC%88%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">远程仓库（远程版本库）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">添加远程库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH%E8%AD%A6%E5%91%8A"><span class="nav-number">1.1.1.</span> <span class="nav-text">SSH警告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86"><span class="nav-number">1.2.</span> <span class="nav-text">从远程仓库克隆</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="nav-number">2.1.</span> <span class="nav-text">创建与合并分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81"><span class="nav-number">2.2.</span> <span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5"><span class="nav-number">2.3.</span> <span class="nav-text">分支管理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5"><span class="nav-number">2.3.1.</span> <span class="nav-text">策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug%E5%88%86%E6%94%AF"><span class="nav-number">2.4.</span> <span class="nav-text">Bug分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feature%E5%88%86%E6%94%AF"><span class="nav-number">2.5.</span> <span class="nav-text">Feature分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C"><span class="nav-number">2.6.</span> <span class="nav-text">多人协作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">3.</span> <span class="nav-text">标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE"><span class="nav-number">3.1.</span> <span class="nav-text">创建标签</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/29/Git/Git%E8%BF%9C%E7%A8%8B%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git远程库 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git远程库
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-29 15:54:37" itemprop="dateCreated datePublished" datetime="2019-07-29T15:54:37+08:00">2019-07-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+
+<p>git的远程仓库如何建立？</p>
+<p>git下半部分</p>
+</center>
+
+<span id="more"></span>
+
+<hr>
+<h1 id="远程仓库（远程版本库）"><a href="#远程仓库（远程版本库）" class="headerlink" title="远程仓库（远程版本库）"></a>远程仓库（远程版本库）</h1><p>Git是分布式版本控制系统，同一个Git仓库，可以分布到不同的机器上。</p>
+<p>怎么分布呢？最早，肯定只有一台机器有一个原始版本库，此后，别的机器可以“克隆”这个原始版本库，而且每台机器的版本库其实都是一样的，并没有主次之分。</p>
+<p>实际情况通常是这样：</p>
+<p>找一台电脑充当服务器的角色，每天24小时开机，<br>其他每个人都从这个“服务器”仓库克隆一份到自己的电脑上，<br>并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交。</p>
+<p>注册一个GitHub账号，就可以免费获得Git远程仓库。</p>
+<p>由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以，需要一点设置：</p>
+<ol>
+<li>创建SSH Key</li>
+</ol>
+<p>在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有<code>id_rsa</code>和<code>id_rsa.pub</code>这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure>
+<p>注意这里的<code>-C</code>是大写的<br>，然后一路enter，使用默认值</p>
+<p>之后我们可以在 <strong>用户主目录(~)</strong> 找到一个<code>.ssh</code>的文件目录，内部有<code>id_rsa</code>和<code>id_rsa.pub</code>，这两个就是SSH Key的密钥对，前者是私钥，不能泄露出来，后者是公钥，可以告诉任何人</p>
+<ol start="2">
+<li>登录Github</li>
+</ol>
+<p>点击步骤：</p>
+<p><code>setting -&gt; SSH and GPG keys -&gt;  New SSH -&gt; 随便输入一个Title -&gt; 把id_rsa.pub文件的内容复制到key文本框内</code></p>
+<p>为什么GitHub需要SSH Key呢？</p>
+<p>因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。</p>
+<p>最后友情提示，在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。</p>
+<p>如果你不想让别人看到Git库，有两个办法</p>
+<p>一个是交点保护费，让GitHub把公开的仓库变成私有的，这样别人就看不见了（不可读更不可写）。</p>
+<p>另一个办法是自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人也是看不见的。这个方法我们后面会讲到的，相当简单，公司内部开发必备。</p>
+<h2 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h2><p>我们还得再github上建一个库</p>
+<p>点击步骤：</p>
+<p><code>new repository -&gt; 输入库的名称 -&gt; 其他默认，点击Create repository</code></p>
+<p>目前，这个库是空的</p>
+<p>我们可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联</p>
+<p>现在我们在本地的仓库下运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:YourGitHubId/learngit.git</span><br></pre></td></tr></table></figure>
+<p>添加后，远程库的名字就是<code>origin</code>，这是git默认的叫法</p>
+<p>输入<code>git push -u origin master</code><br>就可以把本地库的所有内容推送到远程库</p>
+<p>使用这个命令，其实是吧当前分支<code>master</code>推送到了远程</p>
+<p>由于远程库是空的，我们加了<code>-u</code>参数，Git不但会把本地的<code>master</code>分支内容推送到远程新的<code>master</code>分支，还会把本地的<code>master</code>分支和远程的<code>master</code>分支关联起来，以后推送或者拉取时就可以简化命令</p>
+<p>注意：执行这条命令，你的<strong>版本库</strong>必须有东西</p>
+<p>如果你的版本库是空的，则会报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: src refspec master does not match any</span><br></pre></td></tr></table></figure>
+
+<p>成功后我们就可以在github上看到远程库的内容和本地的一模一样</p>
+<p>从此，只要本地做了提交，就可以通过命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>把本地<code>master</code>分支的最新修改推送至GitHub</p>
+<h3 id="SSH警告"><a href="#SSH警告" class="headerlink" title="SSH警告"></a>SSH警告</h3><p>当第一次使用Git的<code>clone</code>或者<code>push</code>命令连接到Github上时，会得到一个警告</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#x27;github.com (xx.xx.xx.xx)&#x27; can&#x27;t be established.</span><br><span class="line">RSA key fingerprint is xx.xx.xx.xx.xx.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure>
+<p>这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可。</p>
+<p>Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: Permanently added &#x27;github.com&#x27; (RSA) to the list of known hosts.</span><br></pre></td></tr></table></figure>
+<p>这个警告只会出现一次，后面的操作就不会有任何警告了。</p>
+<h2 id="从远程仓库克隆"><a href="#从远程仓库克隆" class="headerlink" title="从远程仓库克隆"></a>从远程仓库克隆</h2><p>现在，假设我们从零开发，那么最好的方式是先创建远程库，然后，从远程库克隆。</p>
+<p>登录GitHub，建立一个新的仓库</p>
+<p>勾选<code>Initialize this repository with a README</code>,这样GitHub会自动给我们创建一个<code>README.md</code>的文件</p>
+<p>使用命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:YourGitHubId/gitskills.git</span><br></pre></td></tr></table></figure>
+<p>就可以克隆到你当前的位置了</p>
+<p>你也许还注意到，GitHub给出的地址不止一个，还可以用<code>https://github.com/YourId/gitskills.git</code></p>
+<p>这样的地址。实际上，Git支持多种协议，默认的<code>git://</code>使用ssh，但也可以使用https等其他协议。</p>
+<p>使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。</p>
+<h1 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h1><p>分支有什么用呢？</p>
+<p>创建了一个属于你自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，想提交就提交，直到开发完毕后，再一次性合并到原来的分支上。</p>
+<h2 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h2><p><code>HEAD</code>指向当前分支, <code>master</code>指向提交</p>
+<ul>
+<li>在最开始</li>
+</ul>
+<p><code>matser</code>是一条线,Git用<code>master</code>指向最新的提交，再用<code>HEAD</code>指向<code>master</code>，就能确定当前分支，以及当前分支的提交点<br><img src="https://static.liaoxuefeng.com/files/attachments/919022325462368/0" alt="image"></p>
+<ul>
+<li>每次提交</li>
+</ul>
+<p><code>master</code>分支都会向前移动一步，随着不断的提交，<code>master</code>分支也就会越来越长</p>
+<ul>
+<li>当我们创建新的分支，例如<code>dev</code></li>
+</ul>
+<p>Git创建了一个新的指针<code>dev</code>，指向<code>master</code>相同的提交，再把<code>HEAD</code>指向<code>dev</code>，就表示当前分支在<code>dev</code>上<br><img src="https://static.liaoxuefeng.com/files/attachments/919022363210080/0" alt="image"></p>
+<p>由于是指针，所以Git创建分支非常快</p>
+<p>从现在开始，对工作区的修改和提交就是对<code>dev</code>分支,比如新提交一次后，dev指针往前移动一步，而master指针不变：<br><img src="https://static.liaoxuefeng.com/files/attachments/919022387118368/0" alt="image"></p>
+<p>假如我们在<code>dev</code>上的工作完成了，就可以把<code>dev</code>合并到<code>master</code>上，直接把<code>master</code>指向<code>dev</code>的当前提交，就完成了合并<br><img src="https://static.liaoxuefeng.com/files/attachments/919022412005504/0" alt="image"></p>
+<p>合并完成后，可以删除<code>dev</code>分支，删除<code>dev</code>分支就是把<code>dev</code>指针给删掉，删掉后我们就剩下了一条<code>masrer</code>分支<br><img src="https://static.liaoxuefeng.com/files/attachments/919022479428512/0" alt="image"></p>
+<p>知道原理我们开始实战：</p>
+<p>第一步：</p>
+<p>新建一个文件夹-&gt;<code>git init</code>-&gt;新建一个文件，随便加上些内容-&gt;<code>git add</code>-&gt;<code>git commit</code></p>
+<p>第二步：</p>
+<p>创建一个分支,输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch dev</span><br></pre></td></tr></table></figure>
+<p>第三步：</p>
+<p>切换到该分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BlackKnight@LAPTOP-JQFP1S4M MINGW64 /d/gitLearn (master)</span><br><span class="line">$ git branch dev</span><br><span class="line"></span><br><span class="line">BlackKnight@LAPTOP-JQFP1S4M MINGW64 /d/gitLearn (master)</span><br><span class="line">$ git checkout dev</span><br><span class="line">Switched to branch &#x27;dev&#x27;</span><br><span class="line"></span><br><span class="line">BlackKnight@LAPTOP-JQFP1S4M MINGW64 /d/gitLearn (dev)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>(<br>第二步第三部可以合为一步：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev</span><br></pre></td></tr></table></figure>
+<p>创建并切换一气呵成<br>)</p>
+<p>第四步：</p>
+<p>输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+<p>查看当前分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* dev</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
+<p>处于哪一个分支，前面会有一个*号</p>
+<p>第五步：</p>
+<p>修改文件内容,并且<code>git add</code>执行<code>git commit</code><br>，然后切换回<code>master</code>分支<br>，查看文件，发现修改的内容不见了</p>
+<p>第六步：</p>
+<p>合并<code>dev</code>分支的内容到<code>master</code>上<br>,输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge dev</span><br></pre></td></tr></table></figure>
+<p><code>git merge</code>命令用于合并指定分支到当前分支</p>
+<p>再次查看文件，发现修改回来了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git merge dev</span><br><span class="line">Updating 7666beb..19ed9b4</span><br><span class="line">Fast-forward</span><br><span class="line"> hello.txt | 3 ++-</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+<p>注意到上面有<code>Fast-forward</code>信息，意思是“快进模式”，也就是会直接把<code>master</code>指向<code>dev</code>的当前提交，所以合并速度十分快，之后会将其他的合并方式</p>
+<p>第七步：</p>
+<p>合并完成后，可以删除<code>dev</code>分支了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
+<p>输入<code>git branch</code>查看分支状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+<p>发现只有一个分支了</p>
+<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>合并分支，可能遇到冲突的问题</p>
+<p>准备一个新的分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b featurel</span><br><span class="line">Switched to a new branch &#x27;featurel&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>修改文件的内容,最后一行加一个bye world,并且添加<code>add</code>提交<code>commit</code></p>
+<p>切换到<code>master</code>分支<code>git checkout master</code></p>
+<p>更改文件内容,最后一行加<code>hello world</code>,然后继续<code>add</code>和<code>commit</code></p>
+<p>现在，分支就变成了这个样子<br><img src="https://static.liaoxuefeng.com/files/attachments/919023000423040/0" alt="image"></p>
+<p>合并分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git merge featurel</span><br><span class="line">Auto-merging hello.txt</span><br><span class="line">CONFLICT (content): Merge conflict in hello.txt</span><br><span class="line">Automatic merge failed; fix conflicts and then commit the result.</span><br></pre></td></tr></table></figure>
+<p>消息告诉我们，文件存在冲突，必须手动解决冲突再提交</p>
+<p>打开我们的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">hello world</span><br><span class="line">=======</span><br><span class="line">bye world</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; featurel</span><br></pre></td></tr></table></figure>
+<p>git用这种方式标记出不同分支的内容</p>
+<p>我们修改为bye world后再<code>add</code>提交<code>commit</code></p>
+<p>现在分支成为了这个样子<br><img src="https://static.liaoxuefeng.com/files/attachments/919023031831104/0" alt="image"></p>
+<p>用<code>git log --graph</code>可显示分支图</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">*   commit 24143f569703452d66dd7c4df3c65ed48a70aec5</span><br><span class="line">|\  Merge: 6b29d3c 4c0b8fa</span><br><span class="line">| | Author: YesYourHighness &lt;1046467756@qq.com&gt;</span><br><span class="line">| | Date:   Mon Jul 29 11:05:23 2019 +0800</span><br><span class="line">| |</span><br><span class="line">| |     conflict fixed</span><br><span class="line">| |</span><br><span class="line">| * commit 4c0b8fa27ff654311802bc3db98dc085cd4e0dd3 (featurel)</span><br><span class="line">| | Author: YesYourHighness &lt;1046467756@qq.com&gt;</span><br><span class="line">| | Date:   Mon Jul 29 10:54:24 2019 +0800</span><br><span class="line">| |</span><br><span class="line">| |     init</span><br><span class="line">| |</span><br><span class="line">* | commit 6b29d3cabf64b2ac9a65cc2677dbcb41b8bc4cfc</span><br><span class="line">|/  Author: YesYourHighness &lt;1046467756@qq.com&gt;</span><br><span class="line">|   Date:   Mon Jul 29 10:55:40 2019 +0800</span><br><span class="line">|</span><br></pre></td></tr></table></figure>
+<p>最后删除分支</p>
+<h2 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h2><p>合并分支时，Git会尽量用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。</p>
+<p>如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。</p>
+<p>我们实战一下<code>--no-ff</code>方式的<code>git merge</code></p>
+<p>首先创建并切换<code>dev</code>分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev</span><br></pre></td></tr></table></figure>
+<p>修改文件内容，并且提交一个新的commit</p>
+<p>然后切换回<code>master</code></p>
+<p>然后合并分支，<br>注意<code>--no-ff</code>参数表示禁用<code>Fast forward</code>模式<br>,因为会自动创建一个commit我们需要加<code>-m</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git merge --no-ff -m &#x27;merge with no-ff&#x27; dev</span><br><span class="line">Merge made by the &#x27;recursive&#x27; strategy.</span><br><span class="line"> hello.txt | 3 ++-</span><br><span class="line"> 1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+<p>我们用<code>git log --graph</code>查看分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">*   commit 061646bf6b4321746b6f27f1926a528f7dec16e3 (HEAD -&gt; master)</span><br><span class="line">|\  Merge: bb2ba62 405dd2a</span><br><span class="line">| | Author: YesYourHighness &lt;1046467756@qq.com&gt;</span><br><span class="line">| | Date:   Mon Jul 29 11:19:31 2019 +0800</span><br><span class="line">| |</span><br><span class="line">| |     merge with no-ff</span><br><span class="line">| |</span><br><span class="line">| * commit 405dd2a7fc7c047c837eee1fac4976a4c213e555 (dev)</span><br><span class="line">|/  Author: YesYourHighness &lt;1046467756@qq.com&gt;</span><br><span class="line">|   Date:   Mon Jul 29 11:17:29 2019 +0800</span><br><span class="line">|</span><br><span class="line">|       change in dev</span><br><span class="line">|</span><br></pre></td></tr></table></figure>
+
+<h3 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h3><p>在实际开发中，我们应该按照几个基本原则进行分支管理：</p>
+<p>首先，<code>master</code>分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；</p>
+<p>那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；</p>
+<p>你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以</p>
+<h2 id="Bug分支"><a href="#Bug分支" class="headerlink" title="Bug分支"></a>Bug分支</h2><p>假设你接到一个修复一个代号101的bug的任务时，很自然地，你想创建一个分支issue-101来修复它，但是你当前正在dev上进行到一半的工作还没有提交</p>
+<p>Git还提供了一个stash功能，<br>可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br><span class="line">Saved working directory and index state WIP on master: 061646b merge with no-ff</span><br></pre></td></tr></table></figure>
+<p>用<code>git status</code>查看发现是干净的(除非有没有被Git管理的文件)</p>
+<p>首先确定要在哪个分支上修复bug，假定需要在master分支上修复，就从master创建临时分支</p>
+<p>修复完成后，切换到master分支，并完成合并，最后删除分支</p>
+<p>接着回去<code>dev</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+<p>发现工作区是干净的,输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: WIP on master: 061646b merge with no-ff</span><br></pre></td></tr></table></figure>
+<p>工作现场还在，只是保存到另一个地方了</p>
+<p>需要恢复有两个办法</p>
+<p>第一种：</p>
+<p><code>git stash apply</code>恢复后，stash内容并不删除，需要<code>git stash drop</code>来删除</p>
+<p>第二种：</p>
+<p><code>git stash pop</code>恢复的同时删除</p>
+<p>这是再查<code>git stash list</code>就看不到任何内容了</p>
+<p>你可以多次stash，恢复的时候，先用<code>git stash list</code>查看，然后恢复指定的stash，用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash apply stash@&#123;0&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Feature分支"><a href="#Feature分支" class="headerlink" title="Feature分支"></a>Feature分支</h2><p>软件开发中，总有新的功能要不断添加进来。</p>
+<p>添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。</p>
+<p>于是准备开发，在当你<code>add</code>并且提交新的分支之后，切回主分支</p>
+<p>但是经理要求阉割此功能，于是我们要删除这个功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d wq</span><br><span class="line">error: The branch &#x27;wq&#x27; is not fully merged.</span><br><span class="line">If you are sure you want to delete it, run &#x27;git branch -D wq&#x27;.</span><br></pre></td></tr></table></figure>
+<p>git阻止了操作，提醒你删除后将丢失数据，强行删除用大写的D</p>
+<p>现在我们强行删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -D wq</span><br><span class="line">Deleted branch wq (was e055832).</span><br></pre></td></tr></table></figure>
+<p>删除成功</p>
+<h2 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h2><p>当你从远程仓库克隆时，实际上Git自动把本地的<code>master</code>分支和远程的<code>master</code>分支对应起来了，并且，远程仓库的默认名称是<code>origin</code>。</p>
+<p>要查看远程库的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote</span><br></pre></td></tr></table></figure>
+<p>加v可以获得更详细的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<p>这条命令显示了可以抓取和推送的origin的地址。如果没有推送权限，就看不到push的地址。</p>
+<p>推送分支，就是把该分支上的所有本地提交推送到远程库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>如果要推送其他分支，比如<code>dev</code>，就改为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>master</code>分支是主分支，因此要时刻与远程同步；</p>
+</li>
+<li><p><code>dev</code>分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；</p>
+</li>
+<li><p><code>bug</code>分支只用于在本地修复<code>bug</code>，就没必要推到远程了，除非老板要看看你每周到底修复了几个<code>bug</code>；</p>
+</li>
+<li><p><code>feature</code>分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。</p>
+</li>
+</ul>
+<p>抓取分支</p>
+<p>当你从远程库clone时，默认情况下，你只能看到本地的master分支</p>
+<p>所以想要在<code>dev</code>上开发就必须创建远程的<code>origin</code>的<code>dev</code>分支到本地</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev origin/dev</span><br></pre></td></tr></table></figure>
+<p>现在就可以在<code>dev</code>上修改推送了</p>
+<p>多人推送，难免会发生冲突</p>
+<p>解决办法，先把最新的提交<code>pull</code>下来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br><span class="line">There is no tracking information for the current branch.</span><br><span class="line">Please specify which branch you want to merge with.</span><br><span class="line">See git-pull(1) for details.</span><br><span class="line"></span><br><span class="line">    git pull &lt;remote&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line">If you wish to set tracking information for this branch you can do so with:</span><br><span class="line"></span><br><span class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; dev</span><br></pre></td></tr></table></figure>
+<p>在本地合并解决冲突在推送,但是我们需要先建立本地<code>dev</code>与远程<code>origin/dev</code>的链接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch --set-upstream-to=origin/dev dev</span><br><span class="line">Branch &#x27;dev&#x27; set up to track remote branch &#x27;dev&#x27; from &#x27;origin&#x27;.</span><br></pre></td></tr></table></figure>
+<p>解决冲突，再推就可以了</p>
+<p>因此，多人协作的工作模式通常是这样：</p>
+<ol>
+<li><p>首先，可以试图用<code>git push origin &lt;branch-name&gt;</code>推送自己的修改；</p>
+</li>
+<li><p>如果推送失败，则因为远程分支比你的本地更新，需要先用<code>git pull</code>试图合并；</p>
+</li>
+<li><p>如果合并有冲突，则解决冲突，并在本地提交；</p>
+</li>
+<li><p>没有冲突或者解决掉冲突后，再用<code>git push origin &lt;branch-name&gt;</code>推送就能成功！</p>
+</li>
+</ol>
+<p>如果<code>git pull</code>提示<code>no tracking information</code>，则说明本地分支和远程分支的链接关系没有创建，用命令<code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>。</p>
+<p>这就是多人协作的工作模式，一旦熟悉了，就非常简单。</p>
+<h1 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h1><h2 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h2><p>切换到需要标签的分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag v1.0</span><br></pre></td></tr></table></figure>
+<p>查看所有标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure>
+<p>也可以找到<code>commit id</code>来打标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v0.9 f52c633</span><br></pre></td></tr></table></figure>
+<p>标签不是按时间顺序列出，而是按字母排序的。</p>
+<p>还可以创建带有说明的标签,<code>-a</code>指定标签名<code>-m</code>指定说明文字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a v0.1 -m &quot;version 0.1 released&quot; 1094adb</span><br></pre></td></tr></table></figure>
+
+<p>可以用<code>git show &lt;tagname&gt;</code>查看标签信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git show v1.0</span><br><span class="line">commit 061646bf6b4321746b6f27f1926a528f7dec16e3 (HEAD -&gt; master, tag: v1.0)</span><br><span class="line">Merge: bb2ba62 405dd2a</span><br><span class="line">Author: YesYourHighness &lt;1046467756@qq.com&gt;</span><br><span class="line">Date:   Mon Jul 29 11:19:31 2019 +0800</span><br><span class="line"></span><br><span class="line">    merge with no-ff</span><br></pre></td></tr></table></figure>
+
+<p>如果标签打错了，也可以删除：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -d v0.1</span><br><span class="line">Deleted tag &#x27;v0.1&#x27; (was f15b0dd)</span><br></pre></td></tr></table></figure>
+<p>因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除</p>
+<p>如果要推送某个标签到远程，使用命令git push origin <tagname>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin v1.0</span><br><span class="line">Total 0 (delta 0), reused 0 (delta 0)</span><br><span class="line">To github.com:michaelliao/learngit.git</span><br><span class="line"> * [new tag]         v1.0 -&gt; v1.0</span><br></pre></td></tr></table></figure>
+<p>或者，一次性推送全部尚未推送到远程的本地标签：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --tags</span><br><span class="line">Total 0 (delta 0), reused 0 (delta 0)</span><br><span class="line">To github.com:michaelliao/learngit.git</span><br><span class="line"> * [new tag]         v0.9 -&gt; v0.9</span><br></pre></td></tr></table></figure>
+<p> 如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -d v0.9</span><br><span class="line">Deleted tag &#x27;v0.9&#x27; (was f52c633)</span><br></pre></td></tr></table></figure>
+<p>然后，从远程删除。删除命令也是push，但是格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin :refs/tags/v0.9</span><br><span class="line">To github.com:michaelliao/learngit.git</span><br><span class="line"> - [deleted]         v0.9</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/29/Git/Git%E8%AE%A4%E8%AF%86%E4%B8%8E%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" rel="prev" title="Git认识与简单使用">
+                  <i class="fa fa-chevron-left"></i> Git认识与简单使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/08/%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%9E%84/Java%E6%9C%80%E5%9F%BA%E7%A1%80%E7%9A%84%E5%86%85%E5%AE%B9/" rel="next" title="Java常量与变量">
+                  Java常量与变量 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言:   Kafka——分布式发布&#x2F;订阅模式消息队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka">
+<meta property="og:url" content="http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言:   Kafka——分布式发布&#x2F;订阅模式消息队列">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230917112853203.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211016153442425.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230917113442465.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211016144948106.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211016153442425.png">
+<meta property="article:published_time" content="2021-10-16T01:00:12.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.906Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="kafka">
+<meta property="article:tag" content="消息队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20230917112853203.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/","path":"2021/10/16/kafka/kafka入门/","title":"kafka"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>kafka | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-number">1.</span> <span class="nav-text">Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">Kafka是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%B6%88%E6%81%AF%E6%A8%A1%E5%9E%8B%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.2.</span> <span class="nav-text">常见的消息模型及消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E7%9A%84%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F%E4%B8%8E%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">kafka的消息格式与传输方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">为什么要使用消息引擎？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">kafka基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E8%A7%92%E8%89%B2"><span class="nav-number">1.5.1.</span> <span class="nav-text">Kafka角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka%E6%A0%B8%E5%BF%83%E7%BB%84%E6%88%90"><span class="nav-number">1.5.2.</span> <span class="nav-text">kafka核心组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E9%9B%86%E7%BE%A4%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.3.</span> <span class="nav-text">Kafka集群结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">1.5.4.</span> <span class="nav-text">Kafka的消费者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">Kafka的高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka%E9%9B%86%E7%BE%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">kafka集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E6%9C%BA%E5%88%B6"><span class="nav-number">1.6.2.</span> <span class="nav-text">备份机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.7.</span> <span class="nav-text">kafka数据的持久化</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/16/kafka/kafka%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="kafka | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kafka
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-16 09:00:12" itemprop="dateCreated datePublished" datetime="2021-10-16T09:00:12+08:00">2021-10-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/kafka/" itemprop="url" rel="index"><span itemprop="name">kafka</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+  引言:
+  Kafka——分布式发布/订阅模式消息队列
+</center>
+<span id="more"></span>
+
+<h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p>可以从其他很多知识中，串联到kafka中，很多设计思想都是相同的。</p>
+<h2 id="Kafka是什么"><a href="#Kafka是什么" class="headerlink" title="Kafka是什么"></a>Kafka是什么</h2><ul>
+<li><p>在0.9.0版本中，Kafka的官方定义是一个<strong>分布式、分区、复制的提交日志服务</strong>。它提供消息传递系统的功能。</p>
+</li>
+<li><p>在0.10.0版本中，Kafka的官方定义是<strong>分布式的流处理平台</strong></p>
+</li>
+</ul>
+<p>Kafka起源于Linkedin公司，2010年贡献给Apache开源基金会，2012年成为顶级项目，2014年成立了Confluent商业化公司，目前为止，Kafka的版本更新到了3.5。</p>
+<p>kafka的发行版有很多，除了商业化的Confluent Kafka，还有Cloudera Kafka和Hortonworks Kafka两个面向于大数据的Kafka发行版。</p>
+<h2 id="常见的消息模型及消息队列"><a href="#常见的消息模型及消息队列" class="headerlink" title="常见的消息模型及消息队列"></a>常见的消息模型及消息队列</h2><p>首先需要介绍几种消息通信模型：</p>
+<ul>
+<li><strong>JMS</strong>：Java Message Service API（Java消息服务）<ul>
+<li>专门针对于Java语言</li>
+<li>定义两种通信方式：点对点模型（P2P）、发布订阅模型（Pub/Sub）</li>
+<li>代表实现有：<strong>ActiveMQ</strong></li>
+</ul>
+</li>
+<li><strong>AMQP</strong>：Advanced Message Queuing Protocol（高级消息队列协议）<ul>
+<li>支持事务，数据一致性高，多用于银行、金融行业</li>
+<li>协议模型：队列（queues）信箱（exchanges）绑定（bindings），消息先放于信箱，根据绑定的不同的路由规则，再发送到对应的队列中。 </li>
+<li>代表实现有：<strong>RabbitMQ、Spring AMQP、Spring JMS</strong></li>
+</ul>
+</li>
+<li><strong>MQTT</strong>：Message Queuing Telemetry Transport<ul>
+<li>用于IOT</li>
+<li>为小型无声设备之间通过低带宽发送短消息而设计</li>
+</ul>
+</li>
+</ul>
+<h2 id="kafka的消息格式与传输方式"><a href="#kafka的消息格式与传输方式" class="headerlink" title="kafka的消息格式与传输方式"></a>kafka的消息格式与传输方式</h2><p>消息引擎主要的作用就是发送消息，消息的格式如何以及如何发送消息是消息引擎的主要设计的内容，也是核心</p>
+<ol>
+<li><strong>消息格式</strong>：<ul>
+<li>可以使用JSON、CSV、XML格式等</li>
+<li>也可以直接使用开源序列化框架：Protocol Buffer等</li>
+</ul>
+</li>
+<li><strong>传输模型</strong>：一般来说主要有两种传输模型<ul>
+<li><p>**点对点模型 (Peer to Peer)**：指的是A发送的消息只可以传输给B（不能有其他系统染指）</p>
+</li>
+<li><p><strong>发布订阅模型 (Pub / Sub)<strong>：发布订阅机制，有一个</strong>主题</strong>的概念，发送方（发布者）与接收方（订阅者）可以关注同一个主题，相同的主题下接收方可以接收到发送方发送的消息</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>Kafka的选择</strong>：kafka同时提供了P2P与Pub/Sub两种模式，消息在kafka内以日志的方式记录</p>
+<h2 id="为什么要使用消息引擎？"><a href="#为什么要使用消息引擎？" class="headerlink" title="为什么要使用消息引擎？"></a>为什么要使用消息引擎？</h2><p>三个原因：</p>
+<ol>
+<li>为了信息传输的<strong>松耦合</strong></li>
+</ol>
+<p>当下的数据存储方案很多很多：mysql、Flume、SparkStreaming、Flink，他们之间的数据传输可以使用消息队列来进行解耦的数据传输。</p>
+<ol start="2">
+<li><strong>削峰填谷</strong>（这也是<strong>根本原因</strong>）</li>
+</ol>
+<blockquote>
+<p>何为<strong>削峰填谷</strong>？</p>
+</blockquote>
+<p>上游的服务一般会由很多下游的服务提供，如果上游的请求量在一瞬间达到了很大的程度，那么很有可能冲垮下游的服务，导致<strong>雪崩</strong>（类似于Redis缓存雪崩的概念）</p>
+<p><strong>削峰填谷</strong>就是要将上游的流量以一种<strong>平滑的方式</strong>将数据传输给下游。</p>
+<p>举个例子：如果上游突然激增TPS（每秒事务请求数），引入Kafka 能够将瞬时增加的订单流量全部<strong>以消息形式保存在对应的主题中</strong>，既不影响上游服务的 TPS，同时也给下游子服务留出了充足的时间去消费它们</p>
+<ol start="3">
+<li>异步通信</li>
+</ol>
+<p>比如：用户在官网投递了A公司的简历，官网的页面会立即返回“投递成功”，但是发送短信和发送邮件的操作会先发送给消息队列（因为这两步的操作也有耗时时间），然后由下游的短信模块和邮件模块慢慢消费。</p>
+<h2 id="kafka基本结构"><a href="#kafka基本结构" class="headerlink" title="kafka基本结构"></a>kafka基本结构</h2><h3 id="Kafka角色"><a href="#Kafka角色" class="headerlink" title="Kafka角色"></a>Kafka角色</h3><ul>
+<li><strong>生产者</strong>：即向主题发送消息的客户端</li>
+<li><strong>消费者</strong>：从主题接收消息的客户端</li>
+<li><strong>客户端</strong>：统称生产者与消费者</li>
+</ul>
+<h3 id="kafka核心组成"><a href="#kafka核心组成" class="headerlink" title="kafka核心组成"></a>kafka核心组成</h3><ul>
+<li><p>**主题(Topic)**：它存放同一类的消息，比如点赞、评论、收藏各是一个Topic</p>
+</li>
+<li><p><strong>分区（Partition）</strong>：Topic会划分为多个<strong>分区(Partition)<strong>：每个分区都是一组</strong>有序的、不可变的消息日志</strong>（日志的格式就是key、value键值对）</p>
+<ul>
+<li>消息的存储是以键值对的方式，如果key为null，那么就按照轮询的方式写到不同的分区中（同一个Topic的不同分区）；如果key不为null，相同key的消息会有序的排放在相同的分区中。</li>
+<li>生产者生产的消息<strong>只会被发送到一个分区中</strong>（如果一个Topic有2个Partition，只会被发到其中一个中，不在partition0就在partition1）</li>
+</ul>
+</li>
+<li><p><strong>Replication</strong>：一个主题有多个分区，一个分区可以有多个副本</p>
+<p><img src="http://img.yesmylord.cn//image-20230917112853203.png" alt="分区的工作原理"></p>
+<ul>
+<li>与Hadoop的分区容备不同的是，kafka的副本分为Leader和follower，<strong>Leader负责读写请求，follower不负责读！只是实时复制leader的变化</strong>。</li>
+<li>图中还显示了一个ISR的集合，这个集合存储了分区的副本的ID，如果有一个副本掉队，就会删除，等到其跟上leader的进度，才会将其填入。</li>
+</ul>
+</li>
+<li><p><strong>Broker</strong>：主题的服务器端（消息代理），他有两个主要的作用</p>
+<ol>
+<li><strong>接收和处理</strong>客户端发送来的请求</li>
+<li>消息<strong>持久化</strong>：将消息写入到磁盘</li>
+</ol>
+</li>
+</ul>
+<h3 id="Kafka集群结构"><a href="#Kafka集群结构" class="headerlink" title="Kafka集群结构"></a>Kafka集群结构</h3><p>3.0之前的kafka需要Zookeeper来配合使用</p>
+<ul>
+<li>一台服务器可以有多个Broker（但是一般一个服务器只维护一个Broker）</li>
+<li>一个Broker可以有多个Topic（不同Broker的Topic是一样的）</li>
+<li>一个Topic可以有多个Partition</li>
+<li>一个Partition可以有多个Replication</li>
+</ul>
+<p>如图示：</p>
+<p><img src="http://img.yesmylord.cn//image-20211016153442425.png" alt="kafka集群示意图1"></p>
+<p>上图表示的集群中：有4个Broker，2个Topic；Topic0有5个分区（0-4），每个分区有2个副本；Topic1有3个分区（0-2），每个分区有3个副本；标为红色的副本表示其为leader，绿色的为follower；</p>
+<p><img src="http://img.yesmylord.cn//image-20230917113442465.png" alt="kafka集群示意图2"></p>
+<p>在上图的集群中：有8个Broker，1个Topic；8个Partition；每个Partition有3个replication</p>
+<p><img src="http://img.yesmylord.cn//image-20211016144948106.png" alt="工作三层结构"></p>
+<p>Kafka工作总共有三层结构：</p>
+<ul>
+<li><p>【第一层：<strong>主题层</strong>】</p>
+<ul>
+<li>每个主题可以配置M个分区</li>
+<li>每个分区又可以配置N个副本</li>
+</ul>
+</li>
+<li><p>【第二层：<strong>分区层</strong>】</p>
+<ul>
+<li>每个分区可以有多个副本</li>
+<li>但只能有<strong>一个领导者副本</strong>，其他全为追随者副本</li>
+</ul>
+</li>
+<li><p>【第三层：消息层】</p>
+<ul>
+<li>分区是一个有序的消息队列，消息的位移从0开始</li>
+</ul>
+</li>
+</ul>
+<h3 id="Kafka的消费者"><a href="#Kafka的消费者" class="headerlink" title="Kafka的消费者"></a>Kafka的消费者</h3><blockquote>
+<p>Kafka的Consumer为什么是一组一组的Consumer group？</p>
+</blockquote>
+<p>为了实现P2P模型，前面说到，kafka不仅提供了发布订阅这种模型，而且支持P2P这种方式，因此引入了<strong>消费者组</strong></p>
+<p>一个消费者组中的消费者都是消费相同主题的消费者</p>
+<p>这样做也可以<strong>提高整个消费者端的吞吐量</strong></p>
+<h2 id="Kafka的高可用"><a href="#Kafka的高可用" class="headerlink" title="Kafka的高可用"></a>Kafka的高可用</h2><p>Kafka提供高可用的手段主要有两个：</p>
+<ol>
+<li><strong>kafka集群</strong></li>
+<li><strong>备份机制</strong></li>
+</ol>
+<h3 id="kafka集群"><a href="#kafka集群" class="headerlink" title="kafka集群"></a>kafka集群</h3><p>即将：Broker进程分配在不同PC上，每台PC都可以运行很多Broker进程，通过Zookeeper将不同的PC联系起来，这样就构建成了kafka集群</p>
+<blockquote>
+<p>为什么要这么做？</p>
+</blockquote>
+<p>Broker是可以全部到一台机器上的，但是通常都会分配到不同的机器上</p>
+<p>这样可以避免一个PC宕机的时候，其他的PC还能正常工作，依然可以继续对外提供服务</p>
+<h3 id="备份机制"><a href="#备份机制" class="headerlink" title="备份机制"></a>备份机制</h3><p>类似于hadoop、redis、mysql，很多都有备份机制来保证高可用</p>
+<p>在Kafka中，每一个主题有很多分区，每一个分区可以配置N个副本</p>
+<p>（还是此图）</p>
+<p><img src="http://img.yesmylord.cn//image-20211016153442425.png" alt="物理结构"></p>
+<p>在这些副本中，分为两类：</p>
+<ul>
+<li><strong>领导者副本</strong>（Leader Replica）：负责提供与客户端（消费者与生产者）的服务</li>
+<li><strong>追随者副本</strong>（Follower Replica）：负责跟进领导者的副本（不提供服务）</li>
+</ul>
+<p>（在Redis、Mysql中，从库是可以对外提供读服务的）</p>
+<p>（在以前这也被称为master、slave体系（主从体系）但是由于漂亮国某些政治正确的原因，改为Leader Follower这种体系）</p>
+<blockquote>
+<p>为什么kafka的主题要分区？</p>
+</blockquote>
+<p>为了解决<strong>伸缩性问题</strong>，即如果leader副本积累了太多的数据，以至于一台Broker都无法存储了</p>
+<p>分区就是为了解决伸缩性问题的</p>
+<blockquote>
+<p>为什么kafka的追随者副本不设计为可以对外提供读服务呢？（就和redis、mysql一样）</p>
+</blockquote>
+<p>两个原因：</p>
+<ol>
+<li>首先mysql是为了负载均衡，平衡主库压力（主库需要负责读写操作），才设计从库来负责读，尽量分摊主库压力；而kafka中，每个Broker分布在不同的PC上，本来就进行了负载均衡</li>
+<li>消费者组读取数据，有一个消费者位移，如果follower也要提供读服务的话，那么设计实现会比较复杂（涉及到一致性问题，需要同步leader与follower的进度）</li>
+</ol>
+<h2 id="kafka数据的持久化"><a href="#kafka数据的持久化" class="headerlink" title="kafka数据的持久化"></a>kafka数据的持久化</h2><blockquote>
+<p>kafka如何持久化数据？</p>
+</blockquote>
+<p>kafka使用<strong>消息日志（log）</strong>来持久化数据，而且是<strong>追加写</strong>（类似于Mysql的bin log）</p>
+<blockquote>
+<p>追加写满了怎么办？</p>
+</blockquote>
+<p>kafka将日志又细分为多个<strong>日志段</strong>（Log segment），消息被追加写到最新的日志段中</p>
+<ul>
+<li><p>写满后，kafka会<strong>自动切分出</strong>一个新的日志段，并将老的日志段封存起来</p>
+</li>
+<li><p>kafka在后台还有<strong>定时任务</strong>会定期的检查老的日志段是否能被删除回收</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kafka/" rel="tag"><i class="fa fa-tag"></i> kafka</a>
+              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 消息队列</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E5%B8%B8%E6%8E%A7%E5%88%B6%E6%B5%81/" rel="prev" title="异常控制流">
+                  <i class="fa fa-chevron-left"></i> 异常控制流
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/10/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/x86CPU%E5%B7%A5%E4%BD%9C%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" rel="next" title="x86 CPU工作的三种模式">
+                  x86 CPU工作的三种模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

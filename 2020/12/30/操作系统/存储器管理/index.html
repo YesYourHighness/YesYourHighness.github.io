@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：操作系统中的存储器管理； 更新：增加《CSAPP》中的知识点内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="存储器管理">
+<meta property="og:url" content="http://yoursite.com/2020/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：操作系统中的存储器管理； 更新：增加《CSAPP》中的知识点内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210928211748551.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210929085603863.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210929085603863.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210929092427385.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20210929093439197.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211011153453187.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211011162723879.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211011163230363.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201231210345871.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201231210358414.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201231210517911.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201231210933076.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20211011171757685.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201228160918495.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201228194916305.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201228195506011.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201228195515461.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201228203904998.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201228205633194.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201228214630394.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201229094809427.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201229100045742.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20201229111058827.png">
+<meta property="article:published_time" content="2020-12-30T06:25:35.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.992Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="存储器管理">
+<meta property="article:tag" content="请求分页方式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20210928211748551.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2020/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/","path":"2020/12/30/操作系统/存储器管理/","title":"存储器管理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>存储器管理 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">存储器管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF"><span class="nav-number">1.1.</span> <span class="nav-text">存储技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RAM"><span class="nav-number">1.1.1.</span> <span class="nav-text">RAM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SRAM"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">SRAM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DRAM"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">DRAM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SRAM%E4%B8%8EDRAM%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">SRAM与DRAM的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9FDRAM%E7%9A%84%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">传统DRAM的结构实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%A8%A1%E5%9D%97"><span class="nav-number">1.1.2.</span> <span class="nav-text">内存模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">内存控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROM"><span class="nav-number">1.1.4.</span> <span class="nav-text">ROM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8ECPU%E5%88%B0%E4%B8%BB%E5%AD%98"><span class="nav-number">1.1.5.</span> <span class="nav-text">从CPU到主存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%EF%BC%88%E6%9C%BA%E6%A2%B0%E7%A1%AC%E7%9B%98%EF%BC%89"><span class="nav-number">1.1.6.</span> <span class="nav-text">磁盘（机械硬盘）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">磁盘的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">磁盘格式化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.6.3.</span> <span class="nav-text">磁盘如何存储数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BE%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.6.4.</span> <span class="nav-text">磁盘如何查找数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.6.5.</span> <span class="nav-text">磁盘调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1-%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA"><span class="nav-number">1.1.6.5.1.</span> <span class="nav-text">先来先服务 &#x2F; 先进先出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E5%AF%BB%E9%81%93%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%EF%BC%88SSTF%EF%BC%89"><span class="nav-number">1.1.6.5.2.</span> <span class="nav-text">最短寻道时间优先（SSTF）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95-SCAN"><span class="nav-number">1.1.6.5.3.</span> <span class="nav-text">扫描算法 SCAN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95-CSCAN"><span class="nav-number">1.1.6.5.4.</span> <span class="nav-text">循环扫描算法 CSCAN</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">1.1.6.6.</span> <span class="nav-text">磁盘控制器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98"><span class="nav-number">1.1.7.</span> <span class="nav-text">固态硬盘</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">存储器的层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="nav-number">1.3.</span> <span class="nav-text">存储管理的目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%A3%85%E5%85%A5%E5%92%8C%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">程序的装入和链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91"><span class="nav-number">1.4.1.</span> <span class="nav-text">程序的编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.2.</span> <span class="nav-text">程序的链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">静态链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A3%85%E5%85%A5%E6%97%B6%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">装入时动态链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">运行时动态链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%A3%85%E5%85%A5"><span class="nav-number">1.4.3.</span> <span class="nav-text">程序的装入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E8%A3%85%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">绝对装入方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E7%9A%84%E8%A3%85%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">可重定位的装入方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A3%85%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">动态运行时装入方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">连续分配存储管理方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D"><span class="nav-number">1.5.1.</span> <span class="nav-text">单一连续分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="nav-number">1.5.2.</span> <span class="nav-text">固定分区分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.3.</span> <span class="nav-text">动态分区分配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">空闲分区表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E5%88%86%E5%8C%BA%E9%93%BE"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">空闲分区链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">分区分配算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E5%9B%9E%E6%94%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.5.3.4.</span> <span class="nav-text">分配回收操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.4.</span> <span class="nav-text">可重定位分区分配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%BC%E6%8E%A5"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">拼接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">离散分配方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95%EF%BC%88%E5%9F%BA%E4%BA%8E%E9%A1%BA%E5%BA%8F%E6%90%9C%E7%B4%A2%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">分区分配算法（基于顺序搜索）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E6%AC%A1%E8%87%AA%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.1.</span> <span class="nav-text">首次自适应算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E9%A6%96%E6%AC%A1%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.2.</span> <span class="nav-text">循环首次适应算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.3.</span> <span class="nav-text">最佳适应算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%9D%8F%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.4.</span> <span class="nav-text">最坏适应算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E5%AD%98%E5%82%A8%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.7.</span> <span class="nav-text">分区的存储保护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%95%8C%E9%99%90%E5%AF%84%E5%AD%98%E5%99%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.1.</span> <span class="nav-text">界限寄存器方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E4%BF%9D%E6%8A%A4%E9%94%AE%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.2.</span> <span class="nav-text">存储保护键方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%8D%A2%EF%BC%88%E4%BA%A4%E6%8D%A2-Swapping%EF%BC%89"><span class="nav-number">1.8.</span> <span class="nav-text">对换（交换 Swapping）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%8D%A2%E7%A9%BA%E9%97%B4%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.8.1.</span> <span class="nav-text">对换空间的管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8D%A2%E5%85%A5%E4%B8%8E%E6%8D%A2%E5%87%BA"><span class="nav-number">1.8.2.</span> <span class="nav-text">进程的换入与换出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">1.9.</span> <span class="nav-text">分页存储管理方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">1.9.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%86%85%E5%AE%B9"><span class="nav-number">1.9.2.</span> <span class="nav-text">核心内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">地址结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%A4%A7%E5%B0%8F"><span class="nav-number">1.9.2.2.</span> <span class="nav-text">页面大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E8%A1%A8"><span class="nav-number">1.9.2.3.</span> <span class="nav-text">页表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84"><span class="nav-number">1.9.2.4.</span> <span class="nav-text">地址变换机构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84"><span class="nav-number">1.9.2.5.</span> <span class="nav-text">基本的地址变换机构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%BF%AB%E8%A1%A8%EF%BC%88TLB%EF%BC%89%E7%9A%84%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84"><span class="nav-number">1.9.2.6.</span> <span class="nav-text">具有快表（TLB）的地址变换机构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E5%85%B1%E4%BA%AB"><span class="nav-number">1.9.3.</span> <span class="nav-text">信息共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.9.4.</span> <span class="nav-text">信息保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">1.10.</span> <span class="nav-text">分段存储管理方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3-1"><span class="nav-number">1.10.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E8%A1%A8"><span class="nav-number">1.10.2.</span> <span class="nav-text">段表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.10.3.</span> <span class="nav-text">优缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E5%92%8C%E5%88%86%E9%A1%B5%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="nav-number">1.11.</span> <span class="nav-text">分段和分页的主要区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.12.</span> <span class="nav-text">虚拟存储器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%84%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-number">1.12.1.</span> <span class="nav-text">常规存储器管理方式的特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86"><span class="nav-number">1.12.2.</span> <span class="nav-text">局部性原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E9%A1%B5%EF%BC%88%E6%AE%B5%EF%BC%89%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">1.13.</span> <span class="nav-text">请求分页（段）存储管理方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81"><span class="nav-number">1.13.1.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.13.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E8%A1%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">1.13.2.1.</span> <span class="nav-text">页表机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E6%9C%BA%E5%88%B6"><span class="nav-number">1.13.2.2.</span> <span class="nav-text">缺页中断机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84-1"><span class="nav-number">1.13.2.3.</span> <span class="nav-text">地址变换机构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E9%A1%B5%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">1.14.</span> <span class="nav-text">请求分页页面置换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88OPT%EF%BC%89"><span class="nav-number">1.14.1.</span> <span class="nav-text">最佳置换算法（OPT）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88FIFO%EF%BC%89"><span class="nav-number">1.14.2.</span> <span class="nav-text">先进先出置换算法（FIFO）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E6%9C%80%E4%B9%85%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95%EF%BC%88LRU%EF%BC%89"><span class="nav-number">1.14.3.</span> <span class="nav-text">最近最久未使用算法（LRU）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%A7%E8%83%BD%E8%AF%84%E4%BB%B7"><span class="nav-number">1.14.4.</span> <span class="nav-text">淘汰算法的性能评价</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E7%8E%87%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="nav-number">1.14.4.1.</span> <span class="nav-text">影响缺页中断率的因素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.15.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="存储器管理 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          存储器管理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-30 14:25:35" itemprop="dateCreated datePublished" datetime="2020-12-30T14:25:35+08:00">2020-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>15k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：操作系统中的存储器管理；
+更新：增加《CSAPP》中的知识点内容
+</center>
+
+<span id="more"></span>
+
+<h1 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h1><p>操作系统很重要的一个工作，完成对存储器的控制与管理</p>
+<h2 id="存储技术"><a href="#存储技术" class="headerlink" title="存储技术"></a>存储技术</h2><h3 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h3><blockquote>
+<p>RAM（Random Access Memory）随机访问存储器</p>
+</blockquote>
+<p>分为两类：<strong>静态与动态</strong></p>
+<h4 id="SRAM"><a href="#SRAM" class="headerlink" title="SRAM"></a>SRAM</h4><blockquote>
+<p>SRAM（Static RAM）：静态RAM</p>
+</blockquote>
+<p>所谓静态RAM，我认为静态的意思就是指<strong>其实现比较稳定</strong>：</p>
+<p>结构特点：</p>
+<p>​        其每一位都存放在一个<strong>双稳态的存储器单元</strong>内（这个存储器单元是由6个晶体管电路来实现的，具体实现无需了解）</p>
+<p>这种单元有这样一个特性：</p>
+<ul>
+<li><strong>无限期的保持在两个不同的电压状态之一</strong>（即：不存在中间状态，要么是0，要么是1，任何一点点干扰都会使其偏向一边）</li>
+</ul>
+<p>（《CSAPP》中说到SRAM使用了一个倒摆来阐述这个特性）</p>
+<p><img src="http://img.yesmylord.cn//image-20210928211748551.png" alt="倒摆表述SRAM稳定的特性"></p>
+<p>注意：</p>
+<p>1、这里的稳定，会在断电之后失效，所以<strong>SRAM会在断电后丢失数据</strong></p>
+<p>2、也可以这么理解，只要有电SRAM就会永远保证其值不会发生变化</p>
+<h4 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a>DRAM</h4><blockquote>
+<p>Dynamic RAM：动态RAM</p>
+</blockquote>
+<p>结构特点：其<strong>每一位都依靠一个电容</strong>来进行存储，<strong>每个单元都由一个电容和一个访问晶体管</strong>组成，相对于SRAM，DRAM就不是稳定的了：</p>
+<ul>
+<li>DRAM对干扰非常敏感，比如光照就可以让DRAM的电容改变</li>
+</ul>
+<p>（基于这个特性，数码照相机中的传感器就是DRAM实现的）</p>
+<blockquote>
+<p>DRAM不稳定，那它怎么去存数据？</p>
+</blockquote>
+<p>​        DRAM不稳定，但是他可以保证在10-100ms的时间内不改变，而CPU的时钟周期是纳秒级别的，所以对于CPU来说，DRAM足够稳定能存储数据了</p>
+<p>（可以这么理解，比如使用白纸黑字来记录数据，虽然数据不能永远存在，但对于人来说，已经足够使用了）</p>
+<h4 id="SRAM与DRAM的对比"><a href="#SRAM与DRAM的对比" class="headerlink" title="SRAM与DRAM的对比"></a>SRAM与DRAM的对比</h4><table>
+<thead>
+<tr>
+<th>种类</th>
+<th>晶体管数/单元</th>
+<th>相对访问时间</th>
+<th>是否稳定</th>
+<th>是否敏感</th>
+<th>相对花费</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SRAM</td>
+<td>6</td>
+<td>1x</td>
+<td>稳定</td>
+<td>不敏感</td>
+<td>1000x</td>
+<td>高速缓存</td>
+</tr>
+<tr>
+<td>DRAM</td>
+<td>1</td>
+<td>10x</td>
+<td>不稳定</td>
+<td>敏感</td>
+<td>1x</td>
+<td>主存，相机传感器</td>
+</tr>
+</tbody></table>
+<p>注意到：</p>
+<ul>
+<li>SRAM速度大约是DRAM的10倍，而花费却是其1000倍</li>
+<li>高速缓存就是SRAM构成的</li>
+<li>主存就是由DRAM构成的</li>
+</ul>
+<h4 id="传统DRAM的结构实现"><a href="#传统DRAM的结构实现" class="headerlink" title="传统DRAM的结构实现"></a>传统DRAM的结构实现</h4><p>上面相当于简单介绍了一下DRAM，这里具体介绍一下DRAM的结构</p>
+<p><img src="http://img.yesmylord.cn//image-20210929085603863.png" alt="传统DRAM结构"></p>
+<p>结构：</p>
+<ul>
+<li><strong>DRAM芯片</strong><ul>
+<li>一个DRAM芯片由d个超单元组成（每个超单元可以传输1字节的信息）</li>
+<li>一个超单元由w个DRAM单元组成（每个DRAM单元可以传输1bit信息）</li>
+<li>超单元为一个方阵，r行，c列（<code>d = r*c</code>）</li>
+<li>addr：代表地址线，图中有两根，所以可以指向4位的地址</li>
+<li>data：代表数据选，图中有8根，所以一次可以传输1字节信息（一个超单元）</li>
+<li><strong>内部行缓冲区</strong>（下面会举一个例子）</li>
+</ul>
+</li>
+<li><strong>内存控制器</strong>：两个功能<ol>
+<li>可以一次传入或传出w位</li>
+<li>可以给DRAM芯片发送行地址RAS与列地址CAS</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>如何从DRAM（主存）读取一个数据？</p>
+</blockquote>
+<p>还是这个图，现在我们要从中读取（2,1）位置的数据</p>
+<p><img src="http://img.yesmylord.cn//image-20210929085603863.png" alt="读取数据"></p>
+<p>CPU传来地址，要读取（2,1）的数据，那么内存控制器地址线传输地址，会先传输行地址2，在传输列地址1（<strong>分两次传输</strong>）</p>
+<p>a）传输行地址2：此时读取行号为2的整行数据，读入到<strong>内部行缓冲区</strong></p>
+<p>b）传输列地址1：从内部行缓冲区读取列为1的数据，通过数据线返回</p>
+<p>（此处使用CSAPP中的图）</p>
+<p><img src="http://img.yesmylord.cn//image-20210929092427385.png" alt="读一个DRAM数据"></p>
+<blockquote>
+<p>为什么要设计DRAM芯片为二维结构？</p>
+</blockquote>
+<p>这里涉及到一个折衷的问题：</p>
+<ul>
+<li><p>设计为<code>4*4</code>的结构：<strong>地址线使用2根即可</strong>，但是要传输行与列，意味着取一个数需要<strong>传入两次地址</strong></p>
+</li>
+<li><p>设计为<code>1*16</code>的结构：<strong>地址线需要4根</strong>，但是读一个数据，<strong>一次</strong>就可以读取到</p>
+</li>
+</ul>
+<h3 id="内存模块"><a href="#内存模块" class="headerlink" title="内存模块"></a>内存模块</h3><p>现在我们已经知道了DRAM芯片的构成，再向上抽象，<strong>DRAM芯片是构成内存模块的组成部分</strong>：</p>
+<p><img src="http://img.yesmylord.cn//image-20210929093439197.png" alt="内存模块"></p>
+<p>​        可以看到此处的内存模块由8个DRAM芯片构成，每次读取数据时，会将相同的行列传到每一个DRAM芯片中，然后每一个DRAM芯片都会返回对应超单元的数据，分别组成数据的不同高度的位</p>
+<p>这样，就实现了一次读取64位的数据</p>
+<h3 id="内存控制器"><a href="#内存控制器" class="headerlink" title="内存控制器"></a>内存控制器</h3><blockquote>
+<p>此处我们总结一下内存控制器的作用：</p>
+</blockquote>
+<p>1、<strong>翻译地址</strong>：可以将CPU传来的地址，翻译为DRAM芯片的行与列</p>
+<p>2、<strong>多播</strong>：将行地址与列地址传输到每一个DRAM</p>
+<p>3、<strong>组合数据返回</strong>：将每一个DRAM芯片读出来的数据，组合起来，返回给CPU</p>
+<h3 id="ROM"><a href="#ROM" class="headerlink" title="ROM"></a>ROM</h3><blockquote>
+<p>ROM（Read Only Memory）只读存储器</p>
+<p>由于历史原因，称为只读存储器，但其实有的类型是可读可写的</p>
+</blockquote>
+<p>分类：</p>
+<ul>
+<li><strong>PROM</strong>（Program ROM）：<strong>可编程ROM</strong>，只能被写一次；（内容原理是每一个单元都是一个熔丝，只能被高电流熔断一次）</li>
+<li><strong>EPROM</strong>（Erasable PROM）：<strong>可擦写可编程ROM</strong>，允许1k次的重复写操作；（其实现原理是EPROM有一个石英窗口，允许紫外线进入，当紫外线照射到存储单元时，对应位置就变为0）</li>
+<li><strong>EEPROM</strong>（Electrically EPROM）：<strong>电子可擦除ROM</strong>（直接在印制的电路卡上编程，可达10w次重写操作）</li>
+<li><strong>Flash Memory</strong>：<strong>闪存</strong>，其实现基于EEPROM（固态硬盘就是闪存的一种实现）</li>
+</ul>
+<h3 id="从CPU到主存"><a href="#从CPU到主存" class="headerlink" title="从CPU到主存"></a>从CPU到主存</h3><blockquote>
+<p>CPU是如何读取一个数据到寄存器的呢？</p>
+</blockquote>
+<p>例如命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movq A, %rax</span><br><span class="line">-- 此处的A代表一个地址，这种寻址方式也叫直接寻址</span><br></pre></td></tr></table></figure>
+
+<p>要知道这个问题，我们先得大致了解CPU的指令是如何传递到主存的，如图：</p>
+<p><img src="http://img.yesmylord.cn//image-20211011153453187.png" alt="CPU与主存通过总线连接"></p>
+<p>结构：</p>
+<ul>
+<li>CPU芯片内部有对外的总线接口</li>
+<li>系统总线：连接IO桥与CPU</li>
+<li>内存总线：连接IO桥与主存</li>
+</ul>
+<p>作用：<strong>IO桥负责</strong>将系统总线的电子信号转换为内存总线的电子信号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movq A, %rax</span><br><span class="line">-- 此处的A代表一个地址，这种寻址方式也叫直接寻址（movq的q代表读取一个64位的数据）</span><br></pre></td></tr></table></figure>
+
+<p>此命令在执行中，就分为三个过程</p>
+<ol>
+<li>CPU总线接口将A通过系统总线——IO桥（完成电子信号转换）——内存总线传递到主存</li>
+<li>内存控制器将地址翻译为DRAM地址，取数据，传回</li>
+<li>总线接口读出数据，放入CPU寄存器中</li>
+</ol>
+<h3 id="磁盘（机械硬盘）"><a href="#磁盘（机械硬盘）" class="headerlink" title="磁盘（机械硬盘）"></a>磁盘（机械硬盘）</h3><h4 id="磁盘的结构"><a href="#磁盘的结构" class="headerlink" title="磁盘的结构"></a>磁盘的结构</h4><p>要了解清楚几个概念：盘片、盘面、磁道、柱面、扇区</p>
+<hr>
+<p>一个机械硬盘内部的主要结构有：主轴、磁头、盘片</p>
+<p>间隙用来作为扇区与扇区之间的分隔符</p>
+<p><img src="http://img.yesmylord.cn//image-20211011162723879.png" alt="磁盘结构"></p>
+<p>盘片会绕着主轴进行旋转，磁头可以在最内圈到最外圈之间摆动（这是机械运动，所以磁盘的读取速度十分缓慢）</p>
+<p><img src="http://img.yesmylord.cn//image-20211011163230363.png" alt="磁盘的结构"></p>
+<blockquote>
+<p>机械硬盘内部是真空密封的，打开就不能使用了，为什么？</p>
+</blockquote>
+<p>“读写头在磁盘表面一层薄薄的气垫上飞翔”，这个厚度很薄，即使很小的一粒灰尘，对于磁头来说都相当于摩天大楼，会发生<strong>读写头碰撞</strong>(head crash)</p>
+<p>有以下转换公式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1盘片 = 2 盘面 = 2*k 磁道 = 2*K*n 扇区 = 2*K*n*512 字节</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一个盘片的两面都刷油磁性介质，都可以存储数据</li>
+<li><strong>磁道是一个圈</strong>（图中画的密度很均匀，但其实实际上不是均匀的）</li>
+<li>柱面就是很多个盘片相同的磁道组成的一个面</li>
+</ul>
+<p>一个磁盘可以存储的数据大小公式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">磁盘容量 = 每扇区字节数 * 每磁道扇区数 * 每盘面磁道数 * 2 * 盘片数</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>每磁道扇区数</code>也可以换为<code>每盘面柱面数</code>，这两个值是相同的</p>
+<h4 id="磁盘格式化"><a href="#磁盘格式化" class="headerlink" title="磁盘格式化"></a>磁盘格式化</h4><p>一个新的磁盘是不能使用的，我们需要首先进行<strong>格式化</strong></p>
+<p>格式化主要做的内容有：</p>
+<ul>
+<li>用标识扇区的信息填写扇区之间的间隙</li>
+<li>标识出有故障的柱面并且不使用</li>
+<li>每个区要预留一组柱面作为备用</li>
+</ul>
+<p>如果你使用Linux挂载过磁盘，那么其中一步就是格式化磁盘，换成可以使用的文件格式。</p>
+<h4 id="磁盘如何存储数据"><a href="#磁盘如何存储数据" class="headerlink" title="磁盘如何存储数据"></a>磁盘如何存储数据</h4><p>磁盘的数据存放在了扇区内（一般一个扇区512字节）</p>
+<p>对于一个文件来说（磁盘通过这样的方式尽可能的优化查询时间）</p>
+<p>先会存放在一个扇区内，如果不够，就存放在同一个磁道内，如果还不够，就存放在同一个柱面内，如果还不够，就放在相邻的磁道内</p>
+<h4 id="磁盘如何查找数据"><a href="#磁盘如何查找数据" class="headerlink" title="磁盘如何查找数据"></a>磁盘如何查找数据</h4><p>磁盘查找数据主要分为三个部分：</p>
+<ul>
+<li><strong>寻道时间</strong>（磁头摆动到对应磁道的时间）</li>
+<li>旋转时间（磁盘旋转到期望扇区所需的时间，最坏的情况就得转一圈）</li>
+<li>传送时间（读取一个扇区所需要的时间）</li>
+</ul>
+<p>首先磁盘需要定位到对应磁道（此时磁臂会进行摆动），定位后要找到期望的扇区（磁盘疯狂旋转，会转到文件的开始位置），然后磁头开始读取对应位置的数据。</p>
+<h4 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h4><p>考虑的就是使得平均寻道时间最短</p>
+<p>例如：假定磁盘有 200 个磁道，当前有 9 个访问者（进程）先后提出 I/O 操作，需要访问的磁道分别为：<code>55，58，39，18，90，160，150，38，184；</code>又假定当前磁头位置为 100</p>
+<h5 id="先来先服务-先进先出"><a href="#先来先服务-先进先出" class="headerlink" title="先来先服务 / 先进先出"></a>先来先服务 / 先进先出</h5><p>优点：公平</p>
+<p>缺点：未考虑优化寻道，有大量进程访问者竞争一个磁盘，则这种算法的性能接近于随机调度</p>
+<p><img src="http://img.yesmylord.cn//image-20201231210345871.png" alt="FCFS"></p>
+<h5 id="最短寻道时间优先（SSTF）"><a href="#最短寻道时间优先（SSTF）" class="headerlink" title="最短寻道时间优先（SSTF）"></a>最短寻道时间优先（SSTF）</h5><blockquote>
+<p>选择使磁头臂<strong>从当前位置开始移动距离最短</strong>的 I/O 访问者</p>
+</blockquote>
+<p>缺点：<strong>每次选择距离最短者</strong>同时，<strong>忽略了可能由于不断的有新的 I/O 请求进程加入到队列中，且与当前磁头位置较近</strong>，会使得原请求队列中的距离远的访问者总也得不到调度，<strong>产生所谓 “饥饿” 现象</strong></p>
+<p> <img src="http://img.yesmylord.cn//image-20201231210358414.png" alt="SSTF"></p>
+<h5 id="扫描算法-SCAN"><a href="#扫描算法-SCAN" class="headerlink" title="扫描算法 SCAN"></a>扫描算法 SCAN</h5><blockquote>
+<p>考虑了两个方面的问题：</p>
+<ul>
+<li>方向</li>
+<li>与当前磁道号距离最短</li>
+</ul>
+<p>作先由内向外运动，再由外向内运动，或反之。<br>这样就<strong>避免了饥饿现象</strong>。</p>
+<p>由于这种算法使得磁臂移动规律颇似电梯的运动，因而也称为<strong>电梯算法。</strong></p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20201231210517911.png" alt="SCAN"></p>
+<p>缺点：</p>
+<p>会导致某些请求会被延迟读写</p>
+<h5 id="循环扫描算法-CSCAN"><a href="#循环扫描算法-CSCAN" class="headerlink" title="循环扫描算法 CSCAN"></a>循环扫描算法 CSCAN</h5><blockquote>
+<p>为了减少这种延迟，**规定磁头单向读 / 写运动 (如只由内向外)<strong>，</strong>完成读写后立即返到最小 / 大磁道号的位置 (构成循环)**，再进行扫描。即 CSCAN 算法</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20201231210933076.png" alt="CSCAN"></p>
+<h4 id="磁盘控制器"><a href="#磁盘控制器" class="headerlink" title="磁盘控制器"></a>磁盘控制器</h4><p>磁盘的结构确实很复杂，但是磁盘设计厂商为我们做了一层抽象，以便于我们使用<strong>逻辑磁盘块</strong></p>
+<blockquote>
+<p><strong>磁盘控制器</strong>：维护着<strong>逻辑块号</strong>与<strong>实际磁盘扇区</strong>的映射关系</p>
+</blockquote>
+<p>如果OS要执行一个IO操作，读取磁盘的一个数据，那么OS就会发过来一个<strong>逻辑块号</strong>，然后磁盘控制器将其翻译为一个<strong>（盘面， 磁道， 扇区）的三元组</strong></p>
+<p>然后磁盘就会去对应位置读取数据，然后将其复制到OS内核的一个小的缓冲区中，然后OS再去缓冲区读取数据</p>
+<h3 id="固态硬盘"><a href="#固态硬盘" class="headerlink" title="固态硬盘"></a>固态硬盘</h3><p>一种基于<strong>闪存</strong>存储技术的存储介质</p>
+<p>固态硬盘的结构如下：</p>
+<p><img src="http://img.yesmylord.cn//image-20211011171757685.png" alt="固态硬盘"></p>
+<ul>
+<li><strong>闪存翻译层</strong>（作用类似于磁盘控制器）</li>
+<li>一个或多个<strong>闪存芯片</strong><ul>
+<li>一个闪存芯片由B个<strong>块</strong>组成<ul>
+<li>一个块由P个<strong>页</strong>组成（一页大小约为512字节，类似于扇区）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>固态硬盘的特点：</p>
+<ul>
+<li>数据的读写是<strong>以页为单位</strong>读写的，<strong>如果要写一页，需要擦除该页所属的块</strong></li>
+<li><strong>随机读要比随机写快</strong></li>
+</ul>
+<blockquote>
+<p>为什么写操作慢？</p>
+</blockquote>
+<ol>
+<li>写操作执行之前，<strong>需要擦除对应块的所有页的数据，才能进行写入</strong></li>
+<li>如果要更改一页的部分数据，需要将这一页所属块的所有数据复制到一个新块后，才能对页进行修改</li>
+</ol>
+<p>但即使这么复杂，也比磁盘要快很多，这也是固态硬盘贵和重要的原因</p>
+<h2 id="存储器的层次结构"><a href="#存储器的层次结构" class="headerlink" title="存储器的层次结构"></a>存储器的层次结构</h2><p>如图：</p>
+<p><img src="http://img.yesmylord.cn//image-20201228160918495.png" alt="存储器层次结构"></p>
+<ul>
+<li>其中<strong>主存储器</strong>与<strong>寄存器</strong>也被称为<strong>可执行寄存器</strong><ul>
+<li>对于可执行寄存器的访问：通过指令<code>load</code>与<code>store</code></li>
+<li>对于辅存中的信息的访问：通过<strong>I/O中断机制</strong></li>
+</ul>
+</li>
+<li><strong>高速缓存</strong>和<strong>磁盘缓存</strong>是用来缓和主存与寄存器、辅存和主存之间速度差异过大的不匹配的问题的，都利用了<strong>局部性原理</strong></li>
+<li>寄存器与主存属于<strong>OS管理</strong>的部分，而辅存的管理属于<strong>设备管理</strong></li>
+</ul>
+<h2 id="存储管理的目的"><a href="#存储管理的目的" class="headerlink" title="存储管理的目的"></a>存储管理的目的</h2><ol>
+<li><p>主存的分配和管理</p>
+<p>当用户需要内存时，系统为之分配相应的存储空间；不需要时，及时回收，以供其它用户使用。</p>
+</li>
+<li><p>提高主存储器的利用率</p>
+<p>不仅能使多道程序动态地共享主存，提高主存利用率，最好还能共享主存中某个区域的信息</p>
+</li>
+<li><p>“扩充”主存容量</p>
+<p>为用户提供比主存物理空间大得多的地址空间，以至使用户感觉他的作业是在这样一个大的存储器中运行</p>
+</li>
+<li><p>存储保护</p>
+<p>确保多道程序都在各自分配到存储区域内操作，互不干扰，防止一道程序破坏其它作业或系统文件的信息。</p>
+</li>
+</ol>
+<h2 id="程序的装入和链接"><a href="#程序的装入和链接" class="headerlink" title="程序的装入和链接"></a>程序的装入和链接</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从编写一个<code>hello world</code>的c程序，到运行它，中间存在这些过程：</p>
+<ol>
+<li>编译</li>
+<li>链接</li>
+<li>装入</li>
+</ol>
+<h3 id="程序的编译"><a href="#程序的编译" class="headerlink" title="程序的编译"></a>程序的编译</h3><p>编译之前，其实还有一步<strong>预编译</strong>的过程，在这个过程中，会识别<code>#include&lt;stdio.h&gt;</code>，告诉<strong>预处理器</strong>读取系统头文件<code>stdio.h</code>的内容，并将它直接插入到程序的文本中，结果就得到了另一个C程序，这个c程序以<code>.i</code>作为文件的扩展名</p>
+<p>然后就开始进行编译过程，会将这个<code>.i</code>的程序翻译成<code>.s</code>的程序，这个程序是一个<strong>汇编语言程序</strong>，<strong>汇编器</strong>（例如as汇编器）会将这个<code>.s</code>文件翻译成真正的<strong>机器语言文件</strong>，结果产生一个<code>.o</code>文件，这个文件是一个二进制文件</p>
+<h3 id="程序的链接"><a href="#程序的链接" class="headerlink" title="程序的链接"></a>程序的链接</h3><p>此时我们有一个<code>.o</code>文件，注意我们的程序调用了<code>printf</code>函数，这个函数我们并没有实现，而是C编译器提供的标准C库的一个函数，这个函数存在于<code>printf.o</code>的单独预编译好了的目标文件中，我们必须将它与我们的程序进行合并</p>
+<p>根据链接时间的不同，程序链接分成三种：</p>
+<ol>
+<li>静态链接</li>
+<li>装入时动态链接</li>
+<li>运行时动态链接</li>
+</ol>
+<h4 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h4><blockquote>
+<p>一种事先链接方式，即在程序运行之前，先将各目标模块及它们所需的库函数，链接成一个完整的装入模块(执行文件)，以后不再拆开</p>
+</blockquote>
+<p>需要克服两个问题：</p>
+<ul>
+<li>对相对地址进行修改<ul>
+<li>各个地址都是从0开始计算的，假设有<code>A、B、C</code>三个模块，他们的长度分别为<code>L、M、N</code>，A调用了B，B调用了C，此时我们需要把B中的相对地址加<code>L</code>，C中的相对地址加<code>L+M</code></li>
+</ul>
+</li>
+<li>变换外部调用符号<ul>
+<li>把B的起始地址变为<code>L</code>，C的起始地址变为<code>L+M</code>（原本都是0）</li>
+</ul>
+</li>
+</ul>
+<p>静态链接后的文件就是<strong>可执行文件</strong></p>
+<p>存在问题：</p>
+<ol>
+<li><strong>不便于对目标模块的修改和更新</strong>（如要更新其中一个模块，需要打开装入模块）</li>
+<li>无法实现对目标模块的<strong>共享</strong></li>
+</ol>
+<h4 id="装入时动态链接"><a href="#装入时动态链接" class="headerlink" title="装入时动态链接"></a>装入时动态链接</h4><blockquote>
+<p>将用户源程序编译后所得到的一组目标模块，在装入内存时，采用<strong>边装入边链接</strong>的链接方式。</p>
+</blockquote>
+<p>优点：</p>
+<ol>
+<li><strong>便于对目标模块的修改和更新</strong>，各个模块分开存放</li>
+<li>可以实现对目标模块的<strong>共享</strong></li>
+</ol>
+<p>存在问题：<br>        由于程序运行所有可能用的目标模块在装入时均全部链接在一起，所以将会把一些不会运行的目标模块也链接进去。如程序中的错误处理模块。</p>
+<h4 id="运行时动态链接"><a href="#运行时动态链接" class="headerlink" title="运行时动态链接"></a>运行时动态链接</h4><blockquote>
+<p>对某些模块的链接<strong>推迟到程序执行时才进行链接。</strong>凡在<strong>执行过程中未被用到的目标模块，都不会被调入内存和被链接到装入模块上</strong></p>
+</blockquote>
+<h3 id="程序的装入"><a href="#程序的装入" class="headerlink" title="程序的装入"></a>程序的装入</h3><blockquote>
+<p>由装入程序将装入模块装入内存中</p>
+</blockquote>
+<p>装入方式有以下几种：</p>
+<ol>
+<li>绝对装入方式</li>
+<li>可重定位装入方式</li>
+<li>动态运行时的装入方式</li>
+</ol>
+<h4 id="绝对装入方式"><a href="#绝对装入方式" class="headerlink" title="绝对装入方式"></a>绝对装入方式</h4><p>这是一种早期的方式，早期的计算机很小，程序员可以直接操作绝对地址，程序编译后直接就是绝对地址（不需要进行逻辑地址与绝对地址的转换）</p>
+<p>缺点：</p>
+<ul>
+<li>只适用于单道程序环境</li>
+<li>需要程序员熟悉内存</li>
+<li>程序的地址都是绝对地址，修改麻烦，一个的改动可能会让全部地址都得改动</li>
+</ul>
+<h4 id="可重定位的装入方式"><a href="#可重定位的装入方式" class="headerlink" title="可重定位的装入方式"></a>可重定位的装入方式</h4><blockquote>
+<p>在多道程序环境下，<strong>目标模块中的其它地址都是相对于0编址。</strong></p>
+<p>应根据内存的当前情况，将装入模块装入到内存的适当位置。</p>
+<p>通常是把在<strong>装入时对目标程序中指令和数据的修改过程</strong>称为重定位</p>
+</blockquote>
+<p>例如，有一条指令<code>load ax ,[2500]</code>，将会把<code>2500</code>处的内容读取到ax寄存器中，此时的位置相对于0编址的，在程序被装入主存后，地址是从10000开始的，<strong>重定位就是此时将程序中的所有地址进行转换，将逻辑地址转换为绝对地址</strong></p>
+<p><code>物理地址 = 基地址 + 相对地址</code></p>
+<p>注意：</p>
+<ul>
+<li>地址转换在装入时一次完成，不再允许程序再次更改位置</li>
+</ul>
+<h4 id="动态运行时装入方式"><a href="#动态运行时装入方式" class="headerlink" title="动态运行时装入方式"></a>动态运行时装入方式</h4><p>实际情况中程序在运行过程中它在内存中的位置可能经常要改变，重定位就不能满足我们的要求</p>
+<blockquote>
+<p>动态运行时装入方式：装入后并不立即将地址进行映射，而是<strong>将地址转换推迟到程序真正要执行的时刻</strong></p>
+</blockquote>
+<p>因此， <strong>装入内存后的所有地址都仍是相对地址</strong></p>
+<p>注意：</p>
+<ul>
+<li>需要重定位寄存器的支持</li>
+</ul>
+<h2 id="连续分配存储管理方式"><a href="#连续分配存储管理方式" class="headerlink" title="连续分配存储管理方式"></a>连续分配存储管理方式</h2><blockquote>
+<p>连续分配存储方式：早期的一种分配方式，为每一个用户程序分配一段连续的内存空间（程序中代码或数据逻辑地址相邻，分配的物理地址也相邻）</p>
+</blockquote>
+<p>连续分配方式可以分为四类：</p>
+<ul>
+<li>单一连续分配</li>
+<li>固定分区分配</li>
+<li>动态分区分配</li>
+<li>动态可重定位分区分配</li>
+</ul>
+<h3 id="单一连续分配"><a href="#单一连续分配" class="headerlink" title="单一连续分配"></a>单一连续分配</h3><blockquote>
+<p>用于单用户、单任务的OS中。</p>
+</blockquote>
+<p>核心：</p>
+<ul>
+<li>将内存分为<strong>系统区</strong>（占内存低地址端）和<strong>用户区</strong>（占内存高地址端）</li>
+<li>采用<strong>静态重定位</strong>分配方式</li>
+<li>由<strong>装入程序检查其绝对地址是否越界</strong>，即可达到保护系统的目的。</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>简单</li>
+<li>只需要小量软硬件支持</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>内存空间浪费大，各类资源利用率也不高</li>
+<li>程序运行受主存容量限制</li>
+<li>不支持多道</li>
+</ul>
+<h3 id="固定分区分配"><a href="#固定分区分配" class="headerlink" title="固定分区分配"></a>固定分区分配</h3><blockquote>
+<p>分区分配方式：将内存分成若干个分区（大小相等/不相等），除OS占一区外，其余的每一个分区容纳一个用户程序</p>
+<p>分为两种：</p>
+<ul>
+<li>固定分区存储管理</li>
+<li>动态分区存储管理</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>固定分区存储管理方式：</p>
+<p>将内存空间划分为若干个<strong>固定大小的分区</strong>，除OS占一区外，其余的一个分区装入一道程序。</p>
+</blockquote>
+<p>注意：<strong>分区的大小可以相等，也可以不等</strong>，但<strong>事先必须确定，</strong>在运行时不能改变。</p>
+<p>特点：</p>
+<ul>
+<li>分区大小及边界在运行时不能改变</li>
+<li>需要建立一张分区说明表或使用表（区号、大小、起止、状态）</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20201228194916305.png" alt="image-20201228194916305"></p>
+<p>过程：</p>
+<p>当某个用户程序要被装入时</p>
+<ol>
+<li><strong>内存分配程序</strong>检索分区说明表</li>
+<li>若找到满足要求的分区即分配分区，修改说明表状态，否则拒绝</li>
+<li>当程序运行完毕，释放对应分区，同时修改说明表状态</li>
+</ol>
+<p>特点：</p>
+<ul>
+<li>管理简单</li>
+<li>作业的大小并不一定与某个分区大小相等，从而<strong>使一部分存储空间被浪费</strong>，利用率低</li>
+</ul>
+<p>例如：</p>
+<p><img src="http://img.yesmylord.cn//image-20201228195506011.png" alt="image-20201228195506011"></p>
+<p><img src="http://img.yesmylord.cn//image-20201228195515461.png" alt="image-20201228195515461"></p>
+<h3 id="动态分区分配方式"><a href="#动态分区分配方式" class="headerlink" title="动态分区分配方式"></a>动态分区分配方式</h3><blockquote>
+<p><strong>在作业进入内存时</strong>，<strong>根据作业的大小动态地建立分区</strong>，并使分区的大小正好适应作业的需要。</p>
+<p>因此系统中<strong>分区的大小是可变的，分区的数目也是可变</strong>的。  </p>
+</blockquote>
+<p>特点：</p>
+<ul>
+<li>管理简单</li>
+<li>利用率有所提高</li>
+</ul>
+<p>核心：</p>
+<ul>
+<li>空闲分区表</li>
+<li>空闲分区链</li>
+<li>分区分配算法（专门一节来讨论）<ul>
+<li>首次适应算法</li>
+<li>循环首次适应算法</li>
+<li>最佳适应算法</li>
+<li>最坏适应算法</li>
+</ul>
+</li>
+<li>分配与回收操作</li>
+</ul>
+<h4 id="空闲分区表"><a href="#空闲分区表" class="headerlink" title="空闲分区表"></a>空闲分区表</h4><p>登记系统中的空闲分区</p>
+<table>
+<thead>
+<tr>
+<th>分区号</th>
+<th>大小KB</th>
+<th>起始地址KB</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>50</td>
+<td>85</td>
+<td>空闲</td>
+</tr>
+<tr>
+<td>2</td>
+<td>32</td>
+<td>155</td>
+<td>空闲</td>
+</tr>
+<tr>
+<td>3</td>
+<td>70</td>
+<td>275</td>
+<td>空闲</td>
+</tr>
+</tbody></table>
+<h4 id="空闲分区链"><a href="#空闲分区链" class="headerlink" title="空闲分区链"></a>空闲分区链</h4><p>​        用链头指针将系统中的空闲分区链接起来，构成空闲分区链。</p>
+<p>​        每个空闲分区的<strong>起始部分</strong>存放相应的控制信息(如大小,指向下一空闲分区的指针等).</p>
+<h4 id="分区分配算法"><a href="#分区分配算法" class="headerlink" title="分区分配算法"></a>分区分配算法</h4><p>见后一节</p>
+<h4 id="分配回收操作"><a href="#分配回收操作" class="headerlink" title="分配回收操作"></a>分配回收操作</h4><p><strong>分配操作</strong>：按不同的算法有不同的分配操作</p>
+<p>​        核心步骤：<code>m.szie - u.size &lt;= size</code></p>
+<p>​        <code>m.size</code>空闲分区大小，<code>u.size</code>请求的分区大小，<code>size</code>事先规定的不再切割的大小</p>
+<p>​        如果这个判断为<code>true</code>，则说明剩下的区域太小，干脆全部分配给该请求</p>
+<p><strong>回收操作：</strong></p>
+<blockquote>
+<p>系统根据回收分区的大小及首地址，在空闲分区表中检查<strong>是否有邻接的空闲分区，如有，则合成为一个大的空闲分区</strong>，然后修改有关的分区状态信息。</p>
+</blockquote>
+<p>有四种情况：</p>
+<p><img src="http://img.yesmylord.cn//image-20201228203904998.png" alt="image-20201228203904998"></p>
+<p>哪种回收情况，回收后，空闲分区数目要减少一个？</p>
+<p>第三种情况</p>
+<h3 id="可重定位分区分配方式"><a href="#可重定位分区分配方式" class="headerlink" title="可重定位分区分配方式"></a>可重定位分区分配方式</h3><blockquote>
+<p><strong>零头（碎片）</strong>：内存中无法被利用的存储空间</p>
+<p>分为两类：</p>
+<ul>
+<li>内零头（内部碎片）：<strong>分配给作业的存储空间</strong>中未被利用的部分。如固定分区中存在的碎片。</li>
+<li>外零头（外部碎片）：<strong>系统中</strong>无法利用的小的空闲分区。如动态分区中存在的碎片</li>
+</ul>
+</blockquote>
+<p>为了消除零头，目前主要有两种办法：</p>
+<ul>
+<li>拼接（也叫紧凑或紧缩技术）</li>
+<li>离散分配方式</li>
+</ul>
+<h4 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h4><p>时机：</p>
+<ul>
+<li>分区回收时</li>
+<li>当找不到足够大的空闲分区且总空闲分区容量可以满足作业要求时</li>
+</ul>
+<p>功能：将内存中<strong>所有作业移到内存一端</strong>（作业在内存中的位置发生了变化，这就必须对其地址加以修改或变换即称为重定位），使本来分散的多个小空闲分区连成一个大的空闲区</p>
+<p><strong>动态分区分配方式 + 拼接</strong></p>
+<p>特点：</p>
+<ul>
+<li>可以充分利用存储区中的“零头/碎片”，提高主存的利用率</li>
+<li>但若 “零头/碎片”大多，则拼接频率过高会使系统开销加大。</li>
+</ul>
+<h4 id="离散分配方式"><a href="#离散分配方式" class="headerlink" title="离散分配方式"></a>离散分配方式</h4><p>​    使用分页式存储管理方式</p>
+<h2 id="分区分配算法（基于顺序搜索）"><a href="#分区分配算法（基于顺序搜索）" class="headerlink" title="分区分配算法（基于顺序搜索）"></a>分区分配算法（基于顺序搜索）</h2><h3 id="首次自适应算法"><a href="#首次自适应算法" class="headerlink" title="首次自适应算法"></a>首次自适应算法</h3><blockquote>
+<p>空闲分区（链）<strong>按地址递增</strong>的次序排列。</p>
+<p>在进行内存分配时,从空闲分区表/链首开始<strong>顺序查找</strong>,直到<strong>找到第一个</strong>满足其大小要求的空闲分区为止。</p>
+<p>然后<strong>再按照作业大小</strong>，从该分区中划出一块内存空间分配给请求者，<strong>余下的空闲分区仍留</strong>在空闲分区表（链）中。</p>
+</blockquote>
+<p>例题：</p>
+<p>​        系统中的空闲分区表如下，现有三个作业分配申请内存空间100K、30K及7K。给出按<strong>首次适应算法</strong>的内存分配情况及分配后空闲分区表</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th>大小</th>
+<th>起址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>32k</td>
+<td>20k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>120k</td>
+<td>60k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>331k</td>
+<td>180k</td>
+</tr>
+</tbody></table>
+<p>解：</p>
+<p>​        由首次自适应算法可知，100k被分配到了分区3，30k被分配到了分区1，1k被分配到分区2，空闲分区表如下：</p>
+<p>​        大小要减去分配的大小，起止要加上分配走的大小</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th><strong>大小</strong></th>
+<th><strong>起址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2k</td>
+<td>50k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1k</td>
+<td>59k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>20k</td>
+<td>160k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>331k</td>
+<td>380k</td>
+</tr>
+</tbody></table>
+<p>特点：</p>
+<ul>
+<li><p>优先利用内存低地址部分的空闲分区,从而保留了高地址部分的大空闲区。</p>
+</li>
+<li><p>但由于低地址部分不断被划分,致使低地址端留下许多难以利用的很小的空闲分区(碎片或零头),而每次查找又都是从低地址部分开始,这无疑增加了查找可用空闲分区的开销。</p>
+</li>
+</ul>
+<h3 id="循环首次适应算法"><a href="#循环首次适应算法" class="headerlink" title="循环首次适应算法"></a>循环首次适应算法</h3><blockquote>
+<p>又称为<strong>下次适应算法</strong></p>
+<p>与首次适应算法的区别是：</p>
+<p>​        不再每次从空闲分区表/链首开始查找,而是<strong>从上次找到的空闲分区的下一个空闲分区开始查找</strong></p>
+</blockquote>
+<p>例题：（还是这个题）</p>
+<p>​        系统中的空闲分区表如下，现有三个作业分配申请内存空间100K、30K及7K。给出按<strong>循环适应算法</strong>的内存分配情况及分配后空闲分区表</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th>大小</th>
+<th>起址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>32k</td>
+<td>20k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>120k</td>
+<td>60k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>331k</td>
+<td>180k</td>
+</tr>
+</tbody></table>
+<p>解：</p>
+<p>​        区别在于从上次分配后的区号开始查找：</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th><strong>大小</strong></th>
+<th><strong>起址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>25k</td>
+<td>27k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>20k</td>
+<td>160k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>301k</td>
+<td>210k</td>
+</tr>
+</tbody></table>
+<p>特点：</p>
+<ul>
+<li>使存储空间的利用更加均衡，不致使小的空闲区集中在存储区的一端</li>
+<li>但这会导致缺乏大的空闲分区。</li>
+</ul>
+<h3 id="最佳适应算法"><a href="#最佳适应算法" class="headerlink" title="最佳适应算法"></a>最佳适应算法</h3><blockquote>
+<p>与首次适应算法区别在于：</p>
+<p>​        空闲分区表/链<strong>按容量大小递增</strong>的次序排列。（注意：每次还是从链首开始查找）</p>
+</blockquote>
+<p>例题：（还是这个题）</p>
+<p>​        系统中的空闲分区表如下，现有三个作业分配申请内存空间100K、30K及7K。给出按<strong>最佳适应算法</strong>的内存分配情况及分配后空闲分区表</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th>大小</th>
+<th>起址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>32k</td>
+<td>20k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>120k</td>
+<td>60k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>331k</td>
+<td>180k</td>
+</tr>
+</tbody></table>
+<p>解：</p>
+<p>​        区别在于要按容量大小排序：排序后</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th><strong>大小</strong></th>
+<th><strong>起址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>32k</td>
+<td>20k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>120k</td>
+<td>60k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>331k</td>
+<td>180k</td>
+</tr>
+</tbody></table>
+<p>​        分配：</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th><strong>大小</strong></th>
+<th><strong>起址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1k</td>
+<td>59k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2k</td>
+<td>50k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>20k</td>
+<td>160k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>331k</td>
+<td>180k</td>
+</tr>
+</tbody></table>
+<p>特点：</p>
+<ul>
+<li>若存在与作业大小一致的空闲分区,则它必然被选中</li>
+<li>若不存在与作业大小一致的空闲分区，则只划分比作业稍大的空闲分区，从而保留了大的空闲分区</li>
+<li>但空闲区一般不可能正好和它申请的内存空间大小一样,因而将其分割成两部分时,往往使剩下的空闲区非常小,从而在存储器中留下许多难以利用的小空闲区（碎片或零头）。</li>
+</ul>
+<h3 id="最坏适应算法"><a href="#最坏适应算法" class="headerlink" title="最坏适应算法"></a>最坏适应算法</h3><blockquote>
+<p>与最佳适应算法区别在于：</p>
+<p>​        空闲分区表/链按容量大小<strong>递减</strong>的次序排列。（注意：每次还是从链首开始查找）</p>
+</blockquote>
+<p>例题：（还是这个题）</p>
+<p>​        系统中的空闲分区表如下，现有三个作业分配申请内存空间100K、30K及7K。给出按<strong>最佳适应算法</strong>的内存分配情况及分配后空闲分区表</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th>大小</th>
+<th>起址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>32k</td>
+<td>20k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>120k</td>
+<td>60k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>331k</td>
+<td>180k</td>
+</tr>
+</tbody></table>
+<p>解：</p>
+<p>​        区别在于要按容量大小递减排序：排序后</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th><strong>大小</strong></th>
+<th><strong>起址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>331k</td>
+<td>180k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>120k</td>
+<td>60k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>32k</td>
+<td>20k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+</tbody></table>
+<p>​        分配后：</p>
+<table>
+<thead>
+<tr>
+<th><strong>区号</strong></th>
+<th><strong>大小</strong></th>
+<th><strong>起址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>194k</td>
+<td>317k</td>
+</tr>
+<tr>
+<td>2</td>
+<td>120k</td>
+<td>60k</td>
+</tr>
+<tr>
+<td>3</td>
+<td>32k</td>
+<td>20k</td>
+</tr>
+<tr>
+<td>4</td>
+<td>8k</td>
+<td>52k</td>
+</tr>
+</tbody></table>
+<p>特点：</p>
+<ul>
+<li>总是挑选满足作业要求的最大的分区分配给作业。</li>
+<li>这样使分给作业后剩下的空闲分区也较大，可装下其它作业。</li>
+<li>但由于最大的空闲分区总是因首先分配而划分，当有大作业到来时，其存储空间的申请往往会得不到满足。</li>
+</ul>
+<h2 id="分区的存储保护"><a href="#分区的存储保护" class="headerlink" title="分区的存储保护"></a>分区的存储保护</h2><blockquote>
+<p>存储保护：</p>
+<p>​        为了防止一个作业有意或无意地破坏操作系统或其它作业</p>
+</blockquote>
+<p>保护方法：</p>
+<ul>
+<li>界限寄存器方法<ul>
+<li>上下界寄存器方法</li>
+<li>基址、限长寄存器方法</li>
+</ul>
+</li>
+<li>存储保护键方法</li>
+</ul>
+<h3 id="界限寄存器方法"><a href="#界限寄存器方法" class="headerlink" title="界限寄存器方法"></a>界限寄存器方法</h3><p><img src="http://img.yesmylord.cn//image-20201228205633194.png" alt="image-20201228205633194"></p>
+<h3 id="存储保护键方法"><a href="#存储保护键方法" class="headerlink" title="存储保护键方法"></a>存储保护键方法</h3><p>​        给每个存储块分配一个单独的<strong>保护键</strong>，它相当于一把<strong>锁</strong>。进入系统的每个作业也赋予一个<strong>保护键</strong>，它相当于一把<strong>钥匙</strong>。当作业运行时，<strong>检查钥匙和锁是否匹配</strong>，如果不匹配，则系统发出保护性中断信号，停止作业运行</p>
+<h2 id="对换（交换-Swapping）"><a href="#对换（交换-Swapping）" class="headerlink" title="对换（交换 Swapping）"></a>对换（交换 Swapping）</h2><blockquote>
+<p>​        将暂时不用的某个进程及数据（首先是处于阻塞状态优先级最低的）部分（或全部）<strong>从内存移到到外存</strong>（备份区或对换区，采用连续分配的动态存储管理方式）中去，让出内存空间，同时将某个需要的进程调入到内存中，让其运行。</p>
+</blockquote>
+<p>交换的类型：</p>
+<ul>
+<li>整体对换（其实就是处理器调度中的<strong>中程调度</strong>，也叫<strong>进程对换</strong>）</li>
+<li>部分对换（以“页”或“段”为单位进行内外存调度）</li>
+</ul>
+<p>为了实现进程对换，OS必须实现：</p>
+<ul>
+<li>对换空间的管理</li>
+<li>进程的换入</li>
+<li>进程的换出</li>
+</ul>
+<h3 id="对换空间的管理"><a href="#对换空间的管理" class="headerlink" title="对换空间的管理"></a>对换空间的管理</h3><p>OS把外存分为：</p>
+<ul>
+<li>文件区<ul>
+<li>文件区主要用来长期存放文件，采用<strong>离散分配方式</strong></li>
+</ul>
+</li>
+<li>对换区<ul>
+<li>对换区用于存放从内存换出的进程，短暂存储，为了提高换入换出速度，使用<strong>连续分配方式</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="进程的换入与换出"><a href="#进程的换入与换出" class="headerlink" title="进程的换入与换出"></a>进程的换入与换出</h3><p><strong>换出：</strong></p>
+<ul>
+<li>时机：<strong>一进程创建子进程，无足够内存</strong></li>
+<li>过程：<ol>
+<li>选择处于阻塞状态且优先级最低的进程</li>
+<li>启动磁盘，将该进程的程序和数据传送到磁盘的<strong>对换区</strong></li>
+<li>回收该进程所占用的内存空间，修改PCB</li>
+</ol>
+</li>
+</ul>
+<p><strong>换入</strong>：</p>
+<ul>
+<li>过程：<ol>
+<li>系统定时地查看所有进程的状态，从中找出“就绪”状态但已换出的进程。**(静止就绪)**</li>
+<li>选择换出时间最久进程</li>
+<li>将其换入</li>
+</ol>
+</li>
+</ul>
+<h2 id="分页存储管理方式"><a href="#分页存储管理方式" class="headerlink" title="分页存储管理方式"></a>分页存储管理方式</h2><p>在第五节，我们知道，连续分配存储方式虽然简单，但是会<strong>产生很多碎片</strong>，使用拼接技术代价极高，所以我们可以使用<strong>离散分配</strong>的方式</p>
+<ul>
+<li>分页式存储管理（主流）</li>
+<li>分段式存储管理</li>
+<li>段页式存储管理</li>
+</ul>
+<blockquote>
+<p>在分页存储管理方式中，如不具备页面对换功能，不支持虚拟存储器功能，</p>
+<p>则在调度作业运行时，必须将它的所有页面一次调入内存，且在运行过程中页必须一直驻留内存。</p>
+<p>若内存没有足够的块，则作业等待，</p>
+<p>这种存储管理方式称为<strong>纯分页或基本分页存储管理方式</strong> </p>
+</blockquote>
+<h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><ul>
+<li>将用户进程的<strong>逻辑地址空间</strong>划分为若干个大小相等的区域，称为<strong>页</strong>，从0开始编号</li>
+<li><strong>内存空间</strong>也分成若干个与页大小相等的区域，称为<strong>块</strong>（页框），从0开始编号</li>
+</ul>
+<p>在为进程分配内存时，<strong>以块为单位,将进程中若干页装入到多个不相邻的块中</strong>，<strong>最后一页常装不满一块而出现页内碎片</strong>。</p>
+<p>如：作业9KB，页面大小2KB，划分5个页，最后一页只有1KB。</p>
+<p>注意：需要CPU的硬件支持——<strong>地址变换机构</strong></p>
+<h3 id="核心内容"><a href="#核心内容" class="headerlink" title="核心内容"></a>核心内容</h3><h4 id="地址结构"><a href="#地址结构" class="headerlink" title="地址结构"></a>地址结构</h4><p>逻辑地址：<strong>页号 + 位移量（页内地址）</strong></p>
+<ul>
+<li>页号的大小决定地址空间有多少页，例如页号有20bit，那么就允许有<code>2^20</code>即1M页</li>
+<li>位移量决定每页的大小，例如页内地址有12bit，那么每页就有<code>2^12</code>即4KB</li>
+</ul>
+<p>物理地址：<strong>块号 + 块内位移</strong></p>
+<ul>
+<li>块号说明内存有多少块</li>
+<li>块内位移<strong>与逻辑地址的页内地址相等</strong></li>
+</ul>
+<p>例如：页面大小为1K；用户作业的<strong>逻辑地址</strong>为：1027(十进制)；</p>
+<p>​        那么它可以这么表示（1,3） <code>1027 - 1024 =3</code></p>
+<p>有如下公式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">逻辑地址A</span><br><span class="line">页面大小L</span><br><span class="line">页号P</span><br><span class="line">页内地址d</span><br><span class="line"></span><br><span class="line">P = INT [A / L]</span><br><span class="line">d = [ A ] MOD L</span><br></pre></td></tr></table></figure>
+
+<p>例题：设有一页式存储管理系统，向用户提供的逻辑地址空间最大为<code>16</code>页，每页<code>2048B</code>，内存总共有<code>8</code>个存储块，试问逻辑地址至少应为多少位？内存空间有多大？</p>
+<p>解：</p>
+<p>​        逻辑地址空间最大为16页，即<code>2^4</code>，那么页号就占4bit</p>
+<p>​        每页<code>2048B</code>，即2KB，那么页内位移与块内位移就是11bit</p>
+<p>​        内存有八个存储块，块号就有<code>2^3</code>，那么块号就有3bit</p>
+<p>​    所以解得：逻辑地址有15bit，内存空间有8*2KB，即16Kb</p>
+<h4 id="页面大小"><a href="#页面大小" class="headerlink" title="页面大小"></a>页面大小</h4><p>由地址结构（逻辑）决定(页内位移的位数)</p>
+<p>如果页面较小：</p>
+<ul>
+<li>页面数多，页表长</li>
+<li>页面换进换出效率低下</li>
+</ul>
+<p>如果页面较大：</p>
+<ul>
+<li>增加页面碎片，不利于内存利用率</li>
+</ul>
+<p>所以页面大小通常为2的幂次</p>
+<h4 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h4><p><img src="http://img.yesmylord.cn//image-20201228214630394.png" alt="image-20201228214630394"></p>
+<ul>
+<li>记录了页面在内存中对应的块号</li>
+<li>页表一般放在内存中</li>
+<li>页表的基址及长度由<strong>页表寄存器</strong>（[页表始地+页表长度]）给出<ul>
+<li>未执行时存放在PCB中</li>
+</ul>
+</li>
+<li><strong>访问一个字节的数据/指令需访问内存2次(页表一次,内存一次),所以出现内存访问速度降低的问题</strong></li>
+</ul>
+<h4 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><p>能将用户地址空间中的<strong>逻辑地址变换为内存空间中的物理地址</strong></p>
+<p>分为：</p>
+<ul>
+<li>基本的地址变换机构</li>
+<li>具有快表（TLB）的地址变换机构</li>
+</ul>
+<h4 id="基本的地址变换机构"><a href="#基本的地址变换机构" class="headerlink" title="基本的地址变换机构"></a>基本的地址变换机构</h4><p><img src="http://img.yesmylord.cn//image-20201229094809427.png" alt="image-20201229094809427"></p>
+<p>例1： 若在一分页存储管理系统中，某作业的页表如表所示，已知页面大小为1024B，试将逻辑地址1011，2148，5012转化为相应的物理地址？画出其地址转换图。</p>
+<table>
+<thead>
+<tr>
+<th><strong>页号</strong></th>
+<th>块号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody></table>
+<p>解：    由页号共四页可知，页号占2bit，页内地址为10bit</p>
+<p>​           块号有第6页，说明页号至少为3bit，块内地址10bit</p>
+<p>​            1011 = <strong>00</strong>11 1111 0011，可以得出页号为0，页内地址为11 1111 0011</p>
+<p>​            查表，可知页号0对应块号2，所以物理地址为 <strong>0 10</strong>11 1111 0011（0BF3H）   </p>
+<p>​        2148同理，5012越界，产生越界中断</p>
+<h4 id="具有快表（TLB）的地址变换机构"><a href="#具有快表（TLB）的地址变换机构" class="headerlink" title="具有快表（TLB）的地址变换机构"></a>具有快表（TLB）的地址变换机构</h4><p>为提高地址变换速度，加了TLB</p>
+<ul>
+<li>一种特殊告诉缓存存储器</li>
+<li>内容为页表的一部分</li>
+<li>CPU产生的逻辑地址页首先在快表中查询，若找到就找出对应物理块；否则再按原有结构寻找</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20201229100045742.png" alt="image-20201229100045742"></p>
+<h3 id="信息共享"><a href="#信息共享" class="headerlink" title="信息共享"></a>信息共享</h3><p>分页存储管理，虽然解决了零头问题，但是<strong>不利于页面共享</strong></p>
+<p>若共享数据与不共享数据划在同一块中，则：有些不共享的数据也被共享，不易保密。</p>
+<p>实现数据共享的最好方法——<strong>段式存储管理</strong></p>
+<h3 id="信息保护"><a href="#信息保护" class="headerlink" title="信息保护"></a>信息保护</h3><p>页式存储管理系统提供了两种方式：</p>
+<ul>
+<li>地址越界保护：页号&lt;页表长度（页表寄存器）</li>
+<li>在页表中设置保护位：定义操作权限：只读，读写，执行等</li>
+</ul>
+<h2 id="分段存储管理方式"><a href="#分段存储管理方式" class="headerlink" title="分段存储管理方式"></a>分段存储管理方式</h2><p>为了满足用户的一系列需求：</p>
+<ul>
+<li>方便编程<ul>
+<li>按逻辑关系分为若干个段，每个段从0编址，并有<strong>名字和长度</strong>，访问的逻辑地址由<strong>段名和段内偏移量</strong>决定</li>
+</ul>
+</li>
+<li>信息共享<ul>
+<li>共享是以信息为逻辑单位，<strong>页是存储信息的物理单位，段却是信息的逻辑单位</strong></li>
+</ul>
+</li>
+<li>信息保护</li>
+<li>动态链接：动态链接以段为单位。</li>
+<li>动态增长</li>
+</ul>
+<h3 id="基本思想-1"><a href="#基本思想-1" class="headerlink" title="基本思想"></a>基本思想</h3><p>空间划分：</p>
+<p>​        将用户作业的逻辑地址空间划分成若干个大小不等的段（<strong>由用户根据逻辑信息的相对完整来划分</strong>）。</p>
+<p>​        各段有段名（常用段号代替），首地址为0。</p>
+<p>内存分配：</p>
+<p>​        在为作业分配内存时，<strong>以段为单位，分配一段连续的物理地址空间；段间不必连续。</strong></p>
+<p>注意：</p>
+<ol>
+<li>整个作业的<strong>逻辑地址空间是二维</strong>的，其逻辑地址由段号和段内地址组成；<strong>物理地址空间是一维</strong>的</li>
+<li>需要CPU的硬件支持（地址变换机构）</li>
+</ol>
+<h3 id="段表"><a href="#段表" class="headerlink" title="段表"></a>段表</h3><ul>
+<li>记录了（段号，段长，基址）</li>
+<li>段表记录了段与内存位置对应关系</li>
+<li>保存在内存中</li>
+<li>有段表寄存器（段表始址 + 段表长度）</li>
+<li>访问一个数据也需要访问2次内存</li>
+</ul>
+<p>例：采用段式存储管理的系统中，若地址用24位表示，其中8位表示段号，则允许段的最大长度是___</p>
+<p>24-8=16 段的最大长度<code>2^16</code></p>
+<p>注意：</p>
+<ul>
+<li>在分段存储管理中，要检查两次越界<ol>
+<li>检查段号是否越界</li>
+<li>检查段内地址是否越界</li>
+</ol>
+</li>
+</ul>
+<p>例如：段表为</p>
+<table>
+<thead>
+<tr>
+<th>段号</th>
+<th>内存起始地址</th>
+<th>段长</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>210</td>
+<td>500</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2350</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100</td>
+<td>90</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1350</td>
+<td>590</td>
+</tr>
+</tbody></table>
+<p>有下表：</p>
+<table>
+<thead>
+<tr>
+<th><strong>0</strong></th>
+<th><strong>430</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>2</strong></td>
+<td><strong>120</strong></td>
+</tr>
+</tbody></table>
+<p>求表中逻辑地址对应的物理地址</p>
+<p>解：由0查段表，得到内存起始地址为210，段长为500，430&lt;500，所以物理地址为<code>430+210=640</code></p>
+<p>​        由2查段表，得到内存起始地址为100，段长为90，由于90&lt;120，所以段内地址越界</p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点：</p>
+<ol>
+<li>便于程序模块化处理；段的保护容易</li>
+<li>便于处理动态的数据结构；可增、减分段长度</li>
+<li>便于动态链接。每一分段是一组有意义的信息或具有独立功能的程序段</li>
+<li>便于共享分段。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>和分页管理一样，处理机要为地址变换花费时间，要为段表提供附加的存储空间，这使操作系统复杂化</li>
+<li>为满足分段的动态增长和减少外零头，<strong>要采用拼接手段</strong></li>
+<li><strong>产生碎片(外部碎片)。</strong></li>
+</ol>
+<h2 id="分段和分页的主要区别"><a href="#分段和分页的主要区别" class="headerlink" title="分段和分页的主要区别"></a>分段和分页的主要区别</h2><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>页式存储管理</strong></th>
+<th><strong>段式存储管理</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>目的</strong></td>
+<td>实现非连续分配,  解决碎片问题(<strong>页内碎片</strong>)</td>
+<td>更好满足用户需要</td>
+</tr>
+<tr>
+<td><strong>信息单位</strong></td>
+<td>页（物理单位）</td>
+<td>段（逻辑单位）</td>
+</tr>
+<tr>
+<td><strong>大小</strong></td>
+<td>固定（由系统定）</td>
+<td>不定（由用户程序定）</td>
+</tr>
+<tr>
+<td><strong>内存分配单位</strong></td>
+<td>页</td>
+<td>段</td>
+</tr>
+<tr>
+<td><strong>作业地址空间</strong></td>
+<td>一维</td>
+<td>二维</td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>有效解决了碎片问题  有效提高内存的利用率</td>
+<td>更好地实现数据共享与保护  段长可动态增长  便于动态链接</td>
+</tr>
+</tbody></table>
+<p>着重注意：</p>
+<ul>
+<li>页信息的物理单位，段是信息的逻辑单位</li>
+<li>作业地址空间，分页是一维，分段是二维</li>
+</ul>
+<p>后来结合段式与页式，有了段页式存储管理方式：</p>
+<ul>
+<li>将内存等分为<strong>块</strong>，程序按逻辑模块分为若干<strong>段</strong></li>
+<li>只会产生<strong>内零头</strong></li>
+</ul>
+<h2 id="虚拟存储器"><a href="#虚拟存储器" class="headerlink" title="虚拟存储器"></a>虚拟存储器</h2><p>程序想要运行就得全部装入内存中去，</p>
+<ul>
+<li><p>但是有的程序很大，所需的内存空间大于内存总容量；</p>
+</li>
+<li><p>有大量作业运行，但内存不够所有作业</p>
+</li>
+</ul>
+<p>此时提出了<strong>虚拟存储器</strong></p>
+<p><strong>虚拟存储器的最大容量由计算机的地址结构决定</strong></p>
+<h3 id="常规存储器管理方式的特征"><a href="#常规存储器管理方式的特征" class="headerlink" title="常规存储器管理方式的特征"></a>常规存储器管理方式的特征</h3><ol>
+<li><strong>一次性</strong>：作业在运行前需一次性地全部装入内存。将导致上述两问题。</li>
+<li><strong>驻留性</strong>：作业装入内存后，便一直驻留内存，直至作业运行结束。</li>
+</ol>
+<h3 id="局部性原理"><a href="#局部性原理" class="headerlink" title="局部性原理"></a>局部性原理</h3><blockquote>
+<p>一较短时间内，程序的执行仅限于某个部分，相应地，它所访问的存储空间也局限于某个区域</p>
+<p>分为：</p>
+<ul>
+<li>时间局部性：刚被访问的数据可能不久后被再次访问</li>
+<li>空间局部性：访问后的存储单元的附加很可能被访问</li>
+</ul>
+</blockquote>
+<p>所以，此后没有必要将程序全部装入内存中去，而是如果要访问的页不在内存才去将该页调入内存</p>
+<blockquote>
+<p>虚拟存储器：是指仅把作业的一部分装入内存便可运行作业的存储管理系统，它具有<strong>请求页(段)调入功能和页（段）置换功能</strong>，能从逻辑上对内存容量进行扩充，其逻辑容量由外存容量和内存容量之和决定，其运行速度接近于内存，成本接近于外存</p>
+</blockquote>
+<h2 id="请求分页（段）存储管理方式"><a href="#请求分页（段）存储管理方式" class="headerlink" title="请求分页（段）存储管理方式"></a>请求分页（段）存储管理方式</h2><p>在分页（段）方式上，增加了</p>
+<ul>
+<li><strong>请求调页（段）功能</strong>：访问的页面不存在时要求将页面调入内存</li>
+<li><strong>页面（分段）置换功能</strong>：将当前不需要运行的页面换入外存，需要用的换入内存</li>
+</ul>
+<h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ol>
+<li>多次性（最基本）：虚拟存储器最重要的特征。指一个作业被分成多次调入内存运行。</li>
+<li>对换性：允许在作业运行过程中进行换进、换出。换进、换出可提高内存利用率。</li>
+<li>虚拟性（最本质）：从逻辑上扩充内存容量，使用户所看到的内存容量远大于实际内存容量</li>
+</ol>
+<p><strong>虚拟性以多次性和对换性为基础，而多次性和对换性又是离散分配为基础</strong></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>分页请求系统</strong></th>
+<th><strong>分段请求系统</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本单位</td>
+<td>页</td>
+<td>段</td>
+</tr>
+<tr>
+<td>长度</td>
+<td>固定</td>
+<td>可变</td>
+</tr>
+<tr>
+<td>分配方式</td>
+<td>固定分配</td>
+<td>动态</td>
+</tr>
+<tr>
+<td>复杂性</td>
+<td>简单</td>
+<td>较复杂</td>
+</tr>
+</tbody></table>
+<h4 id="页表机制"><a href="#页表机制" class="headerlink" title="页表机制"></a>页表机制</h4><table>
+<thead>
+<tr>
+<th><strong>页号</strong></th>
+<th><strong>块号</strong></th>
+<th><strong>状态位</strong></th>
+<th><strong>访问字段</strong></th>
+<th><strong>修改位</strong></th>
+<th><strong>外存地址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>新增加：</p>
+<ul>
+<li>状态位：表示该页是否调入内存</li>
+<li>访问字段：记录本页最近一段时间内的访问次数</li>
+<li>修改位：表示调入内存后是否被修改</li>
+<li>外存地址：指出外存上的地址</li>
+</ul>
+<h4 id="缺页中断机制"><a href="#缺页中断机制" class="headerlink" title="缺页中断机制"></a>缺页中断机制</h4><p>当访问的页不在内存时（通过判断状态位），就产生<strong>缺页中断</strong></p>
+<p><strong>缺页中断与一般中断的区别</strong>：</p>
+<ol>
+<li>在指令执行期间产生和处理中断信号。<strong>缺页中断要立即处理</strong></li>
+<li>一条指令在执行期间，<strong>可能产生多次缺页中断</strong>。</li>
+</ol>
+<h4 id="地址变换机构-1"><a href="#地址变换机构-1" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><p><img src="http://img.yesmylord.cn//image-20201229111058827.png" alt="image-20201229111058827"></p>
+<p>例题： 某虚拟存储器的用户空间共有32个页面，每页1KB，主存16KB。假定某时刻系统为用户的第0、1、2、3页分别分配的物理块号为5、10、4、7，试将虚拟地址<code>0A5C</code>变换为物理地址。</p>
+<p>解：32个页面 &gt;&gt; 页号为2^5 &gt;&gt; 页号占5bit</p>
+<p>​        每页1kb&gt;&gt;页内地址与块内地址为&gt;&gt;10bit</p>
+<p>0A5C转换为二进制为<code>000 1010 0101 1100</code>，页号为2，查出块号为4，即<code>0100</code></p>
+<p>结果为<code>0010010 0101 1100</code> = 125C</p>
+<h2 id="请求分页页面置换算法"><a href="#请求分页页面置换算法" class="headerlink" title="请求分页页面置换算法"></a>请求分页页面置换算法</h2><blockquote>
+<p>用来选择换出页面的算法</p>
+<p>页面置换算法的优劣直接影响到系统的效率，若选择不合适，可能会出现<strong>抖动</strong>现象</p>
+<p>抖动：</p>
+<p>​        刚被淘汰出内存的页面，过后不久又要访问它，需要再次将其调入，而该页调入内存后不入又再次被淘汰出内存，然后又要访问它，如此反复</p>
+</blockquote>
+<h3 id="最佳置换算法（OPT）"><a href="#最佳置换算法（OPT）" class="headerlink" title="最佳置换算法（OPT）"></a>最佳置换算法（OPT）</h3><blockquote>
+<p>选择永远不再需要的页面或最长时间以后才需要访问的页面予以淘汰</p>
+<p><strong>是一种理论算法，不可实现</strong>，这种方法用来衡量其他算法的质量</p>
+</blockquote>
+<p>例如：假定系统为某进程分配了3个物理块，进程运行时的页面走向为 1,2,3,4,1,2,5,1,2,3,4,5，开始时3个物理块均为空，计算采用最佳置换页面淘汰算法时的缺页率？</p>
+<table>
+<thead>
+<tr>
+<th>页面走向</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>1</th>
+<th>2</th>
+<th>5</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物理块1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>物理块2</td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>物理块3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>缺页</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>H</td>
+<td>H</td>
+<td>缺</td>
+<td>H</td>
+<td>H</td>
+<td>缺</td>
+<td>缺</td>
+<td>H</td>
+</tr>
+</tbody></table>
+<p>解：如表格所示，缺页率为7/12（H代表命中）</p>
+<h3 id="先进先出置换算法（FIFO）"><a href="#先进先出置换算法（FIFO）" class="headerlink" title="先进先出置换算法（FIFO）"></a>先进先出置换算法（FIFO）</h3><blockquote>
+<p>最先进来的页面最先换出去</p>
+</blockquote>
+<p>还是这个题：</p>
+<p>例如：假定系统为某进程分配了3个物理块，进程运行时的页面走向为 1,2,3,4,1,2,5,1,2,3,4,5，开始时3个物理块均为空，计算采用最佳置换页面淘汰算法时的缺页率？</p>
+<table>
+<thead>
+<tr>
+<th><strong>页面走向</strong></th>
+<th><strong>1</strong></th>
+<th><strong>2</strong></th>
+<th><strong>3</strong></th>
+<th><strong>4</strong></th>
+<th><strong>1</strong></th>
+<th><strong>2</strong></th>
+<th><strong>5</strong></th>
+<th><strong>1</strong></th>
+<th><strong>2</strong></th>
+<th><strong>3</strong></th>
+<th><strong>4</strong></th>
+<th><strong>5</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物理块1</td>
+<td>1</td>
+<td>1</td>
+<td>1*</td>
+<td>4</td>
+<td>4</td>
+<td>4*</td>
+<td>5</td>
+<td></td>
+<td></td>
+<td>5</td>
+<td>5*</td>
+<td></td>
+</tr>
+<tr>
+<td>物理块2</td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>2*</td>
+<td>1</td>
+<td>1</td>
+<td>1*</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>物理块3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td>3*</td>
+<td>2</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>2*</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>缺页</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td></td>
+<td></td>
+<td>缺</td>
+<td>缺</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>解：如表格所示，缺页率为9/12</p>
+<p>假如本题我们再给一个物理内存块，结果是：</p>
+<table>
+<thead>
+<tr>
+<th>页面走向</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>1</th>
+<th>2</th>
+<th>5</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物理块1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1*</td>
+<td></td>
+<td></td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>5*</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>物理块2</td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>2*</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1*</td>
+<td>5</td>
+</tr>
+<tr>
+<td>物理块3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3*</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2*</td>
+</tr>
+<tr>
+<td>物理块4</td>
+<td></td>
+<td></td>
+<td></td>
+<td>4</td>
+<td></td>
+<td></td>
+<td>4</td>
+<td>4</td>
+<td>4*</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>缺页</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td></td>
+<td></td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+</tr>
+</tbody></table>
+<p>10/12，多给了一块内存块，缺页率还增加了！这就是<strong>Belady异常</strong></p>
+<blockquote>
+<p>Belady现象是指：采用FIFO算法时，如果对—个进程未分配它所要求的全部页面，有时就会出现分配的页面数增多但缺页率反而提高的异常现象。</p>
+</blockquote>
+<h3 id="最近最久未使用算法（LRU）"><a href="#最近最久未使用算法（LRU）" class="headerlink" title="最近最久未使用算法（LRU）"></a>最近最久未使用算法（LRU）</h3><blockquote>
+<p>least recently used：选择最近没有使用的页面进行淘汰（依据局部性原理）</p>
+<p>需要硬件的支持：</p>
+<ul>
+<li>栈：栈顶始终是最新被访问页面的编号，而栈底则是最近最久未使用页面的页面号</li>
+<li>寄存器：寄存器每一位代表一个页，置为1代表刚被访问，每隔一段时间（100ms）将寄存器右移一位</li>
+</ul>
+</blockquote>
+<p>还是此题：</p>
+<p>例如：假定系统为某进程分配了3个物理块，进程运行时的页面走向为 1,2,3,4,1,2,5,1,2,3,4,5，开始时3个物理块均为空，计算采用最佳置换页面淘汰算法时的缺页率？</p>
+<table>
+<thead>
+<tr>
+<th>页面走向</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>1</th>
+<th>2</th>
+<th>5</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物理块1</td>
+<td>1</td>
+<td>1</td>
+<td>1*</td>
+<td>4</td>
+<td>4</td>
+<td>4*</td>
+<td>5</td>
+<td>5</td>
+<td>5*</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>物理块2</td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>2*</td>
+<td>1</td>
+<td>1</td>
+<td>1*</td>
+<td>1</td>
+<td>1</td>
+<td>1*</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>物理块3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td>3*</td>
+<td>2</td>
+<td>2</td>
+<td>2*</td>
+<td>2</td>
+<td>2</td>
+<td>2*</td>
+<td>5</td>
+</tr>
+<tr>
+<td>缺页</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+<td>H</td>
+<td>H</td>
+<td>缺</td>
+<td>缺</td>
+<td>缺</td>
+</tr>
+</tbody></table>
+<p>解：如表格所示，缺页率为10/12</p>
+<h3 id="淘汰算法的性能评价"><a href="#淘汰算法的性能评价" class="headerlink" title="淘汰算法的性能评价"></a>淘汰算法的性能评价</h3><p>缺页率：<code>f = 缺页次数 / 总次数 </code></p>
+<p>命中率：<code>H = 命中次数 / 总次数</code></p>
+<p>抖动问题：导致系统效率急剧下降的主辅存之间的频繁的页面置换现象称为抖动</p>
+<h4 id="影响缺页中断率的因素"><a href="#影响缺页中断率的因素" class="headerlink" title="影响缺页中断率的因素"></a>影响缺页中断率的因素</h4><ul>
+<li>页面大小：页面大一点有助于缺页率降低，但是会使浪费增大</li>
+<li>分配给作业的主存：主存越大，减少却也次数（任何程序在局部性放入主存时都有一个临界值的要求，这个主存要求的临界值被称为<strong>工作集</strong>）</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>“内零头”：是指分配给作业的存储空间中未被利用的部分。<br>“外零头”：是指系统中无法利用的小存储块。</p>
+</blockquote>
+<ul>
+<li>固定分区分配：产生“内零头”</li>
+<li>可变分区分配：产生“外零头”</li>
+<li>页式虚拟存储器：产生“内零头”</li>
+<li>段式虚拟存储器：产生“外零头”</li>
+<li>段页式：产生“内零头”</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+              <a href="/tags/%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 存储器管理</a>
+              <a href="/tags/%E8%AF%B7%E6%B1%82%E5%88%86%E9%A1%B5%E6%96%B9%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 请求分页方式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E5%BA%A6/" rel="prev" title="处理器调度">
+                  <i class="fa fa-chevron-left"></i> 处理器调度
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/31/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/" rel="next" title="设备管理">
+                  设备管理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

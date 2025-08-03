@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：CV 计算机视觉">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机视觉CV">
+<meta property="og:url" content="http://yoursite.com/2022/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89CV/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：CV 计算机视觉">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221008184259384.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221010200459140.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221010202426999.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221011201819651.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221011202217593.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221011203621104.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221011214641917.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221011201819651.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221012154406306.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20221012204801436.png">
+<meta property="article:published_time" content="2022-10-06T10:32:04.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.082Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="神经网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20221008184259384.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2022/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89CV/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2022/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89CV/","path":"2022/10/06/深度学习/计算机视觉CV/","title":"计算机视觉CV"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机视觉CV | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CV"><span class="nav-number">1.</span> <span class="nav-text">CV</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Computer-Vision"><span class="nav-number">1.1.</span> <span class="nav-text">Computer Vision</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">数据驱动方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">K近邻算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB"><span class="nav-number">1.4.</span> <span class="nav-text">线性分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.5.</span> <span class="nav-text">反向传播</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.5.1.</span> <span class="nav-text">正向传播与反向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E8%BF%90%E7%AE%97%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.5.2.</span> <span class="nav-text">不同运算的反向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.5.3.</span> <span class="nav-text">本地梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-number">1.5.4.</span> <span class="nav-text">反向传播的意义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Neural-Networks"><span class="nav-number">2.</span> <span class="nav-text">神经网络 Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E5%8E%86%E5%8F%B2"><span class="nav-number">2.1.</span> <span class="nav-text">一点历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Convolutional-NN"><span class="nav-number">2.2.</span> <span class="nav-text">卷积神经网络 Convolutional NN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%8D%B7%E7%A7%AF"><span class="nav-number">2.3.</span> <span class="nav-text">关于卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%B1%A0%E5%8C%96"><span class="nav-number">2.4.</span> <span class="nav-text">关于池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%85%A8%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.5.</span> <span class="nav-text">关于全连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="nav-number">2.6.</span> <span class="nav-text">常用的参数配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83NN%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-number">3.</span> <span class="nav-text">训练NN的细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">选择激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sigmoid"><span class="nav-number">3.1.1.</span> <span class="nav-text">Sigmoid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tanh"><span class="nav-number">3.1.2.</span> <span class="nav-text">tanh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReLU%E5%8F%8A%E5%85%B6%E5%8F%98%E7%A7%8D"><span class="nav-number">3.1.3.</span> <span class="nav-text">ReLU及其变种</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ReLU"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">ReLU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Leaky-ReLU"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">Leaky ReLU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ELU"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">ELU</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maxout"><span class="nav-number">3.1.4.</span> <span class="nav-text">Maxout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%B0%8F%E7%BB%93"><span class="nav-number">3.1.5.</span> <span class="nav-text">激活函数小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%B6%E5%9D%87%E5%80%BC%E5%8C%96"><span class="nav-number">3.2.1.</span> <span class="nav-text">零均值化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9D%83%E9%87%8D"><span class="nav-number">3.3.</span> <span class="nav-text">初始化权重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E5%BD%92%E4%B8%80%E5%8C%96"><span class="nav-number">3.4.</span> <span class="nav-text">批量归一化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98"><span class="nav-number">3.5.</span> <span class="nav-text">超参数调优</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89CV/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机视觉CV | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机视觉CV
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-06 18:32:04" itemprop="dateCreated datePublished" datetime="2022-10-06T18:32:04+08:00">2022-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：CV 计算机视觉
+</center>
+<span id="more"></span>
+
+<h1 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h1><p>参考的内容：</p>
+<ul>
+<li>CS231N 计算机视觉课程</li>
+<li>李永乐 卷积神经网络</li>
+</ul>
+<h2 id="Computer-Vision"><a href="#Computer-Vision" class="headerlink" title="Computer Vision"></a>Computer Vision</h2><p>图像识别的难点：**Semantic gap **语义间隙、语义鸿沟（即我们看一张图片和计算机看一张图片之间存在一些区别）</p>
+<ul>
+<li>视角区别 Viewpoint Variation：稍微切换一个视角，存储的图片将会发生巨大的变化</li>
+<li>照明 Illumination： 光线昏暗明亮</li>
+<li>变形 Deformation：猫咪可能会有不同的姿势</li>
+<li>隐藏 Occlusion： 猫咪可能只露出一个小尾巴</li>
+<li>背景干扰 Background Clutter：雪地里面有一只白色猫咪</li>
+<li>类内差异Innerclass Variation：猫咪有黑、白，大、小的区别</li>
+</ul>
+<p>在最一开始，科学家使用一些硬编码的方式，比如对一只猫先找边界，然后找出它的眼睛、鼻子、嘴巴，然后再去判断这是否是一只猫</p>
+<p>但是这种方法很<strong>不优雅</strong>，不是一个通用的方法，换一个研究对象就得重新进行编码，因此提出了：<strong>数据驱动方法 Data-Driven Approach</strong></p>
+<h2 id="数据驱动方法"><a href="#数据驱动方法" class="headerlink" title="数据驱动方法"></a>数据驱动方法</h2><p>类似于监督学习的方法</p>
+<p>1、 首先要有一些已经加了标签的图片集</p>
+<p>2、 使用机器学习的方式去训练一个分类器</p>
+<p>3、 对新的图片进行预测</p>
+<h2 id="K近邻算法"><a href="#K近邻算法" class="headerlink" title="K近邻算法"></a>K近邻算法</h2><blockquote>
+<p>K近邻算法通过计算两张图片像素点之间的L1或是L2范数，去求两者之间的关系</p>
+</blockquote>
+<p>使用KNN并不是一个好的办法，它存在以下缺点：</p>
+<ul>
+<li>训练的时间短，但是测试的时间很长（我们通常都会希望训练的时间长点，但是测试的很快）</li>
+</ul>
+<p>训练是O(1)，但是测试是O(N)</p>
+<ul>
+<li>2范数不太适合表示图像之间的视觉感受差异（一个图片经过平移、略微着色、去掉几个块后求出的值与原图相同，但是我们感受上却是不同的）</li>
+</ul>
+<p>such as这个图：</p>
+<p><img src="http://img.yesmylord.cn//image-20221008184259384.png" alt="2范数不适合表达视觉感受"></p>
+<ul>
+<li><strong>维度灾难</strong>：为了达到好的效果，我们需要将数据密集的分布在空间中，但是这样计算量会指数式的上升（意思是：不利于处理高维问题）</li>
+</ul>
+<h2 id="线性分类"><a href="#线性分类" class="headerlink" title="线性分类"></a>线性分类</h2><blockquote>
+<p>线性分类企图去构造一条线，去判别是否是此类别的图片</p>
+</blockquote>
+<p>使用线性分类也存在一些问题：</p>
+<ul>
+<li>可能存在不能使用一条线去划分的情况：比如我们人工构造这样的一种数据集是大于零的奇数、大于零的偶数，不存在一条线可以划分这两个类别</li>
+<li>范围问题：比如一个类别只在一个范围内</li>
+<li>多分类问题：比如一张图片分给多种类别</li>
+</ul>
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><h3 id="正向传播与反向传播"><a href="#正向传播与反向传播" class="headerlink" title="正向传播与反向传播"></a>正向传播与反向传播</h3><p>反向传播是相对于前向传播而言的，如图所示，这是一个<code>f(x) = (X+Y)*Z</code>的例子：</p>
+<p><img src="http://img.yesmylord.cn//image-20221010200459140.png" alt="正向传播与反向传播"></p>
+<p>正向传播如图左：给<code>XYZ</code>分别初始值，会影响之后的结果。</p>
+<p>反向传播如图右：从结果开始，初始化为1，分别对<code>Z</code>求偏导、对<code>(X+Y)</code>求偏导，对X和Y再分别求偏导（这也就是所谓的<strong>梯度</strong>），用来对前面的参数做一个<strong>优化</strong>，进而影响整个函数的走向</p>
+<blockquote>
+<p>PS：为什么不直接对整个函数的积分？</p>
+<p>这个函数是一个简单的函数，如果遇到一个比较复杂的函数，我们直接求微分是很复杂的，因此分布进行偏导，然后对每一部分求其偏导，然后不断的向前乘积，会更为简单（这样的过程称为 <strong>链式法则</strong> Chain Rules）</p>
+</blockquote>
+<h3 id="不同运算的反向传播"><a href="#不同运算的反向传播" class="headerlink" title="不同运算的反向传播"></a>不同运算的反向传播</h3><p>例如这样几个运算：<code>+ * max</code>，我们分析一下他们的梯度其实很容易理解</p>
+<p><img src="http://img.yesmylord.cn//image-20221010202426999.png" alt="不同运算的梯度的反向传播"></p>
+<ul>
+<li>对于加法：它的梯度会给上一级分发，比如这一级是5，传到上一级的两个分别都是5</li>
+<li>对于乘法：它的梯度会给上一级按比例转换，比如这一级是5，上一级的<code>a=3 b=4</code>，那么梯度传播到上一层就是<code>a的梯度=3*b b的梯度=3*a</code></li>
+<li>对于<code>max</code>：它的梯度会分别传1与0，对于大的值回1、小的值为0，假设a&gt;b，那么会给上一级a传1、b传0</li>
+</ul>
+<h3 id="本地梯度"><a href="#本地梯度" class="headerlink" title="本地梯度"></a>本地梯度</h3><p>对于常用的梯度传播，比如sigmoid函数，直接作为一个工具类，下一次直接复用，不需要再进行求解（常用的梯度还有很多，类库里面提供的很全）</p>
+<p>这样的梯度称为本地梯度（local gradient）</p>
+<h3 id="反向传播的意义"><a href="#反向传播的意义" class="headerlink" title="反向传播的意义"></a>反向传播的意义</h3><p>反向传播应用在神经网络中，是一种<strong>较为容易的为了得到神经网络梯度的方法</strong></p>
+<h1 id="神经网络-Neural-Networks"><a href="#神经网络-Neural-Networks" class="headerlink" title="神经网络 Neural Networks"></a>神经网络 Neural Networks</h1><p>类比于生物脑细胞的轴突、树突传递电信号，神经网络</p>
+<p>最简单的神经网络类似于这一的函数<code>f = A*max(0, Bx)</code> 就是一个两层的神经网络，它的内层就是Bx、外层是一个A*x；甚至我们可以进一步嵌套，构造三层、四层甚至更深的神经网络</p>
+<p>这里的<code>max</code>就是一个<strong>激活函数（Activation function）</strong>，在生物中，他决定了此轴突向下传播的放电率，在神经网络内，他决定了是否将这一层的数据向下传播、传播多少</p>
+<h2 id="一点历史"><a href="#一点历史" class="headerlink" title="一点历史"></a>一点历史</h2><ul>
+<li><strong>1957</strong> Frank Rosen blatt：感知机</li>
+<li>1960 Adaline/Madaline：多层的感知机</li>
+<li><strong>1986</strong> Rumelhart：反向传播算法</li>
+<li>1979 福岛邦彦：神经认知，图像会沿着皮层传递信号，边缘-&gt;轮廓-&gt;细节</li>
+<li>1981 David Hunter Hubel, Torsten Nils Wiesel：观察猫对图片的反应</li>
+<li>杨立昆：提出了卷积神经网络</li>
+<li>2006 Hinton and Salakhutdinov：更高效的训练NN</li>
+<li>2010 Abdek-rahman Mohamed, George Dahl, Geoffrey Hinton：语音识别 </li>
+<li><strong>2012</strong> Alex Krizhevsky, llya Sutskever, Geoffrey E Hinton：卷积图像分类</li>
+</ul>
+<h2 id="卷积神经网络-Convolutional-NN"><a href="#卷积神经网络-Convolutional-NN" class="headerlink" title="卷积神经网络 Convolutional NN"></a>卷积神经网络 Convolutional NN</h2><p>组合拳：<strong>卷积、池化、激活、全连接</strong></p>
+<p><img src="http://img.yesmylord.cn//image-20221011201819651.png" alt="CNN组合拳"></p>
+<blockquote>
+<p><strong>卷积</strong>：一种数学方法，使用<strong>卷积核</strong>可以提取出图像的特征</p>
+</blockquote>
+<p> 图片的存储是一张N*N的矩阵，这个矩阵的每个元素都代表了这个位置的像素点的RGB，一张图片由这么一个矩阵来组成</p>
+<p><strong>卷积核</strong>通常是<code>3*3</code>或是<code>5*5</code>的一个核，它会在图片上面滑动（类似于滑动窗口），每滑动一次，都会和对应的图像位置进行点积运算（对应位置相乘，然后对结果求和），新产生的这个矩阵就是该卷积核提取的关于该图片的<strong>特征矩阵</strong></p>
+<p>卷积核通常不止一个，常见有<code>3</code>个或是更多，<strong>每一个卷积核代表一个方向</strong>（可以这么理解：如果有两个卷积核，代表有x轴y轴，如果有三个卷积核，那么就代表还有一个z轴），卷积核的数量也代表了最后的结果有几个</p>
+<blockquote>
+<p><strong>池化</strong>：从特征矩阵中拿出最有价值的矩阵</p>
+</blockquote>
+<p>在卷积后，池化会进一步提取有价值的数据。</p>
+<p>比如会对特征矩阵进行一个<code>2*2</code>的池化，它会从各个<code>2*2</code>的小矩阵里，找最大的值，填充到小矩阵内</p>
+<blockquote>
+<p><strong>激活</strong>：决定数据是否向下传播，传播多少</p>
+</blockquote>
+<p>池化后的小矩阵会交给下一层的<strong>激活函数</strong>，得到一个<code>0.99,0.93,0.77...</code>类似的矩阵，**越接近于1，说明该部分越满足卷积核的特征</p>
+<p>卷积、池化、激活的过程<strong>可能不止一次</strong>，这是一个反复的过程</p>
+<blockquote>
+<p><strong>全连接</strong>：当经历过前面的完整过程后，你就是一只成功找到面包的小蚂蚁了，但是如果你想知道，是不是还有其他面包，你得去和你得兄弟们（蚂蚁大军）开个会，这个会议就是全连接，它会帮我们得到输出</p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/41037974/answer/150552142">知乎link</a></p>
+</blockquote>
+<h2 id="关于卷积"><a href="#关于卷积" class="headerlink" title="关于卷积"></a>关于卷积</h2><blockquote>
+<p>1、如果卷积时步长和矩阵长度不合适怎么办？</p>
+</blockquote>
+<p>比如：一个矩阵<code>7*7</code>，要求步长是3，如图所示，当滑动到最后的时候，会有超出去的部分。</p>
+<p><img src="http://img.yesmylord.cn//image-20221011202217593.png" alt="卷积步长不合适"></p>
+<p>我们可以给这个矩阵<strong>填充0</strong>，来保证我们可以进行拟合，如下图</p>
+<p><img src="http://img.yesmylord.cn//image-20221011203621104.png" alt="计算机网络"></p>
+<blockquote>
+<p>2、如何计算卷积后的大小？</p>
+</blockquote>
+<p>这里有这么一个公式：</p>
+<p>假设原有矩阵：<code>W1*H1*D1</code>，有<code>K</code>个卷积核大小为<code>F*F</code>，步长为<code>S</code>，填充为<code>P</code></p>
+<p>那么输出的结果为<code>W2*H2*D2</code>，其中</p>
+<ul>
+<li><code>W2 = (W1 - F + 2*P)/S +1</code></li>
+<li><code>H2 = (H1 - F + 2*P)/S +1</code></li>
+<li><code>D2 = K</code></li>
+</ul>
+<p>发现，如果这是一个方阵的话，那么输出也会是一个方阵</p>
+<p>每一个卷积核有<code>F * F * D1</code>个参数，总共有<code>(F*F*D1 + bias)*K</code>（bias是偏置）</p>
+<blockquote>
+<p>3、 eg：现在对<code>32*32*3</code>的矩阵进行卷积，卷积核为<code>5*5*10</code>，步长为1，填充为2,卷积后的矩阵大小是多少？</p>
+</blockquote>
+<p>很容易的求出<code>(32 - 5 + 2*2)/1 + 1 = 32</code>，因此结果为<code>32*32*10</code></p>
+<h2 id="关于池化"><a href="#关于池化" class="headerlink" title="关于池化"></a>关于池化</h2><p>池化就是为了尽可能的使表小一点，增快训练速度，它会提取所有有价值的数据 （池化是降采样的一种方法）</p>
+<p>最常用的方法就是<strong>最大池化 Max Pooling</strong>，当然也有均值池化等等方法</p>
+<p><img src="http://img.yesmylord.cn//image-20221011214641917.png" alt="最大池化"></p>
+<p>注意：一般<strong>不会在池化过程中填充0</strong>，因此一般池化的步长都会和大小相适应（池化的目的是为了降采样，而填充0就偏离了这个目的）</p>
+<h2 id="关于全连接"><a href="#关于全连接" class="headerlink" title="关于全连接"></a>关于全连接</h2><p>在这张图中，我们省略了关于全连接后面的步骤，这里来介绍一下</p>
+<p><img src="http://img.yesmylord.cn//image-20221011201819651.png" alt="CNN组合拳"></p>
+<p>在得到<code>3*3*N</code>的数据后，全连接的第一步，就是将这N个矩阵拉平，<strong>拉成一个一维的序列</strong>，汇集所有的信息，得到结果</p>
+<h2 id="常用的参数配置"><a href="#常用的参数配置" class="headerlink" title="常用的参数配置"></a>常用的参数配置</h2><p>现有卷积核<code>F*F*K</code>，步长<code>S</code>，填充<code>P</code></p>
+<ul>
+<li><code>K</code>通常为2的幂数：32、64、128、256等</li>
+<li>常用1：<code>F=3 S=1 P=1</code></li>
+<li>常用2：<code>F=5 S=1 P=1</code></li>
+<li>常用3：<code>F=5 S=2 P=?</code>（？代表任意）</li>
+<li>常用4：<code>F=1 S=1 P=0</code></li>
+</ul>
+<p>对于池化来说常用的配置为：</p>
+<ul>
+<li>常用1：<code>F=2 S=2</code></li>
+<li>常用2：<code>F=3 S=2</code></li>
+</ul>
+<h1 id="训练NN的细节"><a href="#训练NN的细节" class="headerlink" title="训练NN的细节"></a>训练NN的细节</h1><h2 id="选择激活函数"><a href="#选择激活函数" class="headerlink" title="选择激活函数"></a>选择激活函数</h2><p>激活函数的种类有很多，如图所示</p>
+<p><img src="http://img.yesmylord.cn//image-20221012154406306.png" alt="激活函数"></p>
+<h3 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h3><blockquote>
+<p>Sigmoid 是一类函数的统称：</p>
+<ul>
+<li>有极限</li>
+<li>饱和</li>
+</ul>
+<p>所以最出名的这种逻辑斯谛回归和tanh都是Sigmoid函数</p>
+</blockquote>
+<p>逻辑斯谛回归的函数</p>
+<ul>
+<li>介于<code>[0,1]</code>之间</li>
+<li>类似于生物中神经元的放电率</li>
+</ul>
+<p>关于Sigmoid有三个问题：</p>
+<blockquote>
+<p>1、<strong>饱和的</strong>神经元会让梯度消失</p>
+</blockquote>
+<p>所谓饱和神经元，就是当传入的X过大或者过小的时候，Sigmoid函数的两侧的导数（可以看Sigmoid图像两侧的斜率）会慢慢趋近于0</p>
+<p>这就意味着，当数值偏高或偏低的时候，Sigmoid函数将导致无法更新梯度</p>
+<blockquote>
+<p>2、Sigmoid不是<strong>零均值</strong>的（或者叫不是以0为中心的）</p>
+</blockquote>
+<p>Sigmoid这一特点会导致其<strong>收敛速度较慢</strong></p>
+<p>关于为什么非零中心的函数会使收敛速度变慢，<a target="_blank" rel="noopener" href="https://liam.page/2018/04/17/zero-centered-active-function/">可以看这篇博客</a>，非常Nice！</p>
+<p>简单来说就是：假设输入数据全为正或是负，会导致所有的参数都向一个方向变化，假设我们有两个参数<code>W1 W2</code>，现在期望<code>W1</code>小一点，<code>W2</code>大一点，Sigmoid在输入数据全为正或负的情况下不可能做到让两个参数一个大一个小</p>
+<blockquote>
+<p>3、指数运算非常耗时</p>
+</blockquote>
+<h3 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h3><ul>
+<li>介于<code>[-1, 1]</code></li>
+<li>以零为中心</li>
+</ul>
+<p>和Sigmoid相比：tanh是以0为中心的，有利于收敛，但是仍然有在饱和情况下Kill梯度的问题</p>
+<h3 id="ReLU及其变种"><a href="#ReLU及其变种" class="headerlink" title="ReLU及其变种"></a>ReLU及其变种</h3><h4 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h4><p>优点：</p>
+<ul>
+<li>介于<code>[0, +无穷]</code>，负数返回零，正数返回本身</li>
+<li>运算简单，因此卷积会很快，大约是<code>tanh/Sigmoid</code>的6倍</li>
+<li>正数域不会有饱和的问题</li>
+<li>也有证据表明它比<code>sigmoid</code>要更有生物上的合理性</li>
+</ul>
+<p>也存在这么几个问题：</p>
+<ul>
+<li>不是以0为中心的</li>
+<li>负半轴还是会饱和（出现这种现象的时候称为 <strong>dead ReLU</strong>）</li>
+</ul>
+<h4 id="Leaky-ReLU"><a href="#Leaky-ReLU" class="headerlink" title="Leaky ReLU"></a>Leaky ReLU</h4><p>其实就是把原本的0，换成了0.01，这个参数可以避免在负数域饱和（加了参数的ReLU称为 PReLU Parametric ReLU）</p>
+<p>特点：</p>
+<ul>
+<li>不会饱和</li>
+<li>运算快（类似于ReLU）</li>
+</ul>
+<h4 id="ELU"><a href="#ELU" class="headerlink" title="ELU"></a>ELU</h4><p>在负数域换成了指数，避免负数域不饱和：</p>
+<ul>
+<li>有LU的优点</li>
+<li>基本不会饱和</li>
+<li>对噪声有更强的鲁棒性</li>
+</ul>
+<p>缺点就是添加了指数，增加了运算难度</p>
+<h3 id="Maxout"><a href="#Maxout" class="headerlink" title="Maxout"></a>Maxout</h3><p>取最大，有这几个特点：</p>
+<ul>
+<li>泛化了ReLU和LeakyReLU</li>
+<li>不会饱和</li>
+</ul>
+<p>缺点就是将每个神经元参数数量<strong>翻倍</strong>了</p>
+<h3 id="激活函数小结"><a href="#激活函数小结" class="headerlink" title="激活函数小结"></a>激活函数小结</h3><ul>
+<li>尽量使用ReLu（小心调整学习率，防止dead ReLU）</li>
+<li>可以尝试用一下Leaky ReLU、Maxout、ELU</li>
+<li>可以试一下tanh（效果可能不会比上面的好）</li>
+<li><strong>不要使用Sigmoid</strong></li>
+</ul>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>拿到数据后的第一步：</p>
+<ul>
+<li>零均值化</li>
+<li>归一化</li>
+</ul>
+<p>一般一开始只对数据做<strong>零均值化</strong></p>
+<h3 id="零均值化"><a href="#零均值化" class="headerlink" title="零均值化"></a>零均值化</h3><p>激活函数那里我们提到，如果数据全为正或是负，会导致收敛变慢，在一开始我们就对数据进行零均值化可以尽量避免这个问题</p>
+<blockquote>
+<p>零均值化：将每个像素的值减去训练集上所有像素值的平均值</p>
+</blockquote>
+<p>注意：在后续的不断的卷积过程中，还会遇到非零均值的数据，这里只能保证在第一层避免了均值化，所以还是不要使用Sigmoid</p>
+<h2 id="初始化权重"><a href="#初始化权重" class="headerlink" title="初始化权重"></a>初始化权重</h2><p>初始化神经网络的权值：（权值就是<code>x</code>前面的那个<code>W</code>）</p>
+<blockquote>
+<p>【想法一】可以初始化权值为一个小的随机数，比如<code>0.00x</code></p>
+</blockquote>
+<p>使用小的随机数初始化在比较深的层次中可能会出现问题：即使一开始是标准的正态分布（高斯分布），在一层一层的卷积后，所有的激活值都会趋近于0，会让我们高斯分布小时</p>
+<p>（在不断的<code>W*X</code>，最终会让结果趋近于0也很正常）</p>
+<p><img src="http://img.yesmylord.cn//image-20221012204801436.png" alt="每一层激活值变化图"></p>
+<p>如图所示，一开始还是一个优雅的正态分布，到后面全变成0了</p>
+<p>不仅如此，在反向传播的时候，由于数据非常小，也会导致我们的梯度几乎不会发生变化</p>
+<blockquote>
+<p>【想法二】权重值给很大，比如说<code>W=1</code>或者<code>W=-1</code></p>
+</blockquote>
+<p>这种情况下，所有的神经元都会饱和，导致梯度不会再发生变化</p>
+<blockquote>
+<p>【想法三】<strong>Xavier</strong>初始化：一种根据<strong>方差</strong>缩放的参数初始化</p>
+</blockquote>
+<p>但是这种方法和ReLU效果不好（ReLU会把负数域干掉，因此方差也会干掉一半）</p>
+<p>一个优化的办法是将输入值除以<code>2</code></p>
+<h2 id="批量归一化"><a href="#批量归一化" class="headerlink" title="批量归一化"></a>批量归一化</h2><p>如果一个激活函数能给出近似于高斯分布，那将是极好的。通常使用<strong>批量归一化 Batch Normalization</strong>这种方法来让数据保持高斯分布</p>
+<p>优点：</p>
+<ul>
+<li>这样可以提高整个网络的梯度流，允许更广范围的学习率和不同初始值下工作</li>
+</ul>
+<h2 id="超参数调优"><a href="#超参数调优" class="headerlink" title="超参数调优"></a>超参数调优</h2><p>learning rate的调优：使用cross validation，先选择部分数据、执行少量迭代；观察loss function是否下降，变化情况如何，以确定learning rate 的大致范围。</p>
+<p>（过大则loss fucntion可能出现NaN，过小则loss function 无变化）</p>
+<p>对超参数的采样使用随机抽样，而不是等间隔抽样，这样更容易找到更好的组合</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 神经网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/14/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%86%B3%E7%AD%96%E6%A0%91/" rel="prev" title="决策树">
+                  <i class="fa fa-chevron-left"></i> 决策树
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/15/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch%E5%AE%9E%E8%B7%B5/" rel="next" title="卷积神经网络CNN">
+                  卷积神经网络CNN <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

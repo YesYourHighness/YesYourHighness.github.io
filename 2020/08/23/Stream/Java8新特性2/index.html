@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：  Java8新特性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8新特性2">
+<meta property="og:url" content="http://yoursite.com/2020/08/23/Stream/Java8%E6%96%B0%E7%89%B9%E6%80%A72/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：  Java8新特性">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20200823091700968.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20200823112833993.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20200823164628042.png">
+<meta property="article:published_time" content="2020-08-23T09:04:05.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.812Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Java8">
+<meta property="article:tag" content="Stream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20200823091700968.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/08/23/Stream/Java8%E6%96%B0%E7%89%B9%E6%80%A72/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2020/08/23/Stream/Java8%E6%96%B0%E7%89%B9%E6%80%A72/","path":"2020/08/23/Stream/Java8新特性2/","title":"Java8新特性2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java8新特性2 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java8%E6%96%B0%E7%89%B9%E6%80%A72"><span class="nav-number">1.</span> <span class="nav-text">Java8新特性2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%E6%A6%82%E8%A7%88"><span class="nav-number">1.1.</span> <span class="nav-text">新特性概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%A4%A7%E7%9A%84StreamAPI"><span class="nav-number">1.2.</span> <span class="nav-text">强大的StreamAPI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAStream%E6%B5%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建Stream流的四种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream%E7%9A%84%E4%B8%AD%E9%97%B4%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.2.</span> <span class="nav-text">Stream的中间操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%E4%B8%8E%E5%88%87%E7%89%87%EF%BC%9A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">筛选与切片：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%A0%E5%B0%84"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.3.</span> <span class="nav-text">终止操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E4%B8%8E%E5%8C%B9%E9%85%8D%EF%BC%9A"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">查找与匹配：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%92%E7%BA%A6%E4%B8%8E%E6%94%B6%E9%9B%86"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">归约与收集</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E6%B5%81"><span class="nav-number">1.2.4.</span> <span class="nav-text">并行流</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/23/Stream/Java8%E6%96%B0%E7%89%B9%E6%80%A72/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java8新特性2 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java8新特性2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-23 17:04:05" itemprop="dateCreated datePublished" datetime="2020-08-23T17:04:05+08:00">2020-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Stream/" itemprop="url" rel="index"><span itemprop="name">Stream</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+
+<p>Java8新特性</p>
+</center>
+<span id="more"></span>
+
+<h1 id="Java8新特性2"><a href="#Java8新特性2" class="headerlink" title="Java8新特性2"></a>Java8新特性2</h1><h2 id="新特性概览"><a href="#新特性概览" class="headerlink" title="新特性概览"></a>新特性概览</h2><ol>
+<li><strong><code>Lambda</code>表达式</strong></li>
+<li>函数式接口</li>
+<li>方法引用与构造器的引用与数组引用</li>
+<li><strong>Stream API</strong></li>
+</ol>
+<p>1、2、3、请看 Java8新特性1</p>
+<h2 id="强大的StreamAPI"><a href="#强大的StreamAPI" class="headerlink" title="强大的StreamAPI"></a>强大的StreamAPI</h2><blockquote>
+<p>Stream 流：</p>
+<p>是一个数据渠道，可以对数据源（集合、数组）的数据进行一系列的操作。</p>
+<p>（集合讲的是数据，流讲的是计算）</p>
+</blockquote>
+<p>注意：</p>
+<ol>
+<li>Stream 不会存储元素</li>
+<li>Stream 不会改变源操作对象</li>
+<li>Stream 是延迟执行的，等到需要的结果出现后才会执行</li>
+</ol>
+<p>步骤：</p>
+<ol>
+<li>创建Stream</li>
+<li>中间操作</li>
+<li>终止操作（中断操作）</li>
+</ol>
+<p><img src="http://img.yesmylord.cn//image-20200823091700968.png" alt="image-20200823091700968"></p>
+<h3 id="创建Stream流的四种方法"><a href="#创建Stream流的四种方法" class="headerlink" title="创建Stream流的四种方法"></a>创建Stream流的四种方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//1. 可以使用Collection集合提供的Stream()或parallelStream() （一个是串行流、一个是并行流）</span></span><br><span class="line">ArrayList&lt;String&gt; strings = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">Stream&lt;String&gt; stream = strings.stream();</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 可以使用Arrays的静态方法stream获取流</span></span><br><span class="line">Integer[] integers = <span class="keyword">new</span> <span class="title class_">Integer</span>[<span class="number">10</span>];</span><br><span class="line">Stream&lt;Integer&gt; stream1 = Arrays.stream(integers);</span><br><span class="line"></span><br><span class="line"><span class="comment">//3. 通过Stream类中的静态方法of</span></span><br><span class="line">Stream&lt;Integer&gt; stream2 = Stream.of(integers);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4. 创建无限流：会一直生成</span></span><br><span class="line"><span class="comment">// 迭代</span></span><br><span class="line">Stream&lt;Integer&gt; stream3 = Stream.iterate(<span class="number">0</span>, (x) -&gt; x + <span class="number">2</span>);</span><br><span class="line"><span class="comment">// 需要两个参数：T seed 种子，UnaryOperator单元运算，继承了Function，给一个T，返回一个T</span></span><br><span class="line"><span class="comment">// 可以加上中间操作来终止</span></span><br><span class="line">stream3.limit(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成</span></span><br><span class="line"><span class="comment">// 参数是一个Supplier</span></span><br><span class="line">Stream&lt;Double&gt; generate = Stream.generate(() -&gt; Math.random());</span><br><span class="line">generate.limit(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Stream的中间操作"><a href="#Stream的中间操作" class="headerlink" title="Stream的中间操作"></a>Stream的中间操作</h3><h4 id="筛选与切片："><a href="#筛选与切片：" class="headerlink" title="筛选与切片："></a>筛选与切片：</h4><ol>
+<li><code>fiter</code>——接收lambda，从流中排除某些元素</li>
+<li><code>limit</code>——截断流，使其元素不超过给定的数量</li>
+<li><code>skip(n)</code>——跳过元素，返回一个去除了前n个元素的流。若流元素不足n个，则返回一个空流，<strong>与limit(n)互补</strong></li>
+<li><code>distinct</code>——筛选，通过流所生成的元素的hashCode()和equals()<strong>去除重复元素</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 中间操作不会进行任何的处理，而在终止操作时，一次性全部处理。（称为：惰性求值）</span></span><br><span class="line"><span class="comment">// 中间操作：</span></span><br><span class="line">Stream&lt;Student&gt; studentStream = students</span><br><span class="line">        .stream()</span><br><span class="line">        .filter(x -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;中间操作&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> x.getAge() &gt; <span class="number">30</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"><span class="comment">// 终止操作：一次性执行全部内容</span></span><br><span class="line">studentStream.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// limit</span></span><br><span class="line">Stream&lt;Student&gt; stream1 = students.stream().limit(<span class="number">2</span>);</span><br><span class="line">stream1.forEach(System.out::println);</span><br><span class="line"><span class="comment">//skip</span></span><br><span class="line">Stream&lt;Student&gt; stream2 = students.stream().skip(<span class="number">2</span>);</span><br><span class="line">stream2.forEach(System.out::println);</span><br><span class="line"><span class="comment">// distinct去重，需要重写hashCode和equals方法</span></span><br><span class="line">Stream&lt;Student&gt; stream3 = students.stream().distinct();</span><br><span class="line">stream3.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h4><blockquote>
+<p><code>map</code>——接收一个lambda，将元素转换为其他形式或提取信息。提取一个函数作为参数，该函数会被应用到每一个元素上，并将其映射为一个新的元素。</p>
+<p><code>flatMap</code>——接收一个函数作为参数，将流中的每一个值都换成另一个流，然后把所有流连接成一个流</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(<span class="string">&quot;aaa&quot;</span>, <span class="string">&quot;bbb&quot;</span>, <span class="string">&quot;ccc&quot;</span>);</span><br><span class="line">Stream&lt;String&gt; stream1 = strings.stream()</span><br><span class="line">        .map(x -&gt; x.toUpperCase());</span><br><span class="line"><span class="comment">// map 是将该 流 添加到流中去</span></span><br><span class="line">stream1.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">&quot;-------flatMap------&quot;</span>);</span><br><span class="line"><span class="comment">// 返回一个流</span></span><br><span class="line">Function&lt;String,Stream&gt; fun = (x) -&gt; strings.stream();</span><br><span class="line"><span class="comment">// flatMap使每一个流中的元素都添加到新流中</span></span><br><span class="line"><span class="type">Stream</span> <span class="variable">stream2</span> <span class="operator">=</span> strings</span><br><span class="line">        .stream()</span><br><span class="line">        .flatMap(fun::apply);</span><br><span class="line">stream2.forEach(System.out::println);</span><br><span class="line">System.out.println(<span class="string">&quot;--------map---------&quot;</span>);</span><br><span class="line"><span class="comment">// 对比map 会让流这个对象添加到新流中</span></span><br><span class="line"><span class="type">Stream</span> <span class="variable">stream3</span> <span class="operator">=</span> strings</span><br><span class="line">        .stream()</span><br><span class="line">        .map(fun::apply);</span><br><span class="line">stream3.forEach(</span><br><span class="line">System.out::println);</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<img src="http://img.yesmylord.cn//image-20200823112833993.png" alt="image-20200823112833993" style="width: 50%;" />
+
+
+
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><blockquote>
+<p>排序：</p>
+<p><code>sorted()</code>——自然排序（Comparable），按照字典序</p>
+<p><code>sorted(Comparator com)</code>——定制排序（Comparator）</p>
+</blockquote>
+<p>排序操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strings = Arrays.asList(<span class="string">&quot;ccc&quot;</span>, <span class="string">&quot;bbb&quot;</span>, <span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">strings.stream().sorted().forEach(System.out::println);</span><br><span class="line"><span class="comment">// 按字典序排列</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义排序：先按年龄排序，再按姓名排序</span></span><br><span class="line">students.stream()</span><br><span class="line">        .sorted((e1,e2)-&gt;&#123;</span><br><span class="line">            <span class="keyword">if</span>(e1.getAge().equals(e2))&#123;</span><br><span class="line">                <span class="keyword">return</span> e1.getName().compareTo(e2.getName());</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> e1.getAge().compareTo(e2.getAge());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        .distinct()</span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="终止操作"><a href="#终止操作" class="headerlink" title="终止操作"></a>终止操作</h3><h4 id="查找与匹配："><a href="#查找与匹配：" class="headerlink" title="查找与匹配："></a>查找与匹配：</h4><blockquote>
+<p>查找与匹配操作：</p>
+<p><code>allMatch</code> ——是否匹配所有元素</p>
+<p><code>anyMatch</code>——是否至少匹配一个元素</p>
+<p><code>noneMatch</code>—— 是否没有匹配所有元素</p>
+<p><code>findFirst</code>——返回第一个元素，返回值是一个<code>Optional</code>对象，该对象可以防止为null</p>
+<p><code>findAny</code>——返回当前流中的任意元素</p>
+<p><code>count</code>——返回流中元素的总个数</p>
+<p><code>max</code>——返回流中最大值</p>
+<p><code>min</code>——返回流中最小值</p>
+</blockquote>
+<p>数据：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Student&gt; students =  Arrays.asList(</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;李白&quot;</span>,<span class="number">15</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;杜甫&quot;</span>,<span class="number">27</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;白居易&quot;</span>,<span class="number">96</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;孟浩然&quot;</span>,<span class="number">77</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;孟浩然&quot;</span>,<span class="number">77</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;孟浩然&quot;</span>,<span class="number">77</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 是否所有人的年龄都是27岁？</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">b1</span> <span class="operator">=</span> students.stream()</span><br><span class="line">        .allMatch(x -&gt; x.getAge().equals(<span class="number">27</span>));</span><br><span class="line">System.out.println(b1);<span class="comment">// false</span></span><br><span class="line"><span class="comment">// 是否有人的年龄是27岁？</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">b2</span> <span class="operator">=</span> students.stream()</span><br><span class="line">        .anyMatch(x -&gt; x.getAge().equals(<span class="number">27</span>));</span><br><span class="line">System.out.println(b2);<span class="comment">// true</span></span><br><span class="line"><span class="comment">// 是否没有人的年龄是27岁？</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">b3</span> <span class="operator">=</span> students.stream()</span><br><span class="line">        .noneMatch(x -&gt; x.getAge().equals(<span class="number">27</span>));</span><br><span class="line">System.out.println(b3);<span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">Optional&lt;Student&gt; first = students.stream().sorted((e1, e2) -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> -e1.getAge().compareTo(e2.getAge());</span><br><span class="line">&#125;).findFirst();</span><br><span class="line"><span class="comment">//first.orElse( other ); 这个方法的意思是：如果这个类为空，就可以使用other来替代</span></span><br><span class="line">System.out.println(first);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Optional&lt;Student&gt; any = students.parallelStream().findAny();</span><br><span class="line">System.out.println(any);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回流中的个数</span></span><br><span class="line"><span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> students.stream().count();</span><br><span class="line"></span><br><span class="line"><span class="comment">// max和min中的参数也是predict</span></span><br><span class="line">Optional&lt;Student&gt; max = students.stream().max((e1, e2) -&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> e1.getAge().compareTo(e2.getAge());</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(max);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="归约与收集"><a href="#归约与收集" class="headerlink" title="归约与收集"></a>归约与收集</h4><blockquote>
+<p>归约：</p>
+<p><code>reduce(T identity, BinaryOperator)</code></p>
+<p><code>reduce(BinaryOperator)</code></p>
+<p>可以将流中的元素反复结合起来得到一个值。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 常配合 map 使用，这里将Student中每一个元素的年龄相加起来</span></span><br><span class="line">Optional&lt;Integer&gt; reduce = students.stream()</span><br><span class="line">        .map(Student::getAge)</span><br><span class="line">        .reduce(Integer::sum);</span><br><span class="line">System.out.println(reduce.get());</span><br></pre></td></tr></table></figure>
+
+<p><code>map-reduce</code>组合常用在大数据当中</p>
+<blockquote>
+<p>收集：</p>
+<p><code>collect</code>——将流转换为其他形式，接收一个<code>Collector</code>接口的实现，用于给<code>Stream</code>中元素做汇总的方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把所有的名字放到list中</span></span><br><span class="line">List&lt;String&gt; collect = students</span><br><span class="line">        .stream()</span><br><span class="line">        .map(Student::getName)</span><br><span class="line">        .collect(Collectors.toList());</span><br><span class="line">collect.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把所有的名字放到Hashset中</span></span><br><span class="line">HashSet&lt;String&gt; collect1 = students.stream()</span><br><span class="line">        .map(Student::getName)</span><br><span class="line">        .collect(Collectors.toCollection(HashSet::<span class="keyword">new</span>));</span><br><span class="line">collect1.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<p>收集还有很多种方式，可以求最大最小等等，这里不再细说。</p>
+<h3 id="并行流"><a href="#并行流" class="headerlink" title="并行流"></a>并行流</h3><blockquote>
+<p>并行流：</p>
+<p>将一个内容分为多个数据块，使用不同的线程分别处理每个数据块的流，并且含有工作窃取，即一个核对应的任务完成后，会从其他核偷取任务来执行，大大提高了执行效率</p>
+<p>使用<code>parallel</code>切换为并行流</p>
+<p>使用<code>sequential</code>切换为串行流</p>
+</blockquote>
+<p>在之前有一个<code>ForkJoin</code>框架，这个框架就实现了对一个任务的拆分与合并，大大提高了处理速度。</p>
+<p>在Java8之后我们可以使用并行流来处理（底层其实还是ForkJoin框架）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Instant</span> <span class="variable">start</span> <span class="operator">=</span> Instant.now();</span><br><span class="line">LongStream.range(<span class="number">0</span>,<span class="number">100000000000L</span>)</span><br><span class="line">    .parallel()</span><br><span class="line">    .reduce(<span class="number">0</span>,Long::sum);</span><br><span class="line"><span class="type">Instant</span> <span class="variable">end</span> <span class="operator">=</span> Instant.now();</span><br><span class="line">System.out.println(Duration.between(start,end).toMillis());</span><br></pre></td></tr></table></figure>
+
+<p>运算一千亿个数循环相加，用时12s，下图可见我的CPU利用率基本占满</p>
+<img src="http://img.yesmylord.cn//image-20200823164628042.png" alt="image-20200823164628042" style="width:50%;" />
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java8/" rel="tag"><i class="fa fa-tag"></i> Java8</a>
+              <a href="/tags/Stream/" rel="tag"><i class="fa fa-tag"></i> Stream</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/08/23/Stream/Java8%E6%96%B0%E7%89%B9%E6%80%A71/" rel="prev" title="Java8新特性1">
+                  <i class="fa fa-chevron-left"></i> Java8新特性1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/08/25/Spring/Spring%E8%BF%9B%E9%98%B6/" rel="next" title="Spring进阶">
+                  Spring进阶 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

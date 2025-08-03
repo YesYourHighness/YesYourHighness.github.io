@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：感觉计网处在空中楼阁，缺少对于下三层的理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="路由与数据转发">
+<meta property="og:url" content="http://yoursite.com/2023/03/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%B7%AF%E7%94%B1%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：感觉计网处在空中楼阁，缺少对于下三层的理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321103312625.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321104431235.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321105323815.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321173915135.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321180532962.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321180654563.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321181147352.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321181934304.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321182304637.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321183740978.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321184510961.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321184708634.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321205045154.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321211504617.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230321211504617.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230322194514594.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230322194727810.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230322194820166.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230322195001730.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230322221610120.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230322221706416.png">
+<meta property="og:image" content="http://img.yesmylord.cn//image-20230323093629773.png">
+<meta property="article:published_time" content="2023-03-20T12:46:45.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:09.151Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="网络层">
+<meta property="article:tag" content="路由器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.yesmylord.cn//image-20230321103312625.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2023/03/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%B7%AF%E7%94%B1%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2023/03/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%B7%AF%E7%94%B1%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91/","path":"2023/03/20/网络协议/路由与数据转发/","title":"路由与数据转发"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>路由与数据转发 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">路由器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E5%85%B3"><span class="nav-number">1.1.1.</span> <span class="nav-text">网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AAIP%E6%98%AF%E5%90%A6%E5%A4%84%E4%BA%8E%E5%90%8C%E4%B8%80%E7%BD%91%E6%AE%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">判断两个IP是否处于同一网段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDLC%E4%B8%8EPPP"><span class="nav-number">1.1.3.</span> <span class="nav-text">HDLC与PPP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E4%B8%8ETTL"><span class="nav-number">1.1.4.</span> <span class="nav-text">IP与TTL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A1%A8"><span class="nav-number">1.2.</span> <span class="nav-text">路由表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">1.2.1.</span> <span class="nav-text">静态路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">1.2.2.</span> <span class="nav-text">动态路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A1%A8%E6%B3%95%E5%88%99"><span class="nav-number">1.2.3.</span> <span class="nav-text">路由表法则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="nav-number">1.3.</span> <span class="nav-text">路径的确定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2"><span class="nav-number">1.4.</span> <span class="nav-text">交换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8C%85%E5%8F%91%E9%80%81%E7%9A%84Demo"><span class="nav-number">1.5.</span> <span class="nav-text">数据包发送的Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1-1"><span class="nav-number">1.6.</span> <span class="nav-text">动态路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.6.1.</span> <span class="nav-text">与静态路由的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.6.2.</span> <span class="nav-text">动态路由的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.6.3.</span> <span class="nav-text">动态路由的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%9D%E7%A6%BB%E7%9F%A2%E9%87%8F%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.7.</span> <span class="nav-text">距离矢量协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%9D%E7%A6%BB%E7%9F%A2%E9%87%8F%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.7.1.</span> <span class="nav-text">距离矢量协议的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RIP%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">1.7.2.</span> <span class="nav-text">RIP路由交换过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.7.3.</span> <span class="nav-text">更新方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%9ARIP-amp-IGRP"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">定时更新：RIP&amp;IGRP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%90%E5%AE%9A%E6%9B%B4%E6%96%B0%EF%BC%9AEIGRP"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">限定更新：EIGRP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E6%9B%B4%E6%96%B0"><span class="nav-number">1.7.3.3.</span> <span class="nav-text">触发更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%8A%96%E5%8A%A8"><span class="nav-number">1.7.3.4.</span> <span class="nav-text">随机抖动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E7%8E%AF%E8%B7%AF"><span class="nav-number">1.7.4.</span> <span class="nav-text">路由环路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E8%B7%AF%E7%94%B1%E5%BD%A2%E6%88%90%E7%8E%AF%E8%B7%AF"><span class="nav-number">1.7.5.</span> <span class="nav-text">防止路由形成环路</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/20/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/%E8%B7%AF%E7%94%B1%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="路由与数据转发 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          路由与数据转发
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-20 20:46:45" itemprop="dateCreated datePublished" datetime="2023-03-20T20:46:45+08:00">2023-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:09" itemprop="dateModified" datetime="2025-08-01T02:09:09+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+    引言：感觉计网处在空中楼阁，缺少对于下三层的理解
+</center>
+<span id="more"></span>
+
+<h1 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h1><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h3><p><strong>网关gateway</strong>：是一个连接两个不同网络的设备，使之能够相互通信。</p>
+<p>PS：在早期的计网中，“网关”仅仅表示将不同的网络连接起来，所以当时“网关”常常与“路由器”混用；随着技术发展，网关的作用已不仅仅是连接两个网络了，因此网关已不再单指路由器这一种设备。</p>
+<blockquote>
+<p>1、网关出现的原因：</p>
+</blockquote>
+<ul>
+<li>进行不同网络之间的协议转换：由于互联网的发展和演化。在互联网的早期阶段，由于<strong>不同类型的网络通信协议不同</strong>，网络之间的通信非常困难。（现如今最常用的以太网，在以前并不是这样）</li>
+<li>不同的网络中的地址不同，需要使用网关进行转换</li>
+<li>有的网络需要一个能够对网络流量进行安全检查和管理的设备，防止不安全流量进入网关。</li>
+</ul>
+<blockquote>
+<p>2、网关的作用</p>
+</blockquote>
+<ul>
+<li><strong>不同类型网络之间通信协议的转换</strong>：将局域网中的数据包转换成互联网中的数据包，或将IPv4协议转换成IPv6协议等。</li>
+<li><strong>对网络流量进行安全检查和管理</strong>：例如，对数据包进行过滤、拦截、重定向、加密等操作，保护网络中的机密信息和防止网络攻击。</li>
+<li><strong>连接企业内部网络和外部互联网</strong>：例如，企业可以通过网关将内部网络和互联网连接起来，实现企业对外部网络的访问和外部网络对企业内部网络的访问。（这样可以保证外部流量不会随意的打入内部，防止信息泄露）</li>
+<li><strong>实现网络地址转换</strong>：将内部网络中的私有IP地址转换为公共IP地址，以便内部网络可以访问互联网。</li>
+</ul>
+<blockquote>
+<p>3、分布式集群的网关与路由器的网关的概念有所区别</p>
+</blockquote>
+<p>分布式集群中的网关更像是使用了路由器网关的概念——负责与外网进行交流，它的作用有：</p>
+<ul>
+<li><strong>负载均衡</strong>：将外部流量均匀的打在不同的节点上，保证负载均衡</li>
+<li><strong>安全性</strong>：网关可以实现一些安全策略，身份认证、访问控制、数据加密等</li>
+<li><strong>数据转换</strong>：网关可以将外部请求转换为集群内部所需的格式，以便集群内部的节点能够处理这些请求。</li>
+<li><strong>监控和日志</strong>：网关可以收集集群内部的监控数据和日志信息，并将这些信息发送到监控系统或日志系统中进行处理和分析。</li>
+</ul>
+<h3 id="判断两个IP是否处于同一网段"><a href="#判断两个IP是否处于同一网段" class="headerlink" title="判断两个IP是否处于同一网段"></a>判断两个IP是否处于同一网段</h3><p>比如此时有两个网络：</p>
+<ul>
+<li><p>A：<code>ip地址：192.168.1.1/24</code></p>
+</li>
+<li><p>B:  <code>ip地址：192.168.1.3/24</code></p>
+</li>
+</ul>
+<p>子网掩码是<code>/24</code>，即<code>255.255.255.0</code>，判断AB是否处于一个网络很简单：</p>
+<p>只需要使用<strong>对方的IP地址</strong>，与<strong>自己的子网掩码</strong>做<strong>与<code>&amp;</code>运算</strong>，得到网络号，比较网络号是否相同即可。</p>
+<p>对于<code>/24</code>的子网掩码，就是前三个部分，A与B的网络号都是<code>192.168.1.0</code></p>
+<p>PS：【注意，使用的是对方的子网掩码】判断下面这两个网络：</p>
+<ul>
+<li><p>C: <code>IP 172.33.4.101/16</code></p>
+</li>
+<li><p>D: <code>IP 172.33.3.106/24</code></p>
+</li>
+</ul>
+<p>“判断两个IP是否处于同一网段”这个问题其实就是“判断对方处于自己的网络中”</p>
+<p>比如C使用16判断D与自己的网络号都是<code>172.33.0.0</code>；但是D使用24判断C就是<code>172.33.4.0</code>，而自己是<code>172.33.3.0</code></p>
+<blockquote>
+<p>是否可以通信，与处于同一个子网没有必然的联系：<strong>子网的本质是直连路由</strong></p>
+<p>如果两个网络使用了一个交换机（二层互通），那么也可以通信；</p>
+<p>如果两个网络使用了一个路由器（三层互通），即使不在同一个网络也可以通信。</p>
+</blockquote>
+<h3 id="HDLC与PPP"><a href="#HDLC与PPP" class="headerlink" title="HDLC与PPP"></a>HDLC与PPP</h3><p>两个都是数据链路协议：</p>
+<ul>
+<li>HDLC（High-level Data Link Control）：一种数据链路协议，用于在两个点之间传输数据</li>
+<li>PPP（Point-To-Point Protocol）：数据链路协议，HDLC是其基础协议；支持多种网络协议：IPV4、IPV6</li>
+</ul>
+<blockquote>
+<p>他们用于点到点的通信，与以太网不同，不需要MAC地址，因为就只有两个人</p>
+</blockquote>
+<p>以最广泛使用的PPP为例，在PPP通信时，需要进行<strong>LCP协议（Link Control Protocol）</strong>的过程搭建起两人之间的通信，之后使用<strong>PPP数据帧</strong>包装IP数据包（而不是以太网帧），也就不需要使用MAC地址</p>
+<h3 id="IP与TTL"><a href="#IP与TTL" class="headerlink" title="IP与TTL"></a>IP与TTL</h3><blockquote>
+<p>TTL（Time To Live），在IP头占一个字节，所以取值在0~255之间</p>
+<p>保活时间，每经过一个路由器就-1，当数字变为0，不再发送该消息，而是向源地址发送一个ICMP的数据报，告知其跃点数超过限制</p>
+</blockquote>
+<h2 id="路由表"><a href="#路由表" class="headerlink" title="路由表"></a>路由表</h2><p>路由表包含的信息有：</p>
+<ul>
+<li><strong>路由的源、管理距离、度量</strong></li>
+<li>网络的详细信息：源信息、网络地址、子网掩码、下一条路由的IP地址</li>
+<li>直连网络：即直接连在当前路由器上的设备</li>
+<li>远程网络连接：连接到了另一个网络</li>
+</ul>
+<p>建立路由表三种方式：</p>
+<ul>
+<li><strong>直连路由</strong>：直接连到设备，在CSICO中使用C（Connect）表示</li>
+<li><strong>静态路由</strong>：手动配置的路由表，使用S（static）表示</li>
+<li><strong>动态路由</strong>：路由器之间互相学习，不同的算法表示不同I（IGRP）、R（RIP）</li>
+</ul>
+<p>在CISCO中可以使用命令：<code>show ip route</code>查看路由表</p>
+<h3 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h3><p>路由表对于静态路由：</p>
+<ul>
+<li>使用S表示</li>
+<li>标记出网络地址和子网掩码</li>
+<li>标记出下一跳的IP地址或是出接口</li>
+</ul>
+<blockquote>
+<p>静态路由或动态路由使用之前，路由表中<strong>必须包含与远程网络相关的直连路由</strong></p>
+</blockquote>
+<p>使用静态路由的条件：</p>
+<ul>
+<li>路由器较少</li>
+<li>星型拓扑</li>
+<li>唯一的外连出口（即网络中只有一个出口）</li>
+</ul>
+<p>如图配置所示：</p>
+<p><img src="http://img.yesmylord.cn//image-20230321103312625.png" alt="静态路由示例"></p>
+<p>三行中：C表示直连、S表示静态路由，表示该路由器通过<code>192.168.2.2</code>连接到外部网络<code>192.168.3.0/24</code></p>
+<p><code>Fa0/0</code>接口表示FastEthernet，用于局域网中，速度较快；</p>
+<p><code>S0/0/0</code>表示串口，用于连接远程网络，速度较慢</p>
+<h3 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h3><p>动态路由协议有很多：RIP、IGRP、EIGRP、OSPF</p>
+<p><img src="http://img.yesmylord.cn//image-20230321104431235.png" alt="动态路由示例"></p>
+<p>关于动态路由之后详细介绍</p>
+<h3 id="路由表法则"><a href="#路由表法则" class="headerlink" title="路由表法则"></a>路由表法则</h3><p>路由表三条原则：</p>
+<ol>
+<li>每台路由器根据其自身路由表中的信息独立决定发送路线</li>
+<li>一台路由器的路由表中包含某些信息并不表示其它路由器也包含相同的信息</li>
+<li>有关两个网络之间路径的路由信息并不能提供反向路径（即返回路径）的路由信息</li>
+</ol>
+<p>有关第1、2条：A发送到B的路线，与B发送到A的路线不一定相同</p>
+<p>有关第3条：即A能发送数据到B，但是B可能发送不到A</p>
+<p><img src="http://img.yesmylord.cn//image-20230321105323815.png" alt="路由表法则"></p>
+<h2 id="路径的确定"><a href="#路径的确定" class="headerlink" title="路径的确定"></a>路径的确定</h2><p>路由器决定走哪一条线路取决于Metric，其包含很多度量：跳数、带宽、负载、时延、<strong>开销</strong></p>
+<p>对于RIP来说，Metric就是跳数；对于IGRP来说，Metric就是带宽、延迟</p>
+<blockquote>
+<p>PS：开销可以由管理员设定，可以表示任意一种度量，或者是几种度量的组合</p>
+</blockquote>
+<p>所以路由器决定走哪一条线路：<strong>首先判断优先级；然后对于同种协议判断Metric</strong></p>
+<ul>
+<li>一般而言<strong>优先级（Preference，也叫管理距离AD）</strong>：一般直连&gt;静态&gt;动态，不同厂商对于优先级的定义不同</li>
+<li>对于同一种协议，Metric越小，这条路径越佳</li>
+<li>对于相同的Metric，说明这两条路径是等价的，此时可以进行<strong>等价负载均衡</strong>（比如A出口发送一半的包，B出口再发一半的包）</li>
+</ul>
+<p>对于路由器自己，他需要完成两个任务：</p>
+<ol>
+<li>根据优先级以及Metric找到最佳路径</li>
+<li>将数据包送到外出接口</li>
+</ol>
+<h2 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h2><blockquote>
+<p>路由器交换：将数据从一个接口转到另一个接口</p>
+</blockquote>
+<p>一个包传到这个路由器时，它的结构是：<code>二层MAC(三层IP(数据DATA))</code>（因为数据是从上到下包起来的）</p>
+<p>路由器会对收到的数据进行处理：（二层中的数据称为帧，三层中的数据成为包）</p>
+<ol>
+<li>对收到的包<strong>剥离二层帧头</strong>，以便于获取目的IP地址</li>
+<li>根据目的IP地址，<strong>查找路由表，选择最佳路径</strong></li>
+<li>将数据<strong>重新封装为帧并转发</strong></li>
+</ol>
+<p>把路由器看做黑盒，那么数据包输入前后会有如下变化：</p>
+<ul>
+<li>源IP和目的IP不会变化</li>
+<li>TTL-1</li>
+<li>二层地址发生变化，并且二层地址不一定总是MAC地址</li>
+</ul>
+<hr>
+<h2 id="数据包发送的Demo"><a href="#数据包发送的Demo" class="headerlink" title="数据包发送的Demo"></a>数据包发送的Demo</h2><p>这里放一个Demo：现有一个PC1想要给PC2发送数据包</p>
+<p>1、<strong>判断</strong>PC2与自己是否处于一个网段</p>
+<p>PC1发现PC2与自己并不是一个网段（如果是同一个网段可以直接二层通信），因此只能走网关，所以需要打一个包发送到路由器R1</p>
+<p>2、查询ARP缓存</p>
+<p>首先PC1会查询自己的ARP缓存，如果没有对应的缓存，那么就进行<strong>ARP广播</strong></p>
+<p>广播的过程：</p>
+<ul>
+<li>PC1会把<code>自己的IP + MAC地址 + 目的IP（即网关IP）</code>发一个ARP广播</li>
+<li>对应的网关收到后，就给PC1回复<code>网关自己的IP地址 + MAC地址</code></li>
+<li>PC1收到回复后，缓存到ARP缓存中</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20230321173915135.png" alt="PC1查询ARP缓存并封装IP包"></p>
+<p>3、 PC1封装包</p>
+<p>如图所示，PC1将数据封装三层包头与二层包头，通过网卡发送到R1</p>
+<p>这里的目的MAC地址是R1的MAC地址</p>
+<p>4、R1收到包，剥离包头获取IP</p>
+<p>R1收到包后，将包二层拆解以便获取IP地址</p>
+<p><img src="http://img.yesmylord.cn//image-20230321180532962.png" alt="路由器拆解以太网帧"></p>
+<p>5、R1在路由表中寻找目的IP地址</p>
+<p><img src="http://img.yesmylord.cn//image-20230321180654563.png" alt="R1查找路由表"></p>
+<p>查找目的地址的路由表，查询下一跳的IP</p>
+<p>6、R1用下一跳IP去ARP缓存查询对应的MAC地址，如果没有对应缓存，还是要发ARP广播</p>
+<p><img src="http://img.yesmylord.cn//image-20230321181147352.png" alt="查询下一跳并查询MAC"></p>
+<p><img src="http://img.yesmylord.cn//image-20230321181934304.png" alt="更新源MAC地址"></p>
+<p>在更新目的MAC地址后，把对应<code>Fa0/1</code>的MAC地址也封装后发送</p>
+<blockquote>
+<p>对于家用路由器，只有内外网口两个MAC地址；</p>
+<p>如果是思科华为这种路由器，那么每个端口可以配至少一个IP地址，对应至少一个MAC地址</p>
+</blockquote>
+<p>7、同理R2也会进行拆包，获取目的地址的过程</p>
+<p><img src="http://img.yesmylord.cn//image-20230321182304637.png" alt="拆包查找下一跳"></p>
+<p>查询到下一跳地址为<code>192.168.3.2</code>，并且对外的接口是<code>S0/0/0</code>，在这之前我们都是使用的以太网，而此时我们切换成了S串口，对应的协议有HDLP、PPP，最广泛的还是PPP</p>
+<blockquote>
+<p>串行链路不同于以太网，因为以太网是一个多路访问的网络，要定位到目的设备需要借助于MAC地址，但串行线路一般的封装协议都是PPP(Point-to-Point Protocol,点到点协议)或HDLC(High-Level Data Link Control,高级数据链路控制协议)封装，这种封装被用于<strong>点对点线路</strong>，也就是说，一根线缆只连接两台设备，一端发出，另一端肯定可以收到</p>
+</blockquote>
+<p>因为是P2P的，所以此时就不再需要MAC地址了，下图中封装的结构称为<strong>PPP数据帧</strong></p>
+<p><img src="http://img.yesmylord.cn//image-20230321183740978.png" alt="PPP协议"></p>
+<p>8、R3接收到后也是拆包、查路由表、查ARP缓存</p>
+<p><img src="http://img.yesmylord.cn//image-20230321184510961.png" alt="R3收到后查路由表、查ARP缓存"></p>
+<p>9、PC2收到数据包后，层层拆解，获取数据</p>
+<p><img src="http://img.yesmylord.cn//image-20230321184708634.png" alt="拆解二三层，获取数据"></p>
+<hr>
+<p>至此，包的发送接收过程在二、三层的流程说明清楚了，对于访问一个http网址的问题可以结合DNS、TCP、IP，再结合路由器发送包的关系进行说明</p>
+<h2 id="动态路由-1"><a href="#动态路由-1" class="headerlink" title="动态路由"></a>动态路由</h2><h3 id="与静态路由的区别"><a href="#与静态路由的区别" class="headerlink" title="与静态路由的区别"></a>与静态路由的区别</h3><p>静态路由管理员手动配置了路由表，所以不需要路由器额外的处理，负载低，但是如果网络发生变化，那么就又得手动更新路由表。</p>
+<p>动态路由可以根据Metric自动更新路由表，选择最佳路径，提高网络性能，有额外负载；</p>
+<p><strong>所以相对于静态路由，动态路由更适合大型的网络拓扑结构</strong></p>
+<h3 id="动态路由的功能"><a href="#动态路由的功能" class="headerlink" title="动态路由的功能"></a>动态路由的功能</h3><ul>
+<li><p>发现远程网络</p>
+</li>
+<li><p>维护最新路由信息</p>
+</li>
+<li><p>选择最佳路径</p>
+</li>
+<li><p>当前路径无法使用时找出新的最佳路径</p>
+</li>
+</ul>
+<h3 id="动态路由的分类"><a href="#动态路由的分类" class="headerlink" title="动态路由的分类"></a>动态路由的分类</h3><p><img src="http://img.yesmylord.cn//image-20230321205045154.png" alt="动态路由分类"></p>
+<ul>
+<li>内部网关协议<ul>
+<li><strong>距离矢量协议</strong>：定期发送路由表信息<ul>
+<li>有类：路由信息更新过程中<strong>不发送子网掩码</strong>信息</li>
+<li>无类：路由信息更新过程中<strong>发送子网掩码</strong>信息</li>
+</ul>
+</li>
+<li><strong>链路状态协议</strong>：链路状态改变时，更新链路状态</li>
+</ul>
+</li>
+<li>外部网关协议：</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20230321211504617.png" alt="具体分类"></p>
+<blockquote>
+<p>问题1：为什么距离矢量协议要分为有类和无类两种？</p>
+</blockquote>
+<ul>
+<li><p>“有类”的意思是将IP看做网络部分和主机部分，有类协议<strong>只根据网络部分进行选择</strong></p>
+</li>
+<li><p>“无类”就将IP看做一个整体</p>
+</li>
+</ul>
+<p>有类的英语是Classul Protocol，因为早期的IP分为A、B、C三类，所以叫有类。</p>
+<p>原因是早期的IP地址没有子网掩码，之后引入了子网掩码后才提出了无类。</p>
+<p>所以可以看到老版本的协议（EGP、RIP、IGRP）是有类的，而新版本的协议是无类的</p>
+<blockquote>
+<p>问题2：<strong>距离矢量协议A</strong>和<strong>链路状态协议B</strong>的区别</p>
+</blockquote>
+<ul>
+<li>传递的信息不同<ul>
+<li>A：邻居之间只传递距离向量（这意味着一个节点并不能知晓整个网络的拓普信息）</li>
+<li>B：发送的信息是整个网络的拓扑结构</li>
+</ul>
+</li>
+<li>更新方式不同<ul>
+<li>A：定期发送距离向量，收到后更新自己的距离向量表</li>
+<li>B：基于事件触发：当网络中拓扑结构发生变化，网络中广播更新路由信息状态，计算最短路径再更新路由</li>
+</ul>
+</li>
+<li>收敛速度：<ul>
+<li>A：收敛速度慢（原因是网络中如果存在环，就会出现计数器毒瘤的问题）</li>
+<li>B：收敛速度快</li>
+</ul>
+</li>
+<li>资源占用：<ul>
+<li>A：占用少，因为只需要存邻居节点的距离向量</li>
+<li>B：占用多，存整个网络的拓扑结构</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>问题3：RIP协议与IGRP协议的区别</p>
+</blockquote>
+<ul>
+<li>IGRP使用时延、带宽来计算路由，比RIP的跳数计算更加能准确的估计网络的运行情况。</li>
+<li>IGRP最大跳数100，RIP最大跳数15</li>
+</ul>
+<h2 id="距离矢量协议"><a href="#距离矢量协议" class="headerlink" title="距离矢量协议"></a>距离矢量协议</h2><h3 id="距离矢量协议的特点"><a href="#距离矢量协议的特点" class="headerlink" title="距离矢量协议的特点"></a>距离矢量协议的特点</h3><p><img src="http://img.yesmylord.cn//image-20230321211504617.png" alt="距离适量协议"></p>
+<blockquote>
+<p>距离矢量：就是路由器之间的<strong>跳数</strong>；</p>
+<p>对于距离矢量的协议，他们只知道自己与相邻路由器的距离，并不知道整个网络的拓扑</p>
+</blockquote>
+<p>距离矢量协议有：RIP、IGRP几种，他们共同的思想是：每个路由器维护一个<strong>距离向量</strong>（RIP是跳数，IGRP是带宽和时延），<strong>相邻</strong>路由器之间<strong>周期更新</strong>距离矢量表</p>
+<p>相邻路由器之间发送：<code>到达目的节点的最佳输出线路 + 距离向量</code></p>
+<p>所以与链路状态协议对比：距离矢量协议</p>
+<ul>
+<li>优点：占用资源小，简单易实现，维护方便</li>
+<li>缺点：收敛速度慢（甚至形成环），不易扩展（适合小型网络）</li>
+</ul>
+<p>对于RIP来说：距离矢量是跳数；最大跳数为15（设置为16代表不可达）；30s更新一次</p>
+<p>对于IGRP来说：距离矢量是时延和带宽；最大跳数为100；90s更新一次且是触发更新的</p>
+<h3 id="RIP路由交换过程"><a href="#RIP路由交换过程" class="headerlink" title="RIP路由交换过程"></a>RIP路由交换过程</h3><p>初始阶段，如图所示，有三个路由表</p>
+<p>1、路由器对于直连的设备跳数设为0</p>
+<p><img src="http://img.yesmylord.cn//image-20230322194514594.png" alt="初始阶段"></p>
+<p>2、与相邻的路由器通信，交换自己的路由表（发送自己的路由表过去）</p>
+<p><img src="http://img.yesmylord.cn//image-20230322194727810.png" alt="与相邻路由器交换信息"></p>
+<p>3、路由器将自身没有的条目加入，并将跳数+1</p>
+<p><img src="http://img.yesmylord.cn//image-20230322194820166.png" alt="跳数+1"></p>
+<p>4、当网络中所有的路由器的路由表相同时，完成收敛</p>
+<p><img src="http://img.yesmylord.cn//image-20230322195001730.png" alt="完成收敛"></p>
+<p>路由协议的收敛速度由两方面决定：</p>
+<ul>
+<li>路由传递更新信息的速度</li>
+<li>路由计算最佳路径的速度</li>
+</ul>
+<h3 id="更新方式"><a href="#更新方式" class="headerlink" title="更新方式"></a>更新方式</h3><h4 id="定时更新：RIP-amp-IGRP"><a href="#定时更新：RIP-amp-IGRP" class="headerlink" title="定时更新：RIP&amp;IGRP"></a>定时更新：RIP&amp;IGRP</h4><ol>
+<li><code>Update Timer</code>：该计时器用于控制路由表的更新频率。当该计时器过期时，路由器将向其邻居发送其完整的路由表。（RIP默认值为30秒；IGRP默认90S）</li>
+<li><code>Invalid Timer</code>：该计时器用于控制路由表中路由信息的有效性。如果一条路由信息在该计时器过期前没有更新，它将被标记为无效路由。默认值为180秒。(收到新的信息会重新计时)</li>
+<li><code>Hold-Down Timer</code>：当一条路由信息变为无效路由时，该计时器用于防止路由器立即接受来自同一源的任何更新。这是为了<strong>避免路由环路的形成</strong>。默认值为180秒。</li>
+<li><code>Flush Timer</code>：该计时器用于删除无效路由。当一条路由信息被标记为无效路由时，该计时器开始计时。当计时器过期时，该路由将从路由表中删除。默认值为240秒。</li>
+</ol>
+<blockquote>
+<p>抑制计时器的工作流程：</p>
+</blockquote>
+<p>1、当收到一个路由器发来的更新消息时，启动抑制计数器；在抑制时间内，路由器不会再发送更新消息。</p>
+<p>2、标记该网络为<code>possibly down</code></p>
+<p>3、如果收到的小于当前值的Metric，就恢复该网络，并删除抑制计时器；如果收到大于当前值的Metric，就忽略这个消息</p>
+<p>注意：路由器仍然会转发目的网络被标记为<code>possibly down</code>的数据包</p>
+<h4 id="限定更新：EIGRP"><a href="#限定更新：EIGRP" class="headerlink" title="限定更新：EIGRP"></a>限定更新：EIGRP</h4><p>EIGRP是CSICO的独家协议，它的更新对比定时更新有优化：</p>
+<ul>
+<li>只有在路由表发生变化时更新</li>
+<li>EIGRP会将自己所知道的网络拓扑信息告诉相邻路由器，加快收敛速度（并不是发送整个路由表）</li>
+</ul>
+<h4 id="触发更新"><a href="#触发更新" class="headerlink" title="触发更新"></a>触发更新</h4><p>对于定时更新的一种优化，在三种情况下更新路由：</p>
+<ul>
+<li>路由表中新增了路由</li>
+<li>某条路由进入或退出不可达状态（即无效状态，由无效计时器控制；也有可能是跳数变为16）</li>
+<li>接口开启或关闭</li>
+</ul>
+<h4 id="随机抖动"><a href="#随机抖动" class="headerlink" title="随机抖动"></a>随机抖动</h4><p>加一个随机的参数。是防止大量缓存同时失效的一种办法：比如Redis做缓存时，就可以给每一条缓存加一个随机值。防止热门信息缓存同时失效，导致缓存雪崩。</p>
+<p>对比路由器这里同理，防止网络中同时进行路由更新，导致网络繁忙。</p>
+<h3 id="路由环路"><a href="#路由环路" class="headerlink" title="路由环路"></a>路由环路</h3><blockquote>
+<p><strong>路由环路</strong>：数据包在一系列路由器之间不断传输却始终无法到达其预期目的网络的一种现象。</p>
+</blockquote>
+<blockquote>
+<p>如何出现的？</p>
+</blockquote>
+<p><img src="http://img.yesmylord.cn//image-20230322221610120.png" alt="路由环路1"></p>
+<p>一开始可能只是一个节点从网络中断开，R1刚把对应的条目删掉，但是此时恰好R2发来了更新信息</p>
+<p><img src="http://img.yesmylord.cn//image-20230322221706416.png" alt="路由环路2"></p>
+<p>R3此时发现，这个条目我没有，就会+1；</p>
+<p>依次反复，在R1、R2、R3之间反复传播。</p>
+<h3 id="防止路由形成环路"><a href="#防止路由形成环路" class="headerlink" title="防止路由形成环路"></a>防止路由形成环路</h3><p>路由环是一种不好的现象，会导致网络中无意义的传输内容：</p>
+<ul>
+<li>路由器反复占用链路来确认路由信息，增大网络中的负载</li>
+<li>浪费路由器CPU性能</li>
+<li>影响收敛速度</li>
+<li>路由更新无法到达目的网络</li>
+</ul>
+<p>解决路由环路的措施：</p>
+<ul>
+<li>定义最大度量（RIP最大跳数是15，变为16就知道出现了环路）</li>
+<li>抑制计时器</li>
+<li><strong>水平分割</strong>：从某个接口收到的更新信息不允许再从这个接口发回去，防止生成环路</li>
+</ul>
+<p><img src="http://img.yesmylord.cn//image-20230323093629773.png" alt="水平分割"></p>
+<ul>
+<li>路由毒化或毒性反转<ul>
+<li><strong>路由毒化</strong>：将已经断开的路由的距离通告为无限大。例如路由器设置Fa0/1接口的Metric为16，R2收到就知道该IP已经断开</li>
+<li><strong>毒性反转</strong>：收到毒化消息，不遵守水平分割原则，而是将这个毒化消息发给相邻路由器</li>
+</ul>
+</li>
+<li>触发更新</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="tag"><i class="fa fa-tag"></i> 网络层</a>
+              <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 路由器</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/07/%E5%85%B6%E4%BB%96/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B%E5%8F%B2/" rel="prev" title="服务架构演进">
+                  <i class="fa fa-chevron-left"></i> 服务架构演进
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/15/%E5%AF%86%E7%A0%81%E5%AD%A6/RSA%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/" rel="next" title="RSA非对称加密">
+                  RSA非对称加密 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>

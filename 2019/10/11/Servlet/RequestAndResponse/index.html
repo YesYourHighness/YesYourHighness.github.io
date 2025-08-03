@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：  Request&amp;Response">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RequestAndResponse">
+<meta property="og:url" content="http://yoursite.com/2019/10/11/Servlet/RequestAndResponse/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：  Request&amp;Response">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-11T14:10:11.000Z">
+<meta property="article:modified_time" content="2025-07-31T18:09:08.779Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="Request&amp;Response">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/10/11/Servlet/RequestAndResponse/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2019/10/11/Servlet/RequestAndResponse/","path":"2019/10/11/Servlet/RequestAndResponse/","title":"RequestAndResponse"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RequestAndResponse | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">156</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">91</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">213</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP"><span class="nav-number">1.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">历史版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">请求消息数据格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">响应消息数据格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Request-amp-Response"><span class="nav-number">2.</span> <span class="nav-text">Request&amp;Response</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Request"><span class="nav-number">3.</span> <span class="nav-text">Request</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Request%E5%AF%B9%E8%B1%A1%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">Request对象继承体系结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Request%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">3.2.</span> <span class="nav-text">Request的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. 获取请求消息数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Request%E7%9A%84%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. Request的其他功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%A1%88%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">用户登录案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Response%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">Response对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF"><span class="nav-number">5.1.</span> <span class="nav-text">功能：设置响应消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B1%EF%BC%9A%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">5.1.1.</span> <span class="nav-text">实例1：重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B2%EF%BC%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6%E6%95%B0%E6%8D%AE%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="nav-number">5.1.2.</span> <span class="nav-text">实例2：服务器输出字符数据到客户端浏览器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B3%EF%BC%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BE%93%E5%87%BA%E5%AD%97%E8%8A%82%E6%95%B0%E6%8D%AE%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="nav-number">5.1.3.</span> <span class="nav-text">实例3：服务器输出字节数据到客户端浏览器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B4%EF%BC%9A%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="nav-number">5.1.4.</span> <span class="nav-text">实例4：验证码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ServletContext%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.</span> <span class="nav-text">ServletContext对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%A1%88%E4%BE%8B"><span class="nav-number">6.1.</span> <span class="nav-text">文件下载案例</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">213</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">156</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/11/Servlet/RequestAndResponse/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RequestAndResponse | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RequestAndResponse
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-11 22:10:11" itemprop="dateCreated datePublished" datetime="2019-10-11T22:10:11+08:00">2019-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-01 02:09:08" itemprop="dateModified" datetime="2025-08-01T02:09:08+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E5%8F%B0/" itemprop="url" rel="index"><span itemprop="name">后台</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E5%8F%B0/Request-Response/" itemprop="url" rel="index"><span itemprop="name">Request&Response</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>28k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>25 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：
+
+<p>Request&amp;Response</p>
+</center>
+
+<span id="more"></span>
+
+<hr>
+<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Hiper Text Transfer Protocol 超文本传输协议</p>
+<ul>
+<li>传输协议：定义了客户端和服务器端通信时，发送数据的格式</li>
+</ul>
+<p>客户端给服务器端发送<strong>请求消息</strong></p>
+<p>服务器端解析客户端的<strong>请求消息</strong>，给客户端发送<strong>响应消息</strong></p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>基于TCP/IP的高级协议</li>
+<li>默认端口号 80</li>
+<li>基于请求/响应模型的：一次请求对应一次响应</li>
+<li>无状态的：每次请求之间相互独立，不能交互数据</li>
+</ol>
+<h2 id="历史版本"><a href="#历史版本" class="headerlink" title="历史版本"></a>历史版本</h2><ul>
+<li>1.0版本：每一个图片，每一个css等配置文件，都是一个请求，每次都会重复申请连接</li>
+<li>1.1版本：复用连接</li>
+</ul>
+<h2 id="请求消息数据格式"><a href="#请求消息数据格式" class="headerlink" title="请求消息数据格式"></a>请求消息数据格式</h2><p>Request格式分为四个部分</p>
+<ol>
+<li><strong>请求行</strong><ul>
+<li>请求方式 请求url 请求协议/版本</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /login.html HTTP/1.1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>请求方式有七种，常见有两种<ul>
+<li>GET:<ol>
+<li>请求参数在请求行中</li>
+<li>请求的url长度有限</li>
+<li>不太安全</li>
+</ol>
+</li>
+<li>POST:<ol>
+<li>请求参数在请求体中</li>
+<li>请求的url长度没有限制</li>
+<li>相对安全</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>请求头</strong><ul>
+<li>请求头名称:请求值（键:值）</li>
+</ul>
+</li>
+<li><strong>请求空行</strong><ul>
+<li>空行,分隔请求头和请求体</li>
+</ul>
+</li>
+<li><strong>请求体</strong>（正文）<ul>
+<li>封装Post请求消息的请求参数</li>
+</ul>
+</li>
+</ol>
+<p>字符串格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//-------------请求行---------------</span><br><span class="line">GET /login.html HTTP/1.1</span><br><span class="line">//上面为请求行，底下为请求头</span><br><span class="line">//-------------请求头---------------</span><br><span class="line">Host: localhost</span><br><span class="line">//Host:请求主机是localhost</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0</span><br><span class="line">//User-Agent:浏览器告诉服务器，访问使用的浏览器版本信息</span><br><span class="line">//服务端获取该头信息，解决了浏览器的兼容性问题</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">//支持的响应格式</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">//支持的语言环境</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">//支持的解析结构</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 9</span><br><span class="line">Connection: keep-alive</span><br><span class="line">//keep-alive 表示连接都是可以复用的</span><br><span class="line">Referer: http://localhost/login.html</span><br><span class="line">//告诉服务器，当前请求是从哪里发出的</span><br><span class="line">//作用：1.防盗链：防止其他网页盗取链接 2.统计工作：获取来源处的某些信息，比如统计广告来源</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">//上面为请求头，底下为参数</span><br><span class="line">//------------参数----------------</span><br><span class="line">username = &quot;输入的内容&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="响应消息数据格式"><a href="#响应消息数据格式" class="headerlink" title="响应消息数据格式"></a>响应消息数据格式</h2><p>Response也分为四个部分</p>
+<ol>
+<li><strong>响应行</strong><ol>
+<li>组成：协议/版本 响应状态码 状态码的描述</li>
+<li>响应状态码：一个三位数字，分为五类，服务器告诉客户端浏览器本次请求和响应的一个状态<ul>
+<li>1xx ：服务器接收客户端消息但没有接收完成，等待一段时间后发送1xx的一个状态码</li>
+<li>2xx ：成功。代表：200(成功)</li>
+<li>3xx ：重定向。代表：302(重定向),304(访问缓存)</li>
+<li>4xx ：客户端错误。代表：404(请求路径为空)，405(请求方式没有对应的doGet等方法)</li>
+<li>5xx ：服务器端错误。代表：500(服务器端出现异常)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>响应头</strong><ol>
+<li>格式： 头名称:值</li>
+</ol>
+</li>
+<li><strong>响应空行</strong></li>
+<li><strong>响应体</strong></li>
+</ol>
+<p>字符串格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 </span><br><span class="line">//响应行：协议/版本 响应状态码 状态码的描述</span><br><span class="line">Content-Type: text/html;charset=UTF-8</span><br><span class="line">//告诉服务器本次响应体的数据格式以及编码格式</span><br><span class="line">Content-Length: 90</span><br><span class="line">//本次请求的字节数</span><br><span class="line">Date: Tue, 08 Oct 2019 13:39:33 GMT</span><br><span class="line">//日期</span><br><span class="line">Content-disposition:</span><br><span class="line">//服务器告诉客户端以什么打开响应体数据</span><br><span class="line">//值： 1. in-line代表在当前页面打开 2.attachment：以附件形式打开响应体，用于文件下载</span><br><span class="line">//--------以上为响应头----------</span><br><span class="line">//响应体即传送的数据，内容包括我们可以看懂的HTML的内容，还有其他的一些看不懂的内容</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Request-amp-Response"><a href="#Request-amp-Response" class="headerlink" title="Request&amp;Response"></a>Request&amp;Response</h1><p>重写doGet和doPost方法后，可以接收两个参数Request和Response</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">servletDemo</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;doGet方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;doPost方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    1. tomcat服务器会根据url中的资源路径，创建对应的ServletDemo类的对象</span></span><br><span class="line"><span class="comment">    2. tomcat服务器会创建request和response对象，request对象中封装请求消息数据</span></span><br><span class="line"><span class="comment">    3. tomcat将request和response两个对象传递给service方法，并且调用service方法</span></span><br><span class="line"><span class="comment">    4. 我们可以通过操作request对象来获取请求消息数据，通过response对象设置响应消息数据</span></span><br><span class="line"><span class="comment">    5. 服务器在给浏览器做出响应之前，会从response对象中拿出设置的响应消息数据</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">/</span></span><br></pre></td></tr></table></figure>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ol>
+<li>request对象和response对象是由服务器创建的</li>
+<li>request对象来接收消息，response来设置响应消息</li>
+</ol>
+<h1 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h1><h2 id="Request对象继承体系结构"><a href="#Request对象继承体系结构" class="headerlink" title="Request对象继承体系结构"></a>Request对象继承体系结构</h2><ul>
+<li>servletRequest  接口</li>
+<li>HTTPServletRequest  （继承上面的接口）</li>
+<li>org.apache.catalina.connector.RequestFacade  （实现了上面的接口） </li>
+</ul>
+<h2 id="Request的功能"><a href="#Request的功能" class="headerlink" title="Request的功能"></a>Request的功能</h2><h3 id="1-获取请求消息数据"><a href="#1-获取请求消息数据" class="headerlink" title="1. 获取请求消息数据"></a>1. 获取请求消息数据</h3><ul>
+<li>获取请求行数据<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//请求行长这个样子</span><br><span class="line">GET /虚拟目录/Servlet路径?id=xxx HTTP/1.1</span><br></pre></td></tr></table></figure>
+request的方法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 获取请求方式：GET</span></span><br><span class="line">String <span class="title function_">getMethod</span><span class="params">()</span></span><br><span class="line"><span class="comment">//2. 获取虚拟目录（重点）</span></span><br><span class="line">String <span class="title function_">getContextPath</span><span class="params">()</span></span><br><span class="line"><span class="comment">//3. 获取Servlet的路径</span></span><br><span class="line">String <span class="title function_">getServletPath</span><span class="params">()</span></span><br><span class="line"><span class="comment">//4. 获取get方式的请求参数</span></span><br><span class="line">String <span class="title function_">getQueryString</span><span class="params">()</span></span><br><span class="line"><span class="comment">//5. 获取请求的URI（重点） 即一次性获取 /虚拟目录/Servlet路径</span></span><br><span class="line">String <span class="title function_">getRequestURI</span><span class="params">()</span>获取到/虚拟目录/Servlet路径</span><br><span class="line">String <span class="title function_">getRequestURL</span><span class="params">()</span>获取到http:<span class="comment">//localhost/虚拟目录/Servlet路径</span></span><br><span class="line"><span class="comment">//6. 获取协议及版本</span></span><br><span class="line">String <span class="title function_">getProtocol</span><span class="params">()</span></span><br><span class="line"><span class="comment">//7. 获取客户机的IP地址</span></span><br><span class="line">String <span class="title function_">getRemoteAddr</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
+URI: 统一资源定位符：<code>/虚拟目录/Servlet路径</code></li>
+</ul>
+<p>URL：统一资源标识符：<code>http://localhost/虚拟目录/Servlet路径</code></p>
+<p>URI的范围更大，他们俩的关系类似于 共和国 和 中华人民共和国 的关系</p>
+<ul>
+<li>获取请求头数据<br>方法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String <span class="title function_">getHeader</span><span class="params">(String name)</span></span><br><span class="line"><span class="comment">//1. 通过请求头名称获取请求头的值</span></span><br><span class="line">Enumeration&lt;String&gt; <span class="title function_">getHeaderNames</span><span class="params">()</span></span><br><span class="line"><span class="comment">//2. 获取所有的请求头,返回一个类似于迭代器的类</span></span><br></pre></td></tr></table></figure>
+示例代码<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">    <span class="comment">//1. 获取所有请求头</span></span><br><span class="line">    Enumeration&lt;String&gt; headerNames = req.getHeaderNames();</span><br><span class="line">    <span class="keyword">while</span> (headerNames.hasMoreElements())&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> headerNames.nextElement();</span><br><span class="line">        <span class="comment">//2. 据名称获取请求头</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> req.getHeader(name);</span><br><span class="line">        System.out.println(name + <span class="string">&quot;---&quot;</span> + value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+一般不会使用第二种方法，一般的使用情景如下</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 判断登录平台</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">agent</span> <span class="operator">=</span> req.getHeader(<span class="string">&quot;user-agent&quot;</span>);</span><br><span class="line">    <span class="comment">// 此处不区分大小写</span></span><br><span class="line">    <span class="keyword">if</span> (agent.contains(<span class="string">&quot;Firefox&quot;</span>)) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;火狐登录&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (agent.contains(<span class="string">&quot;Chrome&quot;</span>) )&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;谷歌登录&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 判断是否盗链</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">referer</span> <span class="operator">=</span> req.getHeader(<span class="string">&quot;referer&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(referer!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(referer.contains(<span class="string">&quot;/来源路径&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">//正常</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//盗链，禁止</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>获取请求体数据</li>
+</ul>
+<p><strong>只有POST才有请求体</strong></p>
+<p>步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//1. 获取流对象</span><br><span class="line">BufferedReader getReader()//获取字符输入流，只能操作字符数据</span><br><span class="line">ServletInputStream getInputStream()//获取字节输入流，可以操作所有类型数据</span><br><span class="line">2. 再从流对象中拿取数据</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">    <span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> req.getReader();</span><br><span class="line">    <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> ((line=br.readLine())!=<span class="literal">null</span>)&#123;</span><br><span class="line">        System.out.println(line);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-Request的其他功能"><a href="#2-Request的其他功能" class="headerlink" title="2. Request的其他功能"></a>2. Request的其他功能</h3><ul>
+<li>获取请求参数通用方式<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这些都是通用方法，适用于post或get</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//1. 获取请求参数通用方式</span></span><br><span class="line">String <span class="title function_">getParameter</span><span class="params">(String name)</span></span><br><span class="line"><span class="comment">//根据参数名称获取参数值</span></span><br><span class="line">String[] getParameterValues(String name)</span><br><span class="line"><span class="comment">//根据参数名称获取参数值的数组 username=2018005761&amp;password=123456</span></span><br><span class="line">getParameterNames()</span><br><span class="line"><span class="comment">//获取所有请求的参数名称</span></span><br><span class="line">Map&lt;String,String[]&gt; getParameterMap()</span><br><span class="line"><span class="comment">//获取所有参数的map集合</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//中文乱码的问题：</span></span><br><span class="line"><span class="comment">//get方法： Tomcat8.0版本已经解决中文乱码问题</span></span><br><span class="line"><span class="comment">//post方法：在获取参数前，设置请求request的编码</span></span><br><span class="line">req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>请求转发<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一种在服务器内部资源跳转的方式</span></span><br><span class="line"><span class="comment">//步骤：</span></span><br><span class="line"><span class="comment">//1. 通过request对象获取请求转发器对象</span></span><br><span class="line">RequestDispatcher <span class="title function_">getRequestDispatcher</span><span class="params">(String path)</span></span><br><span class="line"><span class="comment">//2. 使用RequestDispatcher对象来进行转发</span></span><br><span class="line">forward(ServletRequest request,ServletResponse response)</span><br></pre></td></tr></table></figure>
+特点：</li>
+</ul>
+<ol>
+<li>浏览器地址不发生变化</li>
+<li>不能访问服务器外部的其他资源</li>
+<li>转发是一次性的请求<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//示例代码</span><br><span class="line">// demo1 转发demo</span><br><span class="line">@WebServlet(&quot;/login&quot;)</span><br><span class="line">public class servletDemo extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        RequestDispatcher dispatcher = req.getRequestDispatcher(&quot;/login2&quot;);</span><br><span class="line">        dispatcher.forward(req,resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// demo2 被转发的demo</span><br><span class="line">@WebServlet(&quot;/login2&quot;)</span><br><span class="line">public class servletDemo2 extends HttpServlet &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        System.out.println(&quot;我被转发调用了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//这样当访问demo1时，也会自动的访问demo2，而且访问是在同一次的请求完成的</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p>共享数据</p>
+<ul>
+<li>域对象： 一个有作用范围的对象，可以在范围内共享数据</li>
+<li>request域：代表一次请求<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法</span></span><br><span class="line"><span class="comment">//1.存储数据</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setAttribute</span><span class="params">(String name,Obejct)</span>;</span><br><span class="line"><span class="comment">//2. 通过键获取值</span></span><br><span class="line">Object <span class="title function_">getAttribute</span><span class="params">(String name)</span>;</span><br><span class="line"><span class="comment">//3. 通过键移除键值对</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">removeAttribute</span><span class="params">(String name)</span></span><br></pre></td></tr></table></figure>
+代码示例<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(&quot;/login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">servletDemo</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//1. 存储信息</span></span><br><span class="line">        req.setAttribute(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        <span class="comment">//转发</span></span><br><span class="line">        <span class="type">RequestDispatcher</span> <span class="variable">dispatcher</span> <span class="operator">=</span> req.getRequestDispatcher(<span class="string">&quot;/login2&quot;</span>);</span><br><span class="line">        dispatcher.forward(req,resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet(&quot;/login2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">servletDemo2</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我被转发调用了&quot;</span>);</span><br><span class="line">        <span class="comment">//2. 获取数据</span></span><br><span class="line">        System.out.println(req.getAttribute(<span class="string">&quot;msg&quot;</span>));</span><br><span class="line">        <span class="comment">//3. 删除数据</span></span><br><span class="line">        req.removeAttribute(<span class="string">&quot;msg&quot;</span>);</span><br><span class="line">        System.out.println(req.getAttribute(<span class="string">&quot;msg&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>获取ServletContext<br>这里先介绍如何获得ServletContext对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ServletContext</span> <span class="variable">servletContext</span> <span class="operator">=</span> req.getServletContext();</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="用户登录案例"><a href="#用户登录案例" class="headerlink" title="用户登录案例"></a>用户登录案例</h1><p>需求:</p>
+<ol>
+<li>编写login.html登录页面</li>
+<li>有username和password两个输入框</li>
+<li>使用Druid数据库连接池技术，操作mysql</li>
+<li>使用JdbcTemplate技术封装JDBC</li>
+<li>登录成功跳转到SuccessServlet展示：登陆成功！用户名，欢迎你</li>
+<li>登录失败跳转到FailServlet展示：登陆失败，用户名或密码错误</li>
+</ol>
+<p>代码：</p>
+<ol>
+<li><p>创建JavaEE项目</p>
+</li>
+<li><p>构建html页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/login&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入用户名&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入密码&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>引入jar包到web目录下的WEB_INF目录下</p>
+</li>
+<li><p>创建数据库环境,在src目录下配置<code>druid.properties配置文件</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE testlogin;</span><br><span class="line"><span class="comment">-- 创建数据库</span></span><br><span class="line">USE testlogin;</span><br><span class="line"><span class="comment">-- 使用此库</span></span><br><span class="line"><span class="keyword">CREATE TABLE</span> <span class="keyword">USER</span>(</span><br><span class="line">	id <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span> AUTO_INCREMENT,</span><br><span class="line">	username <span class="type">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">UNIQUE</span> <span class="keyword">NOT NULL</span>,</span><br><span class="line">	PASSWORD <span class="type">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT NULL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">driverClassName=com.mysql.cj.jdbc.Driver</span><br><span class="line">url=jdbc:mysql://localhost:3306/testlogin?serverTimezone=UTC</span><br><span class="line">username=root</span><br><span class="line">password=输入你的密码</span><br><span class="line">initialSize=5</span><br><span class="line">maxActive=10</span><br><span class="line">maxWait=3000</span><br><span class="line">filters=stat</span><br><span class="line">timeBetweenEvictionRunsMillis=60000</span><br><span class="line">minEvictableIdleTimeMillis=300000</span><br><span class="line">validationQuery=SELECT 1</span><br><span class="line">testWhileIdle=true</span><br><span class="line">testOnBorrow=false</span><br><span class="line">testOnReturn=false</span><br><span class="line">poolPreparedStatements=false</span><br><span class="line">maxPoolPreparedStatementPerConnectionSize=200</span><br></pre></td></tr></table></figure></li>
+<li><p>src目录下创建包<code>cn.test.domain</code>,创建类User,并补充响应的get,set,toString方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.domain;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * 用户的实体类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;User&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;id=&quot;</span> + id +</span><br><span class="line">                <span class="string">&quot;, username=&#x27;&quot;</span> + username + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, password=&#x27;&quot;</span> + password + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setId</span><span class="params">(<span class="type">int</span> id)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getUsername</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUsername</span><span class="params">(String username)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPassword</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPassword</span><span class="params">(String password)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建<code>cn.test.dao</code>包,创建UserDao，提供login方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.test.domain.User;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * 操作数据库中User表的类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登录方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> loginUser 只要用户名和密码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> user包含用户全部数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">login</span><span class="params">(User loginUser)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>创建工具包<code>cn.test.util</code>,创建<code>JDBCUtils</code>工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSourceFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * JDBC工具类 使用Druid连接池</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCUtils</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DataSource ds;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//1. 加载配置文件</span></span><br><span class="line">            <span class="type">Properties</span> <span class="variable">pro</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">            <span class="comment">//使用ClassLoader加载配置文件</span></span><br><span class="line">            <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> JDBCUtils.class.getClassLoader().getResourceAsStream(<span class="string">&quot;druid.properties&quot;</span>);</span><br><span class="line">            pro.load(is);</span><br><span class="line">            <span class="comment">//2. 初始化连接池对象</span></span><br><span class="line">            ds = DruidDataSourceFactory.createDataSource(pro);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取连接对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> DataSource <span class="title function_">getDataSource</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取连接Connection对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title function_">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">        <span class="keyword">return</span> ds.getConnection();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>完善<code>UserDao类</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.test.domain.User;</span><br><span class="line"><span class="keyword">import</span> cn.test.util.JDBCUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.dao.DataAccessException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * 操作数据库中User表的类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> &#123;</span><br><span class="line">    <span class="comment">//声明JDBCTemplate对象共用</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">JdbcTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcTemplate</span>(JDBCUtils.getDataSource());</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登录方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> loginUser 只要用户名和密码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> user包含用户全部数据,没有查询到，则返回null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">login</span><span class="params">(User loginUser)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//1. 编写sql语句</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;select * from user where username = ? and password =?&quot;</span>;</span><br><span class="line">            <span class="comment">//2. 调用query方法</span></span><br><span class="line">            <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> template.queryForObject(sql,</span><br><span class="line">                    <span class="keyword">new</span> <span class="title class_">BeanPropertyRowMapper</span>&lt;User&gt;(User.class),</span><br><span class="line">                    loginUser.getUsername(), loginUser.getPassword());</span><br><span class="line">            <span class="keyword">return</span> user;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (DataAccessException e)&#123;</span><br><span class="line">            e.printStackTrace();<span class="comment">//写入日志</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>创建包<code>cn.test.test</code>,创建UserDao类来检测程序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.test.dao.UserDao;</span><br><span class="line"><span class="keyword">import</span> cn.test.domain.User;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * 测试UserDao类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDaoTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testLogin</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">loginUser</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        loginUser.setUsername(<span class="string">&quot;李白&quot;</span>);</span><br><span class="line">        loginUser.setPassword(<span class="string">&quot;456&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">UserDao</span> <span class="variable">dao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDao</span>();</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> dao.login(loginUser);</span><br><span class="line"></span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>编写<code>cn.test.web.servlet.LoginServlet</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.test.dao.UserDao;</span><br><span class="line"><span class="keyword">import</span> cn.test.domain.User;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/loginServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//1. 设置编码</span></span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//2. 获取请求参数</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> req.getParameter(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">        <span class="comment">//3. 封装user对象</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">loginUser</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        loginUser.setUsername(username);</span><br><span class="line">        loginUser.setPassword(password);</span><br><span class="line">        <span class="comment">//4. 调用userDao类操作数据库</span></span><br><span class="line">        <span class="type">UserDao</span> <span class="variable">userDao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDao</span>();</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userDao.login(loginUser);</span><br><span class="line">        <span class="comment">//5. 判断user</span></span><br><span class="line">        <span class="keyword">if</span>(user==<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//登陆失败</span></span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/failServlet&quot;</span>).forward(req,resp);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//登录成功</span></span><br><span class="line">            <span class="comment">//存储数据</span></span><br><span class="line">            req.setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line">            <span class="comment">//转发</span></span><br><span class="line"></span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/successServlet&quot;</span>).forward(req,resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doGet(req,resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>login.html中form表单的action路径的写法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//虚拟目录 + Servlet的资源路径</span></span><br><span class="line">&lt;form action=<span class="string">&quot;/testLogin/loginServlet&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>设置<code>failServlet</code>与<code>successServlet</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet(&quot;/failServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FailServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//给页面写一句话</span></span><br><span class="line">        <span class="comment">//设置编码</span></span><br><span class="line">        response.setContentType(<span class="string">&quot;text/html;charset=utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line">        response.getWriter().write(<span class="string">&quot;登录失败,用户名或密码错误&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.test.domain.User;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet(&quot;/successServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuccessServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//获取request域中共享的对象</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> (User) request.getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(user!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//给页面写一句话</span></span><br><span class="line">            <span class="comment">//设置编码</span></span><br><span class="line">            response.setContentType(<span class="string">&quot;text/html;charset=utf-8&quot;</span>);</span><br><span class="line">            <span class="comment">//输出</span></span><br><span class="line">            response.getWriter().write(<span class="string">&quot;登录成功,&quot;</span>+user.getUsername()+<span class="string">&quot;你好!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>完成BeanUtils工具类，简化数据封装</p>
+</li>
+</ol>
+<ul>
+<li>BeanUtils是用于封装JavaBean的</li>
+</ul>
+<ul>
+<li><p>什么是JavaBean？</p>
+<p>  JavaBean是标准的Java类</p>
+<ol>
+<li>类必须被public修饰</li>
+<li>必须提供空参的构造器</li>
+<li>成员变量必须使用private修饰</li>
+<li>提供公共的setter和getter方法</li>
+</ol>
+</li>
+<li><p>JavaBean的功能：封装数据</p>
+</li>
+<li><p>概念的辨析：成员变量 和 属性。</p>
+<p> 大部分情况下成员变量和属性指相同的内容，但某些特例下不相同。</p>
+<p>  例如：getUsername() -&gt; Username -&gt; username 这就是属性，属性是getter和setter方法截取后的产物</p>
+<p>  我们可以给一个成员变量的getter方法取另一个名字，此时成员变量和属性就会不一样了</p>
+<p>  例如：成员变量为gender，而setter方法起名为SetXXX(),此时属性为XXX</p>
+</li>
+<li><p>BeanUtils的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">setProperty()</span><br><span class="line">getProperty()</span><br><span class="line"><span class="comment">//上面两个接收三个参数： 1. Bean类名 2. 属性名 3. 变量值，相当于给成员变量赋值</span></span><br><span class="line">populate()</span><br><span class="line"><span class="comment">//接收两个参数，一个是Bean类，一个是map集合</span></span><br><span class="line"><span class="comment">//将map集合的键值对信息，封装到对应的JavaBean对象中</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>使用BeanUtils简化LoginServlet的第二第三步</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.test.dao.UserDao;</span><br><span class="line"><span class="keyword">import</span> cn.test.domain.User;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/loginServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//1. 设置编码</span></span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        //2. 获取请求参数</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        String username = req.getParameter(&quot;username&quot;);</span></span><br><span class="line"><span class="comment">        String password = req.getParameter(&quot;password&quot;);</span></span><br><span class="line"><span class="comment">        //3. 封装user对象</span></span><br><span class="line"><span class="comment">        User loginUser = new User();</span></span><br><span class="line"><span class="comment">        loginUser.setUsername(username);</span></span><br><span class="line"><span class="comment">        loginUser.setPassword(password);</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="comment">//2. 获取所有的请求参数</span></span><br><span class="line">        Map&lt;String, String[]&gt; map = req.getParameterMap();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3. 创建User对象</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">loginUser</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        <span class="comment">//3.1 使用BeanUtils封装</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BeanUtils.populate(loginUser,map);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4. 调用userDao类操作数据库</span></span><br><span class="line">        <span class="type">UserDao</span> <span class="variable">userDao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDao</span>();</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userDao.login(loginUser);</span><br><span class="line">        <span class="comment">//5. 判断user</span></span><br><span class="line">        <span class="keyword">if</span>(user==<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//登陆失败</span></span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/failServlet&quot;</span>).forward(req,resp);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//登录成功</span></span><br><span class="line">            <span class="comment">//存储数据</span></span><br><span class="line">            req.setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line">            <span class="comment">//转发</span></span><br><span class="line"></span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/successServlet&quot;</span>).forward(req,resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doGet(req,resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h1><h2 id="功能：设置响应消息"><a href="#功能：设置响应消息" class="headerlink" title="功能：设置响应消息"></a>功能：设置响应消息</h2><ol>
+<li>设置响应行 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 格式：HTTP/1.1 200 ok</span></span><br><span class="line"><span class="comment">//2. 设置状态码：</span></span><br><span class="line">setStatus(<span class="type">int</span> sc)</span><br></pre></td></tr></table></figure></li>
+<li>设置响应头 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setHeader(String name,String value);</span><br><span class="line"></span><br><span class="line">sendRedirect()<span class="comment">//重定向</span></span><br></pre></td></tr></table></figure></li>
+<li>设置响应体 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//也是通过流的方式设置响应体</span></span><br><span class="line"><span class="number">1.</span> 获取输出流</span><br><span class="line">    * 字符输出流 PrintWriter <span class="title function_">getWriter</span><span class="params">()</span></span><br><span class="line">    * 字节输出流 ServletOutputStream <span class="title function_">getOutputStream</span><span class="params">()</span></span><br><span class="line"><span class="number">2.</span> 将数据输出到客户端浏览器</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="实例1：重定向"><a href="#实例1：重定向" class="headerlink" title="实例1：重定向"></a>实例1：重定向</h3><p>重定向：<br>客户端向A请求数据，<br><strong>A接到数据后告诉客户端另一个地址B以及重定向状态码302</strong>，<br>客户端遵循继而转移到B</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * 重定向demo</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/responseDemo1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ResponseDemo1</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//访问/responseDemo1,自动跳转到/responseDemo2</span></span><br><span class="line">        <span class="comment">//1. 设置状态码</span></span><br><span class="line">        response.setStatus(<span class="number">302</span>);</span><br><span class="line">        <span class="comment">//2. 设置响应头location</span></span><br><span class="line">        response.setHeader(<span class="string">&quot;location&quot;</span>,<span class="string">&quot;/testLogin/responseDemo2&quot;</span>);</span><br><span class="line">        <span class="comment">//由以上可知 重定向的状态码和响应头的键都是固定的302和location</span></span><br><span class="line">        <span class="comment">//所以我们可以使用如下的方法替代上述两种方法,与上述方法二选一即可</span></span><br><span class="line">        response.sendRedirect(<span class="string">&quot;/testLogin/responseDemo2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>转发(forward)的特点：</li>
+</ul>
+<ol>
+<li>地址栏路径不变</li>
+<li>转发只能访问当前服务器下的资源</li>
+<li>转发是一次请求，可以使用request对象来共享数据</li>
+</ol>
+<ul>
+<li>重定向(redirect)的特点：</li>
+</ul>
+<ol>
+<li>地址栏发生变化</li>
+<li>重定向可以访问其他站点的资源</li>
+<li>重定向是两次请求，不能使用request对象共享数据</li>
+</ol>
+<ul>
+<li>路径的写法：</li>
+</ul>
+<ol>
+<li>路径分类：<ol>
+<li>相对路径：通过相对路径不可以确定唯一资源<ul>
+<li>如<code>./index.html</code></li>
+<li>以<code>.</code>开头的路径</li>
+<li>如<code>&lt;a href=&quot;./responseDemo2&quot;&gt;</code>可以进入同级目录下的其他资源，<code>../</code>进入上一级目录,<code>./</code>可以省略，写为<code>&lt;a href=&quot;responseDemo2&quot;&gt;</code></li>
+</ul>
+</li>
+<li>绝对路径：通过绝对路径可以确定的唯一资源<ul>
+<li>如：<code>http://localhost/testLogin/responseDemo1</code>这就是一个完整的绝对路径，我们也要研究不完整的绝对路径<code>/testLogin/responseDemo2</code></li>
+<li>我们可以简单记为以<code>/</code>开头的路径</li>
+<li>给客户端浏览器访问：需要加虚拟目录(项目的访问路径)</li>
+<li>给服务器端访问：不需要加虚拟目录(例如：转发)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>动态获取虚拟目录<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String contextPath = request.getContextPath();</span><br><span class="line">//此方法可以动态的获取路径</span><br><span class="line">response.sendRedirect(contextPath+&quot;/responseDemo2&quot;);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="实例2：服务器输出字符数据到客户端浏览器"><a href="#实例2：服务器输出字符数据到客户端浏览器" class="headerlink" title="实例2：服务器输出字符数据到客户端浏览器"></a>实例2：服务器输出字符数据到客户端浏览器</h3><p>步骤：</p>
+<ol>
+<li>获取字符输出流</li>
+<li>输出数据<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * 字符输出到客户端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/responseDemo2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ResponseDemo2</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">// 1. 设置编码，默认的浏览器解码是GBK,字符输出流的编码是ISO-8859-1编码</span></span><br><span class="line">        response.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">// 2. 响应头告诉浏览器使用什么编码</span></span><br><span class="line">        response.setHeader(<span class="string">&quot;content-type&quot;</span>,<span class="string">&quot;text/html;charset=utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">// 这个方法其实可以完全替代掉第一步的设置输出流的方法</span></span><br><span class="line">        <span class="comment">// 有一个更简单的方法来设置编码从而省去上述的两步</span></span><br><span class="line">        response.setContentType(<span class="string">&quot;text/html;charset=utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">// 3. 获取字符输出流</span></span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">pw</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">        <span class="comment">// 4. 输出数据</span></span><br><span class="line">        pw.write(<span class="string">&quot;你好&quot;</span>);</span><br><span class="line">        <span class="comment">//因为此PrintWriter是response提供的，</span></span><br><span class="line">        <span class="comment">// 每次请求结束后，response都会被销毁，所以即使是write方法也可以实现print一样的动态刷新页面</span></span><br><span class="line">        pw.write(<span class="string">&quot;&lt;h1&gt;hello&lt;/h1&gt;&quot;</span>);</span><br><span class="line">        <span class="comment">// 输出的数据可以带标签</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="实例3：服务器输出字节数据到客户端浏览器"><a href="#实例3：服务器输出字节数据到客户端浏览器" class="headerlink" title="实例3：服务器输出字节数据到客户端浏览器"></a>实例3：服务器输出字节数据到客户端浏览器</h3><p>步骤：</p>
+<ol>
+<li>获取字节输出流</li>
+<li>输出数据<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.Servlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet(&quot;/responseDemo3&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ResponseDemo3</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//0. 设置编码</span></span><br><span class="line">        response.setContentType(<span class="string">&quot;text/html;charset=utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//1. 获取字节输出流</span></span><br><span class="line">        <span class="type">ServletOutputStream</span> <span class="variable">sos</span> <span class="operator">=</span> response.getOutputStream();</span><br><span class="line">        <span class="comment">//2. 输出,getBytes默认解码GBK，和浏览器相同，但我们仍然要设置一下编码</span></span><br><span class="line">        sos.write(<span class="string">&quot;你好&quot;</span>.getBytes());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="实例4：验证码"><a href="#实例4：验证码" class="headerlink" title="实例4：验证码"></a>实例4：验证码</h3><p>本质是一张图片，为的是防止恶意注册</p>
+<p>大多都会动态生成验证码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet(&quot;/checkCodeServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CheckCodeServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">width</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">height</span> <span class="operator">=</span> <span class="number">50</span>;</span><br><span class="line">        <span class="comment">//1. 创建一个对象，在内存中代表一个图片</span></span><br><span class="line">        <span class="type">BufferedImage</span> <span class="variable">image</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedImage</span>(width,height,BufferedImage.TYPE_INT_RGB);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2. 美化图片</span></span><br><span class="line">        <span class="comment">//2.1 填充背景色，获取画笔对象</span></span><br><span class="line">        <span class="type">Graphics</span> <span class="variable">g</span> <span class="operator">=</span> image.getGraphics();<span class="comment">//画笔对象</span></span><br><span class="line">        g.setColor(Color.pink);<span class="comment">//设置画笔颜色</span></span><br><span class="line">        g.fillRect(<span class="number">0</span>,<span class="number">0</span>,width,height);<span class="comment">//填充</span></span><br><span class="line">        <span class="comment">//2.2 画边框</span></span><br><span class="line">        g.setColor(Color.blue);</span><br><span class="line">        g.drawRect(<span class="number">0</span>,<span class="number">0</span>,width-<span class="number">1</span>,height-<span class="number">1</span>);<span class="comment">//画边框</span></span><br><span class="line">        <span class="comment">//2.3 写验证码</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz1234567890&quot;</span>;</span><br><span class="line">        <span class="type">Random</span> <span class="variable">random</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">5</span> ; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> random.nextInt(str.length());</span><br><span class="line">            <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> str.charAt(index);</span><br><span class="line">            g.drawString(ch+<span class="string">&quot;&quot;</span>,width/<span class="number">5</span>*i,height/<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//2.4 画干扰线</span></span><br><span class="line">        g.setColor(Color.green);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;<span class="number">5</span> ; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> random.nextInt(width);</span><br><span class="line">            <span class="type">int</span> <span class="variable">y1</span> <span class="operator">=</span> random.nextInt(height);</span><br><span class="line">            <span class="type">int</span> <span class="variable">x2</span> <span class="operator">=</span> random.nextInt(width);</span><br><span class="line">            <span class="type">int</span> <span class="variable">y2</span> <span class="operator">=</span> random.nextInt(height);</span><br><span class="line">            g.drawLine(x1,y1,x2,y2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3. 将图片输出到页面展示</span></span><br><span class="line">        ImageIO.write(image,<span class="string">&quot;jpg&quot;</span>,response.getOutputStream());</span><br><span class="line">        <span class="comment">//三个参数，内存中的图片，图片格式，输出流</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="ServletContext对象"><a href="#ServletContext对象" class="headerlink" title="ServletContext对象"></a>ServletContext对象</h1><ul>
+<li>概念：代表整个web应用，可以和程序的容器(服务器)来通信</li>
+<li>获取：两种方法获取的对象是同一个对象<ol>
+<li>通过request对象来获取 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">getServletContext()</span><br><span class="line"><span class="comment">// 获取ServletContext对象</span></span><br></pre></td></tr></table></figure></li>
+<li>通过HTTPServlet获取 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.getServletContext()</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>功能<ul>
+<li>获取MIME类型：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。</span><br><span class="line">MIME类型：在互联网通信过程中定义的一种文件数据类型</span><br><span class="line">格式： 大类型/小类型</span><br><span class="line">例如：text/html  image/jpeg</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取：</span></span><br><span class="line">String <span class="title function_">getMimeTyppe</span><span class="params">(String file)</span></span><br></pre></td></tr></table></figure></li>
+<li>域对象：共享数据</li>
+<li>获取文件的真实(服务器)路径<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContext;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BlackKnight</span></span><br><span class="line"><span class="comment"> * ServletContext的功能</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/servletContextDemo&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServletContextDemo</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        1. 获取MIME类型</span></span><br><span class="line"><span class="comment">        2. 域对象</span></span><br><span class="line"><span class="comment">        3. 获取文件的真实服务器路径</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="comment">//获取ServletContext对象</span></span><br><span class="line">        <span class="type">ServletContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="built_in">this</span>.getServletContext();</span><br><span class="line">        <span class="comment">//1. 获取MIME类型</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">filename</span>  <span class="operator">=</span> <span class="string">&quot;a.jpg&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">mimeType</span> <span class="operator">=</span> context.getMimeType(filename);</span><br><span class="line">        System.out.println(mimeType);<span class="comment">//image/jpeg</span></span><br><span class="line">        <span class="comment">//2. 域对象</span></span><br><span class="line">        <span class="comment">//域下设置的属性可以共同享用</span></span><br><span class="line">        context.setAttribute(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;哈哈哈&quot;</span>);</span><br><span class="line">        <span class="comment">//context.getAttribute(&quot;msg&quot;);另一个路径下也可以读取到这个属性值</span></span><br><span class="line">        context.removeAttribute(<span class="string">&quot;msg&quot;</span>);</span><br><span class="line">        <span class="comment">//ServletContext对象的范围：所有用户所有请求的数据</span></span><br><span class="line">        <span class="comment">//3. 获取文件的真实服务器路径</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">realPath</span> <span class="operator">=</span> context.getRealPath(<span class="string">&quot;/a.txt&quot;</span>);<span class="comment">//获取web目录下的文件</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">realPath1</span> <span class="operator">=</span> context.getRealPath(<span class="string">&quot;/WEB-INF/b.txt&quot;</span>);<span class="comment">//获取web-inf目录下的文件</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">realPath2</span> <span class="operator">=</span> context.getRealPath(<span class="string">&quot;/WEB-INF/classes/c.txt&quot;</span>);<span class="comment">//获取src目录下的文件</span></span><br><span class="line">        System.out.println(realPath);<span class="comment">//D:\testLogin\out\artifacts\testLogin_war_exploded\a.txt</span></span><br><span class="line">        System.out.println(realPath1);<span class="comment">//D:\testLogin\out\artifacts\testLogin_war_exploded\WEB-INF\b.txt</span></span><br><span class="line">        System.out.println(realPath2);<span class="comment">//D:\testLogin\out\artifacts\testLogin_war_exploded\WEB-INF\classes\c.txt</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="文件下载案例"><a href="#文件下载案例" class="headerlink" title="文件下载案例"></a>文件下载案例</h2><ol>
+<li>页面显示超链接</li>
+<li>点击超链接后弹出下载提示框</li>
+<li>完成图片文件下载</li>
+</ol>
+<p>在<code>login.html</code>内加一段代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/testLogin/downloadDemo?filename=1.jpg&quot;</span>&gt;</span>图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/testLogin/downloadDemo?filename=2.jpg&quot;</span>&gt;</span>图片2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--超链接href属性指向Servlet，传递资源名称filename--&gt;</span></span><br></pre></td></tr></table></figure>
+<p>java代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.test.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContext;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet(&quot;/downloadDemo&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DownloadDemo</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//1. 获取请求参数，文件名称</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">filename</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;filename&quot;</span>);</span><br><span class="line">        <span class="comment">//2. 使用字节输入流加载文件进内存</span></span><br><span class="line">        <span class="comment">//2.1 找到文件的服务器路径</span></span><br><span class="line">        <span class="type">ServletContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="built_in">this</span>.getServletContext();</span><br><span class="line">        <span class="type">String</span> <span class="variable">realPath</span> <span class="operator">=</span> context.getRealPath(<span class="string">&quot;/img/&quot;</span> + filename);</span><br><span class="line">        <span class="comment">//2.2 使用字节流关联</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(realPath);</span><br><span class="line">        <span class="comment">//3. 设置response的响应头</span></span><br><span class="line">        <span class="comment">//3.1 设置响应头类型</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">mimeType</span> <span class="operator">=</span> context.getMimeType(filename);<span class="comment">//获取文件的MIME类型</span></span><br><span class="line">        response.setHeader(<span class="string">&quot;content-type&quot;</span>, mimeType);</span><br><span class="line">        <span class="comment">//3.2 设置响应头打开方式</span></span><br><span class="line">        response.setHeader(<span class="string">&quot;content-disposition&quot;</span>, <span class="string">&quot;attachment;filename=&quot;</span> + filename);</span><br><span class="line">        <span class="comment">//4. 将输入流数据写出到输出流中</span></span><br><span class="line">        <span class="type">ServletOutputStream</span> <span class="variable">sos</span> <span class="operator">=</span> response.getOutputStream();</span><br><span class="line">        <span class="type">byte</span>[] buff = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span> * <span class="number">8</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ((len = fis.read(buff)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            sos.write(buff, <span class="number">0</span>, len);</span><br><span class="line">        &#125;</span><br><span class="line">        fis.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Request-Response/" rel="tag"><i class="fa fa-tag"></i> Request&Response</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/11/Servlet/Servlet/" rel="prev" title="Servlet">
+                  <i class="fa fa-chevron-left"></i> Servlet
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/17/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="next" title="正则表达式">
+                  正则表达式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>
