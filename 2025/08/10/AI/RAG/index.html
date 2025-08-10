@@ -23,15 +23,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="引言：RAG——向量数据库+大语言模型">
+    <meta name="description" content="引言：RAG——chunking+向量数据库+大语言模型。面对大模型上下文有限的情况下所做的妥协">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RAG">
 <meta property="og:url" content="http://yoursite.com/2025/08/10/AI/RAG/index.html">
 <meta property="og:site_name" content="Hynis">
-<meta property="og:description" content="引言：RAG——向量数据库+大语言模型">
+<meta property="og:description" content="引言：RAG——chunking+向量数据库+大语言模型。面对大模型上下文有限的情况下所做的妥协">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-09T17:54:36.000Z">
-<meta property="article:modified_time" content="2025-08-10T14:25:12.975Z">
+<meta property="article:modified_time" content="2025-08-10T16:20:40.465Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="RAG">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG"><span class="nav-number">1.</span> <span class="nav-text">RAG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">RAG的核心组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A3%80%E7%B4%A2%E5%99%A8%EF%BC%88Retriever%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1. 检索器（Retriever）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">2. 生成器（Generator）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">RAG的工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RAG%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%85%A8%E8%B2%8C"><span class="nav-number">3.1.</span> <span class="nav-text">RAG系统架构全貌</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="nav-number">3.1.1.</span> <span class="nav-text">完整架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%8F%AA%E6%98%AF%E2%80%9D%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%A8%A1%E5%9E%8B%E2%80%9D%EF%BC%9F"><span class="nav-number">3.1.2.</span> <span class="nav-text">为什么不只是”向量数据库+模型”？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8D%A0%E6%AF%94"><span class="nav-number">3.1.3.</span> <span class="nav-text">各组件的作用占比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6"><span class="nav-number">4.</span> <span class="nav-text">开源框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">5.</span> <span class="nav-text">向量数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">5.1.</span> <span class="nav-text">什么是向量数据库？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A%E5%90%91%E9%87%8F%E3%80%81%E5%B5%8C%E5%85%A5%E3%80%81%E7%9B%B8%E4%BC%BC%E5%BA%A6%E8%AE%A1%E7%AE%97"><span class="nav-number">5.2.</span> <span class="nav-text">核心概念：向量、嵌入、相似度计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">5.3.</span> <span class="nav-text">向量数据库工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">5.3.1.</span> <span class="nav-text">为什么需要向量数据库？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="nav-number">5.3.2.</span> <span class="nav-text">性能考虑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%82%E5%9C%BA%E4%B8%BB%E6%B5%81%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94"><span class="nav-number">5.4.</span> <span class="nav-text">市场主流向量数据库对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%BC%94%E7%A4%BA%E4%BB%A3%E7%A0%81"><span class="nav-number">5.5.</span> <span class="nav-text">向量数据库演示代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">6.</span> <span class="nav-text">语言大模型选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LangChain%E6%A1%86%E6%9E%B6%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90"><span class="nav-number">7.</span> <span class="nav-text">LangChain框架深度解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLangChain%EF%BC%9F"><span class="nav-number">7.1.</span> <span class="nav-text">什么是LangChain？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LangChain%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB"><span class="nav-number">7.2.</span> <span class="nav-text">LangChain架构体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LangChain%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="nav-number">7.3.</span> <span class="nav-text">LangChain关键组件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%F0%9F%93%84-Document-Loaders%EF%BC%88%E6%96%87%E6%A1%A3%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%89"><span class="nav-number">7.3.1.</span> <span class="nav-text">1. 📄 Document Loaders（文档加载器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E2%9C%82%EF%B8%8F-Text-Splitters%EF%BC%88%E6%96%87%E6%9C%AC%E5%88%86%E5%89%B2%E5%99%A8%EF%BC%89"><span class="nav-number">7.3.2.</span> <span class="nav-text">2. ✂️ Text Splitters（文本分割器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%F0%9F%97%84%EF%B8%8F-Vector-Stores%EF%BC%88%E5%90%91%E9%87%8F%E5%AD%98%E5%82%A8%EF%BC%89"><span class="nav-number">7.3.3.</span> <span class="nav-text">3. 🗄️ Vector Stores（向量存储）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%F0%9F%94%97-Chains%EF%BC%88%E9%93%BE%EF%BC%89"><span class="nav-number">7.3.4.</span> <span class="nav-text">4. 🔗 Chains（链）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%F0%9F%A4%96-Agents%EF%BC%88%E6%99%BA%E8%83%BD%E4%BD%93%EF%BC%89"><span class="nav-number">7.3.5.</span> <span class="nav-text">5. 🤖 Agents（智能体）</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG"><span class="nav-number">1.</span> <span class="nav-text">RAG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RAG%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">RAG的核心组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RAG%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%85%A8%E8%B2%8C"><span class="nav-number">2.1.</span> <span class="nav-text">RAG系统架构全貌</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="nav-number">2.2.</span> <span class="nav-text">完整架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%8F%AA%E6%98%AF%E2%80%9D%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%A8%A1%E5%9E%8B%E2%80%9D%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">为什么不只是”向量数据库+模型”？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8D%A0%E6%AF%94"><span class="nav-number">2.4.</span> <span class="nav-text">各组件的作用占比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6"><span class="nav-number">3.</span> <span class="nav-text">开源框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">向量数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">什么是向量数据库？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A%E5%90%91%E9%87%8F%E3%80%81%E5%B5%8C%E5%85%A5%E3%80%81%E7%9B%B8%E4%BC%BC%E5%BA%A6%E8%AE%A1%E7%AE%97"><span class="nav-number">4.2.</span> <span class="nav-text">核心概念：向量、嵌入、相似度计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">4.3.</span> <span class="nav-text">向量数据库工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">4.3.1.</span> <span class="nav-text">为什么需要向量数据库？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E8%80%83%E8%99%91"><span class="nav-number">4.3.2.</span> <span class="nav-text">性能考虑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%82%E5%9C%BA%E4%B8%BB%E6%B5%81%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94"><span class="nav-number">4.4.</span> <span class="nav-text">市场主流向量数据库对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%BC%94%E7%A4%BA%E4%BB%A3%E7%A0%81"><span class="nav-number">4.5.</span> <span class="nav-text">向量数据库演示代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">5.</span> <span class="nav-text">大语言模型选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LangChain%E6%A1%86%E6%9E%B6%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">LangChain框架深度解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLangChain%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">什么是LangChain？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LangChain%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB"><span class="nav-number">6.2.</span> <span class="nav-text">LangChain架构体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LangChain%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6%E8%AF%A6%E8%A7%A3"><span class="nav-number">6.3.</span> <span class="nav-text">LangChain关键组件详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%F0%9F%93%84-Document-Loaders%EF%BC%88%E6%96%87%E6%A1%A3%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%89"><span class="nav-number">6.3.1.</span> <span class="nav-text">1. 📄 Document Loaders（文档加载器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E2%9C%82%EF%B8%8F-Text-Splitters%EF%BC%88%E6%96%87%E6%9C%AC%E5%88%86%E5%89%B2%E5%99%A8%EF%BC%89"><span class="nav-number">6.3.2.</span> <span class="nav-text">2. ✂️ Text Splitters（文本分割器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%F0%9F%97%84%EF%B8%8F-Vector-Stores%EF%BC%88%E5%90%91%E9%87%8F%E5%AD%98%E5%82%A8%EF%BC%89"><span class="nav-number">6.3.3.</span> <span class="nav-text">3. 🗄️ Vector Stores（向量存储）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%F0%9F%94%97-Chains%EF%BC%88%E9%93%BE%EF%BC%89"><span class="nav-number">6.3.4.</span> <span class="nav-text">4. 🔗 Chains（链）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%F0%9F%A4%96-Agents%EF%BC%88%E6%99%BA%E8%83%BD%E4%BD%93%EF%BC%89"><span class="nav-number">6.3.5.</span> <span class="nav-text">5. 🤖 Agents（智能体）</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -276,9 +276,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2025-08-10 01:54:36 / 修改时间：22:25:12" itemprop="dateCreated datePublished" datetime="2025-08-10T01:54:36+08:00">2025-08-10</time>
+      <time title="创建时间：2025-08-10 01:54:36" itemprop="dateCreated datePublished" datetime="2025-08-10T01:54:36+08:00">2025-08-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-08-11 00:20:40" itemprop="dateModified" datetime="2025-08-11T00:20:40+08:00">2025-08-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -304,7 +310,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>9.9k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -323,8 +329,9 @@
     
     <div class="post-body" itemprop="articleBody">
         <center>
-引言：RAG——向量数据库+大语言模型
+引言：RAG——chunking+向量数据库+大语言模型。面对大模型上下文有限的情况下所做的妥协
 </center>
+
 
 
 <span id="more"></span>
@@ -332,73 +339,56 @@
 <h1 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h1><p><strong>RAG（Retrieval-Augmented Generation）</strong>是一种结合了<strong>信息检索</strong>和<strong>文本生成</strong>的AI技术。</p>
 <p>它通过在生成回答之前先检索相关的外部知识，来提高大语言模型回答的准确性和时效性。</p>
 <p>简单来说RAG是一个<strong>向量数据库+嵌入模型</strong></p>
+<blockquote>
+<p>RAG本质要解决的问题</p>
+</blockquote>
+<p>有时候我们的问题是有一部分文档做支撑的，比如公司的某SOP，当你的问题是关于这些时，那么大模型没有此上文依赖，就会一本正经的胡说八道。</p>
+<p>RAG就是为了解决这个问题而提出的，可以把文档中相关于我们问题的一部分抽取出来，询问大模型，然后大模型再给出他的回答。</p>
+<p><strong>RAG其实是在面对大模型上下文有限的情况下所做的妥协</strong></p>
 <h1 id="RAG的核心组件"><a href="#RAG的核心组件" class="headerlink" title="RAG的核心组件"></a>RAG的核心组件</h1><p>RAG系统主要由两个核心组件构成：</p>
-<h2 id="1-检索器（Retriever）"><a href="#1-检索器（Retriever）" class="headerlink" title="1. 检索器（Retriever）"></a>1. 检索器（Retriever）</h2><ul>
-<li><strong>功能</strong>：从大量文档或知识库中找到与用户问题最相关的信息</li>
-<li><strong>常用技术</strong>：<strong>向量数据库</strong>（如Chroma、Pinecone、Weaviate）、稠密检索（Dense Retrieval）、稀疏检索（如BM25）</li>
-</ul>
-<h2 id="2-生成器（Generator）"><a href="#2-生成器（Generator）" class="headerlink" title="2. 生成器（Generator）"></a>2. 生成器（Generator）</h2><ul>
-<li><strong>功能</strong>：基于检索到的相关信息生成最终回答</li>
-<li><strong>常用模型</strong>：<strong>GPT系列</strong>（GPT-3.5、GPT-4）、Claude、LLaMA、其他大语言模型</li>
-</ul>
-<h1 id="RAG的工作流程"><a href="#RAG的工作流程" class="headerlink" title="RAG的工作流程"></a>RAG的工作流程</h1><h2 id="RAG系统架构全貌"><a href="#RAG系统架构全貌" class="headerlink" title="RAG系统架构全貌"></a>RAG系统架构全貌</h2><p>很多人以为RAG就是”向量数据库+模型”，这个理解基本正确，但实际上RAG是一个更复杂的系统。</p>
+<p>R——检索器，从大量文档或知识库中找到与用户问题最相关的信息，一般使用向量数据库</p>
+<p>G——生成器，基于检索到的相关信息生成最终回答，依赖LLM（chatgpt、deepseek）</p>
+<h2 id="RAG系统架构全貌"><a href="#RAG系统架构全貌" class="headerlink" title="RAG系统架构全貌"></a>RAG系统架构全貌</h2><p>很多人以为RAG就是”向量数据库+模型”，这个理解基本正确，但实际上RAG是一个更复杂的系统。</p>
 <p>RAG系统的典型工作流程如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户问题 → 文档预处理 → 向量化 → 相似度检索 → 上下文增强 → 生成回答</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li><strong>文档预处理</strong>：将文档切分成小块（chunking），清理和格式化文本，去除噪声内容</li>
-<li><strong>向量化存储</strong>：使用嵌入模型（如OpenAI Embeddings、Sentence-BERT）将文档块转换为向量，然后存储到向量数据库中</li>
-<li><strong>用户查询处理</strong>：将用户问题也转换为向量表示，在向量空间中计算相似度</li>
+<li><strong>文档预处理</strong>：将文档切分成小块（<strong>chunking</strong>），清理和格式化文本，去除噪声内容，转换为向量<ul>
+<li><strong>chunking这一步非常关键，决定了我们建立向量的质量</strong>！</li>
+<li>切割的方式有很多种，比如按字数、按句子等</li>
+<li>但每种方式都有其缺点，比如按句子划分“我是李白。我爱作诗“，在这种情况下，用户提问李白喜欢做什么，与“我爱作诗”可能就会差很远。</li>
+</ul>
+</li>
+<li><strong>向量化存储</strong>：使用嵌入模型（如OpenAI Embeddings、Sentence-BERT）将文档块转换为向量，然后存储到向量数据库中<ul>
+<li>嵌入：将非结构化数据转换成计算机可以理解的数值数据（向量）的过程</li>
+<li>切块后的向量维度一般是固定的，比如text-embedding-3-small转换后的向量维度一般在1000维</li>
+</ul>
+</li>
+<li><strong>用户查询处理</strong>：将用户问题也转换为向量表示，在向量空间中计算相似度<ul>
+<li>计算向量之间的距离或角度来判断向量的偏差，进而找到TopK，得到最准确的答案</li>
+<li>一般在系统内会预设提示词（<strong>System promote</strong>），比如：你是一个程序员，你精通xxx，请你回答问题</li>
+</ul>
+</li>
 <li><strong>检索相关文档</strong>：找出最相关的Top-K个文档块，通常K=3到10之间</li>
 <li><strong>上下文构建</strong>：将检索到的文档内容与用户问题组合，形成完整的prompt</li>
 <li><strong>生成最终回答</strong>：大语言模型基于增强后的上下文生成回答、确保回答基于检索到的事实信息</li>
 </ol>
-<h3 id="完整架构图"><a href="#完整架构图" class="headerlink" title="完整架构图"></a>完整架构图</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐</span><br><span class="line">│   文档输入       │    │   用户查询       │    │   最终回答       │</span><br><span class="line">│  (PDF/Word/     │    │  &quot;RAG是什么?&quot;   │    │  &quot;RAG是一种...&quot; │</span><br><span class="line">│   Web/...)      │    │                │    │                │</span><br><span class="line">└─────────┬───────┘    └─────────┬───────┘    └─────────┬───────┘</span><br><span class="line">          │                      │                      ▲</span><br><span class="line">          ▼                      ▼                      │</span><br><span class="line">┌─────────────────┐    ┌─────────────────┐              │</span><br><span class="line">│  文档处理模块    │    │  查询处理模块    │              │</span><br><span class="line">│ • 文本清理       │    │ • 查询理解       │              │</span><br><span class="line">│ • 文档分块       │    │ • 查询扩展       │              │</span><br><span class="line">│ • 元数据提取     │    │ • 意图识别       │              │</span><br><span class="line">└─────────┬───────┘    └─────────┬───────┘              │</span><br><span class="line">          │                      │                      │</span><br><span class="line">          ▼                      ▼                      │</span><br><span class="line">┌─────────────────┐    ┌─────────────────┐              │</span><br><span class="line">│  嵌入模型       │    │  嵌入模型       │              │</span><br><span class="line">│ • 文档向量化     │    │ • 查询向量化     │              │</span><br><span class="line">│ • 批量处理       │    │ • 实时处理       │              │</span><br><span class="line">└─────────┬───────┘    └─────────┬───────┘              │</span><br><span class="line">          │                      │                      │</span><br><span class="line">          ▼                      ▼                      │</span><br><span class="line">┌─────────────────┐    ┌─────────────────┐              │</span><br><span class="line">│  向量数据库     │◄───┤  检索引擎       │              │</span><br><span class="line">│ • 向量存储       │    │ • 相似度搜索     │              │</span><br><span class="line">│ • 索引管理       │    │ • 结果排序       │              │</span><br><span class="line">│ • 元数据存储     │    │ • 结果过滤       │              │</span><br><span class="line">└─────────────────┘    └─────────┬───────┘              │</span><br><span class="line">                                 │                      │</span><br><span class="line">                                 ▼                      │</span><br><span class="line">                       ┌─────────────────┐              │</span><br><span class="line">                       │  上下文构建     │              │</span><br><span class="line">                       │ • 文档整合       │              │</span><br><span class="line">                       │ • Prompt工程     │              │</span><br><span class="line">                       │ • 长度控制       │              │</span><br><span class="line">                       └─────────┬───────┘              │</span><br><span class="line">                                 │                      │</span><br><span class="line">                                 ▼                      │</span><br><span class="line">                       ┌─────────────────┐              │</span><br><span class="line">                       │  生成模型       │──────────────┘</span><br><span class="line">                       │ • 文本生成       │</span><br><span class="line">                       │ • 答案合成       │</span><br><span class="line">                       │ • 质量控制       │</span><br><span class="line">                       └─────────────────┘</span><br></pre></td></tr></table></figure>
+<h2 id="完整架构图"><a href="#完整架构图" class="headerlink" title="完整架构图"></a>完整架构图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐</span><br><span class="line">│   文档输入       │    │   用户查询       │    │   最终回答       │</span><br><span class="line">│  (PDF/Word/     │    │  &quot;RAG是什么?&quot;   │    │  &quot;RAG是一种...&quot; │</span><br><span class="line">│   Web/...)      │    │                │    │                │</span><br><span class="line">└─────────┬───────┘    └─────────┬───────┘    └─────────┬───────┘</span><br><span class="line">          │                      │                      ▲</span><br><span class="line">          ▼                      ▼                      │</span><br><span class="line">┌─────────────────┐    ┌─────────────────┐              │</span><br><span class="line">│  文档处理模块    │    │  查询处理模块    │              │</span><br><span class="line">│ • 文本清理       │    │ • 查询理解       │              │</span><br><span class="line">│ • 文档分块       │    │ • 查询扩展       │              │</span><br><span class="line">│ • 元数据提取     │    │ • 意图识别       │              │</span><br><span class="line">└─────────┬───────┘    └─────────┬───────┘              │</span><br><span class="line">          │                      │                      │</span><br><span class="line">          ▼                      ▼                      │</span><br><span class="line">┌─────────────────┐    ┌─────────────────┐              │</span><br><span class="line">│  嵌入模型       │    │  嵌入模型       │              │</span><br><span class="line">│ • 文档向量化     │    │ • 查询向量化     │              │</span><br><span class="line">│ • 批量处理       │    │ • 实时处理       │              │</span><br><span class="line">└─────────┬───────┘    └─────────┬───────┘              │</span><br><span class="line">          │                      │                      │</span><br><span class="line">          ▼                      ▼                      │</span><br><span class="line">┌─────────────────┐    ┌─────────────────┐              │</span><br><span class="line">│  向量数据库     │◄───┤  检索引擎       │              │</span><br><span class="line">│ • 向量存储       │    │ • 相似度搜索     │              │</span><br><span class="line">│ • 索引管理       │    │ • 结果排序       │              │</span><br><span class="line">│ • 元数据存储     │    │ • 结果过滤       │              │</span><br><span class="line">└─────────────────┘    └─────────┬───────┘              │</span><br><span class="line">                                 │                      │</span><br><span class="line">                                 ▼                      │</span><br><span class="line">                       ┌─────────────────┐              │</span><br><span class="line">                       │  上下文构建     │              │</span><br><span class="line">                       │ • 文档整合       │              │</span><br><span class="line">                       │ • Prompt工程     │              │</span><br><span class="line">                       │ • 长度控制       │              │</span><br><span class="line">                       └─────────┬───────┘              │</span><br><span class="line">                                 │                      │</span><br><span class="line">                                 ▼                      │</span><br><span class="line">                       ┌─────────────────┐              │</span><br><span class="line">                       │  生成模型       │──────────────┘</span><br><span class="line">                       │ • 文本生成       │</span><br><span class="line">                       │ • 答案合成       │</span><br><span class="line">                       │ • 质量控制       │</span><br><span class="line">                       └─────────────────┘</span><br></pre></td></tr></table></figure>
 
-<h3 id="为什么不只是”向量数据库-模型”？"><a href="#为什么不只是”向量数据库-模型”？" class="headerlink" title="为什么不只是”向量数据库+模型”？"></a>为什么不只是”向量数据库+模型”？</h3><p><strong>简化理解（适合学习）：</strong></p>
+<h2 id="为什么不只是”向量数据库-模型”？"><a href="#为什么不只是”向量数据库-模型”？" class="headerlink" title="为什么不只是”向量数据库+模型”？"></a>为什么不只是”向量数据库+模型”？</h2><p><strong>简化理解（适合学习）：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RAG ≈ 向量数据库 + 生成模型</span><br></pre></td></tr></table></figure>
 
 <p><strong>完整实现（适合生产）：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RAG = 文档处理 + 嵌入模型 + 向量数据库 + 检索引擎 + </span><br><span class="line">      上下文管理 + 生成模型 + 质量控制 + 系统编排</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li><p><strong>文档处理pipeline</strong></p>
-<ul>
-<li>不同格式文档的解析</li>
-<li>文本清理和标准化</li>
-<li>智能分块策略</li>
-</ul>
-</li>
-<li><p><strong>检索优化</strong></p>
-<ul>
-<li>查询理解和扩展</li>
-<li>多轮检索策略</li>
-<li>结果重排序（Re-ranking）</li>
-</ul>
-</li>
-<li><p><strong>上下文管理</strong></p>
-<ul>
-<li>长度控制（避免超出模型限制）</li>
-<li>信息去重和整合</li>
-<li>Prompt模板管理</li>
-</ul>
-</li>
-<li><p><strong>质量控制</strong></p>
-<ul>
-<li>回答相关性检测</li>
-<li>幻觉检测和过滤</li>
-<li>置信度评估</li>
-</ul>
-</li>
-<li><p><strong>系统编排</strong></p>
-<ul>
-<li>错误处理和恢复</li>
-<li>性能监控</li>
-<li>缓存机制</li>
-</ul>
-</li>
+<li><strong>文档处理pipeline</strong>：不同格式文档的解析、文本清理和标准化、智能分块策略</li>
+<li><strong>检索优化</strong>：查询理解和扩展、多轮检索策略、结果重排序（Re-ranking）</li>
+<li><strong>上下文管理</strong>：长度控制（避免超出模型限制）、信息去重和整合、Prompt模板管理</li>
+<li><strong>质量控制</strong>：回答相关性检测、幻觉检测和过滤、置信度评估</li>
+<li><strong>系统编排</strong>：错误处理和恢复、性能监控、缓存机制</li>
 </ol>
-<h3 id="各组件的作用占比"><a href="#各组件的作用占比" class="headerlink" title="各组件的作用占比"></a>各组件的作用占比</h3><table>
+<h2 id="各组件的作用占比"><a href="#各组件的作用占比" class="headerlink" title="各组件的作用占比"></a>各组件的作用占比</h2><table>
 <thead>
 <tr>
 <th>组件</th>
@@ -691,7 +681,8 @@
 <li><strong>结果排序</strong>：按相似度高低排列搜索结果</li>
 </ol>
 <p>虽然这是一个简化的示例，但它准确地反映了向量数据库在RAG系统中的核心工作原理。</p>
-<h1 id="语言大模型选择"><a href="#语言大模型选择" class="headerlink" title="语言大模型选择"></a>语言大模型选择</h1><p>RAG系统中的生成模型（LLM）负责基于检索到的上下文生成最终回答。不同模型有各自的特点和适用场景。</p>
+<h1 id="大语言模型选择"><a href="#大语言模型选择" class="headerlink" title="大语言模型选择"></a>大语言模型选择</h1><p>RAG系统中的生成模型（LLM）负责基于检索到的上下文生成最终回答。不同模型有各自的特点和适用场景。</p>
+<p>中文用DS，英文用GPT</p>
 <table>
 <thead>
 <tr>
