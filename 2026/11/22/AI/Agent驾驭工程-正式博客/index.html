@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32X32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16X16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZCOOL+XiaoWei:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言：Harness 解决的核心问题是，怎样把模型的推理能力组织成一个能行动、能检查、能延续的工作系统。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Agent 驾驭工程学习笔记：从操控循环到坏味道重构">
+<meta property="og:url" content="http://yoursite.com/2026/11/22/AI/Agent%E9%A9%BE%E9%A9%AD%E5%B7%A5%E7%A8%8B-%E6%AD%A3%E5%BC%8F%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Hynis">
+<meta property="og:description" content="引言：Harness 解决的核心问题是，怎样把模型的推理能力组织成一个能行动、能检查、能延续的工作系统。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.yesmylord.cn//agent-system-architecture.png">
+<meta property="og:image" content="https://img.yesmylord.cn//agent-dual-loop.png">
+<meta property="article:published_time" content="2026-11-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-22T10:33:55.968Z">
+<meta property="article:author" content="Hynis">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="Harness">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.yesmylord.cn//agent-system-architecture.png">
+
+
+<link rel="canonical" href="http://yoursite.com/2026/11/22/AI/Agent%E9%A9%BE%E9%A9%AD%E5%B7%A5%E7%A8%8B-%E6%AD%A3%E5%BC%8F%E5%8D%9A%E5%AE%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://yoursite.com/2026/11/22/AI/Agent%E9%A9%BE%E9%A9%AD%E5%B7%A5%E7%A8%8B-%E6%AD%A3%E5%BC%8F%E5%8D%9A%E5%AE%A2/","path":"2026/11/22/AI/Agent驾驭工程-正式博客/","title":"Agent 驾驭工程学习笔记：从操控循环到坏味道重构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Agent 驾驭工程学习笔记：从操控循环到坏味道重构 | Hynis</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hynis</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">163</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">95</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">218</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+
+<!-- 网易云外链-->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1439739102&auto=1&height=66"></iframe>
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+
+
+      <div class="sidebar-panel-container">
+
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agent-%E9%A9%BE%E9%A9%AD%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Agent 驾驭工程学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E-Agent-%E5%88%B0-Harness"><span class="nav-number">1.1.</span> <span class="nav-text">一、是什么：从 Agent 到 Harness</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#APP-%E4%B8%8E-Agent-%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">APP 与 Agent 有什么不同？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4-LLM-%E6%98%AF%E2%80%9C%E9%80%9A%E7%94%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E2%80%9D%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">为什么说 LLM 是“通用运行时”？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%8E%E6%A0%B7%E8%BF%90%E8%BD%AC%EF%BC%9A%E5%A4%96%E5%B1%82%E7%AE%A1%E8%BF%9B%E5%BA%A6%EF%BC%8C%E5%86%85%E5%B1%82%E7%AE%A1%E8%B4%A8%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">二、怎样运转：外层管进度，内层管质量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E6%8E%A7%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%9B%9B%E6%AD%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">操控循环的四步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E5%B1%82%E5%BE%AA%E7%8E%AF%E7%AD%89%E4%BA%8E%E5%A4%9A-Agent-%E5%90%97%EF%BC%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">两层循环等于多 Agent 吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E6%96%AD%E5%9E%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">推断型控制与计算型控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%80%8E%E6%A0%B7%E8%90%BD%E5%9C%B0%EF%BC%9A%E5%9B%9B%E4%B8%AA%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">三、怎样落地：四个子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8C%87%E4%BB%A4%EF%BC%9A%E8%A6%81%E6%B1%82%E4%B8%8E%E6%A3%80%E6%9F%A5%E6%A0%87%E5%87%86"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 指令：要求与检查标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E8%83%BD%EF%BC%9A%E8%83%BD%E5%8A%9B%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 工具与技能：能力与方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%8E%AF%E5%A2%83%EF%BC%9A%E6%89%A7%E8%A1%8C%E6%9D%A1%E4%BB%B6%E4%B9%9F%E5%BD%B1%E5%93%8D%E6%A3%80%E6%9F%A5%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 环境：执行条件也影响检查结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%8A%B6%E6%80%81%EF%BC%9A%E8%AE%A9%E4%B8%8B%E4%B8%80%E8%BD%AE%E6%9C%89%E4%BE%9D%E6%8D%AE"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 状态：让下一轮有依据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%80%8E%E6%A0%B7%E7%A8%B3%E5%AE%9A%EF%BC%9A%E5%85%AD%E9%A1%B9%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.4.</span> <span class="nav-text">四、怎样稳定：六项实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%80%8E%E6%A0%B7%E9%87%8D%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%9D%8F%E5%91%B3%E9%81%93%E6%89%BE%E5%88%B0%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">五、怎样重构：从坏味道找到缺失的机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%9C%80%E6%B1%82%E6%A8%A1%E7%B3%8A%EF%BC%9A%E6%8A%8A%E2%80%9C%E6%88%91%E8%A6%81%E4%BB%80%E4%B9%88%E2%80%9D%E5%86%99%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E8%A6%81%E6%B1%82"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 需求模糊：把“我要什么”写成可执行要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%9A%90%E5%BC%8F%E7%BA%A6%E5%AE%9A%EF%BC%9A%E6%8A%8A%E2%80%9C%E5%86%B2%E7%AA%81%E6%97%B6%E9%80%89%E4%BB%80%E4%B9%88%E2%80%9D%E5%86%99%E6%88%90%E5%8E%9F%E5%88%99"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 隐式约定：把“冲突时选什么”写成原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BF%A1%E6%81%AF%E6%95%A3%E8%90%BD%EF%BC%9A%E8%AE%A9%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. 信息散落：让仓库知识知道自己从哪里来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%99%9A%E5%81%87%E8%83%9C%E5%88%A9%EF%BC%9A%E8%AE%A9%E5%AE%8C%E6%88%90%E5%88%A4%E6%96%AD%E7%A6%BB%E5%BC%80%E6%89%A7%E8%A1%8C%E8%80%85"><span class="nav-number">1.5.4.</span> <span class="nav-text">4. 虚假胜利：让完成判断离开执行者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-number">1.7.</span> <span class="nav-text">资料</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hynis"
+      src="http://img.yesmylord.cn//1644852537960.jpg">
+  <p class="site-author-name" itemprop="name">Hynis</p>
+  <div class="site-description" itemprop="description">A blog about IT knowledge</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">218</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">163</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YesYourHighness" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YesYourHighness" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1046467756@qq.com" title="E-Mail → mailto:1046467756@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zouper.cn/" title="https:&#x2F;&#x2F;zouper.cn" rel="noopener" target="_blank">一杯好茶</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.klenkiven.xyz/" title="https:&#x2F;&#x2F;www.klenkiven.xyz&#x2F;" rel="noopener" target="_blank">KlenKiven</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hourunmeng.github.io/" title="https:&#x2F;&#x2F;hourunmeng.github.io&#x2F;" rel="noopener" target="_blank">润萌</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flashxin.github.io/" title="https:&#x2F;&#x2F;flashxin.github.io&#x2F;" rel="noopener" target="_blank">flashxin</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/YesYourHighness" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2026/11/22/AI/Agent%E9%A9%BE%E9%A9%AD%E5%B7%A5%E7%A8%8B-%E6%AD%A3%E5%BC%8F%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img.yesmylord.cn//1644852537960.jpg">
+      <meta itemprop="name" content="Hynis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hynis">
+      <meta itemprop="description" content="A blog about IT knowledge">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Agent 驾驭工程学习笔记：从操控循环到坏味道重构 | Hynis">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Agent 驾驭工程学习笔记：从操控循环到坏味道重构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-22 00:00:00 / 修改时间：18:33:55" itemprop="dateCreated datePublished" datetime="2026-11-22T00:00:00+08:00">2026-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <center>
+引言：Harness 解决的核心问题是，怎样把模型的推理能力组织成一个能行动、能检查、能延续的工作系统。
+</center>
+
+<span id="more"></span>
+
+<h1 id="Agent-驾驭工程学习笔记"><a href="#Agent-驾驭工程学习笔记" class="headerlink" title="Agent 驾驭工程学习笔记"></a>Agent 驾驭工程学习笔记</h1><p>先说结论：<strong>Agent 是能围绕目标感知环境、采取行动的系统；LLM 让它能够理解目标并推断下一步，Harness 则把行动、反馈和状态组织起来。</strong> 要让这个系统稳定工作，我认为可以按四个层次理解：</p>
+<ol>
+<li><strong>是什么</strong>：从 Agent 的一般定义，走到 <code>LLM + Harness</code> 的实现视角。</li>
+<li><strong>怎样运转</strong>：外层循环管理整个任务，内层循环指导具体行动并检查结果。</li>
+<li><strong>怎样落地</strong>：用四个子系统承载规则和能力，再用六项实践改进稳定性。</li>
+<li><strong>怎样重构</strong>：从常见的失败迹象出发，修正指令、原则、知识来源与完成判断。</li>
+</ol>
+<h2 id="一、是什么：从-Agent-到-Harness"><a href="#一、是什么：从-Agent-到-Harness" class="headerlink" title="一、是什么：从 Agent 到 Harness"></a>一、是什么：从 Agent 到 Harness</h2><p>经典 AI 教材《Artificial Intelligence: A Modern Approach》把 Agent 描述为：<strong>通过传感器感知环境，并通过执行器作用于环境的实体</strong>。这里的“传感器”和“执行器”是抽象说法：软件 Agent 可以读取文件或 API 返回值作为感知，也可以调用工具、写文件作为行动。这个定义早于今天的 LLM Agent，<strong>并不要求 Agent 必须有大模型</strong>。</p>
+<blockquote>
+<p>此处见<a target="_blank" rel="noopener" href="https://aima.cs.berkeley.edu/4th-ed/pdfs/newchap02.pdf">教材 Agent 章节</a>。</p>
+</blockquote>
+<p>到了 LLM Agent，LLM（大语言模型）负责理解和推理，Harness（驾驭模型的工作系统）组织指令、工具、环境、状态与反馈，使系统能够围绕目标持续行动。可以用 <code>Agent = LLM + Harness</code> 帮助理解，但它不是严格的组件等式。</p>
+<h3 id="APP-与-Agent-有什么不同？"><a href="#APP-与-Agent-有什么不同？" class="headerlink" title="APP 与 Agent 有什么不同？"></a>APP 与 Agent 有什么不同？</h3><p>传统应用可以概括为 <code>App = Runtime + Business Logic</code>：运行时执行程序，开发者提前把业务行为写成代码。对应地，<code>Agent = LLM + Harness</code> 强调模型能根据目标和上下文推断行动，Harness 为这种动态行为提供规则与执行条件。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统 APP</th>
+<th>LLM Agent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户表达需求</td>
+<td>在预设页面、按钮和表单中操作</td>
+<td>用自然语言给出目标与约束</td>
+</tr>
+<tr>
+<td>行动路径</td>
+<td>主要由开发时的代码分支决定</td>
+<td>可根据执行中的观察动态调整</td>
+</tr>
+<tr>
+<td>行为依据</td>
+<td>固定业务逻辑、数据与配置</td>
+<td>模型推断，加上 Harness 的指令、工具、状态与检查</td>
+</tr>
+<tr>
+<td>质量保障</td>
+<td>程序校验、测试、人工操作</td>
+<td>同样需要程序校验与测试，还要处理模型输出的不确定性</td>
+</tr>
+</tbody></table>
+<p>对用户而言，变化是：过去需要自己在 APP 中选择页面和操作步骤；在适合交给 Agent 的任务里，可以直接说明目标，让系统决定部分步骤。这不是说 APP 会消失，或者 Agent 可以代替所有代码。比如“帮我整理一篇博客”，Agent 可以根据材料决定先读什么、哪里需要补充；但文件能否读取、图片是否上传成功、页面是否构建通过，仍要依赖实际工具和程序检查。</p>
+<p>我在《Claude原理》中写过 <code>Agent = CLI/UI + REPL + LLM + Memory + Tools</code>，还接触过“一个 Bash 加一个 Loop”的说法。它们强调的层次不同：</p>
+<table>
+<thead>
+<tr>
+<th>表达方式</th>
+<th>主要想说明什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>LLM + Harness</code></td>
+<td>模型需要一套组织任务和反馈的机制</td>
+</tr>
+<tr>
+<td><code>CLI/UI + REPL + LLM + Memory + Tools</code></td>
+<td>编程 Agent 产品通常有哪些实现部分</td>
+</tr>
+<tr>
+<td><code>Bash + Loop</code></td>
+<td>编程 Agent 可以用循环和 Shell 工具构造极简行动接口</td>
+</tr>
+</tbody></table>
+<p>其中 CLI 是命令行入口，REPL 是反复接收输入并执行的交互循环，Bash 是一种命令行工具。<strong>它们都不是所有 Agent 的定义要件</strong>，跨会话记忆也不是。“所有接收输入并输出结果的模型都算 Agent”又太宽了。仅有输入框和一次模型回复，更接近普通 LLM 调用；本文讨论的 LLM Agent，关键是系统能围绕目标选择行动、取得观察结果，并决定继续还是停止。固定步骤全部由代码预先排好的工作流也可能使用 LLM，但与模型在执行中决定步骤的 Agent 有区别。</p>
+<p><img src="https://img.yesmylord.cn//agent-system-architecture.png" alt="Agent 系统的行动闭环"></p>
+<p>上图按<strong>运行过程</strong>画一个典型 Agent 系统：用户提出目标，Harness 组织指令与上下文并调用模型；模型提出回答或工具调用；系统执行工具、接收结果、更新状态，再进入下一轮或交付。模型提出工具调用，不代表它自己直接获得文件系统、浏览器或数据库的执行权限，这些仍由外部系统控制。</p>
+<h3 id="为什么说-LLM-是“通用运行时”？"><a href="#为什么说-LLM-是“通用运行时”？" class="headerlink" title="为什么说 LLM 是“通用运行时”？"></a>为什么说 LLM 是“通用运行时”？</h3><p>我的理解是：一部分过去需要程序员穷举的分支，现在可以由模型结合自然语言和现场信息推断；Harness 则承载业务规则、工具和检查方式。<strong>“LLM 是通用运行时”是软件设计上的类比</strong>，不是说 LLM 取代操作系统、解释器或确定性的业务代码。</p>
+<p>这种变化体现在两个阶段，容易看成同一回事：</p>
+<ol>
+<li><strong>应用逻辑简化</strong>：开发时，不必把所有语义变化提前写成固定分支。</li>
+<li><strong>工作流动态化</strong>：运行时，模型可以依据目标与工具反馈调整下一步。</li>
+</ol>
+<p>例如写博客时，我不必为每种 PDF 内容编写一种提纲模板，这是开发时逻辑的简化；读到关键概念解释不清时，先补读原文再写下一节，这是运行时流程的调整。路径检查、构建结果、权限边界等可确定的部分仍应交给程序。从软件工程的角度看，<strong>内部 Harness</strong>偏向“系统怎样可靠地执行”，<strong>外部 Harness</strong>偏向“针对具体目标提供哪些规则、知识和能力”。这分别对应架构与设计的关注点，但两者并非严格的一一对应关系。</p>
+<h2 id="二、怎样运转：外层管进度，内层管质量"><a href="#二、怎样运转：外层管进度，内层管质量" class="headerlink" title="二、怎样运转：外层管进度，内层管质量"></a>二、怎样运转：外层管进度，内层管质量</h2><p><strong>双层循环</strong>是理解 Harness 的核心模型。它不要求两个 Agent 或两个独立进程：外层把较大的任务分解、追踪、验收；内层处理某项具体任务的执行与纠错。</p>
+<table>
+<thead>
+<tr>
+<th>循环</th>
+<th>步骤</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>外层 PDCA</td>
+<td>Plan 计划 → Do 执行 → Check 检查 → Act 改进</td>
+<td>大任务有哪些步骤、当前做到哪里、是否调整计划</td>
+</tr>
+<tr>
+<td>内层操控循环</td>
+<td>Guides 前馈 → Action 行动 → Sensors 反馈 → Steer 调整</td>
+<td>单项任务如何做、结果是否达标、发现问题后怎样修正</td>
+</tr>
+</tbody></table>
+<p><img src="https://img.yesmylord.cn//agent-dual-loop.png" alt="外层 PDCA 与内层操控循环"></p>
+<p>以整理一组学习资料为例，外层先确定阅读范围和文章结构，追踪每篇资料是否处理完毕，最后检查整篇文章是否覆盖核心知识。内层处理“读完一篇资料并写成笔记”：先给原文和写作要求，读取并整理，回原文核对定义和例子，发现遗漏后补写。内层通过检查，外层才能把这一项标记为完成。</p>
+<blockquote>
+<p>PDCA 常被称为“戴明环”，但它与休哈特的质量改进思想及后续日本质量管理实践有关；戴明本人后来更强调 <code>PDSA</code>（Plan-Do-Study-Act）。这里重要的是理解它如何管理任务，而不是把名称误当作发明者归属。参见<a target="_blank" rel="noopener" href="https://deming.org/explore/pdsa/">戴明研究所的说明</a>。</p>
+</blockquote>
+<h3 id="操控循环的四步"><a href="#操控循环的四步" class="headerlink" title="操控循环的四步"></a>操控循环的四步</h3><ol>
+<li><strong>前馈控制（Feedforward / Guides）</strong>：行动之前提供目标、参考资料、约束与做法。例如规定“先读原始资料，再写重点与个人理解”。</li>
+<li><strong>行动（Action）</strong>：读 PDF、调用工具、写文件等。</li>
+<li><strong>反馈控制（Feedback / Sensors）</strong>：行动之后取得可观察的证据。例如核对原文、检查图片链接。</li>
+<li><strong>调整（Steer）</strong>：根据反馈决定补资料、修改、重试、求助或结束。</li>
+</ol>
+<p><strong>只有反馈控制，Agent 可能会重复犯同一个错误；而只有前馈控制，Agent 则会过于草率地结束任务。</strong></p>
+<p>从 Agent 内部看，ReAct 强调“推理 → 行动 → 观察”；在观察后加入结果检查与调整，就能把它理解为“推理 → 行动 → 观察 → 自我纠正”的循环。这里的“自我纠正”要有可信的观察来源，不能只让模型再说一遍“我检查过了”。文件是否存在、链接是否可访问、构建是否报错，都可以交给工具提供证据；文章解释是否准确，还需要对照原始资料。参见<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">ReAct 原论文</a>。</p>
+<p><strong>Steer 解决的是本次任务怎样继续。</strong><br>如果某种前馈与反馈方法反复有效，可以把它固化为 Skill，让下次任务复用。这就是“用 Skill 封装和分发 Harness”的含义：复用的不只是一次工具调用，还包括任务步骤和检查方法。有些系统还能自动从执行经验中提炼技能，甚至把可形式化的步骤固化为代码；但“自动学习并改写 Skill”是额外实现的能力，不是 Agent 默认具备的功能。</p>
+<h3 id="两层循环等于多-Agent-吗？"><a href="#两层循环等于多-Agent-吗？" class="headerlink" title="两层循环等于多 Agent 吗？"></a>两层循环等于多 Agent 吗？</h3><p><strong>不等于。</strong> 比如电商需求只涉及类目域时，一个 Agent 可能就能完成；涉及类目、品牌、商品多个业务域时，外层需要追踪跨域进度，但也不一定要启动三个 Agent。任务是否需要分解和追踪，决定是否需要外层循环；子任务是否适合独立执行和验收，才影响要不要让多个 Agent 分工。一个 Agent 也可以同时执行外层计划与内层检查。</p>
+<h3 id="推断型控制与计算型控制"><a href="#推断型控制与计算型控制" class="headerlink" title="推断型控制与计算型控制"></a>推断型控制与计算型控制</h3><p>内层检查可以由模型做语义判断，也可以由程序执行确定规则。前者是<strong>推断型控制</strong>，例如判断文章是否准确表达一个概念；后者是<strong>计算型控制</strong>，例如检查图片链接能否访问、文件是否存在。模型可以<strong>选择调用</strong>一个确定性的检查工具，但它选择的时机和参数仍可能出错，所以“有工具调用”不等于整个任务变成确定性执行。</p>
+<h2 id="三、怎样落地：四个子系统"><a href="#三、怎样落地：四个子系统" class="headerlink" title="三、怎样落地：四个子系统"></a>三、怎样落地：四个子系统</h2><p>双层循环告诉我<strong>怎样组织工作</strong>，四个子系统则回答<strong>工作所需的信息和能力放在哪里</strong>。很多场景可以复用现成 Agent 的内部执行循环，把精力放在具体任务的指令、工具、环境与状态上。对我的博客流程，先明确读哪些材料、怎样整理、如何检查、结果放在哪里，比从零实现一个 Agent Loop 更直接。</p>
+<table>
+<thead>
+<tr>
+<th>子系统</th>
+<th>主要职责</th>
+<th>博客学习场景中的例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>指令（Instructions）</td>
+<td>规定目标、边界、步骤与验收标准</td>
+<td>阅读范围、文章结构、概念核对要求</td>
+</tr>
+<tr>
+<td>工具与技能（Tools &amp; Skills）</td>
+<td>提供行动、观察能力和可复用流程</td>
+<td>PDF 读取、文件编辑、PicGo 上传、Hexo 构建；单篇笔记流程</td>
+</tr>
+<tr>
+<td>环境（Environment）</td>
+<td>提供工具运行所需的条件</td>
+<td>路径、依赖版本、网络、文件权限、PicGo 配置</td>
+</tr>
+<tr>
+<td>状态（State）</td>
+<td>保存进度、结果和中间产物</td>
+<td>已读资料、疑问、草稿、图片链接、构建结果</td>
+</tr>
+</tbody></table>
+<h3 id="1-指令：要求与检查标准"><a href="#1-指令：要求与检查标准" class="headerlink" title="1. 指令：要求与检查标准"></a>1. 指令：要求与检查标准</h3><p>指令可以写在提示词、项目规则或技能文档中。它既包含前馈，也可以写下反馈的标准，但<strong>写下标准不等于已经完成检查</strong>。例如“文章包含两张图”是验收条件；检查 Markdown 中的两条链接、确认远端图片能打开，才算执行了反馈。</p>
+<p><code>AGENTS.md</code> 可以承载项目级规则，形成比单次对话更稳定的工作依据。但它不是权限系统本身：文件是否被加载、遇到冲突时如何排序，由具体 Agent 产品决定；真正必须保证的边界，还应通过工具权限、程序校验或人工审批实现。这样理解“Agent 宪法”，就不会把一份 Markdown 文件误认为绝对可靠的硬约束。</p>
+<h3 id="2-工具与技能：能力与方法"><a href="#2-工具与技能：能力与方法" class="headerlink" title="2. 工具与技能：能力与方法"></a>2. 工具与技能：能力与方法</h3><p><strong>工具</strong>是可调用的动作或观察接口，例如读文件、调用 API、检查构建输出。<strong>技能（Skill）</strong>则把完成某类任务所需的说明、步骤、参考材料和必要脚本组织起来。工具可以通过 MCP 暴露，但“工具 = MCP、技能 = 工具调用顺序”并不准确：MCP 是连接能力的协议，不是工具的唯一实现方式；Skill 也不只是固定的调用顺序。</p>
+<p>例如，PDF 解析器是工具；“读一篇资料 → 提炼概念 → 写出疑问 → 对照原文 → 更新博客”是一套可复用的方法。Skill 可以把这套方法沉淀下来，成为下一次任务的前馈。把这次的修正写成 Skill 属于<strong>跨任务积累经验</strong>，与本次执行中的 Steer 不是同一个动作。</p>
+<h3 id="3-环境：执行条件也影响检查结果"><a href="#3-环境：执行条件也影响检查结果" class="headerlink" title="3. 环境：执行条件也影响检查结果"></a>3. 环境：执行条件也影响检查结果</h3><p>我原本把环境理解为 <code>lib</code> 或 JVM，这只覆盖了一部分。软件版本、依赖、文件位置、网络和权限，都会改变工具能否运行。尤其是测试和构建作为反馈时，环境不一致会使结果失去可比性。我的博客流程需要确认 Hexo 项目、PicGo 上传配置及图片远端链接；若它们变化，应先排查环境，再判断是不是内容写错了。</p>
+<h3 id="4-状态：让下一轮有依据"><a href="#4-状态：让下一轮有依据" class="headerlink" title="4. 状态：让下一轮有依据"></a>4. 状态：让下一轮有依据</h3><p>状态既可以是 Markdown 或 JSON 文件，也可以存入数据库。它记录“已经做了什么、结果怎样、还有什么没解决”，供下一轮读取。<strong>状态本身不负责决策</strong>，Agent 根据指令和当前状态决定下一步。只有聊天记录里说“这篇资料已读完”而没有可读取的学习进度，换一次会话就可能丢失这个信息。</p>
+<h2 id="四、怎样稳定：六项实践"><a href="#四、怎样稳定：六项实践" class="headerlink" title="四、怎样稳定：六项实践"></a>四、怎样稳定：六项实践</h2><p>四个子系统搭起来后，还需要检查它们是否稳定。以下六项原则，可以当作设计清单：</p>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>解决的问题</th>
+<th>做法与例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>双层循环模型</td>
+<td>大任务进度与单项任务质量混在一起</td>
+<td>用阅读计划追踪资料，对每篇笔记单独核对内容与格式</td>
+</tr>
+<tr>
+<td>仓库即规范</td>
+<td>要求散落在多次对话中，前后不一致</td>
+<td>在仓库中保存文章规范、资料索引和进度，让后续任务从文件读取</td>
+</tr>
+<tr>
+<td>渐进式信息披露</td>
+<td>无关资料占用上下文、分散注意力</td>
+<td>入口只放核心规则与路径，处理某篇资料时再加载对应 PDF 和笔记</td>
+</tr>
+<tr>
+<td>分离计算型与推断型</td>
+<td>让模型做精确检查，或让代码硬判语义</td>
+<td>链接状态和构建结果交工具，概念解释和口吻交模型并由我复核</td>
+</tr>
+<tr>
+<td>最小干预</td>
+<td>人反复承担可自动化的检查</td>
+<td>自动检查图片、格式与构建，把人的精力留给内容判断</td>
+</tr>
+<tr>
+<td>可复现性优先</td>
+<td>环境变化导致同一流程时好时坏</td>
+<td>固定依赖与构建步骤，记录工具配置和图片来源</td>
+</tr>
+</tbody></table>
+<p>这六项不是六个新组件，而是针对四个子系统和双层循环的设计原则。其中有几处需要特别区分：</p>
+<ul>
+<li><strong>仓库即规范</strong>：对项目规则、过程状态而言，仓库可以作为主要事实来源；外部新资料仍要回到原始来源核查，不能因为写进仓库就默认永远正确。</li>
+<li><strong>渐进式披露</strong>：上下文容量有限时，入口提供索引、细节按需加载，避免无关材料挤占窗口；即使窗口还装得下，也要只加载当前任务所需的材料，减少注意力分散。关键约束在执行中仍需复核。</li>
+<li><strong>计算型与推断型</strong>：确定的规则尽量用程序验证，语义问题交给模型与人。有一种经验性分工是让代码覆盖约 <code>60%-70%</code> 可形式化的检查，模型处理其余需要语义理解的部分；它不是所有任务通用的指标。工具的检查逻辑可以确定，但模型选择何时调用工具、外部服务返回什么，不一定确定。</li>
+<li><strong>最小干预</strong>：如果每次都由我通读结果、指出错误，我实际上成了系统的 Sensor。更合适的做法是让内层循环自动处理重复、可预测的检查。目标是否合理、文章是否忠实表达我的理解、是否发布，仍需要人的判断。</li>
+<li><strong>可复现性优先</strong>：像 <code>requirements.txt</code>、<code>setup.sh</code> 这样的依赖与环境说明，可以让检查在一致条件下运行。换一台机器后结果变差，也应排查环境漂移，而不只是修改提示词。</li>
+</ul>
+<h2 id="五、怎样重构：从坏味道找到缺失的机制"><a href="#五、怎样重构：从坏味道找到缺失的机制" class="headerlink" title="五、怎样重构：从坏味道找到缺失的机制"></a>五、怎样重构：从坏味道找到缺失的机制</h2><p>前面的双层循环、四个子系统和六项实践，回答的是 Harness 应该怎样设计。实际使用时，我更需要一个反向入口：<strong>Agent 的结果出了问题，应该改哪里？</strong> “坏味道”就是反复出现的失败迹象；重构不是换一个更长的提示词，而是把缺失的约束、决策依据、信息更新和验收机制补到系统里。</p>
+<table>
+<thead>
+<tr>
+<th>坏味道</th>
+<th>我能观察到的迹象</th>
+<th>主要缺口</th>
+<th>对应的重构</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需求模糊</td>
+<td>Agent 反问；成果看起来对、用起来不对；验收时总要说“我不是这个意思”</td>
+<td>目标、完成条件和例外没有说清</td>
+<td>提取结构化指令文件</td>
+</tr>
+<tr>
+<td>隐式约定</td>
+<td>大方向正确，实现方式却反复违反项目惯例</td>
+<td>决策时的优先级和历史原因只在人的脑子里</td>
+<td>建立原则文档与决策记录</td>
+</tr>
+<tr>
+<td>信息散落</td>
+<td>Agent 严格依据仓库文档执行，结果却与当前事实冲突</td>
+<td>文档没有跟外部来源同步</td>
+<td>管理知识依赖</td>
+</tr>
+<tr>
+<td>虚假胜利</td>
+<td>交付很快、格式完整，却漏掉难处理的部分，还宣称全部完成</td>
+<td>执行者自己判断自己是否做完</td>
+<td>分离执行与验证</td>
+</tr>
+</tbody></table>
+<h3 id="1-需求模糊：把“我要什么”写成可执行要求"><a href="#1-需求模糊：把“我要什么”写成可执行要求" class="headerlink" title="1. 需求模糊：把“我要什么”写成可执行要求"></a>1. 需求模糊：把“我要什么”写成可执行要求</h3><p>“帮我做一个背单词系统”看似有目标，其实没有说明学习节奏、练习方式、复习机制和验收标准。Agent 只能拿通用方案补空白。这里的重构手法是<strong>提取指令文件</strong>：把零散对话中会反复使用的要求整理出来，放进项目指令，而不是寄希望于模型每次都猜中。</p>
+<p>指令至少回答三个问题：<strong>正常情况下怎么做，什么证据表明做完了，遇到例外怎么办。</strong> 例如，四周学习 200 个词、每天安排 10 个新词，是正常流程；三个练习项目达到预设掌握率、到期复习项清零，是完成条件；连续答错时减少新词配额，是边界情况。这里的数字只是案例配置，不是普适的学习规律。</p>
+<p>我的理解是，重构前先让 Agent 列出它已理解的约束、完成条件和待澄清问题，再由我逐项核对。它提出的补充只算候选项；真正的需求仍由我确认。这样做也能发现“我以为说过，实际上只在心里想过”的条件。</p>
+<h3 id="2-隐式约定：把“冲突时选什么”写成原则"><a href="#2-隐式约定：把“冲突时选什么”写成原则" class="headerlink" title="2. 隐式约定：把“冲突时选什么”写成原则"></a>2. 隐式约定：把“冲突时选什么”写成原则</h3><p>需求清楚以后，结果仍可能不符合项目做法。比如要求实现一个功能，Agent 直接访问数据库；团队实际上为了数据一致性，规定这个模块只能通过服务接口访问。此时不是目标不清，而是<strong>解决问题时的权衡没有显式记录</strong>。</p>
+<p>课程建议把决策依据分层保存：<code>AGENTS.md</code> 做入口，指向项目原则；原则文档写明通用要求和原因；模块级 ADR 记录当时的上下文、决策、代价与影响。规则清单告诉 Agent “怎么做”，原则还要解释“性能与一致性冲突时，为什么此处选一致性”。我认为这个“为什么”很重要：当项目条件改变时，才能重新评估旧决定，而不是机械照搬。</p>
+<p>不过，文档里的“红线”和优先级是项目的<strong>预期决策规则</strong>，不自动成为技术上的硬约束。实际指令如何排序，仍取决于所用 Agent 系统；权限、安全和数据保护等要求，还要用工具权限、程序校验及必要的人工审批落实。<code>AGENTS.md</code> 也不能单方面覆盖用户当次的明确要求。</p>
+<h3 id="3-信息散落：让仓库知识知道自己从哪里来"><a href="#3-信息散落：让仓库知识知道自己从哪里来" class="headerlink" title="3. 信息散落：让仓库知识知道自己从哪里来"></a>3. 信息散落：让仓库知识知道自己从哪里来</h3><p>“仓库即规范”解决了 Agent 到处找资料的问题，但仓库中的内容可能来自会议、Wiki、接口文档等外部来源。外部事实变了，仓库却没更新，Agent 就会<strong>准确执行一份过时的规范</strong>。这比单纯没有资料更难发现。</p>
+<p>重构方法是管理<strong>知识依赖</strong>：为重要文档记录原始来源、负责人或获取方式、核对时机与最近核对结果。来源稳定且数量少，可以用 <code>SOURCE.md</code> 维护映射，按计划或变更事件检查；来源没有固定地址，就在工作流程中加入向人确认的步骤。自动同步是可选实现，但对比出差异后仍要判断新内容是否可信、是否影响已有规则，不能把“拉到了新版本”当成“内容已核实”。</p>
+<p>放到我的博客里，课程 PDF 是课程观点的来源，个人笔记记录我的理解，正式文章是面向读者的整理稿。原文更新或我修正理解后，应能追溯并更新对应段落。仓库可以是<strong>当前写作规范和进度的主要来源</strong>，但不能替代课程原文以及其他外部事实来源。</p>
+<h3 id="4-虚假胜利：让完成判断离开执行者"><a href="#4-虚假胜利：让完成判断离开执行者" class="headerlink" title="4. 虚假胜利：让完成判断离开执行者"></a>4. 虚假胜利：让完成判断离开执行者</h3><p>最后一种坏味道是：Agent 处理了容易的部分，漏掉难的部分，却自信地说“完成了”。给它写上完成条件仍可能不够，因为执行者也可能带着同一盲点检查自己的产出。课程给出的重构手法是<strong>分离执行与验证</strong>。</p>
+<p>具体做法可以分三步：先把完成条件改成可检查的指标；执行时记录原始进度，例如总数、已处理项、跳过项和原因；再让独立的验证者对照任务清单检查。计数、文件存在性、构建结果等确定性条件适合脚本；解释是否准确、文章是否有助于理解，则需要对照原文并由人或独立评审判断。验证者可以是脚本、另一位审阅者，也可以是拥有独立上下文和证据的另一个 Agent。</p>
+<p>这里还有一个边界：<strong>验证通过，只表示预先写下并实际检查的条件通过了。</strong> 如果进度文件由执行者随意填写，或者脚本只检查条数、不检查内容，仍可能出现漏项和错项。因此，最好从原始任务清单与实际产物交叉核对，必要时抽查内容。另外，“今天的学习会话结束”和“整个四周学习目标完成”是两种不同的完成判断，不应共用一个只在总掌握率达标时才会通过的检查条件。</p>
+<p>对我这篇博客，执行者可以写出四个主题的段落；验证者还需要核对四份原文是否都被覆盖、概念是否对应、图片链接是否可用、Hexo 是否能正常生成。构建通过证明页面可生成，却不能证明内容理解正确。<strong>把完成声明建立在可追溯的证据上，才是真正闭合了反馈循环。</strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这一阶段的主线是：<strong>用外层 PDCA 管任务进度，用内层操控循环管单项任务质量，再由四个子系统提供指令、行动能力、运行条件和连续状态</strong>。六项实践说明怎样设计这套结构；四种坏味道则让我在出错时知道该修正什么：需求、决策原则、知识来源，还是完成判断。</p>
+<p>回到我自己的博客写作，Harness 的关键不是把提示词写得越来越长，而是让“读原文、提炼重点、核对疑问、检查文件与图片、记录进度”成为一套能再次执行、发现遗漏后能改进的流程。等这套方法在更多材料上跑通后，再把稳定有效的步骤固化为 Skill。</p>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<li>学习材料：徐昊《Agent 驾驭工程之美》，其中“需求模糊”“隐式约定”“信息散落”“虚假胜利”四篇用于核对坏味道与重构手法。本文按概念重新组织，相关问题结合我的理解展开。</li>
+<li><a target="_blank" rel="noopener" href="https://aima.cs.berkeley.edu/4th-ed/pdfs/newchap02.pdf">Artificial Intelligence: A Modern Approach，Agent 章节</a>：Agent 的经典定义。</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">ReAct 原论文</a>：核对推理、行动、观察循环。</li>
+<li><a target="_blank" rel="noopener" href="https://www.anthropic.com/research/building-effective-agents">Anthropic：Building effective agents</a>：核对工作流与 Agent 的区分。</li>
+<li><a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2026-07-28">Model Context Protocol 规范</a>、<a target="_blank" rel="noopener" href="https://agentskills.io/specification">Agent Skills 规范</a>：核对工具协议与技能的边界。</li>
+<li><a target="_blank" rel="noopener" href="https://deming.org/explore/pdsa/">Deming Institute：PDSA Cycle</a>：核对 PDCA 与 PDSA 的历史关系。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+              <a href="/tags/Agent/" rel="tag"><i class="fa fa-tag"></i> Agent</a>
+              <a href="/tags/Harness/" rel="tag"><i class="fa fa-tag"></i> Harness</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/06/16/AI/claude%E5%8E%9F%E7%90%86/" rel="prev" title="Claude原理">
+                  <i class="fa fa-chevron-left"></i> Claude原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">晋ICP备 - 20007839号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hynis</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">19:27</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>
