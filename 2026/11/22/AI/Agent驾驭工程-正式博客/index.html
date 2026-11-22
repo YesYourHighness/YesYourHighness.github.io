@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://img.yesmylord.cn//agent-system-architecture.png">
 <meta property="og:image" content="https://img.yesmylord.cn//agent-dual-loop.png">
 <meta property="article:published_time" content="2026-11-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-22T11:12:27.802Z">
+<meta property="article:modified_time" content="2026-11-22T11:25:32.378Z">
 <meta property="article:author" content="Hynis">
 <meta property="article:tag" content="Agent">
 <meta property="article:tag" content="Harness">
@@ -157,7 +157,7 @@
 
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agent-%E9%A9%BE%E9%A9%AD%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Agent 驾驭工程学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E-Agent-%E5%88%B0-Harness"><span class="nav-number">1.1.</span> <span class="nav-text">一、是什么：从 Agent 到 Harness</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#APP-%E4%B8%8E-Agent-%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">APP 与 Agent 有什么不同？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4-LLM-%E6%98%AF%E2%80%9C%E9%80%9A%E7%94%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E2%80%9D%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">为什么说 LLM 是“通用运行时”？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%8E%E6%A0%B7%E8%BF%90%E8%BD%AC%EF%BC%9A%E5%A4%96%E5%B1%82%E7%AE%A1%E8%BF%9B%E5%BA%A6%EF%BC%8C%E5%86%85%E5%B1%82%E7%AE%A1%E8%B4%A8%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">二、怎样运转：外层管进度，内层管质量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E6%8E%A7%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%9B%9B%E6%AD%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">操控循环的四步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E5%B1%82%E5%BE%AA%E7%8E%AF%E7%AD%89%E4%BA%8E%E5%A4%9A-Agent-%E5%90%97%EF%BC%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">两层循环等于多 Agent 吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E6%96%AD%E5%9E%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">推断型控制与计算型控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%80%8E%E6%A0%B7%E8%90%BD%E5%9C%B0%EF%BC%9A%E5%9B%9B%E4%B8%AA%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">三、怎样落地：四个子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8C%87%E4%BB%A4%EF%BC%9A%E8%A6%81%E6%B1%82%E4%B8%8E%E6%A3%80%E6%9F%A5%E6%A0%87%E5%87%86"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 指令：要求与检查标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E8%83%BD%EF%BC%9A%E8%83%BD%E5%8A%9B%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 工具与技能：能力与方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%8E%AF%E5%A2%83%EF%BC%9A%E6%89%A7%E8%A1%8C%E6%9D%A1%E4%BB%B6%E4%B9%9F%E5%BD%B1%E5%93%8D%E6%A3%80%E6%9F%A5%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 环境：执行条件也影响检查结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%8A%B6%E6%80%81%EF%BC%9A%E8%AE%A9%E4%B8%8B%E4%B8%80%E8%BD%AE%E6%9C%89%E4%BE%9D%E6%8D%AE"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 状态：让下一轮有依据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%80%8E%E6%A0%B7%E7%A8%B3%E5%AE%9A%EF%BC%9A%E5%85%AD%E9%A1%B9%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.4.</span> <span class="nav-text">四、怎样稳定：六项实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%80%8E%E6%A0%B7%E9%87%8D%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%9D%8F%E5%91%B3%E9%81%93%E6%89%BE%E5%88%B0%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">五、怎样重构：从坏味道找到缺失的机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%9C%80%E6%B1%82%E6%A8%A1%E7%B3%8A%EF%BC%9A%E6%8A%8A%E2%80%9C%E6%88%91%E8%A6%81%E4%BB%80%E4%B9%88%E2%80%9D%E5%86%99%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E8%A6%81%E6%B1%82"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 需求模糊：把“我要什么”写成可执行要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%9A%90%E5%BC%8F%E7%BA%A6%E5%AE%9A%EF%BC%9A%E6%8A%8A%E2%80%9C%E5%86%B2%E7%AA%81%E6%97%B6%E9%80%89%E4%BB%80%E4%B9%88%E2%80%9D%E5%86%99%E6%88%90%E5%8E%9F%E5%88%99"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 隐式约定：把“冲突时选什么”写成原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BF%A1%E6%81%AF%E6%95%A3%E8%90%BD%EF%BC%9A%E8%AE%A9%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. 信息散落：让仓库知识知道自己从哪里来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%99%9A%E5%81%87%E8%83%9C%E5%88%A9%EF%BC%9A%E8%AE%A9%E5%AE%8C%E6%88%90%E5%88%A4%E6%96%AD%E7%A6%BB%E5%BC%80%E6%89%A7%E8%A1%8C%E8%80%85"><span class="nav-number">1.5.4.</span> <span class="nav-text">4. 虚假胜利：让完成判断离开执行者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-number">1.7.</span> <span class="nav-text">资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-amp-A%EF%BC%9AAgent-%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E4%B8%8E%E6%88%91%E7%9A%84%E5%9B%9E%E7%AD%94"><span class="nav-number">1.8.</span> <span class="nav-text">Q&amp;A：Agent 面试问题与我的回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%9E%B6%E6%9E%84"><span class="nav-number">1.8.1.</span> <span class="nav-text">一、概念与架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A7%84%E5%88%92%E4%B8%8E%E6%89%A7%E8%A1%8C%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.8.2.</span> <span class="nav-text">二、规划与执行循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Harness%E3%80%81%E7%8A%B6%E6%80%81%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="nav-number">1.8.3.</span> <span class="nav-text">三、Harness、状态与恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B7%A5%E5%85%B7%E3%80%81MCP-%E4%B8%8E-Skill"><span class="nav-number">1.8.4.</span> <span class="nav-text">四、工具、MCP 与 Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%AE%B0%E5%BF%86%E4%B8%8E-RAG"><span class="nav-number">1.8.5.</span> <span class="nav-text">五、记忆与 RAG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%A4%9A-Agent-%E5%8D%8F%E4%BD%9C"><span class="nav-number">1.8.6.</span> <span class="nav-text">六、多 Agent 协作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%AF%84%E6%B5%8B%E3%80%81%E5%9B%9E%E5%BD%92%E4%B8%8E%E5%AE%89%E5%85%A8"><span class="nav-number">1.8.7.</span> <span class="nav-text">七、评测、回归与安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E9%A1%B9%E7%9B%AE%E6%B7%B1%E6%8C%96"><span class="nav-number">1.8.8.</span> <span class="nav-text">八、项目深挖</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agent-%E9%A9%BE%E9%A9%AD%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Agent 驾驭工程学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E-Agent-%E5%88%B0-Harness"><span class="nav-number">1.1.</span> <span class="nav-text">一、是什么：从 Agent 到 Harness</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#APP-%E4%B8%8E-Agent-%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">APP 与 Agent 有什么不同？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4-LLM-%E6%98%AF%E2%80%9C%E9%80%9A%E7%94%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E2%80%9D%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">为什么说 LLM 是“通用运行时”？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%8E%E6%A0%B7%E8%BF%90%E8%BD%AC%EF%BC%9A%E5%A4%96%E5%B1%82%E7%AE%A1%E8%BF%9B%E5%BA%A6%EF%BC%8C%E5%86%85%E5%B1%82%E7%AE%A1%E8%B4%A8%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">二、怎样运转：外层管进度，内层管质量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E6%8E%A7%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%9B%9B%E6%AD%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">操控循环的四步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E5%B1%82%E5%BE%AA%E7%8E%AF%E7%AD%89%E4%BA%8E%E5%A4%9A-Agent-%E5%90%97%EF%BC%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">两层循环等于多 Agent 吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E6%96%AD%E5%9E%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%AE%A1%E7%AE%97%E5%9E%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">推断型控制与计算型控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%80%8E%E6%A0%B7%E8%90%BD%E5%9C%B0%EF%BC%9A%E5%9B%9B%E4%B8%AA%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">三、怎样落地：四个子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8C%87%E4%BB%A4%EF%BC%9A%E8%A6%81%E6%B1%82%E4%B8%8E%E6%A3%80%E6%9F%A5%E6%A0%87%E5%87%86"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 指令：要求与检查标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%8A%80%E8%83%BD%EF%BC%9A%E8%83%BD%E5%8A%9B%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 工具与技能：能力与方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%8E%AF%E5%A2%83%EF%BC%9A%E6%89%A7%E8%A1%8C%E6%9D%A1%E4%BB%B6%E4%B9%9F%E5%BD%B1%E5%93%8D%E6%A3%80%E6%9F%A5%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 环境：执行条件也影响检查结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%8A%B6%E6%80%81%EF%BC%9A%E8%AE%A9%E4%B8%8B%E4%B8%80%E8%BD%AE%E6%9C%89%E4%BE%9D%E6%8D%AE"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 状态：让下一轮有依据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%80%8E%E6%A0%B7%E7%A8%B3%E5%AE%9A%EF%BC%9A%E5%85%AD%E9%A1%B9%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.4.</span> <span class="nav-text">四、怎样稳定：六项实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%80%8E%E6%A0%B7%E9%87%8D%E6%9E%84%EF%BC%9A%E4%BB%8E%E5%9D%8F%E5%91%B3%E9%81%93%E6%89%BE%E5%88%B0%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">五、怎样重构：从坏味道找到缺失的机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%9C%80%E6%B1%82%E6%A8%A1%E7%B3%8A%EF%BC%9A%E6%8A%8A%E2%80%9C%E6%88%91%E8%A6%81%E4%BB%80%E4%B9%88%E2%80%9D%E5%86%99%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E8%A6%81%E6%B1%82"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 需求模糊：把“我要什么”写成可执行要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%9A%90%E5%BC%8F%E7%BA%A6%E5%AE%9A%EF%BC%9A%E6%8A%8A%E2%80%9C%E5%86%B2%E7%AA%81%E6%97%B6%E9%80%89%E4%BB%80%E4%B9%88%E2%80%9D%E5%86%99%E6%88%90%E5%8E%9F%E5%88%99"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 隐式约定：把“冲突时选什么”写成原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BF%A1%E6%81%AF%E6%95%A3%E8%90%BD%EF%BC%9A%E8%AE%A9%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. 信息散落：让仓库知识知道自己从哪里来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%99%9A%E5%81%87%E8%83%9C%E5%88%A9%EF%BC%9A%E8%AE%A9%E5%AE%8C%E6%88%90%E5%88%A4%E6%96%AD%E7%A6%BB%E5%BC%80%E6%89%A7%E8%A1%8C%E8%80%85"><span class="nav-number">1.5.4.</span> <span class="nav-text">4. 虚假胜利：让完成判断离开执行者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E4%BB%8E%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E5%88%B0%E5%8F%AF%E7%94%A8%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.6.</span> <span class="nav-text">六、从运行机制到可用系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%EF%BC%9A%E6%8F%90%E5%87%BA%E5%8A%A8%E4%BD%9C%E4%B8%8E%E6%89%A7%E8%A1%8C%E5%8A%A8%E4%BD%9C%E6%98%AF%E4%B8%A4%E5%9B%9E%E4%BA%8B"><span class="nav-number">1.6.1.</span> <span class="nav-text">1. 工具调用：提出动作与执行动作是两回事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%8A%B6%E6%80%81%E4%B8%8E%E7%9F%A5%E8%AF%86%EF%BC%9A%E4%BF%9D%E5%AD%98%E8%BF%9B%E5%BA%A6%EF%BC%8C%E4%B9%9F%E4%BF%9D%E7%95%99%E8%AF%81%E6%8D%AE"><span class="nav-number">1.6.2.</span> <span class="nav-text">2. 状态与知识：保存进度，也保留证据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8D%8F%E4%BD%9C%E4%B8%8E%E8%AF%84%E6%B5%8B%EF%BC%9A%E5%88%86%E5%B7%A5%E4%B9%8B%E5%90%8E%E4%BB%8D%E8%A6%81%E7%BB%9F%E4%B8%80%E9%AA%8C%E6%94%B6"><span class="nav-number">1.6.3.</span> <span class="nav-text">3. 协作与评测：分工之后仍要统一验收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%AE%89%E5%85%A8%E4%B8%8E%E6%88%90%E6%9C%AC%EF%BC%9A%E7%BB%99%E5%BE%AA%E7%8E%AF%E8%AE%BE%E7%BD%AE%E5%8F%AF%E4%BF%A1%E8%BE%B9%E7%95%8C"><span class="nav-number">1.6.4.</span> <span class="nav-text">4. 安全与成本：给循环设置可信边界</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-number">1.8.</span> <span class="nav-text">资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-amp-A%EF%BC%9AAgent-%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E4%B8%8E%E6%88%91%E7%9A%84%E5%9B%9E%E7%AD%94"><span class="nav-number">1.9.</span> <span class="nav-text">Q&amp;A：Agent 面试问题与我的回答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%9E%B6%E6%9E%84"><span class="nav-number">1.9.1.</span> <span class="nav-text">一、概念与架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%A7%84%E5%88%92%E4%B8%8E%E6%89%A7%E8%A1%8C%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.9.2.</span> <span class="nav-text">二、规划与执行循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Harness%E3%80%81%E7%8A%B6%E6%80%81%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="nav-number">1.9.3.</span> <span class="nav-text">三、Harness、状态与恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B7%A5%E5%85%B7%E3%80%81MCP-%E4%B8%8E-Skill"><span class="nav-number">1.9.4.</span> <span class="nav-text">四、工具、MCP 与 Skill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%AE%B0%E5%BF%86%E4%B8%8E-RAG"><span class="nav-number">1.9.5.</span> <span class="nav-text">五、记忆与 RAG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%A4%9A-Agent-%E5%8D%8F%E4%BD%9C"><span class="nav-number">1.9.6.</span> <span class="nav-text">六、多 Agent 协作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%AF%84%E6%B5%8B%E3%80%81%E5%9B%9E%E5%BD%92%E4%B8%8E%E5%AE%89%E5%85%A8"><span class="nav-number">1.9.7.</span> <span class="nav-text">七、评测、回归与安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E9%A1%B9%E7%9B%AE%E6%B7%B1%E6%8C%96"><span class="nav-number">1.9.8.</span> <span class="nav-text">八、项目深挖</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -283,7 +283,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2026-11-22 00:00:00 / 修改时间：19:12:27" itemprop="dateCreated datePublished" datetime="2026-11-22T00:00:00+08:00">2026-11-22</time>
+      <time title="创建时间：2026-11-22 00:00:00 / 修改时间：19:25:32" itemprop="dateCreated datePublished" datetime="2026-11-22T00:00:00+08:00">2026-11-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,14 +309,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>13k</span>
+      <span>19k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>12 分钟</span>
+      <span>17 分钟</span>
     </span>
 </div>
 
@@ -575,7 +575,45 @@
 <p>具体做法可以分三步：先把完成条件改成可检查的指标；执行时记录原始进度，例如总数、已处理项、跳过项和原因；再让独立的验证者对照任务清单检查。计数、文件存在性、构建结果等确定性条件适合脚本；解释是否准确、文章是否有助于理解，则需要对照原文并由人或独立评审判断。验证者可以是脚本、另一位审阅者，也可以是拥有独立上下文和证据的另一个 Agent。</p>
 <p>这里还有一个边界：<strong>验证通过，只表示预先写下并实际检查的条件通过了。</strong> 如果进度文件由执行者随意填写，或者脚本只检查条数、不检查内容，仍可能出现漏项和错项。因此，最好从原始任务清单与实际产物交叉核对，必要时抽查内容。另外，“今天的学习会话结束”和“整个四周学习目标完成”是两种不同的完成判断，不应共用一个只在总掌握率达标时才会通过的检查条件。</p>
 <p>对我这篇博客，执行者可以写出四个主题的段落；验证者还需要核对四份原文是否都被覆盖、概念是否对应、图片链接是否可用、Hexo 是否能正常生成。构建通过证明页面可生成，却不能证明内容理解正确。<strong>把完成声明建立在可追溯的证据上，才是真正闭合了反馈循环。</strong></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这一阶段的主线是：<strong>用外层 PDCA 管任务进度，用内层操控循环管单项任务质量，再由四个子系统提供指令、行动能力、运行条件和连续状态</strong>。六项实践说明怎样设计这套结构；四种坏味道则让我在出错时知道该修正什么：需求、决策原则、知识来源，还是完成判断。</p>
+<h2 id="六、从运行机制到可用系统"><a href="#六、从运行机制到可用系统" class="headerlink" title="六、从运行机制到可用系统"></a>六、从运行机制到可用系统</h2><p>前面的双层循环、四个子系统和坏味道，已经能解释 Agent 为什么需要 Harness。面试题进一步追问的是：<strong>循环真正跑起来后，工具失败、上下文变长、多人协作以及安全与成本该怎么处理？</strong> 这些内容并非都来自前述课程，我把它们作为工程延伸，接到原有框架中理解。</p>
+<table>
+<thead>
+<tr>
+<th>延伸知识</th>
+<th>对应的原有位置</th>
+<th>要解决的实际问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Function Calling、MCP、Skill</td>
+<td>工具与技能</td>
+<td>模型如何提出动作，能力如何接入，方法如何复用</td>
+</tr>
+<tr>
+<td>Checkpoint、长期记忆、RAG</td>
+<td>状态与知识来源</td>
+<td>中断后如何恢复，跨任务知道什么，怎样回到证据</td>
+</tr>
+<tr>
+<td>多 Agent、评测与回归</td>
+<td>执行循环与反馈</td>
+<td>如何分工，以及怎样证明结果真的改进</td>
+</tr>
+<tr>
+<td>Prompt 注入、权限与成本</td>
+<td>环境与运行边界</td>
+<td>外部材料能否影响行动，任务何时必须停止</td>
+</tr>
+</tbody></table>
+<h3 id="1-工具调用：提出动作与执行动作是两回事"><a href="#1-工具调用：提出动作与执行动作是两回事" class="headerlink" title="1. 工具调用：提出动作与执行动作是两回事"></a>1. 工具调用：提出动作与执行动作是两回事</h3><p>Function Calling 让模型按工具描述和参数结构提出调用请求；执行器仍要检查参数、权限和业务条件，再真正调用工具，并把结果送回模型。MCP 解决的是能力连接问题：Host 承载任务，Client 与 Server 通信，Server 可以提供工具、资源和提示模板。Skill 则沉淀一类任务的做法。这三层分别回答“模型怎样提出动作”“能力怎样接进来”“任务通常怎样完成”，并不互相替代。</p>
+<p>工具的失败语义也要设计清楚。<strong>参数不合法、没有查到结果、权限拒绝、调用超时</strong>，对应的下一步并不相同。尤其是超时后的写操作，可能已经成功，也可能根本没有执行。幂等指重复执行同一动作不会产生额外副作用；对发布、提交或付款等操作，需要通过幂等键、查询外部状态或版本检查落实。把这些情况都交给模型“再试一次”，很容易把一次故障扩大成重复操作。</p>
+<h3 id="2-状态与知识：保存进度，也保留证据"><a href="#2-状态与知识：保存进度，也保留证据" class="headerlink" title="2. 状态与知识：保存进度，也保留证据"></a>2. 状态与知识：保存进度，也保留证据</h3><p>Checkpoint 保存一次执行的精确状态，供暂停和恢复；长期记忆保存跨任务仍有用的偏好或知识；RAG 则从外部材料中检索当前问题需要的证据。三者的对象不同。对博客来说，“文章写到哪里、哪张图已上传”是任务进度；“图片只存 PicGo 远端链接”是相对稳定的偏好；课程 PDF 的具体观点必须回到原文，不能因为模型曾经总结过就当成事实。</p>
+<p>RAG 的基本链路是切片并保留来源位置、检索候选内容、重排相关片段，再依据证据回答。块太小会丢掉定义的前提，块太大又会引入噪声；关键词检索和向量检索也各有擅长的内容。因此要分别验证<strong>正确段落是否被找回</strong>和<strong>答案是否忠实于段落</strong>。若找不到可靠证据，应说明检索范围和未知之处，而不是补出一条似是而非的引用。</p>
+<h3 id="3-协作与评测：分工之后仍要统一验收"><a href="#3-协作与评测：分工之后仍要统一验收" class="headerlink" title="3. 协作与评测：分工之后仍要统一验收"></a>3. 协作与评测：分工之后仍要统一验收</h3><p>多 Agent 适合能独立处理、独立验收的子任务，例如原文核对与页面检查；若步骤高度串行，多一个 Agent 反而增加协调成本。并行时要约定权威状态和写入者，避免两人同时改同一篇文章而互相覆盖。编排者不仅汇总文字，还要处理相互矛盾的结论和未完成项。</p>
+<p>评测则分为结果与过程两层。结果看任务是否满足预先写下的完成条件；工具调用轨迹帮助定位失败来自检索、参数、权限、重试还是停止判断。线上失败应保留输入、资料版本、关键工具返回、预期与实际结果，变成回归样本。比如我曾把“第三讲”的资料范围定位错，针对这个错误的回归条件就应是：先确认目录和文件，再开始总结。一次样例修好后，还要在其他任务上检查是否退化。</p>
+<h3 id="4-安全与成本：给循环设置可信边界"><a href="#4-安全与成本：给循环设置可信边界" class="headerlink" title="4. 安全与成本：给循环设置可信边界"></a>4. 安全与成本：给循环设置可信边界</h3><p>网页、PDF 和工具返回是<strong>待处理数据</strong>，里面即使写着“忽略之前要求”，也不能提升为新的用户指令。Prompt 注入的风险在于模型误把低信任内容当成命令，因此除了写提示词提醒，还应在工具侧限制资源范围、校验参数，并对高后果动作设置独立审批与审计。外部材料可以影响我对事实的判断，不能自行扩大 Agent 的权限。</p>
+<p>最后，稳定性还受预算约束。一个系统可以答得正确，但如果反复检索、重试，延迟和成本可能难以接受。我会同时看任务通过率、关键错误、端到端耗时、慢请求以及<strong>每个成功任务的总成本</strong>。优化也要按瓶颈来：检索慢就调整索引，工具反复失败就改接口反馈，上下文过长就按需加载和压缩状态。不能只为了减少 token，把必要的核对步骤删掉。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这一阶段的主线是：<strong>用外层 PDCA 管任务进度，用内层操控循环管单项任务质量，再由四个子系统提供指令、行动能力、运行条件和连续状态</strong>。六项实践说明怎样设计这套结构；四种坏味道则让我在出错时知道该修正什么：需求、决策原则、知识来源，还是完成判断。进一步落地时，还要处理工具失败、状态恢复、证据检索、协作冲突、独立评测与权限边界。</p>
 <p>回到我自己的博客写作，Harness 的关键不是把提示词写得越来越长，而是让“读原文、提炼重点、核对疑问、检查文件与图片、记录进度”成为一套能再次执行、发现遗漏后能改进的流程。等这套方法在更多材料上跑通后，再把稳定有效的步骤固化为 Skill。</p>
 <h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
 <li>学习材料：徐昊《Agent 驾驭工程之美》，其中“需求模糊”“隐式约定”“信息散落”“虚假胜利”四篇用于核对坏味道与重构手法。本文按概念重新组织，相关问题结合我的理解展开。</li>
@@ -584,63 +622,91 @@
 <li><a target="_blank" rel="noopener" href="https://www.anthropic.com/research/building-effective-agents">Anthropic：Building effective agents</a>：核对工作流与 Agent 的区分。</li>
 <li><a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2026-07-28">Model Context Protocol 规范</a>、<a target="_blank" rel="noopener" href="https://agentskills.io/specification">Agent Skills 规范</a>：核对工具协议与技能的边界。</li>
 <li><a target="_blank" rel="noopener" href="https://deming.org/explore/pdsa/">Deming Institute：PDSA Cycle</a>：核对 PDCA 与 PDSA 的历史关系。</li>
+<li><a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/function-calling">OpenAI Function Calling 文档</a>、<a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/persistence">LangGraph 持久化文档</a>：核对工具调用与状态恢复机制。</li>
+<li><a target="_blank" rel="noopener" href="https://www.anthropic.com/research/contextual-retrieval">Anthropic：Contextual Retrieval</a>、<a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/agent-evals">OpenAI Agent Evals</a>、<a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/agents/guardrails-approvals">工具审批文档</a>：核对检索、评测和权限边界。</li>
 </ul>
 <h2 id="Q-amp-A：Agent-面试问题与我的回答"><a href="#Q-amp-A：Agent-面试问题与我的回答" class="headerlink" title="Q&amp;A：Agent 面试问题与我的回答"></a>Q&amp;A：Agent 面试问题与我的回答</h2><p>下面的问题根据<a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/917353328109944832">牛客网的 Agent 面经</a>和<a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/930796688640397312">工程题单</a>重新组织，并非逐字记录某场面试。回答以本文的 Harness 视角为主；遇到具体框架或协议时，以文档和版本为准。</p>
 <h3 id="一、概念与架构"><a href="#一、概念与架构" class="headerlink" title="一、概念与架构"></a>一、概念与架构</h3><p><strong>Q1：Agent 与普通 LLM 问答、固定 Workflow 的区别是什么？</strong></p>
 <p>答：在本文讨论的 LLM Agent 中，我用 <code>LLM + Harness</code> 概括它：LLM 负责理解目标，以及难以预先写成规则的推理和决策；Harness 把指令、工具、状态与检查组织起来，将权限、格式、文件是否存在、构建是否通过等可形式化的<strong>计算型控制</strong>固化为程序。相比普通 LLM 问答，Agent 能根据工具返回的环境信息继续行动，并通过外部检查提高结果的可靠性，但不能因此保证每次回答都正确。</p>
 <p>相比固定 Workflow，关键区别是<strong>运行时由谁决定下一步</strong>。固定 Workflow 的路径主要由工程师预设，即使其中某一步调用了 LLM；Agent 则由 LLM 在既定目标、工具和边界内，根据行动后的观察动态选择路径。LLM 可以推进推理型控制的循环，但完成条件和结果验收不能只靠它自称“做完了”。另外，跨新对话延续进度依赖持久状态；重复执行不产生额外副作用才叫幂等，还需要对写入、发布等动作单独设计，不能由 <code>LLM + Harness</code> 这个公式自动保证。</p>
 <p><strong>Q2：一个 Agent 系统有哪些核心部分？</strong></p>
-<p>答：从职责看，需要模型理解和决策，执行循环推动任务，指令说明目标与约束，工具连接外部环境，状态保存进度，检查机制判断结果。权限和可观测性也会影响能否可靠使用。<code>LLM + Harness</code> 是理解这些职责的简写，并非要求每套系统都有同名模块；长期记忆和多 Agent 也不是定义要件。</p>
+<p>答：我会从<strong>决策、执行、状态、验证</strong>四条线解释。LLM 根据目标和当前观察推断下一步；执行器组织循环，调用工具，并处理错误、超时和停止条件；指令、外部知识与持久状态分别提供约束、事实和已完成进度；验证器根据可观察的产物判断结果是否满足目标。工具接入和权限边界由 Harness 管理，运行轨迹则让问题可以定位和复盘。</p>
+<p>这样拆分比背诵某个框架的组件名更稳妥：最小的 Agent 可以只有一个模型、少量工具和一个执行循环；长任务才需要 checkpoint、长期记忆或多 Agent。<code>LLM + Harness</code> 是职责上的概括，不是说加上框架就自动具备可靠性。以博客写作为例，模型负责解释概念，文件与构建工具负责实际操作，文章清单、来源核对和页面检查负责验收。</p>
 <p><strong>Q3：什么任务值得交给 Agent？</strong></p>
-<p>答：当目标清楚、过程需要根据新信息选择步骤，而且每一步都能取得足够可靠的反馈时，Agent 才有发挥空间。若步骤完全固定，我会先考虑普通程序或工作流；若结果无法验证或行动风险很高，就先缩小 Agent 的自主范围。是否引入它，要用成功率、成本、延迟和风险一起衡量。</p>
+<p>答：我先看任务的<strong>路径是否可预设</strong>。若输入、步骤和异常分支都明确，普通程序或固定 Workflow 通常更容易测试、成本也更稳定；若任务必须边读资料边决定查什么、修改什么、何时停止，Agent 才有价值。第二步看它能否观察真实结果，例如检索来源、读取文件、运行测试，而不是只让模型凭感觉判断成功。第三步看误操作的影响，给写入、删除、发布等动作设置权限和验收边界。</p>
+<p>例如批量把固定字段转成另一种格式，适合脚本；整理一组内容不齐、相互矛盾的课程资料，并按缺口追查原文，适合 Agent 参与。面试时我会说明评估依据：同一批任务的完成率、人工复核量、端到端延迟和每个成功任务的成本。<strong>任务复杂不等于一定需要 Agent</strong>，核心是动态决策能否带来可测量的收益。</p>
 <h3 id="二、规划与执行循环"><a href="#二、规划与执行循环" class="headerlink" title="二、规划与执行循环"></a>二、规划与执行循环</h3><p><strong>Q4：ReAct 怎样运行？</strong></p>
-<p>答：它把推理、行动和观察串成循环：模型根据当前信息提出下一步，外部系统执行工具调用，把结果作为观察送回模型，再决定继续或结束。模型提出调用并不等于它亲自执行了工具。我的理解是，ReAct 给出了行动闭环的基本形态，实际系统还要补上权限、错误处理、状态保存和验收。</p>
+<p>答：ReAct 的核心是把<strong>推理、行动、观察</strong>交替进行。模型依据当前目标和已有观察选择一个动作，例如检索文档；Harness 校验并执行工具调用；工具返回的片段、错误或空结果成为下一轮观察；模型据此继续检索、调整答案或停止。模型生成的是调用意图，文件读取、网络请求等动作仍由外部系统完成。</p>
+<p>它解决的是“不能只在脑中推断，还要到环境里找证据”的问题，但观察本身也可能不完整或不可信。因此实际实现还要限制轮次与费用、区分工具错误和业务无结果、保存关键状态，并用独立的完成条件验收。比如回答一篇 PDF 的观点，找到一段相关文本只是观察；核对章节和引用位置后，才有依据说这个回答覆盖了问题。ReAct 原论文给出的是基本范式，生产系统仍需这些工程约束。</p>
 <p><strong>Q5：ReAct 与 Plan-and-Execute 如何选择？</strong></p>
-<p>答：信息变化快、需要边探索边决定时，逐步行动并观察更合适；任务可先拆出稳定的阶段时，可以先规划再逐项执行。两者可以结合：外层保留阶段计划，内层对当前任务使用行动与观察循环。计划不能代替真实反馈，观察也不意味着完全不需要计划。</p>
+<p>答：ReAct 偏向<strong>走一步、看一步</strong>，适合信息不充分且每次工具结果会改变下一步的场景；Plan-and-Execute 先把目标拆成阶段，再逐项执行，适合依赖关系比较稳定的长任务。后者的计划是当前假设，不应被当作无条件执行的清单：遇到资料不存在、步骤失败或用户改目标时，需要重新规划。</p>
+<p>我的博客流程可以结合两者：外层计划是“读资料、整理结构、写文章、核对来源、构建与发布”；内层处理某个概念时，用检索或读 PDF 的观察结果决定是否继续查证。选型不是哪个名词更高级，而是比较<strong>规划成本、工具调用次数、错误恢复能力与任务完成率</strong>。过度逐步探索容易慢且循环；一次性计划过细则容易在早期假设错误后一路执行下去。</p>
 <p><strong>Q6：怎样避免 Agent 死循环或过早结束？</strong></p>
-<p>答：同时设置<strong>完成条件</strong>和<strong>运行边界</strong>：前者用产物、覆盖率或独立检查判断是否做完，后者限制轮次、时间、费用和重复失败次数。每轮记录目标、动作和结果；连续几轮没有进展时，换策略、报告阻塞或请人判断。达到轮次上限只能说明该停下检查，不能自动宣称任务成功。</p>
+<p>答：我会分开设计<strong>成功条件、进展判断和资源上限</strong>。成功条件来自任务本身，例如指定文件存在、必需章节齐全、构建成功且引用可追溯；进展判断看最近几轮是否新增证据、解决了哪个子问题；资源上限限制步数、时间、token、费用和同类错误的重试次数。三者不能混用：跑满上限是停止原因，不是完成证据。</p>
+<p>死循环常见于反复调用同一工具却得到相同结果，或者模型反复改写计划却没有产生新产物。Harness 可以记录动作签名和结果，发现重复失败后要求换查询、换工具或报告阻塞。过早结束则用独立的验收清单防止，例如还有三篇资料未读，就不能因为文章已经“看起来完整”而收工。必要时把无法判断的部分交给人，而不是让 Agent 自行宣布成功。</p>
 <h3 id="三、Harness、状态与恢复"><a href="#三、Harness、状态与恢复" class="headerlink" title="三、Harness、状态与恢复"></a>三、Harness、状态与恢复</h3><p><strong>Q7：Harness 到底管理什么？</strong></p>
-<p>答：我把它理解成围绕模型的工作系统：准备上下文和指令，暴露受控工具，执行行动循环，保存状态，收集反馈，处理停止与异常。针对具体业务，还要给出任务规则、知识、环境和验收方式。因此，Harness 既包含通用运行机制，也包含针对目标的外部配置与流程。</p>
+<p>答：Harness 是把模型能力变成可执行流程的外部系统。我会按一次运行的顺序理解它：装配目标、指令与相关上下文；向模型暴露有权限边界的工具；解析模型提出的动作并执行；把真实结果送回循环；保存状态和轨迹；在完成、失败、超限或需要人处理时停止。业务侧还要配置资料来源、任务清单和验收标准。</p>
+<p>其中值得强调的是<strong>模型负责推断，Harness 负责兑现和约束</strong>。比如模型说“图片已上传”，Harness 还需拿到 PicGo 的远端地址，检查 Markdown 只写链接，并确认构建页面能加载。不同框架对 Harness 的命名和覆盖范围可能不同，面试时最好讲清职责、边界和一条真实的执行链路，而不只报组件名。</p>
 <p><strong>Q8：长任务怎样保存进度、压缩上下文并在中断后恢复？</strong></p>
-<p>答：先给任务一个稳定标识，把计划、已完成步骤、实际产物和待处理问题写进持久状态。压缩对话时保留关键约束、来源和未完成项，不能只留下“已经处理好了”的摘要。恢复后从状态与产物核对上一个动作是否生效，再继续；对外部写操作还要考虑重复执行，必要时使用幂等键或先查后写。</p>
+<p>答：长任务不能只依赖越来越长的聊天记录。我会给一次运行稳定的任务 ID，并持久化目标、当前计划、已完成步骤、原始产物位置、待解决问题、上次工具调用及其结果。上下文压缩时，保留会影响后续决策的约束与来源，丢弃可重新读取的冗长中间文本；摘要里要区分“已验证的事实”和“尚待核对的判断”。</p>
+<p>恢复时先读取 checkpoint，再检查实际文件、远端服务或任务清单，判断中断前最后一个动作究竟有没有生效。因为“调用已发出”不等于“结果已确认”，写入或发布还需要幂等键、版本检查或先查后写，避免重试造成重复副作用。以博客为例，恢复时应核对文章当前内容和构建结果，再决定是否继续编辑或部署；不能仅凭摘要中的“博客已完成”跳过验收。</p>
 <p><strong>Q9：Checkpoint 与长期记忆有什么区别？</strong></p>
-<p>答：Checkpoint 保存<strong>某次执行走到了哪里</strong>，用于暂停、恢复或回看；长期记忆保存<strong>跨任务仍有用的信息</strong>，例如用户偏好或稳定知识。一个任务的临时步骤不该无筛选地变成长期记忆，而长期记忆也不能代替恢复任务所需的精确状态。以 LangGraph 为例，前者由 checkpointer 管理线程状态，后者可由 store 保存跨线程数据。</p>
+<p>答：Checkpoint 面向<strong>一次运行的连续性</strong>，记录某个线程或任务当时的状态，便于中断恢复、回看和必要时回退；长期记忆面向<strong>跨任务复用</strong>，保存稳定偏好、领域知识或经过筛选的经验。二者生命周期和更新规则不同：某次工具调用的临时参数可能必须进入 checkpoint，却不值得永久记住；用户一直要求博客图片只能放 PicGo 链接，则可以作为后续写作的稳定约束。</p>
+<p>以 LangGraph 为例，checkpointer 按 thread 保存执行状态，store 可以保存跨 thread 可读取的数据。但“写到 store”不是记忆质量的保证，还需来源、更新时间、纠错与删除机制。面试时我会补充隔离边界：不同用户的长期记忆不能串用，敏感信息不能因为方便恢复就无期限保存。</p>
 <h3 id="四、工具、MCP-与-Skill"><a href="#四、工具、MCP-与-Skill" class="headerlink" title="四、工具、MCP 与 Skill"></a>四、工具、MCP 与 Skill</h3><p><strong>Q10：Function Calling 从模型提出调用到得到最终回答，链路是什么？</strong></p>
-<p>答：应用先提供工具名称、描述和参数结构；模型返回工具名、参数及调用标识；应用验证参数、权限和业务条件后执行工具；再把成功结果或错误按调用标识回填，模型据此继续。<strong>工具调用是模型提出的请求，真正执行和授权在应用侧。</strong> 不能把模型生成的参数直接当成可信命令。</p>
+<p>答：完整链路是：应用把可用工具的名称、用途和参数 schema 交给模型；模型决定是否调用，并返回工具名、参数和调用标识；应用解析结构化参数，执行 schema、权限和业务校验，再调用真实工具；工具结果按调用标识返回模型，模型继续判断或输出最终回答。可能存在连续调用或并行调用，应用要保证每个结果与原调用正确对应。</p>
+<p>这里的安全边界在<strong>应用侧</strong>。schema 约束能减少参数形状错误，却不能证明“删除这个文件”在业务上被授权，也不能保证模型选择了正确工具。工具描述要写清能力、限制、失败语义与副作用；返回值要让模型能区分空结果、调用失败和权限拒绝。对于写入类动作，还要记录调用标识、实际结果和重试策略。我的理解是，Function Calling 解决了“如何提出结构化动作”，并没有替应用完成执行、验收和风险控制。</p>
 <p><strong>Q11：MCP Client 怎样发现并调用工具？</strong></p>
-<p>答：MCP 中，Host 是使用模型的应用，Client 负责与 Server 通信，Server 暴露工具、资源或提示模板。Client 获取可用能力的描述，Host 再把相关能力交给模型选择；调用工具时由 Client 向 Server 发请求并返回结果。具体发现流程和传输细节随协议版本变化，面试时应说明自己使用的版本，不把旧版本的握手流程当成永恒规则。</p>
+<p>答：MCP 把能力提供方和使用方分开。<strong>Host</strong> 是承载用户任务与模型的应用；Host 为连接到的每个 <strong>Server</strong> 建立对应的 <strong>Client</strong>；Server 可以提供 tools、resources 和 prompts。连接建立后，双方按协议协商能力；Client 可列出 Server 提供的工具及其参数描述，Host 再决定哪些能力可暴露给模型。模型选择工具后，由 Host/Client 发出调用，Server 执行并返回结果。</p>
+<p>面试时我会进一步区分三个对象：tool 用来执行动作，resource 用来提供可读取的上下文，prompt 是可复用的提示模板。<strong>能发现工具不等于应该调用工具</strong>，Host 仍需控制可见范围、用户授权和结果处理。stdio 与 HTTP 等传输只改变连接方式，不改变这条职责链。协议字段和初始化细节可能随版本变化，实际实现应以所用版本的规范为准。</p>
 <p><strong>Q12：MCP 与 Skill 分别解决什么问题？</strong></p>
-<p>答：MCP 主要标准化<strong>如何连接外部能力和数据</strong>；Skill 主要包装<strong>完成某类任务的方法</strong>，通常用 <code>SKILL.md</code> 写触发条件、步骤和相关资源，也可附带脚本。一个 Skill 可以调用 MCP 工具，也可以使用本地工具；一个 MCP Server 也可以提供多个工具。写了 Skill 不代表自动获得工具权限。</p>
+<p>答：我用“<strong>能力接口</strong>”和“<strong>任务方法</strong>”区分。MCP 规定应用如何发现、调用外部工具，以及读取资源和提示模板；Skill 则说明遇到某类任务时应该如何做，通常由 <code>SKILL.md</code>、参考材料和脚本组成。比如 PicGo 上传或读取 PDF 可以是工具能力；“先核对原文，再写学习笔记，最后构建并检查图片链接”是一套写博客的方法，可以沉淀为 Skill。</p>
+<p>它们可以组合，但不是一对一关系。一个 Skill 可以使用本地命令、MCP 工具或两者；一个 MCP Server 可以提供多个能力，被不同 Skill 复用。Skill 文件写了“允许发布”也不代表拥有发布权限，真正的访问控制仍由 Host、工具和运行环境执行。选择时先问缺的是<strong>连接能力</strong>还是<strong>可复用流程</strong>，这样不会把所有问题都归结为新增 MCP Server。</p>
 <p><strong>Q13：工具参数错误、超时或调用失败怎么办？</strong></p>
-<p>答：参数先按 schema 和业务规则校验，错误要带可定位的信息返回；超时应区分“确定未执行”和“结果未知”。对只读或已证明幂等的调用可以有限重试；发邮件、付款、写数据库等有副作用的动作，要先查询实际结果或用幂等键，不能盲目重试。失败次数达到边界后，记录状态并交给人处理。</p>
+<p>答：先把失败分类，处理策略才不会混乱。<strong>参数错误</strong>应由 schema 与业务规则拦截，返回具体字段及原因，让模型修正一次；<strong>权限拒绝</strong>不是网络故障，不应通过改写参数绕过；<strong>空结果</strong>表示调用成功但没有查到内容，可能需要换查询；<strong>超时</strong>则要判断外部动作是否已经生效。工具结果最好有明确状态、错误码和可读信息，避免把异常文本误当成正常数据。</p>
+<p>只读或确认幂等的调用可以有限次重试，并设置退避和总预算。对发邮件、付款、提交代码或部署等有副作用的动作，超时后先查外部状态，或通过幂等键避免重复执行；若结果仍未知，应保留“待确认”状态并交给人处理。这样既能恢复偶发故障，也不会把一次失败扩散成多次真实操作。</p>
 <h3 id="五、记忆与-RAG"><a href="#五、记忆与-RAG" class="headerlink" title="五、记忆与 RAG"></a>五、记忆与 RAG</h3><p><strong>Q14：短期记忆和长期记忆如何存储、更新、纠错？</strong></p>
-<p>答：短期记忆服务当前任务，可以是会话历史、摘要和任务状态；长期记忆只保存跨会话仍可能复用的事实或偏好。写入前要筛选，保存来源与更新时间；召回时按当前任务需要取用。发现错误时应更新或删除原记录，避免旧内容继续被检索出来；不能把模型的一次猜测当成长期事实。</p>
+<p>答：短期记忆解决“这次任务进行到哪里”，可以由消息历史、当前摘要、checkpoint 和未完成清单组成；长期记忆解决“下次任务还需要知道什么”，例如稳定的写作偏好、项目约定和经过确认的领域知识。它们都不等于把所有聊天原文存进向量库。写入时要判断信息是否可复用、是否得到证实、是否包含敏感内容，并附上来源、时间和适用范围。</p>
+<p>召回时按当前任务筛选相关记录，避免把无关旧偏好塞满上下文；使用前还要看是否过期、是否与本次明确要求冲突。纠错不只是补充一条新记录，还要更新或删除旧记录，避免检索时新旧答案同时出现。对我的博客而言，“图片只存远端链接”是较稳定的偏好；“第三讲已读完第几页”则是任务状态，不该混入长期记忆。</p>
 <p><strong>Q15：RAG 中怎样切片、召回与重排？</strong></p>
-<p>答：先按标题、段落或语义边界切片，并保留文档名、版本和位置；检索可结合关键词与向量召回，再用重排筛出最相关且有上下文的片段，最后让模型依据片段回答并标明来源。块太小会丢上下文，太大则可能引入无关信息。参数没有通用最佳值，要分别评测检索是否召回正确材料、答案是否忠实使用材料。</p>
+<p>答：我会把 RAG 拆成<strong>建索引、检索、生成、评测</strong>。建索引时尽量沿标题和自然段切片，必要时设置少量重叠，并保存文档名、章节、页码、版本及访问权限。检索时可结合关键词匹配和向量相似度，再用重排模型挑选与问题最相关的片段；生成时要求回答紧扣证据，给出能回到原文的位置。</p>
+<p>切片太小，定义和条件可能被拆开；太大，相关内容会被噪声淹没。关键词检索擅长精确术语，向量检索擅长语义近似，重排则负责对候选结果做更细的相关性判断。但这些环节都不能代替评测：先测正确段落是否被召回，再测答案是否忠实于段落，最后看用户问题是否真正得到解决。我的 PDF 学习场景尤其要保留页码，便于回查，而不是只存一个无法定位的文本块。</p>
 <p><strong>Q16：检索不到可靠证据时怎么办？</strong></p>
-<p>答：先区分“资料里没有”和“检索没找到”：可以改写查询、检查索引、扩大检索范围；仍找不到时明确说证据不足，并说明查过的范围。需要外部搜索或询问用户时，遵守任务权限和来源要求。不能为了交付完整答案而编造引用。</p>
+<p>答：首先不要把一次检索为空直接解释为“资料没有”。我会检查关键词、同义词、实体名称和查询范围，确认相关文件已入索引、版本正确、权限允许访问；必要时用关键词检索、扩展召回或直接回到原文目录。还要看检索片段是否只有结论而缺少前提条件，避免把不完整证据当作完整答案。</p>
+<p>若仍找不到，回答应明确区分“我查过的材料范围内没有证据”和“这个事实不存在”。涉及外部时效性知识，可以根据任务权限搜索更新的来源，并标注来源和日期；若只能依据限定资料，就说明证据不足并保留问题。<strong>可核查的未知，比编造一个看似完整的引用更有价值。</strong></p>
 <h3 id="六、多-Agent-协作"><a href="#六、多-Agent-协作" class="headerlink" title="六、多 Agent 协作"></a>六、多 Agent 协作</h3><p><strong>Q17：为什么选择多 Agent，而不是单 Agent 或固定工作流？</strong></p>
-<p>答：当子任务能独立执行、各自有不同能力或需要并行时，多 Agent 才可能提升效果或速度。它同时增加通信、状态同步、成本和冲突处理的复杂度。我会先用单 Agent 或清晰的工作流建立基线，再比较多 Agent 是否在真实任务上带来可测量的改进。</p>
+<p>答：多 Agent 值得考虑的前提是子任务确实能分开，例如一边核对课程原文，一边检查文章结构，最后由一个编排者合并；或者不同子任务需要不同工具、权限和上下文。并行执行有机会缩短耗时，独立审阅也可能发现单 Agent 的盲点，但额外的通信、上下文复制、结果合并与冲突解决会增加成本。</p>
+<p>因此我会先拿单 Agent 或固定工作流做基线，再用同一批任务比较完成率、延迟、token 成本和错误类型。如果任务高度串行，后一步必须等待前一步的发现，那么增加 Agent 可能只会增加协调开销。<strong>多 Agent 是架构选择，不是能力越多越可靠的结论。</strong></p>
 <p><strong>Q18：多 Agent 的任务怎样分配？</strong></p>
-<p>答：每个任务要说清输入、目标、可用工具、交付物、完成条件和负责人。编排者处理依赖与汇总，执行者只在授权范围内行动；交付时带上证据和未解决问题。分工依据应是可独立验收的责任边界，而不是简单把一个任务平均切成几段。</p>
+<p>答：任务分配要围绕<strong>可独立验收的交付物</strong>，而不是把一段提示词平均分给几个人。编排者先识别依赖关系，再给每个 Agent 明确输入资料、目标、允许使用的工具、输出格式、验收条件和超时处理。执行者交付时不仅给结论，还要给证据位置、已做的检查和未解决问题；编排者负责去重、解决冲突并做最终验收。</p>
+<p>例如整理博客时，可以让一个角色提炼课程观点，另一个核对概念与引用，最后由主执行者统一口吻并构建页面。但如果两人同时改同一 Markdown 文件，就需要指定唯一写入者或先各自产出补丁，否则很容易互相覆盖。多 Agent 的关键是责任边界和汇总机制，不是角色名称是否丰富。</p>
 <p><strong>Q19：共享状态冲突和失败恢复怎样处理？</strong></p>
-<p>答：先确定哪份状态是权威记录，以及谁有写入权。并行写同一对象时可使用版本号、比较并交换、事务或串行提交，避免后写覆盖先写；关键外部动作要记录调用标识并考虑幂等。恢复时读取 checkpoint 与实际产物交叉核对，不能仅凭“上一步已运行”的日志推断副作用一定成功。</p>
+<p>答：先确定<strong>权威状态</strong>和写入所有权。并行 Agent 可以读同一份任务清单，但不要默认允许它们直接覆盖同一文件或数据库记录。对共享对象，可用版本号和比较并交换拒绝过期写入，也可以通过事务或单一提交者串行合并。合并时还要处理语义冲突：两份文字都能成功写入，不代表观点彼此兼容。</p>
+<p>失败恢复则是另一个问题。Checkpoint 说明执行器保存到哪里，外部系统的实际副作用仍需查询确认；关键动作应记录调用标识、请求参数和返回状态，并设计幂等或补偿流程。比如部署超时，先检查远端提交和公开页面，再决定是否重试。仅凭日志写着“已调用部署”就继续下一步，可能漏部署；盲目再部署又可能产生重复提交。</p>
 <h3 id="七、评测、回归与安全"><a href="#七、评测、回归与安全" class="headerlink" title="七、评测、回归与安全"></a>七、评测、回归与安全</h3><p><strong>Q20：Agent 的任务成功率怎么定义？</strong></p>
-<p>答：先固定任务集合和每项的完成定义，再由独立规则或审阅者判定每项是否通过；成功率就是通过任务数除以总任务数。还应记录失败类型、覆盖率和不同难度任务的表现。不能只统计模型自称“完成”的次数，也不能用一套指标代替所有业务目标。</p>
+<p>答：成功率的分母应是<strong>事先定义的任务集合</strong>，分子是经独立验收真正完成的任务数，不能用 Agent 自称“已完成”的次数。先为每项任务写明输入、可用资料、允许的动作与完成标准，再确定判定方式：文件存在和测试通过可由程序判断；概念解释是否准确、文章是否忠于原文，可能需要人工标注或经过校准的评审。部分完成、超时和需人工接管也要单独记录，不能含混地并入成功。</p>
+<p>我还会按任务类型和难度分层，报告置信区间或至少给出样本量，否则“10 次成功 9 次”很难说明真实稳定性。成功率之外应看遗漏率、严重错误率、人工接管率与成本。对于博客任务，“Hexo 构建通过”只是一个子条件；若关键观点写错，整项任务仍不能算通过。</p>
 <p><strong>Q21：评测只看最终答案，还是检查工具调用轨迹？</strong></p>
-<p>答：两者都看。最终产物回答“结果有没有达标”，轨迹帮助定位“为什么成功或失败”，包括工具选择、参数、遗漏步骤、重试与副作用。轨迹漂亮不代表结果正确；结果偶然正确也不说明执行过程可靠。对具有风险的动作，还要单独检查是否越权。</p>
+<p>答：<strong>结果评测</strong>回答任务是否完成，<strong>轨迹评测</strong>解释完成过程是否可靠。最终答案或产物需要对照任务要求和原始证据；轨迹则记录模型选择的工具、参数、工具响应、重试、停止原因和外部副作用。若答案错了，轨迹能帮助区分是检索没召回、模型读错证据、工具报错被忽略，还是完成条件设计得太弱。</p>
+<p>不能用“轨迹看起来合理”替代结果验收，也不能只凭一次结果正确就认可过程。例如一次越权读取恰好给出了正确答案，依然是失败。对写入、删除、发布等动作，要增加权限与审计检查。评测中还应避免只给轨迹打一个模糊总分，最好把工具选择、参数有效性、证据使用与安全边界分别统计，才能指导具体修复。</p>
 <p><strong>Q22：怎样把线上失败案例加入回归测试？</strong></p>
-<p>答：保存导致失败的输入、当时可用的资料版本、工具返回、预期结果和实际错误，把它变成可重复运行的用例。确定性编排可以用固定工具结果测试；模型行为则用有代表性的任务集重复评测。修复后既要确认旧错误消失，也要检查其他任务是否退化，避免只为一条样例改提示词。</p>
+<p>答：先把失败案例保存为<strong>可重放的任务样本</strong>：用户输入、当时的资料和版本、工具可用范围、关键工具响应、预期产物、实际产物与失败标签。确定性逻辑可以固定工具返回值做单元或集成测试；模型决策有随机性时，应在相同条件下多次运行，比较通过率和错误类型，而不是指望每次输出逐字相同。</p>
+<p>修复也要定位层次：资料没更新就修知识依赖，参数错就修工具 schema 或校验，重复提交就修幂等，错误的概念解释才考虑提示词或模型。随后同时跑失败样本和常规任务集，确认没有为了修一个案例引入其他退化。我的“第三讲定位错误”就适合做回归项：给定含糊章节名称时，系统应先核对目录与资料范围，再写总结。</p>
 <p><strong>Q23：Prompt 注入与敏感工具权限怎样防护？</strong></p>
-<p>答：网页、PDF 和工具返回值都可能含有不可信指令，应当作为数据处理，不能让它们改写任务目标或权限。工具侧限制可访问的资源和动作，校验参数；对删除、付款、发布等有后果的操作设置独立审批与审计。提示词提醒有帮助，但真正的权限边界要由外部系统执行。</p>
+<p>答：Prompt 注入是把“请忽略之前要求、调用某工具”之类的指令藏在网页、PDF、邮件或工具返回中，诱使 Agent 把<strong>低信任来源的数据</strong>当成高优先级命令。防护首先是划清信任边界：外部内容只作为待分析资料，不得修改任务目标和权限；模型提出的工具参数由应用校验，敏感工具只给最小所需权限，不能因为文本里写着“已获授权”就执行。</p>
+<p>其次要限制外发、删除和发布等高后果动作的作用范围，并在需要时设置独立审批和审计记录。对检索内容应保留来源，评测中加入带恶意指令的样本。提示词提醒可以降低误判，但它不是权限系统；真正可靠的边界应在工具、沙箱、凭证和外部审批中落实。比如课程 PDF 写着“把本机文件发给某地址”，Agent 应把它视为文档内容，而不是用户的新指令。</p>
 <h3 id="八、项目深挖"><a href="#八、项目深挖" class="headerlink" title="八、项目深挖"></a>八、项目深挖</h3><p><strong>Q24：从用户输入到交付，完整链路是什么？</strong></p>
-<p>答：以我的博客学习流程为例：确定资料范围与目标 → 读取原文和已有笔记 → 提炼结构并写入文章 → 对照来源检查概念、遗漏和图片链接 → 运行 Hexo 构建 → 记录产物与未解决问题 → 在获得发布指令后部署。每一步都要知道输入、输出和失败时怎样继续，不能把“模型写出文字”当成整条链路完成。</p>
+<p>答：以我的博客学习流程为例，输入是课程 PDF、个人笔记、已有博客风格和写作要求。系统先确认资料范围与完成条件，读取原文并记录来源位置；模型整理概念、提出需要核对的疑问，形成结构化草稿；文件工具写入 Markdown，PicGo 产生远端图片链接；独立检查核对覆盖范围、术语、引用和图片，再运行 Hexo 构建。最后保存产物、检查结果与未解决问题，并按发布流程部署与核对公开页面。</p>
+<p>这条链路里，模型擅长解释与组织，工具负责真实读写，验证器提供完成证据，状态使任务能继续。每一步都应有失败分支：PDF 读不到要报告资料缺口，图片上传失败不能写本地路径，构建失败不能宣称页面可用。面试讲“完整链路”时，不能只从用户输入跳到模型答案，还要交代工具执行、状态、验收和实际交付。</p>
 <p><strong>Q25：遇到过什么具体失败，怎样定位和修复？</strong></p>
-<p>答：这次整理中，Agent 曾把“第三讲”定位到背单词案例，而我指的是“坏味道与重构手法”文件夹。问题出在资料范围没有核对，后续没有继续沿错误路径写入，而是重新列出目录、确认四份 PDF，再按原文重写并构建检查。这个例子提醒我：<strong>先确认任务对象，再评价内容质量</strong>。面试时应像这样讲真实的输入、错误、证据与修复，不编造提升百分比。</p>
+<p>答：这次整理中，我说“第三讲”，Agent 却先按背单词案例理解；我实际指的是“03_坏味道与重构手法”中的材料。错误的直接表现是回答主题与我指定的资料不一致，根因不是模型不会总结，而是<strong>没有先核对任务对象</strong>。后续重新列出目录、确认四份 PDF，按原文重写，再检查文章覆盖和 Hexo 构建结果。</p>
+<p>这件事可以沉淀成两条规则：章节名、文件名不明确时，先确认资料路径与数量；交付前按原始清单逐项核对，而不是只看文章是否通顺。它也说明“结果很像正确答案”并不可靠，因为源材料错了，后面的写作质量再好也无用。若面试官追问指标，我只能给出可核查的目录、文件和构建记录，不会编造准确率提升多少。</p>
 <p><strong>Q26：为什么选这个模型、框架和工具？</strong></p>
-<p>答：先列任务需要的能力、可接受的错误率、延迟、预算和权限边界，再用同一批任务比较候选方案。框架能省去循环、状态或观测的重复工作时再引入；确定性检查优先用程序。回答“大家都在用”不足以解释选择，最好给出比较依据和放弃其他方案的原因。</p>
+<p>答：模型选型先看任务能力，例如长文理解、工具调用稳定性、中文表达和对来源的忠实程度，再看延迟、价格、数据要求及可用性。用相同任务集比较候选模型的实际完成率和人工修正量，不能只看公开榜单。复杂推理可以交给能力更强的模型；分类、格式转换或确定性校验，若规则明确则优先用代码，必要时用较小模型处理低风险环节。</p>
+<p>框架选型要看它是否解决了现有痛点：执行循环、checkpoint、观测、审批或多 Agent 编排。如果现有流程只有少量顺序步骤，引入重框架可能增加复杂度。工具则按数据来源、权限边界与错误语义选，优先复用可验证的现有接口。面试时我会展示同一批任务下的对比依据，并坦承哪些选择只是当前环境下的权衡，而不是“这个模型或框架永远最好”。</p>
 <p><strong>Q27：怎样衡量效果、延迟和 token 成本？</strong></p>
-<p>答：效果看独立验收的任务通过率、遗漏率及关键错误；延迟看端到端耗时和慢请求分位数；成本看每个成功任务消耗的模型 token、工具调用和人工复核时间。记录各阶段指标后，再判断是检索慢、工具慢还是模型反复重试。优化目标是约束条件下的整体质量与成本，而非单独压低 token 数。</p>
+<p>答：我会按<strong>质量、时延、成本</strong>同时看。质量包括独立验收的任务通过率、关键事实错误、遗漏和人工接管；时延至少记录端到端耗时及 P50、P95，拆出模型推理、检索、外部工具和人工审批各阶段；成本除了输入、输出 token，还要算检索、工具、重复运行和人工复核。一个更有意义的指标是“每个成功任务的总成本”，因为便宜但失败率高的方案会反复重做。</p>
+<p>优化时先定位瓶颈：检索慢就检查索引和召回范围，模型反复试错就看工具描述与反馈，长上下文费用高就做按需加载和状态压缩。每次调整都要用固定任务集回归，防止省了 token 却漏掉关键证据。最终追求的是在错误风险和时延约束下取得稳定交付，而不是孤立地压低某一个数字。</p>
 <p>这组回答核对了 <a target="_blank" rel="noopener" href="https://www.anthropic.com/research/building-effective-agents">Anthropic 的 Agent 设计说明</a>、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">ReAct 原论文</a>、<a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/function-calling">OpenAI Function Calling 文档</a>、<a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2026-07-28">MCP 规范</a>、<a target="_blank" rel="noopener" href="https://agentskills.io/specification">Agent Skills 规范</a>、<a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/persistence">LangGraph 状态持久化文档</a>、<a target="_blank" rel="noopener" href="https://www.anthropic.com/research/contextual-retrieval">Anthropic 的检索实践</a>、<a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/agent-evals">OpenAI Agent 评测文档</a>和<a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/agents/guardrails-approvals">工具审批文档</a>。</p>
 
     </div>
@@ -704,7 +770,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:21</span>
+    <span title="站点阅读时长">19:27</span>
   </span>
 </div>
 <div class="busuanzi-count">
